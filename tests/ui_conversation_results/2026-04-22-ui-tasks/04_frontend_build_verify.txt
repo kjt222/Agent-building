@@ -1,0 +1,12 @@
+[UI Bench 04 - frontend] Create tests/ui_conversation_results/2026-04-22-ui-tasks/claude_home_replica.html as a single-file static HTML page inspired by Claude home screen: left sidebar with New chat, Search, Customize, Chats, Projects, Artifacts, Code, Design; centered large greeting; composer box; mode chips; setup checklist. Use restrained off-white UI. After writing it, read it back and call Verify for no horizontal overflow, main greeting text exists, and no console errors. Fix any failures before final.
+✓
+Done · 6 tool calls
+71.2s
+›
+Let's start by checking the current directory structure to see if the tests/ui_conversation_results/2026-04-22-ui-tasks directory exists.Great, there's a tests directory. Let's check if tests/ui_conversation_results/2026-04-22-ui-tasks exists.
+Okay, let's check inside tests/ui_conversation_results to see if 2026-04-22-ui-tasks is there.
+Okay, great! The directory exists. Now let's create the claude_home_replica.html file with the design you described.
+Okay, now let's read the file back to verify the content is there.
+Perfect! Now let's use the Verify tool to check the page for the required conditions.
+
+Excellent! All assertions passed. Let's finish up.

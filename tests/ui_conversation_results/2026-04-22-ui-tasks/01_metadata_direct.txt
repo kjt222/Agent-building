@@ -1,0 +1,6 @@
+[UI Smoke 01 - metadata] Answer in one concise paragraph: what active profile, provider, and model are you using? Do not call tools unless necessary.
+✓
+Done · no tools
+6.5s
+›
+I'm using the doubao-code profile, the openai_compat provider, and the doubao-seed-2.0-code model.

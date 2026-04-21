@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Bad Snake Fixture</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    canvas { border: 1px solid #222; background: #111; }
+    #game-over { display: none; color: #c00; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <canvas id="game-canvas" width="200" height="200"></canvas>
+  <div id="game-over">Game Over!</div>
+  <script>
+    const gameOver = document.querySelector("#game-over");
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        // Do nothing - should not show Game Over
+      }
+    });
+  </script>
+</body>
+</html>

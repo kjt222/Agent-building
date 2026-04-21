@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "01_metadata_direct",
+    "status": "completed",
+    "elapsed_seconds": 6.5,
+    "error": null,
+    "prompt": "[UI Smoke 01 - metadata] Answer in one concise paragraph: what active profile, provider, and model are you using? Do not call tools unless necessary.",
+    "chat_title": "[UI Smoke 01 - metadata] Answe...",
+    "mode": "auto",
+    "text_chars": 273,
+    "has_error_text": false,
+    "tool_call_mentions": 0,
+    "verify_mentions": 0,
+    "reported_tool_calls": 0,
+    "reported_done": true
+  },
+  {
+    "slug": "02_repo_read",
+    "status": "completed",
+    "elapsed_seconds": 43.39,
+    "error": null,
+    "prompt": "[UI Bench 02 - repo read] Use Glob and Read to inspect agent/core/runtime.py and agent/ui/server.py, then answer: where is session metadata injected into the v2 model context? Cite file names and function/class names. Do not edit files.",
+    "chat_title": "[UI Bench 02 - repo read] Use Glob and R",
+    "mode": "auto",
+    "text_chars": 1791,
+    "has_error_text": false,
+    "tool_call_mentions": 0,
+    "verify_mentions": 0,
+    "reported_tool_calls": 5,
+    "reported_done": true
+  },
+  {
+    "slug": "03_snake_fix_verify",
+    "status": "completed",
+    "elapsed_seconds": 29.75,
+    "error": null,
+    "prompt": "[UI Bench 03 - SWE bugfix] In tests/ui_conversation_results/2026-04-22-ui-tasks/bad_snake_fixture.html fix the bug: Game Over should be hidden at load and must stay hidden after pressing ArrowRight. Use Read/Edit, then Verify with assertions: #game-over display none after load and after ArrowRight, and no_console_errors. After fixing, summarize exact file changed and verification result.",
+    "chat_title": "[UI Bench 03 - SWE bugfix] In tests/ui_c",
+    "mode": "auto",
+    "text_chars": 1169,
+    "has_error_text": false,
+    "tool_call_mentions": 0,
+    "verify_mentions": 1,
+    "reported_tool_calls": 4,
+    "reported_done": true
+  },
+  {
+    "slug": "04_frontend_build_verify",
+    "status": "completed",
+    "elapsed_seconds": 71.76,
+    "error": null,
+    "prompt": "[UI Bench 04 - frontend] Create tests/ui_conversation_results/2026-04-22-ui-tasks/claude_home_replica.html as a single-file static HTML page inspired by Claude home screen: left sidebar with New chat, Search, Customize, Chats, Projects, Artifacts, Code, Design; centered large greeting; composer box; mode chips; setup checklist. Use restrained off-white UI. After writing it, read it back and call Verify for no horizontal overflow, main greeting text exists, and no console errors. Fix any failures before final.",
+    "chat_title": "[UI Bench 04 - frontend] Create tests/ui",
+    "mode": "auto",
+    "text_chars": 1205,
+    "has_error_text": false,
+    "tool_call_mentions": 0,
+    "verify_mentions": 2,
+    "reported_tool_calls": 6,
+    "reported_done": true
+  }
+]

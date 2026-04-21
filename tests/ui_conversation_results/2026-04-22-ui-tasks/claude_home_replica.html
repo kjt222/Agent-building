@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Home Replica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #f8f7f5;
+            color: #333;
+            height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: #f0eeeb;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e0ddd6;
+        }
+
+        .new-chat-btn {
+            background-color: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .new-chat-btn:hover {
+            background-color: #333;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav li {
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            color: #444;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-nav li:hover {
+            background-color: #e6e3de;
+        }
+
+        .sidebar-nav li.active {
+            background-color: #e6e3de;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 20px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .greeting {
+            font-size: 32px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* Mode Chips */
+        .mode-chips {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mode-chip {
+            background-color: white;
+            border: 1px solid #e0ddd6;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #444;
+            transition: all 0.2s;
+        }
+
+        .mode-chip:hover {
+            border-color: #c5c2bb;
+            background-color: #faf9f7;
+        }
+
+        .mode-chip.active {
+            background-color: #1a1a1a;
+            color: white;
+            border-color: #1a1a1a;
+        }
+
+        /* Composer */
+        .composer {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border: 1px solid #e0ddd6;
+            border-radius: 16px;
+            padding: 16px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            margin-bottom: 40px;
+        }
+
+        .composer-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            resize: none;
+            min-height: 40px;
+        }
+
+        .composer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .composer-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .composer-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid #e0ddd6;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .composer-action:hover {
+            background-color: #f8f7f5;
+        }
+
+        .send-btn {
+            background-color: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .send-btn:hover {
+            background-color: #333;
+        }
+
+        /* Setup Checklist */
+        .checklist {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border: 1px solid #e0ddd6;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .checklist-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .checklist-items {
+            list-style: none;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0eeeb;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d0cdc6;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .checklist-checkbox.checked {
+            background-color: #1a1a1a;
+            border-color: #1a1a1a;
+            color: white;
+        }
+
+        .checklist-text {
+            font-size: 15px;
+            color: #444;
+        }
+
+        .checklist-text.completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <button class="new-chat-btn">
+            <span>+</span> New chat
+        </button>
+        
+        <ul class="sidebar-nav">
+            <li class="active">Search</li>
+            <li>Customize</li>
+            <li>Chats</li>
+            <li>Projects</li>
+            <li>Artifacts</li>
+            <li>Code</li>
+            <li>Design</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="logo">Claude</div>
+        <h1 class="greeting">How can I help you today?</h1>
+
+        <!-- Mode Chips -->
+        <div class="mode-chips">
+            <button class="mode-chip active">General</button>
+            <button class="mode-chip">Artifacts</button>
+            <button class="mode-chip">Coding</button>
+            <button class="mode-chip">Research</button>
+            <button class="mode-chip">Writing</button>
+        </div>
+
+        <!-- Composer -->
+        <div class="composer">
+            <textarea class="composer-input" placeholder="Ask anything..." rows="1"></textarea>
+            <div class="composer-footer">
+                <div class="composer-actions">
+                    <button class="composer-action">📎</button>
+                    <button class="composer-action">🎤</button>
+                </div>
+                <button class="send-btn">Send</button>
+            </div>
+        </div>
+
+        <!-- Setup Checklist -->
+        <div class="checklist">
+            <h2 class="checklist-title">Get started with Claude</h2>
+            <ul class="checklist-items">
+                <li class="checklist-item">
+                    <div class="checklist-checkbox checked">✓</div>
+                    <span class="checklist-text completed">Create your first project</span>
+                </li>
+                <li class="checklist-item">
+                    <div class="checklist-checkbox checked">✓</div>
+                    <span class="checklist-text completed">Try an artifact</span>
+                </li>
+                <li class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-text">Customize your experience</span>
+                </li>
+                <li class="checklist-item">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-text">Explore the help center</span>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        // Mode chips interactivity
+        document.querySelectorAll('.mode-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.mode-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+            });
+        });
+
+        // Checklist interactivity
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const checkbox = item.querySelector('.checklist-checkbox');
+                const text = item.querySelector('.checklist-text');
+                checkbox.classList.toggle('checked');
+                text.classList.toggle('completed');
+                if (checkbox.classList.contains('checked')) {
+                    checkbox.textContent = '✓';
+                } else {
+                    checkbox.textContent = '';
+                }
+            });
+        });
+
+        // Auto-resize textarea
+        const textarea = document.querySelector('.composer-input');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+[UI Bench 02 - repo read] Use Glob and Read to inspect agent/core/runtime.py and agent/ui/server.py, then answer: where is session metadata injected into the v2 model context? Cite file names and function/class names. Do not edit files.
+✓
+Done · 5 tool calls
+42.9s
+›
+Let's first check the repository structure and find the files mentioned.Great, found the files. Let's read agent/core/runtime.py first, then agent/ui/server.py.Now let's read agent/ui/server.py to find where SessionMetadata is used and injected into the v2 model context.
+Now let's search for where SessionMetadata and build_agent_system_prompt are used in the codebase.Perfect! Found the relevant lines in server.py. Let's read that section to get the full context.Perfect! Now I have all the information needed. Let's summarize where session metadata is injected into the v2 model context:
+
+Session metadata is injected into the v2 model context in two main steps:
+
+1. **In `agent/core/runtime.py`**:
+   - `SessionMetadata` class (line 49) encapsulates the session metadata.
+   - `build_agent_system_prompt` function (line 76) appends the session metadata to the base system prompt.
+
+2. **In `agent/ui/server.py`**:
+   - The `api_agent_chat_v2` endpoint function (starting at line 2477) is the v2 model endpoint.
+   - `SessionMetadata` is instantiated at lines 2559‑2572.
+   - `build_agent_system_prompt` is called at lines 2741‑2744, and the result is passed as the `system_prompt` parameter to `LoopConfig` (part of the `AgentLoop` constructor at line 2730).
+
+So the full flow is:
+- `api_agent_chat_v2` endpoint in `agent/ui/server.py`
+  - Creates `SessionMetadata` instance
+  - Calls `build_agent_system_prompt(base_agent_prompt, session_metadata)`
+  - Passes the result as `system_prompt` to `AgentLoop`'s `LoopConfig`
