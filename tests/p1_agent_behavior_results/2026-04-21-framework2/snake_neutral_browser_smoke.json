@@ -1,0 +1,9 @@
+{
+  "url": "file:///D:/D/python%E7%BC%96%E7%A8%8B/Agent-building/tests/p1_agent_behavior_results/2026-04-21-framework2/snake_neutral.html",
+  "console": [],
+  "page_errors": [],
+  "title": "Snake Neutral",
+  "canvas_count": 1,
+  "body_text": "贪吃蛇\n得分：0\n最高分：0\n状态：准备开始\n使用 W / A / S / D 或 方向键 控制移动。\n按 空格 开始或暂停，失败后按 R 重新开始。\nCanvas 实现，支持键盘控制、计分、暂停与失败重开。",
+  "after_keys_text": "贪吃蛇\n得分：0\n最高分：0\n状态：进行中\n使用 W / A / S / D 或 方向键 控制移动。\n按 空格 开始或暂停，失败后按 R 重新开始。\nCanvas 实现，支持键盘控制、计分、暂停与失败重开。"
+}

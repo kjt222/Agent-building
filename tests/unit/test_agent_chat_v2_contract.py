@@ -13,7 +13,7 @@ from agent.core.loop import (
     ToolUseDelta,
     TurnEnd,
 )
-from agent.ui.server import create_app
+from agent.ui.server import create_app, _select_v2_tools_for_turn
 
 
 class FakeResponsesAdapter:
@@ -319,3 +319,24 @@ def test_v2_injects_user_facts_into_system_prompt(tmp_path, monkeypatch):
     assert "## user_facts" in (adapter.system or "")
     assert "User prefers concise Chinese answers." in (adapter.system or "")
     assert memory.calls[-1]["conv_id"] == "conv-memory"
+
+
+def test_v2_progressively_discloses_tools_by_task_type():
+    direct_tools, direct_scope = _select_v2_tools_for_turn(
+        "你是什么模型？", [], {"active_kbs": ["kb-a"]}
+    )
+    assert direct_scope == "direct"
+    assert direct_tools == {}
+
+    artifact_tools, artifact_scope = _select_v2_tools_for_turn(
+        "写一个贪吃蛇 HTML 文件", [], {}
+    )
+    assert artifact_scope == "artifact"
+    assert {"Read", "Write", "Edit", "Bash", "Glob", "Grep"}.issubset(artifact_tools)
+
+    kb_tools, kb_scope = _select_v2_tools_for_turn(
+        "在知识库里搜索 LoopContext", [], {}
+    )
+    assert kb_scope == "knowledge"
+    assert "KnowledgeSearch" in kb_tools
+    assert "Write" not in kb_tools

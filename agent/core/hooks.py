@@ -25,7 +25,8 @@ from agent.core.loop import (
 _INTENT_PATTERN = re.compile(
     r"(?:\bI['’]?ll\b|\bI will\b|\blet me\b|\bnext,? I\b|"
     r"\bgoing to\b|\bI['’]?m going to\b|"
-    r"接下来我|下一步我|我来|直接帮你|马上就|我现在来|我会先|让我来)",
+    r"接下来我|下一步我|下一步可以|我来|直接帮你|马上就|"
+    r"我现在来|我会先|让我来|我可以|如果你要|你回复|要我)",
     re.IGNORECASE,
 )
 

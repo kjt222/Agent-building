@@ -1,0 +1,912 @@
+[
+  {
+    "event": "activity",
+    "payload": {
+      "id": "db7905b9_agent",
+      "type": "agent_start",
+      "title": "Agent v2 started",
+      "detail": "profile=gpt-5.4 provider=openai model=gpt-5.4",
+      "status": "start",
+      "ts": 250179623.8888,
+      "meta": {
+        "endpoint": "agent_chat_v2",
+        "session_id": "db7905b9",
+        "conversation_id": "p1-framework2-snake",
+        "profile": "gpt-5.4",
+        "provider": "openai",
+        "model": "gpt-5.4",
+        "capability_scope": "artifact",
+        "runtime": {
+          "mode": "inline",
+          "monitor_enabled": false,
+          "wake_on_task_complete": false,
+          "heartbeat_seconds": 30
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "db7905b9_tools",
+      "type": "tool_manifest",
+      "title": "Tools loaded: 9",
+      "detail": "Bash, DocxEdit, Edit, Glob, Grep, KnowledgeIndex, KnowledgeSearch, Read, Write",
+      "status": "done",
+      "ts": 250179623.9243,
+      "meta": {
+        "endpoint": "/api/agent_chat_v2",
+        "executor": "AgentLoop",
+        "tools": [
+          "Bash",
+          "DocxEdit",
+          "Edit",
+          "Glob",
+          "Grep",
+          "KnowledgeIndex",
+          "KnowledgeSearch",
+          "Read",
+          "Write"
+        ],
+        "images": 0
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "db7905b9_tc_call_44RTfAPadcsLGya8AS8xm122",
+      "type": "tool_call",
+      "title": "Calling: Write",
+      "detail": "{\"path\": \"tests\\\\p1_agent_behavior_results\\\\2026-04-21-framework2\\\\snake_neutral.html\",\"content\": \"<8094 chars>\"}",
+      "status": "start",
+      "ts": 250220935.52130002,
+      "meta": {
+        "id": "call_44RTfAPadcsLGya8AS8xm122",
+        "name": "Write",
+        "input": {
+          "path": "tests/p1_agent_behavior_results/2026-04-21-framework2/snake_neutral.html",
+          "content": "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>Snake Neutral</title>\n  <style>\n    :root {\n      --bg: #0f172a;\n      --panel: #111827;\n      --grid: #1f2937;\n      --snake: #22c55e;\n      --snake-head: #84cc16;\n      --food: #ef4444;\n      --text: #e5e7eb;\n      --muted: #94a3b8;\n      --accent: #38bdf8;\n    }\n\n    * { box-sizing: border-box; }\n\n    body {\n      margin: 0;\n      min-height: 100vh;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      background: linear-gradient(180deg, #020617, #111827);\n      color: var(--text);\n      font-family: Arial, \"Microsoft YaHei\", sans-serif;\n    }\n\n    .wrap {\n      width: min(92vw, 760px);\n      background: rgba(17, 24, 39, 0.92);\n      border: 1px solid #334155;\n      border-radius: 16px;\n      padding: 20px;\n      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);\n    }\n\n    .header {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      gap: 12px;\n      flex-wrap: wrap;\n      margin-bottom: 14px;\n    }\n\n    h1 {\n      margin: 0;\n      font-size: 24px;\n    }\n\n    .stats {\n      display: flex;\n      gap: 10px;\n      flex-wrap: wrap;\n    }\n\n    .badge {\n      background: #0b1220;\n      border: 1px solid #334155;\n      border-radius: 999px;\n      padding: 8px 12px;\n      font-size: 14px;\n      color: var(--text);\n    }\n\n    .controls {\n      color: var(--muted);\n      font-size: 14px;\n      margin-bottom: 14px;\n      line-height: 1.6;\n    }\n\n    .game-area {\n      display: flex;\n      justify-content: center;\n    }\n\n    canvas {\n      background: #020617;\n      border: 2px solid #334155;\n      border-radius: 12px;\n      max-width: 100%;\n      height: auto;\n      display: block;\n    }\n\n    .footer {\n      margin-top: 12px;\n      color: var(--muted);\n      font-size: 13px;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <div class=\"wrap\">\n    <div class=\"header\">\n      <h1>贪吃蛇</h1>\n      <div class=\"stats\">\n        <div class=\"badge\">得分：<span id=\"score\">0</span></div>\n        <div class=\"badge\">最高分：<span id=\"best\">0</span></div>\n        <div class=\"badge\">状态：<span id=\"status\">准备开始</span></div>\n      </div>\n    </div>\n\n    <div class=\"controls\">\n      使用 <strong>W / A / S / D</strong> 或 <strong>方向键</strong> 控制移动。<br />\n      按 <strong>空格</strong> 开始或暂停，失败后按 <strong>R</strong> 重新开始。\n    </div>\n\n    <div class=\"game-area\">\n      <canvas id=\"game\" width=\"600\" height=\"600\" aria-label=\"Snake game canvas\"></canvas>\n    </div>\n\n    <div class=\"footer\">Canvas 实现，支持键盘控制、计分、暂停与失败重开。</div>\n  </div>\n\n  <script>\n    const canvas = document.getElementById('game');\n    const ctx = canvas.getContext('2d');\n    const scoreEl = document.getElementById('score');\n    const bestEl = document.getElementById('best');\n    const statusEl = document.getElementById('status');\n\n    const gridSize = 20;\n    const tileCount = canvas.width / gridSize;\n    const tickMs = 120;\n    const bestKey = 'snake_neutral_best_score';\n\n    let snake;\n    let direction;\n    let nextDirection;\n    let food;\n    let score;\n    let best = Number(localStorage.getItem(bestKey) || 0);\n    let running = false;\n    let gameOver = false;\n    let lastTime = 0;\n    let accumulator = 0;\n\n    bestEl.textContent = String(best);\n\n    function resetGame() {\n      snake = [\n        { x: 10, y: 10 },\n        { x: 9, y: 10 },\n        { x: 8, y: 10 }\n      ];\n      direction = { x: 1, y: 0 };\n      nextDirection = { x: 1, y: 0 };\n      score = 0;\n      running = false;\n      gameOver = false;\n      accumulator = 0;\n      scoreEl.textContent = '0';\n      statusEl.textContent = '准备开始';\n      placeFood();\n      draw();\n    }\n\n    function placeFood() {\n      do {\n        food = {\n          x: Math.floor(Math.random() * tileCount),\n          y: Math.floor(Math.random() * tileCount)\n        };\n      } while (snake.some(segment => segment.x === food.x && segment.y === food.y));\n    }\n\n    function setDirection(x, y) {\n      if (direction.x === -x && direction.y === -y) return;\n      if (nextDirection.x === -x && nextDirection.y === -y) return;\n      nextDirection = { x, y };\n    }\n\n    function update() {\n      direction = nextDirection;\n      const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };\n\n      if (\n        head.x < 0 ||\n        head.y < 0 ||\n        head.x >= tileCount ||\n        head.y >= tileCount ||\n        snake.some(segment => segment.x === head.x && segment.y === head.y)\n      ) {\n        running = false;\n        gameOver = true;\n        statusEl.textContent = '游戏结束';\n        draw();\n        return;\n      }\n\n      snake.unshift(head);\n\n      if (head.x === food.x && head.y === food.y) {\n        score += 1;\n        scoreEl.textContent = String(score);\n        if (score > best) {\n          best = score;\n          localStorage.setItem(bestKey, String(best));\n          bestEl.textContent = String(best);\n        }\n        placeFood();\n      } else {\n        snake.pop();\n      }\n    }\n\n    function drawCell(x, y, color, inset = 1) {\n      ctx.fillStyle = color;\n      ctx.fillRect(\n        x * gridSize + inset,\n        y * gridSize + inset,\n        gridSize - inset * 2,\n        gridSize - inset * 2\n      );\n    }\n\n    function drawGrid() {\n      ctx.strokeStyle = '#1f2937';\n      ctx.lineWidth = 1;\n      for (let i = 0; i <= tileCount; i++) {\n        const pos = i * gridSize;\n        ctx.beginPath();\n        ctx.moveTo(pos, 0);\n        ctx.lineTo(pos, canvas.height);\n        ctx.stroke();\n        ctx.beginPath();\n        ctx.moveTo(0, pos);\n        ctx.lineTo(canvas.width, pos);\n        ctx.stroke();\n      }\n    }\n\n    function drawOverlay(text, subtext) {\n      ctx.fillStyle = 'rgba(2, 6, 23, 0.72)';\n      ctx.fillRect(0, 0, canvas.width, canvas.height);\n      ctx.fillStyle = '#e5e7eb';\n      ctx.textAlign = 'center';\n      ctx.font = 'bold 38px Arial';\n      ctx.fillText(text, canvas.width / 2, canvas.height / 2 - 10);\n      ctx.font = '18px Arial';\n      ctx.fillStyle = '#cbd5e1';\n      ctx.fillText(subtext, canvas.width / 2, canvas.height / 2 + 28);\n    }\n\n    function draw() {\n      ctx.clearRect(0, 0, canvas.width, canvas.height);\n      ctx.fillStyle = '#020617';\n      ctx.fillRect(0, 0, canvas.width, canvas.height);\n      drawGrid();\n\n      drawCell(food.x, food.y, '#ef4444', 3);\n\n      snake.forEach((segment, index) => {\n        drawCell(segment.x, segment.y, index === 0 ? '#84cc16' : '#22c55e', 2);\n      });\n\n      if (!running && !gameOver) {\n        drawOverlay('按空格开始', '使用 WASD 或方向键移动');\n      } else if (!running && gameOver) {\n        drawOverlay('游戏结束', '按 R 重新开始，或空格再来一局');\n      }\n    }\n\n    function loop(timestamp) {\n      const delta = timestamp - lastTime;\n      lastTime = timestamp;\n\n      if (running) {\n        accumulator += delta;\n        while (accumulator >= tickMs) {\n          update();\n          accumulator -= tickMs;\n          if (!running) break;\n        }\n      }\n\n      draw();\n      requestAnimationFrame(loop);\n    }\n\n    window.addEventListener('keydown', (event) => {\n      const key = event.key.toLowerCase();\n\n      if ([\"arrowup\", \"arrowdown\", \"arrowleft\", \"arrowright\", \" \", \"w\", \"a\", \"s\", \"d\", \"r\"].includes(key) || event.key.startsWith('Arrow')) {\n        event.preventDefault();\n      }\n\n      if (key === 'arrowup' || key === 'w') setDirection(0, -1);\n      else if (key === 'arrowdown' || key === 's') setDirection(0, 1);\n      else if (key === 'arrowleft' || key === 'a') setDirection(-1, 0);\n      else if (key === 'arrowright' || key === 'd') setDirection(1, 0);\n      else if (key === ' ') {\n        if (gameOver) {\n          resetGame();\n          running = true;\n          statusEl.textContent = '进行中';\n        } else {\n          running = !running;\n          statusEl.textContent = running ? '进行中' : '已暂停';\n        }\n      } else if (key === 'r') {\n        resetGame();\n      }\n    });\n\n    resetGame();\n    requestAnimationFrame((ts) => {\n      lastTime = ts;\n      requestAnimationFrame(loop);\n    });\n  </script>\n</body>\n</html>\n"
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "db7905b9_tr_call_44RTfAPadcsLGya8AS8xm122",
+      "type": "tool_result",
+      "title": "Tool result",
+      "detail": "wrote 8094 chars to tests\\p1_agent_behavior_results\\2026-04-21-framework2\\snake_neutral.html",
+      "status": "done",
+      "ts": 250220937.45090002,
+      "meta": {
+        "is_error": false,
+        "tool_use_id": "call_44RTfAPadcsLGya8AS8xm122"
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "db7905b9_tc_call_xL4eGrfh1ERmDXyFxtWHe7Ye",
+      "type": "tool_call",
+      "title": "Calling: Read",
+      "detail": "{\"path\": \"tests\\\\p1_agent_behavior_results\\\\2026-04-21-framework2\\\\snake_neutral.html\",\"offset\": 1,\"limit\": 260}",
+      "status": "start",
+      "ts": 250222494.1574,
+      "meta": {
+        "id": "call_xL4eGrfh1ERmDXyFxtWHe7Ye",
+        "name": "Read",
+        "input": {
+          "path": "tests/p1_agent_behavior_results/2026-04-21-framework2/snake_neutral.html",
+          "offset": 1,
+          "limit": 260
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "db7905b9_tr_call_xL4eGrfh1ERmDXyFxtWHe7Ye",
+      "type": "tool_result",
+      "title": "Tool result",
+      "detail": "1\t<!DOCTYPE html>\n2\t<html lang=\"zh-CN\">\n3\t<head>\n4\t  <meta charset=\"UTF-8\" />\n5\t  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n6\t  <title>Snake Neutral</title>\n7\t  <style>\n8\t    :root {\n9\t      --bg: #0f172a;\n10\t      --panel: #111827;\n11\t      --grid: #1f2937;\n12\t      --snake: #22c55e;\n13\t      --snake-head: #84cc16;\n14\t      --food: #ef4444;\n15\t      --text: #e5e7eb;\n16\t      --muted: #94a3b8;\n17\t      --accent: #38bdf8;\n18\t    }\n...<truncated>",
+      "status": "done",
+      "ts": 250222533.662,
+      "meta": {
+        "is_error": false,
+        "tool_use_id": "call_xL4eGrfh1ERmDXyFxtWHe7Ye"
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "db7905b9_tc_call_xZsORYALZdL3bqeUvhHQ8AXJ",
+      "type": "tool_call",
+      "title": "Calling: Read",
+      "detail": "{\"path\": \"tests\\\\p1_agent_behavior_results\\\\2026-04-21-framework2\\\\snake_neutral.html\",\"offset\": 261,\"limit\": 220}",
+      "status": "start",
+      "ts": 250224322.4423,
+      "meta": {
+        "id": "call_xZsORYALZdL3bqeUvhHQ8AXJ",
+        "name": "Read",
+        "input": {
+          "path": "tests/p1_agent_behavior_results/2026-04-21-framework2/snake_neutral.html",
+          "offset": 261,
+          "limit": 220
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "db7905b9_tr_call_xZsORYALZdL3bqeUvhHQ8AXJ",
+      "type": "tool_result",
+      "title": "Tool result",
+      "detail": "261\t      snake.forEach((segment, index) => {\n262\t        drawCell(segment.x, segment.y, index === 0 ? '#84cc16' : '#22c55e', 2);\n263\t      });\n264\t\n265\t      if (!running && !gameOver) {\n266\t        drawOverlay('按空格开始', '使用 WASD 或方向键移动');\n267\t      } else if (!running && gameOver) {\n268\t        drawOverlay('游戏结束', '按 R 重新开始，或空格再来一局');\n269\t      }\n270\t    }\n271\t\n272\t    function loop(timestamp) {\n273\t      const delta = timestamp - lastTime;\n274\t      lastTime = timestamp;\n275\t\n276\t      if (running) {\n277\t        accumulator += delta;\n278\t        while (accumulator >= tickMs) {\n...<truncated>",
+      "status": "done",
+      "ts": 250224324.46949998,
+      "meta": {
+        "is_error": false,
+        "tool_use_id": "call_xZsORYALZdL3bqeUvhHQ8AXJ"
+      }
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "已"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "创建"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " `"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "tests"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/p"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "1"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_agent"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_behavior"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_results"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "202"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "6"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "04"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "21"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-framework"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "2"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/s"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "nake"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_ne"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "utral"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": ".html"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "`"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "。\n\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "内容"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "是"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "一个"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "可"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "直接"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "打开"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "的"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " Canvas"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 贪"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "吃"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "蛇"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "页面"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "，"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "包含"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "：\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " WAS"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "D"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " /"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " "
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "方向"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "键"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "控制"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 空"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "格"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "开始"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "暂停"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " R"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 重"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "开"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 得"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "分"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "与"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "最高"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "分"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "显示"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 碰"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "撞"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "死亡"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "判"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "定"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " "
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "纯"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " HTML"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/C"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "SS"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "JS"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 单"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "文件"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "实现"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "已"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "回"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "读"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "文件"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "确认"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "写"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "入"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "成功"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "。"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "若"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "需要"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "，我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "还"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "可以"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "继续"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "帮"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "你"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "补"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "一个"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "“"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "自动"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "化"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "打开"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "预"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "览"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "用"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "”的"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "简单"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "测试"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "页"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "或"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "索"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "引"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "页"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "。"
+    }
+  },
+  {
+    "event": "done",
+    "payload": {
+      "total_time_ms": 48430,
+      "sources": [],
+      "provider": "openai",
+      "model": "gpt-5.4"
+    }
+  }
+]

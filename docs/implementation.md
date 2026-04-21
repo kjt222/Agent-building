@@ -2420,3 +2420,37 @@ P2 Normal  '下季度预计保持同等增速。'（未动）
 - P1 已收尾：v2 单一路径、streaming delta、多模态输入、profile/provider 读取、session metadata、Context Compactor、MemoryManager、PreToolUse 前端审批、v2 多 provider、trace 字段、CJK FTS、Activity 摘要均已落地并有测试覆盖。
 - `Confirm` mode 现在是前端确认框级别的审批，不是更复杂的多用户/跨设备审批中心；后续如需持久化审批记录或更强权限策略，应放到 P6 sandbox/runtime。
 - “写完产物后自动渲染自检”仍属于 P3 Vision-in-the-loop，不归 P1。
+
+---
+
+## 2026-04-21 | Codex | P1 行为评测：中性任务下的自纠错观察
+
+本节由 **Codex** 记录。用户指出“先实现、再自查修正、再交付”不应写进用户 prompt，而应由框架提示承担；同时要求能力渐进披露，避免上下文感染。本轮先把要求移到框架层，再用中性 prompt 跑贪吃蛇和 Claude 截图复刻两个真实场景。
+
+### 框架改动
+
+| 文件 | 类型 | 说明 |
+| --- | --- | --- |
+| `agent/ui/server.py` | 修改 | 新增 `_select_v2_tools_for_turn()`：直接问答不挂工具，代码/产物任务挂文件与 Bash 工具，知识任务只挂知识/只读工具；system prompt 增加“指定输出路径必须创建，不能拿旧文件替代；写后验证；auto mode 不把是否继续抛回用户”。 |
+| `agent/core/hooks.py` | 修改 | Stop hook 的 intent pattern 增加中文 deferral：`如果你要`、`你回复`、`我可以`、`下一步可以` 等，减少模型把执行权抛回用户。 |
+| `tests/unit/test_agent_chat_v2_contract.py` | 修改 | 增加渐进披露合同测试：直接模型问题不挂工具，代码任务挂文件工具，知识任务不挂写工具。 |
+| `tests/p1_agent_behavior_results/2026-04-21-framework2/behavior_review.md` | 新增 | 保存两项真实任务的行为评审。 |
+
+### 行为测试结果
+
+- 贪吃蛇中性任务：
+  - 第一次跑（框架提示未收紧前）失败：模型没有创建指定 `snake_neutral.html`，而是查找旧 snake 文件并要求用户选择下一步。
+  - 收紧框架提示后重跑：成功创建 `tests/p1_agent_behavior_results/2026-04-21-framework2/snake_neutral.html`。
+  - Tool path：`Write -> Read -> Read`。
+  - Codex Playwright smoke：页面可加载，`canvas` 存在，无 console/page error，Space 可开始游戏。
+  - 仍有逻辑缺陷：自撞检测发生在非吃食物场景 `snake.pop()` 前，蛇头走进本 tick 会移走的尾巴格子会被误判自撞。模型没有发现并修复。
+- Claude 截图复刻中性任务：
+  - 失败：没有创建 `claude_clone_neutral.html`。
+  - Tool path：`Read -> Glob -> Glob -> Glob -> Glob`。
+  - 模型把任务误解成查找已有 HTML 文件并分析，而不是根据图片创建新文件；最终要求用户提供文件/路径。
+
+### 当前结论
+
+- P1 的 v2 管线、审批、多 provider、CJK FTS、Activity 摘要和渐进工具披露已经具备。
+- 但“自纠错能力”还不稳定：文本/代码产物任务能做到写入并回读，不能保证发现真实逻辑 bug；多模态截图到前端产物任务仍会跑偏。
+- 这说明交付前验证不能只靠 system prompt。下一步应进入 P3：`Verify` tool + render/image block 回灌；并进入 P8：把“文件必须存在、浏览器必须渲染、关键逻辑必须通过”做成 regression gate。

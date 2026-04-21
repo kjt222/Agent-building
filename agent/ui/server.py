@@ -335,6 +335,46 @@ def _summarize_tool_result(content: Any, *, limit: int = 600) -> str:
     return text if len(text) <= limit else text[:limit] + "...<truncated>"
 
 
+_ARTIFACT_INTENT_RE = re.compile(
+    r"(?:write|create|edit|modify|fix|implement|build|run|test|render|"
+    r"code|html|css|javascript|python|file|repo|frontend|snake|game|"
+    r"写|创建|修改|修复|实现|运行|测试|渲染|代码|文件|前端|复刻|贪吃蛇|游戏)",
+    re.IGNORECASE,
+)
+_KNOWLEDGE_INTENT_RE = re.compile(
+    r"(?:knowledge|kb|search|pdf|document|docx|xlsx|memory|fact|"
+    r"知识库|搜索|检索|资料|文档|记忆|事实|PDF)",
+    re.IGNORECASE,
+)
+
+
+def _select_v2_tools_for_turn(message: str, images: list, app_cfg: dict) -> tuple[dict, str]:
+    """Progressively disclose only the tool surface useful for this turn."""
+    from ..tools_v2.knowledge_tool import KnowledgeIndexTool, KnowledgeSearchTool
+    from ..tools_v2.primitives import full_toolset
+
+    text = message or ""
+    selected: dict = {}
+    if _ARTIFACT_INTENT_RE.search(text):
+        selected.update(full_toolset())
+        selected["KnowledgeSearch"] = KnowledgeSearchTool()
+        selected["KnowledgeIndex"] = KnowledgeIndexTool()
+        return selected, "artifact"
+
+    if images and _ARTIFACT_INTENT_RE.search(text + " image screenshot screenshot"):
+        selected.update(full_toolset())
+        return selected, "visual_artifact"
+
+    if _KNOWLEDGE_INTENT_RE.search(text):
+        for name, tool in full_toolset().items():
+            if name in {"Read", "Glob", "Grep"}:
+                selected[name] = tool
+        selected["KnowledgeSearch"] = KnowledgeSearchTool()
+        return selected, "knowledge"
+
+    return selected, "direct"
+
+
 def _probe_zhipu_models(key: str, section: str, base_url: Optional[str]) -> list[str]:
     candidates = _default_models("zhipu", section)
     if not candidates:
@@ -2459,8 +2499,6 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             build_agent_system_prompt,
         )
         from ..core.compactor import ConversationCompactor
-        from ..tools_v2.knowledge_tool import KnowledgeIndexTool, KnowledgeSearchTool
-        from ..tools_v2.primitives import full_toolset
 
         payload = await request.json()
         request_id = str(uuid.uuid4())[:8]
@@ -2514,10 +2552,8 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 },
                 status_code=400,
             )
-        tools = full_toolset()
-        tools["KnowledgeSearch"] = KnowledgeSearchTool()
-        tools["KnowledgeIndex"] = KnowledgeIndexTool()
         active_kbs = _active_kb_list(app_cfg)
+        tools, capability_scope = _select_v2_tools_for_turn(message, images, app_cfg)
         runtime_cfg = RuntimeConfig.from_app_config(app_cfg)
         session_metadata = SessionMetadata(
             session_id=request_id,
@@ -2537,7 +2573,19 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             "You are a Claude-Code-style coding agent. Use tools when they are "
             "needed to inspect files, run commands, search knowledge, edit code, "
             "or verify work. For direct questions already answered by the "
-            "session metadata, answer directly. Be concise after tool work."
+            "session metadata, answer directly. Be concise after tool work.\n"
+            "The runtime progressively exposes capabilities. Only use tools "
+            "available in this turn; do not claim hidden tools are available.\n"
+            "When you create or modify code, UI, documents, or other artifacts, "
+            "first create or modify the exact requested target. If the user "
+            "gave an output path and it does not exist, use Write to create it; "
+            "do not substitute an older similar file unless explicitly asked. "
+            "Verification happens after the write: read back written files, run "
+            "targeted checks or smoke tests when practical, and fix discovered "
+            "issues before the final answer. In auto mode, do not ask the user "
+            "whether to proceed with the requested creation unless blocked by "
+            "missing required information or a permission failure. If "
+            "verification is not possible with the exposed tools, say so briefly."
         )
         memory_context = memory_manager.get_context_injection(conv_id=conversation_id)
         if memory_context:
@@ -2714,6 +2762,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                         "profile": active_profile,
                         "provider": provider_name,
                         "model": model_name,
+                        "capability_scope": capability_scope,
                         "runtime": runtime_cfg.to_metadata(),
                     },
                 })

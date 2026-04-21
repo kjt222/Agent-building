@@ -50,7 +50,7 @@
 - v2 已完成：streaming delta、多模态图片输入、active profile 读取、session metadata 注入、Context Compactor、MemoryManager user_facts 注入、trace `system_prompt_hash`。
 - 2026-04-21 P1 已补齐剩余项：PreToolUse 前端审批回调、v2 Anthropic/DeepSeek/Gemini adapter、FTS5 trigram CJK tokenizer、Activity tool 输入/结果摘要。
 - 2026-04-21 全量 `tests/unit` 已通过：`189 passed, 5 skipped`。
-- 当前所在计划：P1 收尾完成；下一步进入 P2 Claude Code 工具闭环或 P3 Vision-in-the-loop 基础设施。
+- 当前所在计划：P1 收尾完成；P1 行为评测显示 prompt-only 自纠错不稳定，下一步优先 P3 Verify/render 回灌和 P8 regression gate，再并行推进 P2 工具协议。
 
 ### 关键依赖关系
 
@@ -8585,6 +8585,8 @@ def classify_request(message: str, context: dict) -> str:
 - [x] v2 多 provider：Anthropic / DeepSeek / Gemini adapter。
 - [x] Trace 继续扩字段：tool args/result 摘要、latency。
 - [x] FTS5 CJK tokenizer 切 trigram。
+- [x] 渐进工具披露：直接问答不挂工具，代码/产物任务挂文件/Bash 工具，知识任务只挂知识/只读工具。
+- [x] 中性任务行为评测：贪吃蛇可创建但未发现尾巴自撞 bug；Claude 截图复刻未创建文件，证明需要 P3/P8。
 
 #### P2 · Claude Code 工具闭环
 
@@ -8635,9 +8637,10 @@ def classify_request(message: str, context: dict) -> str:
 
 ### 推荐落地顺序
 
-1. 推进 P2：工具协议对齐、subprocess 白名单、权限语义。
-2. 做 P3：Verify tool + render/image 回灌，这是 Office 和生图回环的共同依赖。
-3. P4 先做 Excel 单场景试点，验证打开 → 修改 → 渲染 → 自检闭环。
-4. P5 生图回环复用 P3。
-5. P6 monitor/sandbox/MCP 与 P8 eval 穿插推进。
-6. P7 专业域最后做。
+1. 做 P3：Verify tool + render/image 回灌，这是 Office、生图回环和“交付前自检”的共同依赖。
+2. 同步做 P8 最小 regression gate：文件存在、浏览器渲染、关键逻辑检查。
+3. 并行推进 P2：工具协议对齐、subprocess 白名单、权限语义。
+4. P4 先做 Excel 单场景试点，验证打开 → 修改 → 渲染 → 自检闭环。
+5. P5 生图回环复用 P3。
+6. P6 monitor/sandbox/MCP 与 P8 eval 穿插推进。
+7. P7 专业域最后做。

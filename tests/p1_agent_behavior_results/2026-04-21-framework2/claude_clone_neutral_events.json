@@ -1,0 +1,1695 @@
+[
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_agent",
+      "type": "agent_start",
+      "title": "Agent v2 started",
+      "detail": "profile=gpt-5.4 provider=openai model=gpt-5.4",
+      "status": "start",
+      "ts": 250305565.9341,
+      "meta": {
+        "endpoint": "agent_chat_v2",
+        "session_id": "6e5fd816",
+        "conversation_id": "p1-framework2-claude-clone",
+        "profile": "gpt-5.4",
+        "provider": "openai",
+        "model": "gpt-5.4",
+        "capability_scope": "artifact",
+        "runtime": {
+          "mode": "inline",
+          "monitor_enabled": false,
+          "wake_on_task_complete": false,
+          "heartbeat_seconds": 30
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tools",
+      "type": "tool_manifest",
+      "title": "Tools loaded: 9",
+      "detail": "Bash, DocxEdit, Edit, Glob, Grep, KnowledgeIndex, KnowledgeSearch, Read, Write",
+      "status": "done",
+      "ts": 250305565.95729998,
+      "meta": {
+        "endpoint": "/api/agent_chat_v2",
+        "executor": "AgentLoop",
+        "tools": [
+          "Bash",
+          "DocxEdit",
+          "Edit",
+          "Glob",
+          "Grep",
+          "KnowledgeIndex",
+          "KnowledgeSearch",
+          "Read",
+          "Write"
+        ],
+        "images": 1
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_images",
+      "type": "input_images",
+      "title": "Images attached: 1",
+      "detail": "claude-home.png",
+      "status": "done",
+      "ts": 250305565.96989998,
+      "meta": {
+        "count": 1
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tc_call_cQHkNKf9FKHyiXr8RwZkBuwr",
+      "type": "tool_call",
+      "title": "Calling: Read",
+      "detail": "{\"path\": \"tests\\\\p1_agent_behavior_results\\\\2026-04-21-framework2\\\\claude_clone_neutral.html\",\"offset\": 1,\"limit\": 400}",
+      "status": "start",
+      "ts": 250308529.92940003,
+      "meta": {
+        "id": "call_cQHkNKf9FKHyiXr8RwZkBuwr",
+        "name": "Read",
+        "input": {
+          "path": "tests/p1_agent_behavior_results/2026-04-21-framework2/claude_clone_neutral.html",
+          "offset": 1,
+          "limit": 400
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tr_call_cQHkNKf9FKHyiXr8RwZkBuwr",
+      "type": "tool_result",
+      "title": "Tool result",
+      "detail": "file not found: tests\\p1_agent_behavior_results\\2026-04-21-framework2\\claude_clone_neutral.html",
+      "status": "error",
+      "ts": 250308530.49490002,
+      "meta": {
+        "is_error": true,
+        "tool_use_id": "call_cQHkNKf9FKHyiXr8RwZkBuwr"
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tc_call_TTvPYfWNUDPZrFzUAeW5iloS",
+      "type": "tool_call",
+      "title": "Calling: Glob",
+      "detail": "{\"pattern\": \"**/claude_clone_neutral.html\",\"path\": \".\"}",
+      "status": "start",
+      "ts": 250310220.4227,
+      "meta": {
+        "id": "call_TTvPYfWNUDPZrFzUAeW5iloS",
+        "name": "Glob",
+        "input": {
+          "pattern": "**/claude_clone_neutral.html",
+          "path": "."
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tr_call_TTvPYfWNUDPZrFzUAeW5iloS",
+      "type": "tool_result",
+      "title": "Tool result",
+      "detail": "(no matches)",
+      "status": "done",
+      "ts": 250313237.86240003,
+      "meta": {
+        "is_error": false,
+        "tool_use_id": "call_TTvPYfWNUDPZrFzUAeW5iloS"
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tc_call_NE25nmT5fk1ZOTWU8R31Ri06",
+      "type": "tool_call",
+      "title": "Calling: Glob",
+      "detail": "{\"pattern\": \"tests/p1_agent_behavior_results/2026-04-21-framework2/**\",\"path\": \".\"}",
+      "status": "start",
+      "ts": 250315089.4435,
+      "meta": {
+        "id": "call_NE25nmT5fk1ZOTWU8R31Ri06",
+        "name": "Glob",
+        "input": {
+          "pattern": "tests/p1_agent_behavior_results/2026-04-21-framework2/**",
+          "path": "."
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tr_call_NE25nmT5fk1ZOTWU8R31Ri06",
+      "type": "tool_result",
+      "title": "Tool result",
+      "detail": "(no matches)",
+      "status": "done",
+      "ts": 250315091.6496,
+      "meta": {
+        "is_error": false,
+        "tool_use_id": "call_NE25nmT5fk1ZOTWU8R31Ri06"
+      }
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "检查"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "了"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "，"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "当前"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "工作"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "目录"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "里"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "不存在"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "这个"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "文件"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "：\n\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "`"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "tests"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/p"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "1"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_agent"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_behavior"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_results"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "202"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "6"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "04"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "21"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-framework"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "2"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "cla"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "ude"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_clone"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_ne"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "utral"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": ".html"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "`\n\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "而"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "且"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "连"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "对应"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "目录"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " `"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "tests"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/p"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "1"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_agent"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_behavior"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_results"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "202"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "6"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "04"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "21"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "-framework"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "2"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "`"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " "
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "也"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "没"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "找到"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "。\n\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "所以"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "现在"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "还"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "不能"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "直接"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "分析"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "这"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "张"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "页面"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "截图"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "对应"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "的"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " HTML"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "。"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "你"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "可以"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "任选"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "一种"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "方式"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "继续"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "：\n\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "1"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "."
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 把"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "这个"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " `"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "cla"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "ude"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_clone"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "_ne"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "utral"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": ".html"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "`"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 文件"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "发"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "给"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "  \n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "2"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "."
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 告"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "诉"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "正确"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "的"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "文件"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "路径"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "  \n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "3"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "."
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 如果"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "你"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "是"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "想"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "让我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "根据"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "截图"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "判断"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "问题"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "，也"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "可以"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "直接"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "说"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "你"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "想"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "检查"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "什么"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "，比如"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "：\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "  "
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " -"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 为什么"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "页面"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "文字"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "异常"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "  "
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " -"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 为什么"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "布局"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "和"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " Claude"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 不"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "一致"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "  "
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " -"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " 想"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "让我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "修"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "复"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "这个"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " HTML"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/C"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "SS"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "\n\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "从"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "截图"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "看"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "，"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "最"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "明显"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "的问题"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "是"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "首页"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "欢迎"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "语"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "显示"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "成"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "了"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "：\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "`"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "Af"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "ternoon"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": ","
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " Ker"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "win"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "w"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "q"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " Campbell"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "bg"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "`\n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "这"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "通常"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "像"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "是"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "模板"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "变量"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "拼"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "接"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "、"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "随机"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "文本"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "注"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "入"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "、"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "或者"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " CSS"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "/"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "字体"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "渲"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "染"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "之外"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "的"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "内容"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "生成"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "错误"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "。"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "  \n"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "如果"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "你"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "愿"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "意"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "，我"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "下一"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "步"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "可以"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "直接"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "帮"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "你"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "定位"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "“"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "这个"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "名字"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "为什么"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "被"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "污染"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "”。"
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tc_call_naX0F5ZvXNTXTA9HfA1nL82F",
+      "type": "tool_call",
+      "title": "Calling: Glob",
+      "detail": "{\"pattern\": \"**/claude_clone_neutral.html\",\"path\": \".\"}",
+      "status": "start",
+      "ts": 250322753.8137,
+      "meta": {
+        "id": "call_naX0F5ZvXNTXTA9HfA1nL82F",
+        "name": "Glob",
+        "input": {
+          "pattern": "**/claude_clone_neutral.html",
+          "path": "."
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tc_call_Inq7vQtUEosEHCwwNtF5YO4J",
+      "type": "tool_call",
+      "title": "Calling: Glob",
+      "detail": "{\"pattern\": \"tests/p1_agent_behavior_results/2026-04-21-framework2/**\",\"path\": \".\"}",
+      "status": "start",
+      "ts": 250322754.331,
+      "meta": {
+        "id": "call_Inq7vQtUEosEHCwwNtF5YO4J",
+        "name": "Glob",
+        "input": {
+          "pattern": "tests/p1_agent_behavior_results/2026-04-21-framework2/**",
+          "path": "."
+        }
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tr_call_naX0F5ZvXNTXTA9HfA1nL82F",
+      "type": "tool_result",
+      "title": "Tool result",
+      "detail": "(no matches)",
+      "status": "done",
+      "ts": 250324185.4497,
+      "meta": {
+        "is_error": false,
+        "tool_use_id": "call_naX0F5ZvXNTXTA9HfA1nL82F"
+      }
+    }
+  },
+  {
+    "event": "activity",
+    "payload": {
+      "id": "6e5fd816_tr_call_Inq7vQtUEosEHCwwNtF5YO4J",
+      "type": "tool_result",
+      "title": "Tool result",
+      "detail": "(no matches)",
+      "status": "done",
+      "ts": 250324185.482,
+      "meta": {
+        "is_error": false,
+        "tool_use_id": "call_Inq7vQtUEosEHCwwNtF5YO4J"
+      }
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "No"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " matching"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " file"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " or"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " directory"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " was"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": " found"
+    }
+  },
+  {
+    "event": "token",
+    "payload": {
+      "text": "."
+    }
+  },
+  {
+    "event": "done",
+    "payload": {
+      "total_time_ms": 20322,
+      "sources": [],
+      "provider": "openai",
+      "model": "gpt-5.4"
+    }
+  }
+]
