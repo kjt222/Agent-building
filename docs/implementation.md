@@ -2176,6 +2176,53 @@ capture, MCP isolation, and runtime monitor.
 
 ---
 
+## 2026-04-22 | Codex | P3 slice: browser Verify tool
+
+This section was recorded by **Codex**.
+
+### Goal
+
+Start P3 by adding a concrete verification feedback loop for browser artifacts.
+Instead of asking the model to only read source code, the agent can now run a
+headless browser, collect DOM/style assertion results, console/page errors, and
+a screenshot path as tool evidence.
+
+### Changed files
+
+| File | Type | Notes |
+| --- | --- | --- |
+| `agent/tools_v2/verify_tool.py` | Added | New `Verify` tool. Opens an HTML file or URL with Playwright, runs actions (`wait`, `click`, `press`, `fill`), checks assertions (`selector_exists`, `text_contains`, `style_equals`, `js_equals`, `no_horizontal_overflow`, `no_console_errors`), and writes a screenshot. |
+| `agent/tools_v2/primitives.py` | Modified | Registers `Verify` in `full_toolset()` so artifact turns can use it through existing progressive disclosure. |
+| `agent/ui/server.py` | Modified | v2 system prompt now asks the agent to call `Verify` for HTML/CSS/JS/browser UI/game artifacts after writing and reading files. |
+| `tests/unit/test_verify_tool.py` | Added | Unit tests for successful browser assertions, failed style assertion reporting, screenshots, and tool flags. |
+| `tests/unit/test_p2_agent_replay.py` | Modified | Adds replay where `Verify` finds a visible `#game-over`, model edits the file, then `Verify` passes. |
+| `tests/provider_comparison_results/2026-04-22-doubao-code-p3-verify/` | Added | Doubao provider smoke proving the model called `Verify` on a generated HTML artifact. |
+| `docs/conversation.md` | Modified | Marks the P3 minimal browser Verify slice as complete while leaving VLM/image-block feedback and Office renderers open. |
+
+### Validation
+
+- [x] `python -m compileall -q agent tests\unit`
+- [x] `.venv\Scripts\python.exe -m pytest tests/unit/test_verify_tool.py tests/unit/test_p2_agent_replay.py tests/unit/test_primitives_contract.py tests/unit/test_agent_chat_v2_contract.py -q` -> 24 passed
+- [x] `.venv\Scripts\python.exe -m pytest tests/unit -q` -> 209 passed, 5 skipped
+- [x] Doubao v2 smoke: created `mini_snake_verify.html`, called `Verify`, and `Verify` returned `"ok": true`.
+
+### Conversation persistence note
+
+The earlier Doubao snake/frontend tests were run through FastAPI `TestClient`
+directly against `/api/agent_chat_v2`. That path records SSE events into
+`tests/provider_comparison_results/.../*.jsonl`, but it does not go through the
+browser UI's conversation creation/persistence flow. Therefore those provider
+smoke turns do not appear in the left sidebar chat history.
+
+### Remaining P3 work
+
+- Feed screenshots back into the next model turn as image blocks.
+- Add PDF/DOCX/XLSX renderers.
+- Add script/window screenshot verification.
+- Promote useful checks into P8 regression graders.
+
+---
+
 ## 2026-04-20 | Codex | P0：新对话入侧栏 + Agent runtime 调试入口
 
 本节由 **Codex** 记录。内容只覆盖本轮实际落地的 P0 修复、调试入口和验收结果。

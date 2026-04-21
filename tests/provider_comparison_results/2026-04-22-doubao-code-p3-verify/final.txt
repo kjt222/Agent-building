@@ -1,0 +1,4 @@
+Let's first check if the target directory exists:Let's create the directory first using a safe Bash command:
+Okay, let's just write the HTML file directly using Write (maybe it will create the directories if needed):
+Now let's use Verify to test the assertions:
+Successfully created the mini snake game and verified all requirements! The game is saved at `tests/provider_comparison_results/2026-04-22-doubao-code-p3-verify/mini_snake_verify.html` and passed all browser assertions.

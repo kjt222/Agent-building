@@ -7,6 +7,7 @@ import asyncio
 from agent.core.hooks import make_final_guard_hook
 from agent.core.loop import AgentLoop, Hooks, Message, Role, TextBlock, ToolResultBlock
 from agent.tools_v2.primitives import BashTool, EditTool, ReadTool, WriteTool
+from agent.tools_v2.verify_tool import VerifyTool
 
 from tests.unit.mock_adapter import MockAdapter, text_turn, tool_turn
 
@@ -101,3 +102,76 @@ def test_replay_bash_blocks_dangerous_git_mutation():
     [result] = _tool_results(events)
     assert result.is_error is True
     assert "git subcommand" in result.content
+
+
+def test_replay_verify_failure_then_edit_fix(tmp_path):
+    target = tmp_path / "snake.html"
+    target.write_text(
+        """
+        <!doctype html>
+        <html><body>
+          <div id="game-over" style="display:block">Game Over!</div>
+        </body></html>
+        """,
+        encoding="utf-8",
+    )
+    adp = MockAdapter([
+        tool_turn("r1", "Read", {"path": str(target)}),
+        tool_turn(
+            "v1",
+            "Verify",
+            {
+                "target": str(target),
+                "assertions": [
+                    {
+                        "type": "style_equals",
+                        "selector": "#game-over",
+                        "property": "display",
+                        "value": "none",
+                    }
+                ],
+                "screenshot_path": str(tmp_path / "before.png"),
+            },
+        ),
+        tool_turn(
+            "e1",
+            "Edit",
+            {
+                "path": str(target),
+                "old_string": 'style="display:block"',
+                "new_string": 'style="display:none"',
+            },
+        ),
+        tool_turn(
+            "v2",
+            "Verify",
+            {
+                "target": str(target),
+                "assertions": [
+                    {
+                        "type": "style_equals",
+                        "selector": "#game-over",
+                        "property": "display",
+                        "value": "none",
+                    }
+                ],
+                "screenshot_path": str(tmp_path / "after.png"),
+            },
+        ),
+        text_turn(f"Fixed and verified `{target}`."),
+    ])
+    loop = AgentLoop(
+        adapter=adp,
+        tools={"Read": ReadTool(), "Edit": EditTool(), "Verify": VerifyTool()},
+        hooks=Hooks(on_stop=[make_final_guard_hook(max_nudges=1)]),
+    )
+
+    events = asyncio.run(_drive(loop, "Fix the visible game-over state."))
+
+    results = _tool_results(events)
+    assert results[1].is_error is False
+    assert '"ok": false' in results[1].content
+    assert results[2].is_error is False
+    assert results[3].is_error is False
+    assert '"ok": true' in results[3].content
+    assert 'style="display:none"' in target.read_text(encoding="utf-8")

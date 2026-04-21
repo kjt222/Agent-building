@@ -8562,6 +8562,7 @@ def classify_request(message: str, context: dict) -> str:
 - 2026-04-21 P1 contract 测试已补并推进到通过：`tests/unit/test_agent_chat_v2_contract.py` 用 fake adapter 锁定 v2 单一路径、SSE、metadata、图片输入、provider 限制、Context Compactor、MemoryManager user_facts 注入、read-only 权限门；相关 P1 后端测试为 `102 passed`。
 - 2026-04-21 Codex 补了框架级防幻觉交付约束：AgentLoop 记录工具证据，Final Guard 在 assistant 声称已写入/执行/测试/验证但无对应 tool evidence 时强制续跑；现有文件仍必须先 Read 再 Write/Edit。
 - 2026-04-22 Codex 补齐 P2 验收项：Bash 增加 allowlist、危险命令拦截、只读 git 子命令、timeout/cwd/输出截断和结构化 stdout/stderr/exit_code；新增 P2 replay，覆盖失败后纠正、假交付被 Final Guard 逼回工具调用、危险 Bash 被拦截。
+- 2026-04-22 Codex 开始 P3 最小闭环：新增 `Verify` browser tool，HTML/JS/UI/game 产物可用 Playwright 检查 DOM、style、console/page errors、actions 和截图；Doubao smoke 已确认模型会主动调用 `Verify`。
 
 ### 最新完整计划
 
@@ -8605,7 +8606,9 @@ def classify_request(message: str, context: dict) -> str:
 - [ ] 渲染 / 截图 tool：docx → LibreOffice headless → PDF/PNG。
 - [ ] xlsx 渲染：COM 单页 PNG，或 openpyxl + matplotlib 兜底。
 - [ ] 脚本结果截图：活跃窗口截图或运行后截图。
-- [ ] Verify tool：由 assistant 自主触发 render → VLM 看 → 决定是否再改。
+- [x] Verify tool 最小版：HTML/URL → Playwright headless → DOM/style/text/overflow/console assertions + screenshot。
+- [x] Verify tool 已接入 v2 渐进工具披露；HTML/JS/UI/game 产物 prompt 要求写后读回并调用 Verify。
+- [ ] Verify tool 完整版：render → VLM 看截图 → 决定是否再改。
 - [ ] 下一轮 message 构造器支持 image block 回灌。
 
 #### P4 · Office 能力 Skill 化
