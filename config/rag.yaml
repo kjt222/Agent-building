@@ -1,0 +1,12 @@
+index:
+  db_path: data/rag.sqlite
+  chunk_size: 800
+  chunk_overlap: 150
+  top_k: 6
+  score_threshold: 0.2
+  max_context_chars: 8000
+  extensions:
+    - .txt
+    - .pdf
+    - .docx
+    - .xlsx

@@ -1,0 +1,10 @@
+id: system_003
+category: system
+user_message: "帮我解释一下什么是光刻胶"
+expected_trace:
+  must_call: []
+  must_not_call: [get_system_config]
+  max_steps: 4
+expected_answer:
+  contains_keywords: ["光刻胶"]
+graders: [code]

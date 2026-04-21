@@ -1,0 +1,21 @@
+default: deny
+allow:
+  - tool.docx_*
+  - tool.xlsx_*
+  - tool.ui_word_*
+  - tool.fs_read
+confirm:
+  - tool.web_*
+  - tool.ui_excel_*
+  - tool.ui_browser_*
+  - tool.ui_system_*
+  - tool.fs_overwrite
+  - tool.xlsx_set_value
+  - tool.xlsx_update_formula
+  - tool.xlsx_insert_columns
+  - tool.xlsx_delete_columns
+  - tool.xlsx_insert_rows
+  - tool.xlsx_delete_rows
+  - tool.xlsx_pivot
+deny:
+  - tool.fs_delete

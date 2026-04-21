@@ -1,0 +1,10 @@
+id: chat_004
+category: no_tool
+user_message: "请计算 17 乘以 23 等于多少"
+expected_trace:
+  must_call: []
+  must_not_call: [search_knowledge_base, remember_fact, get_system_config]
+  max_steps: 2
+expected_answer:
+  contains_keywords: ["391"]
+graders: [code]

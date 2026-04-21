@@ -1,0 +1,108 @@
+/* Design tokens — edit here first; downstream CSS should only consume these. */
+
+:root {
+  /* Surface */
+  --surface-base:    #faf9f6;
+  --surface-raised:  #ffffff;
+  --surface-sunken:  #f2efea;
+  --surface-inset:   #ebe7e0;
+
+  /* Ink */
+  --ink-strong:      #14181f;
+  --ink-primary:     #1d222b;
+  --ink-muted:       #6a7381;
+  --ink-subtle:      #9aa3b2;
+  --ink-inverse:     #ffffff;
+
+  /* Accent — warm teal */
+  --accent-500:      #0f7a73;
+  --accent-600:      #0b5e58;
+  --accent-700:      #0a4d48;
+  --accent-050:      #e6f4f1;
+  --accent-ring:     rgba(15, 122, 115, 0.22);
+
+  /* Semantic */
+  --ok:              #2e7d4f;
+  --warn:            #b45a1f;
+  --error:           #b42a2a;
+
+  /* Lines */
+  --line-strong:     #d6d2c9;
+  --line:            #e4e0d8;
+  --line-subtle:     #eeebe4;
+
+  /* Shadows */
+  --shadow-sm:       0 1px 2px rgba(20, 24, 31, 0.04);
+  --shadow:          0 4px 12px rgba(20, 24, 31, 0.06), 0 1px 2px rgba(20, 24, 31, 0.04);
+  --shadow-lg:       0 18px 48px rgba(20, 24, 31, 0.16), 0 2px 8px rgba(20, 24, 31, 0.06);
+
+  /* Radii */
+  --radius-xs:       4px;
+  --radius-sm:       6px;
+  --radius-md:       10px;
+  --radius-lg:       14px;
+  --radius-xl:       20px;
+  --radius-pill:     999px;
+
+  /* Spacing scale (4px base) */
+  --sp-1:            4px;
+  --sp-2:            8px;
+  --sp-3:            12px;
+  --sp-4:            16px;
+  --sp-5:            20px;
+  --sp-6:            24px;
+  --sp-7:            32px;
+  --sp-8:            40px;
+  --sp-10:           64px;
+
+  /* Typography */
+  --font-sans:       "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono:       "JetBrains Mono", "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --text-xs:         12px;
+  --text-sm:         13px;
+  --text-base:       14px;
+  --text-md:         15px;
+  --text-lg:         17px;
+  --text-xl:         20px;
+  --text-2xl:        24px;
+  --text-3xl:        30px;
+
+  --leading-tight:   1.3;
+  --leading-normal:  1.55;
+  --leading-relaxed: 1.7;
+
+  /* Layout */
+  --side-w:          252px;
+  --composer-max:    820px;
+  --stream-max:      760px;
+
+  /* Motion */
+  --ease:            cubic-bezier(0.2, 0.6, 0.2, 1);
+  --dur-fast:        120ms;
+  --dur:             200ms;
+  --dur-slow:        320ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-base:   #15181d;
+    --surface-raised: #1c2027;
+    --surface-sunken: #11141a;
+    --surface-inset:  #0c0f13;
+    --ink-strong:     #f4f5f7;
+    --ink-primary:    #e6e8ec;
+    --ink-muted:      #9ba3b1;
+    --ink-subtle:     #6a7281;
+    --accent-500:     #35b0a6;
+    --accent-600:     #2a9389;
+    --accent-700:     #226e67;
+    --accent-050:     rgba(53, 176, 166, 0.12);
+    --accent-ring:    rgba(53, 176, 166, 0.25);
+    --line-strong:    #2b303a;
+    --line:           #232830;
+    --line-subtle:    #1a1f27;
+    --shadow:         0 4px 12px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-lg:      0 18px 48px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+}

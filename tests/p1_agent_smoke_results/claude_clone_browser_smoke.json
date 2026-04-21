@@ -1,0 +1,23 @@
+{
+  "url": "file:///D:/D/python%E7%BC%96%E7%A8%8B/Agent-building/tests/p1_agent_smoke_results/claude_clone_generated.html",
+  "checks": {
+    "has_claude": true,
+    "has_new_chat": true,
+    "has_heading": true,
+    "has_placeholder": true,
+    "has_sonnet": true,
+    "has_pills": true,
+    "has_checklist": true
+  },
+  "metrics": {
+    "bodyWidth": 1600,
+    "bodyHeight": 768,
+    "sidebarWidth": 302,
+    "composerWidth": 700,
+    "scrollWidth": 1600,
+    "scrollHeight": 768
+  },
+  "console": [],
+  "page_errors": [],
+  "note": "Prompt used a structured screenshot description; the original attached image was not available as a local image file/base64 to this harness."
+}

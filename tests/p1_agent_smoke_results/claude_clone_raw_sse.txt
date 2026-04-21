@@ -1,0 +1,11919 @@
+event: activity
+data: {"id": "a1698865_agent", "type": "agent_start", "title": "Agent v2 started", "detail": "profile=gpt-5.4 provider=openai model=gpt-5.4", "status": "start", "ts": 225646592.5158, "meta": {"endpoint": "agent_chat_v2", "session_id": "a1698865", "conversation_id": null, "profile": "gpt-5.4", "provider": "openai", "model": "gpt-5.4", "runtime": {"mode": "inline", "monitor_enabled": false, "wake_on_task_complete": false, "heartbeat_seconds": 30}}}
+
+event: activity
+data: {"id": "a1698865_tools", "type": "tool_manifest", "title": "Tools loaded: 9", "detail": "Bash, DocxEdit, Edit, Glob, Grep, KnowledgeIndex, KnowledgeSearch, Read, Write", "status": "done", "ts": 225646592.5773, "meta": {"endpoint": "/api/agent_chat_v2", "executor": "AgentLoop", "tools": ["Bash", "DocxEdit", "Edit", "Glob", "Grep", "KnowledgeIndex", "KnowledgeSearch", "Read", "Write"], "images": 0}}
+
+event: token
+data: {"text": "```"}
+
+event: token
+data: {"text": "html"}
+
+event: token
+data: {"text": "\n"}
+
+event: token
+data: {"text": "<!"}
+
+event: token
+data: {"text": "DOCTYPE"}
+
+event: token
+data: {"text": " html"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "<html"}
+
+event: token
+data: {"text": " lang"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "en"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "<head"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "meta"}
+
+event: token
+data: {"text": " charset"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "UTF"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " />\n"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "meta"}
+
+event: token
+data: {"text": " name"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "viewport"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " content"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "width"}
+
+event: token
+data: {"text": "=device"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " initial"}
+
+event: token
+data: {"text": "-scale"}
+
+event: token
+data: {"text": "="}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " />\n"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "title"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Claude"}
+
+event: token
+data: {"text": "-style"}
+
+event: token
+data: {"text": " Home"}
+
+event: token
+data: {"text": " UI"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "title"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "style"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " :"}
+
+event: token
+data: {"text": "root"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "bg"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "ffffff"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "panel"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "ffffff"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "text"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "a"}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "mut"}
+
+event: token
+data: {"text": "ed"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "686"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "line"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "ece"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "e"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "soft"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "pill"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "ef"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "shadow"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " rgba"}
+
+event: token
+data: {"text": "("}
+
+event: token
+data: {"text": "25"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": ",."}
+
+event: token
+data: {"text": "06"}
+
+event: token
+data: {"text": "),"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " rgba"}
+
+event: token
+data: {"text": "("}
+
+event: token
+data: {"text": "25"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": ",."}
+
+event: token
+data: {"text": "04"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "accent"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "d"}
+
+event: token
+data: {"text": "977"}
+
+event: token
+data: {"text": "32"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "accent"}
+
+event: token
+data: {"text": "-dark"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "b"}
+
+event: token
+data: {"text": "85"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "21"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "sidebar"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "302"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "22"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "ser"}
+
+event: token
+data: {"text": "if"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": " ui"}
+
+event: token
+data: {"text": "-serif"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " Georgia"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " Cam"}
+
+event: token
+data: {"text": "bria"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " \""}
+
+event: token
+data: {"text": "Times"}
+
+event: token
+data: {"text": " New"}
+
+event: token
+data: {"text": " Roman"}
+
+event: token
+data: {"text": "\","}
+
+event: token
+data: {"text": " Times"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " serif"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " --"}
+
+event: token
+data: {"text": "sans"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": " Inter"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " ui"}
+
+event: token
+data: {"text": "-s"}
+
+event: token
+data: {"text": "ans"}
+
+event: token
+data: {"text": "-serif"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " system"}
+
+event: token
+data: {"text": "-ui"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " -"}
+
+event: token
+data: {"text": "apple"}
+
+event: token
+data: {"text": "-system"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " Blink"}
+
+event: token
+data: {"text": "Mac"}
+
+event: token
+data: {"text": "System"}
+
+event: token
+data: {"text": "Font"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " \""}
+
+event: token
+data: {"text": "Segoe"}
+
+event: token
+data: {"text": " UI"}
+
+event: token
+data: {"text": "\","}
+
+event: token
+data: {"text": " sans"}
+
+event: token
+data: {"text": "-serif"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " *"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "box"}
+
+event: token
+data: {"text": "-sizing"}
+
+event: token
+data: {"text": ":border"}
+
+event: token
+data: {"text": "-box"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " html"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": "body"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " body"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "bg"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "text"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-family"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "sans"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " -"}
+
+event: token
+data: {"text": "webkit"}
+
+event: token
+data: {"text": "-font"}
+
+event: token
+data: {"text": "-s"}
+
+event: token
+data: {"text": "moothing"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "ant"}
+
+event: token
+data: {"text": "iali"}
+
+event: token
+data: {"text": "ased"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " text"}
+
+event: token
+data: {"text": "-render"}
+
+event: token
+data: {"text": "ing"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "opt"}
+
+event: token
+data: {"text": "imize"}
+
+event: token
+data: {"text": "Leg"}
+
+event: token
+data: {"text": "ibility"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "app"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " min"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "vh"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "fff"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " /*"}
+
+event: token
+data: {"text": " Sidebar"}
+
+event: token
+data: {"text": " */\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "sidebar"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "sidebar"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " min"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "260"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-right"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " solid"}
+
+event: token
+data: {"text": " var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "line"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "fff"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": "-direction"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "column"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " position"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "fixed"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " inset"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " auto"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "brand"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "700"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "30"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " letter"}
+
+event: token
+data: {"text": "-spacing"}
+
+event: token
+data: {"text": ":-"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "03"}
+
+event: token
+data: {"text": "em"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "word"}
+
+event: token
+data: {"text": "mark"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-family"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "ser"}
+
+event: token
+data: {"text": "if"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "700"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "34"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " line"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": "-direction"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "column"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "40"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "282"}
+
+event: token
+data: {"text": "21"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "15"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": ":hover"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "background"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "faf"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": " svg"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "484"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " fill"}
+
+event: token
+data: {"text": ":none"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " auto"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "cap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "join"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "section"}
+
+event: token
+data: {"text": "-label"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "20"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "mut"}
+
+event: token
+data: {"text": "ed"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "600"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " letter"}
+
+event: token
+data: {"text": "-spacing"}
+
+event: token
+data: {"text": ":."}
+
+event: token
+data: {"text": "02"}
+
+event: token
+data: {"text": "em"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " text"}
+
+event: token
+data: {"text": "-transform"}
+
+event: token
+data: {"text": ":none"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "recent"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " line"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "25"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "a"}
+
+event: token
+data: {"text": "242"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " max"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%;\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " word"}
+
+event: token
+data: {"text": "-break"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "break"}
+
+event: token
+data: {"text": "-word"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "recent"}
+
+event: token
+data: {"text": ":hover"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "background"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "faf"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "}\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "sp"}
+
+event: token
+data: {"text": "acer"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "flex"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "}\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " solid"}
+
+event: token
+data: {"text": " var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "line"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "avatar"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "36"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "36"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "50"}
+
+event: token
+data: {"text": "%;\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":grid"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": "place"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "d"}
+
+event: token
+data: {"text": "9"}
+
+event: token
+data: {"text": "c"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "a"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "b"}
+
+event: token
+data: {"text": "332"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "700"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " auto"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-text"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " min"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-name"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "600"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " white"}
+
+event: token
+data: {"text": "-space"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "nowrap"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " overflow"}
+
+event: token
+data: {"text": ":hidden"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " text"}
+
+event: token
+data: {"text": "-over"}
+
+event: token
+data: {"text": "flow"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "ellipsis"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-plan"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "mut"}
+
+event: token
+data: {"text": "ed"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-actions"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "a"}
+
+event: token
+data: {"text": "534"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-actions"}
+
+event: token
+data: {"text": " svg"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "current"}
+
+event: token
+data: {"text": "Color"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " fill"}
+
+event: token
+data: {"text": ":none"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "cap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "join"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " /*"}
+
+event: token
+data: {"text": " Main"}
+
+event: token
+data: {"text": " */\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "main"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": "-left"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "sidebar"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " min"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "vh"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "calc"}
+
+event: token
+data: {"text": "("}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%"}
+
+event: token
+data: {"text": " -"}
+
+event: token
+data: {"text": " var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "sidebar"}
+
+event: token
+data: {"text": "));\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": "-start"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " justify"}
+
+event: token
+data: {"text": "-content"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "fff"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "92"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "40"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "48"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "hero"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":min"}
+
+event: token
+data: {"text": "("}
+
+event: token
+data: {"text": "860"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%);\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "72"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "title"}
+
+event: token
+data: {"text": "-row"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " justify"}
+
+event: token
+data: {"text": "-content"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": "-bottom"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "30"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " text"}
+
+event: token
+data: {"text": "-align"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": "-wrap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "wrap"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "cla"}
+
+event: token
+data: {"text": "ude"}
+
+event: token
+data: {"text": "-star"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "28"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "28"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": "flex"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " auto"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " h"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-family"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "ser"}
+
+event: token
+data: {"text": "if"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "500"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "48"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " line"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "08"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " letter"}
+
+event: token
+data: {"text": "-spacing"}
+
+event: token
+data: {"text": ":-"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "03"}
+
+event: token
+data: {"text": "em"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "241"}
+
+event: token
+data: {"text": "d"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "a"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":min"}
+
+event: token
+data: {"text": "("}
+
+event: token
+data: {"text": "700"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%);\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " auto"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "fff"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " solid"}
+
+event: token
+data: {"text": " var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "line"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "26"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " box"}
+
+event: token
+data: {"text": "-shadow"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "shadow"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "22"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "22"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "-input"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " min"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "66"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "b"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": "a"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "a"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "20"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " line"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "-footer"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " justify"}
+
+event: token
+data: {"text": "-content"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "space"}
+
+event: token
+data: {"text": "-between"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "footer"}
+
+event: token
+data: {"text": "-left"}
+
+event: token
+data: {"text": ",."}
+
+event: token
+data: {"text": "footer"}
+
+event: token
+data: {"text": "-right"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "-icon"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "34"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "34"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "50"}
+
+event: token
+data: {"text": "%;\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":grid"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": "place"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "484"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "-icon"}
+
+event: token
+data: {"text": " svg"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "current"}
+
+event: token
+data: {"text": "Color"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " fill"}
+
+event: token
+data: {"text": ":none"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "cap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "join"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "model"}
+
+event: token
+data: {"text": "-pill"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":inline"}
+
+event: token
+data: {"text": "-flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "999"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "393"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "500"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "transparent"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "model"}
+
+event: token
+data: {"text": "-pill"}
+
+event: token
+data: {"text": " svg"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "current"}
+
+event: token
+data: {"text": "Color"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " fill"}
+
+event: token
+data: {"text": ":none"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "cap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "join"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "voice"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "34"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "34"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "50"}
+
+event: token
+data: {"text": "%;\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":grid"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": "place"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "f"}
+
+event: token
+data: {"text": "484"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "voice"}
+
+event: token
+data: {"text": " svg"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "current"}
+
+event: token
+data: {"text": "Color"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " fill"}
+
+event: token
+data: {"text": ":none"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "cap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";"}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "-line"}
+
+event: token
+data: {"text": "join"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "round"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "p"}
+
+event: token
+data: {"text": "ills"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":min"}
+
+event: token
+data: {"text": "("}
+
+event: token
+data: {"text": "700"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%);\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " auto"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " justify"}
+
+event: token
+data: {"text": "-content"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": "-wrap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "wrap"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "pill"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "pill"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "342"}
+
+event: token
+data: {"text": "d"}
+
+event: token
+data: {"text": "29"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " solid"}
+
+event: token
+data: {"text": " #"}
+
+event: token
+data: {"text": "eee"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "e"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "999"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " line"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " white"}
+
+event: token
+data: {"text": "-space"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "nowrap"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "setup"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":min"}
+
+event: token
+data: {"text": "("}
+
+event: token
+data: {"text": "700"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%);\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "36"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " auto"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "setup"}
+
+event: token
+data: {"text": "-title"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "650"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " letter"}
+
+event: token
+data: {"text": "-spacing"}
+
+event: token
+data: {"text": ":-"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "01"}
+
+event: token
+data: {"text": "em"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":center"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": "-bottom"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "setup"}
+
+event: token
+data: {"text": "-title"}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "count"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "mut"}
+
+event: token
+data: {"text": "ed"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-weight"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "500"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " display"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " align"}
+
+event: token
+data: {"text": "-items"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": "-start"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " gap"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "11"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "15"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "a"}
+
+event: token
+data: {"text": "242"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "checkbox"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "20"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "20"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";border"}
+
+event: token
+data: {"text": "-radius"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "50"}
+
+event: token
+data: {"text": "%;\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " solid"}
+
+event: token
+data: {"text": " #"}
+
+event: token
+data: {"text": "d"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "d"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "cb"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " auto"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " background"}
+
+event: token
+data: {"text": ":#"}
+
+event: token
+data: {"text": "fff"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "-text"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "line"}
+
+event: token
+data: {"text": "-height"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "}\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " @"}
+
+event: token
+data: {"text": "media"}
+
+event: token
+data: {"text": " ("}
+
+event: token
+data: {"text": "max"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "980"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": "){\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "sidebar"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " position"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "relative"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "250"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "main"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " margin"}
+
+event: token
+data: {"text": "-left"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":auto"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " flex"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "56"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "36"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " h"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "38"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "hero"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "margin"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "20"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " @"}
+
+event: token
+data: {"text": "media"}
+
+event: token
+data: {"text": " ("}
+
+event: token
+data: {"text": "max"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "760"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": "){\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "app"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "flex"}
+
+event: token
+data: {"text": "-direction"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "column"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "sidebar"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%;\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " min"}
+
+event: token
+data: {"text": "-width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-right"}
+
+event: token
+data: {"text": ":none"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " border"}
+
+event: token
+data: {"text": "-bottom"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " solid"}
+
+event: token
+data: {"text": " var"}
+
+event: token
+data: {"text": "(--"}
+
+event: token
+data: {"text": "line"}
+
+event: token
+data: {"text": ");\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "main"}
+
+event: token
+data: {"text": "{\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " width"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "%;\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " padding"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "30"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "40"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": ";\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "hero"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "margin"}
+
+event: token
+data: {"text": "-top"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "title"}
+
+event: token
+data: {"text": "-row"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "justify"}
+
+event: token
+data: {"text": "-content"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": "-start"}
+
+event: token
+data: {"text": ";text"}
+
+event: token
+data: {"text": "-align"}
+
+event: token
+data: {"text": ":left"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " h"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "font"}
+
+event: token
+data: {"text": "-size"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": "34"}
+
+event: token
+data: {"text": "px"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " ."}
+
+event: token
+data: {"text": "p"}
+
+event: token
+data: {"text": "ills"}
+
+event: token
+data: {"text": "{"}
+
+event: token
+data: {"text": "justify"}
+
+event: token
+data: {"text": "-content"}
+
+event: token
+data: {"text": ":flex"}
+
+event: token
+data: {"text": "-start"}
+
+event: token
+data: {"text": "}\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " }\n"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "style"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "head"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "<body"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "app"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "aside"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "sidebar"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "brand"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "word"}
+
+event: token
+data: {"text": "mark"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Claude"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "v"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "New"}
+
+event: token
+data: {"text": " chat"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "circle"}
+
+event: token
+data: {"text": " cx"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "11"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " cy"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "11"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " r"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "\"/"}
+
+event: token
+data: {"text": "><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Search"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "-."}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "-."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "-."}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "L"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "21"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "-."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "L"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "9"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "9"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "z"}
+
+event: token
+data: {"text": "\"/"}
+
+event: token
+data: {"text": "><"}
+
+event: token
+data: {"text": "circle"}
+
+event: token
+data: {"text": " cx"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " cy"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " r"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Customize"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Chats"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "v"}
+
+event: token
+data: {"text": "9"}
+
+event: token
+data: {"text": "H"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "z"}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "v"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "z"}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "v"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "z"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Projects"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "v"}
+
+event: token
+data: {"text": "11"}
+
+event: token
+data: {"text": "H"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "L"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "21"}
+
+event: token
+data: {"text": "V"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "z"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Artifacts"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Code"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": "-item"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "circle"}
+
+event: token
+data: {"text": " cx"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " cy"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " r"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "\"/"}
+
+event: token
+data: {"text": "><"}
+
+event: token
+data: {"text": "circle"}
+
+event: token
+data: {"text": " cx"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " cy"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " r"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "\"/"}
+
+event: token
+data: {"text": "><"}
+
+event: token
+data: {"text": "circle"}
+
+event: token
+data: {"text": " cx"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " cy"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " r"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "\"/"}
+
+event: token
+data: {"text": "><"}
+
+event: token
+data: {"text": "circle"}
+
+event: token
+data: {"text": " cx"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " cy"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " r"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Design"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "nav"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "section"}
+
+event: token
+data: {"text": "-label"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Rec"}
+
+event: token
+data: {"text": "ents"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "recent"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Importance"}
+
+event: token
+data: {"text": " of"}
+
+event: token
+data: {"text": " web"}
+
+event: token
+data: {"text": " accessibility"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "sp"}
+
+event: token
+data: {"text": "acer"}
+
+event: token
+data: {"text": "\"></"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "avatar"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "KC"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-text"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-name"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Ker"}
+
+event: token
+data: {"text": "win"}
+
+event: token
+data: {"text": "w"}
+
+event: token
+data: {"text": "q"}
+
+event: token
+data: {"text": " Campbell"}
+
+event: token
+data: {"text": "...</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-plan"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Pro"}
+
+event: token
+data: {"text": " plan"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "account"}
+
+event: token
+data: {"text": "-actions"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "v"}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "\"/"}
+
+event: token
+data: {"text": "><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "8"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "10"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "L"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "\"/"}
+
+event: token
+data: {"text": "><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "19"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "9"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "aside"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "main"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "main"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "section"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "hero"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "title"}
+
+event: token
+data: {"text": "-row"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "cla"}
+
+event: token
+data: {"text": "ude"}
+
+event: token
+data: {"text": "-star"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "100"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " aria"}
+
+event: token
+data: {"text": "-hidden"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "true"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "g"}
+
+event: token
+data: {"text": " fill"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "none"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " stroke"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "none"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "             "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " fill"}
+
+event: token
+data: {"text": "=\"#"}
+
+event: token
+data: {"text": "d"}
+
+event: token
+data: {"text": "977"}
+
+event: token
+data: {"text": "32"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "50"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "c"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "11"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "26"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "19"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "27"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "11"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "27"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "2"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "19"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "26"}
+
+event: token
+data: {"text": "zm"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "39"}
+
+event: token
+data: {"text": "c"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "19"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "15"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "31"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "33"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "35"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "26"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "33"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "36"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "20"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "15"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "32"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "33"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "36"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "26"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "16"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "33"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "35"}
+
+event: token
+data: {"text": "z"}
+
+event: token
+data: {"text": "\"/>\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "g"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Af"}
+
+event: token
+data: {"text": "ternoon"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " Ker"}
+
+event: token
+data: {"text": "win"}
+
+event: token
+data: {"text": "w"}
+
+event: token
+data: {"text": "q"}
+
+event: token
+data: {"text": " Campbell"}
+
+event: token
+data: {"text": "bg"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "1"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "-input"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "How"}
+
+event: token
+data: {"text": " can"}
+
+event: token
+data: {"text": " I"}
+
+event: token
+data: {"text": " help"}
+
+event: token
+data: {"text": " you"}
+
+event: token
+data: {"text": " today"}
+
+event: token
+data: {"text": "?</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "-footer"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "footer"}
+
+event: token
+data: {"text": "-left"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "             "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "composer"}
+
+event: token
+data: {"text": "-icon"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " aria"}
+
+event: token
+data: {"text": "-hidden"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "true"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "               "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "v"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "12"}
+
+event: token
+data: {"text": "h"}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "             "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "footer"}
+
+event: token
+data: {"text": "-right"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "             "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "model"}
+
+event: token
+data: {"text": "-pill"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "               "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Son"}
+
+event: token
+data: {"text": "net"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "               "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\"><"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "9"}
+
+event: token
+data: {"text": "l"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "\"/></"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "             "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "             "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "voice"}
+
+event: token
+data: {"text": "\""}
+
+event: token
+data: {"text": " aria"}
+
+event: token
+data: {"text": "-hidden"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "true"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "               "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": " view"}
+
+event: token
+data: {"text": "Box"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "24"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "                 "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "14"}
+
+event: token
+data: {"text": "v"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "\"/>\n"}
+
+event: token
+data: {"text": "                 "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "9"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": "V"}
+
+event: token
+data: {"text": "7"}
+
+event: token
+data: {"text": "\"/>\n"}
+
+event: token
+data: {"text": "                 "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "13"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "15"}
+
+event: token
+data: {"text": "V"}
+
+event: token
+data: {"text": "9"}
+
+event: token
+data: {"text": "\"/>\n"}
+
+event: token
+data: {"text": "                 "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "path"}
+
+event: token
+data: {"text": " d"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "M"}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "18"}
+
+event: token
+data: {"text": "V"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "\"/>\n"}
+
+event: token
+data: {"text": "               "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "svg"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "             "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "p"}
+
+event: token
+data: {"text": "ills"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "pill"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Write"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "pill"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Learn"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "pill"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Code"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "pill"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Life"}
+
+event: token
+data: {"text": " stuff"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "pill"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Claude"}
+
+event: token
+data: {"text": "'s"}
+
+event: token
+data: {"text": " choice"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "setup"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "setup"}
+
+event: token
+data: {"text": "-title"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">"}
+
+event: token
+data: {"text": "Get"}
+
+event: token
+data: {"text": " set"}
+
+event: token
+data: {"text": " up"}
+
+event: token
+data: {"text": " with"}
+
+event: token
+data: {"text": " Claude"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "count"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "0"}
+
+event: token
+data: {"text": " of"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": " completed"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "span"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "checkbox"}
+
+event: token
+data: {"text": "\"></"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "-text"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Hand"}
+
+event: token
+data: {"text": " off"}
+
+event: token
+data: {"text": " tasks"}
+
+event: token
+data: {"text": " in"}
+
+event: token
+data: {"text": " Cow"}
+
+event: token
+data: {"text": "ork"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "checkbox"}
+
+event: token
+data: {"text": "\"></"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "-text"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Set"}
+
+event: token
+data: {"text": " up"}
+
+event: token
+data: {"text": " a"}
+
+event: token
+data: {"text": " project"}
+
+event: token
+data: {"text": " with"}
+
+event: token
+data: {"text": " files"}
+
+event: token
+data: {"text": " and"}
+
+event: token
+data: {"text": " context"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "checkbox"}
+
+event: token
+data: {"text": "\"></"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "-text"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Bring"}
+
+event: token
+data: {"text": " your"}
+
+event: token
+data: {"text": " story"}
+
+event: token
+data: {"text": " over"}
+
+event: token
+data: {"text": " from"}
+
+event: token
+data: {"text": " another"}
+
+event: token
+data: {"text": " AI"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "\">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "checkbox"}
+
+event: token
+data: {"text": "\"></"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "           "}
+
+event: token
+data: {"text": " <"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": " class"}
+
+event: token
+data: {"text": "=\""}
+
+event: token
+data: {"text": "task"}
+
+event: token
+data: {"text": "-text"}
+
+event: token
+data: {"text": "\">"}
+
+event: token
+data: {"text": "Teach"}
+
+event: token
+data: {"text": " Claude"}
+
+event: token
+data: {"text": " your"}
+
+event: token
+data: {"text": " workflows"}
+
+event: token
+data: {"text": " with"}
+
+event: token
+data: {"text": " skills"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "         "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "       "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "     "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "section"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "   "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "main"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": " "}
+
+event: token
+data: {"text": " </"}
+
+event: token
+data: {"text": "div"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "body"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "</"}
+
+event: token
+data: {"text": "html"}
+
+event: token
+data: {"text": ">\n"}
+
+event: token
+data: {"text": "```"}
+
+event: done
+data: {"total_time_ms": 52104, "sources": [], "provider": "openai", "model": "gpt-5.4"}
+

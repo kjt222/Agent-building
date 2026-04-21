@@ -1,0 +1,10 @@
+id: multi_003
+category: multi_tool
+user_message: "查看一下当前系统配置，然后告诉我用的什么模型"
+expected_trace:
+  must_call: [get_system_config]
+  must_not_call: [remember_fact]
+  max_steps: 4
+expected_answer:
+  contains_keywords: []
+graders: [code]

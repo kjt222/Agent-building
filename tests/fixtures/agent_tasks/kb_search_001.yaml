@@ -1,0 +1,10 @@
+id: kb_search_001
+category: kb_retrieval
+user_message: "根据资料库，光刻技术的核心步骤是什么？"
+expected_trace:
+  must_call: [search_knowledge_base]
+  must_not_call: []
+  max_steps: 4
+expected_answer:
+  contains_keywords: ["光刻", "掩膜", "曝光"]
+graders: [code]

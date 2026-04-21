@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}Agent · {{ active_profile or 'setup' }}{% endblock %}
+
+{% block body %}
+<div class="shell">
+  <aside class="side">
+    <div class="side-head">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <div class="brand-text">
+          <p class="brand-name">Agent</p>
+          <p class="brand-sub">{{ active_profile or 'no profile' }}</p>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" type="button" id="new-chat-btn">
+        <span class="icon">+</span> New chat
+      </button>
+    </div>
+
+    <nav class="side-nav" aria-label="Conversations">
+      <p class="side-label">Conversations</p>
+      <div id="conversation-list" class="conv-list">
+        <p class="side-empty">No conversations yet.</p>
+      </div>
+    </nav>
+
+    <div class="side-foot">
+      <button class="side-link" type="button" data-open="config">
+        <span class="side-link-icon">⚙</span>
+        <span>Settings</span>
+      </button>
+      <button class="side-link" type="button" data-open="kb">
+        <span class="side-link-icon">▤</span>
+        <span>Knowledge</span>
+        <span class="badge" id="kb-badge">{{ active_kbs | length if active_kbs else 0 }}</span>
+      </button>
+      <button class="side-link" type="button" data-open="memory">
+        <span class="side-link-icon">✦</span>
+        <span>Memory</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="main-head">
+      <div class="head-left">
+        <h1 class="head-title" id="conv-title">New conversation</h1>
+        <p class="head-meta">
+          <span class="pill pill-accent" id="profile-pill">{{ active_profile or 'unset' }}</span>
+          <span class="pill" id="kbs-pill">
+            {% if active_kbs %}{{ active_kbs | join(' · ') }}{% else %}no KB{% endif %}
+          </span>
+        </p>
+      </div>
+      <div class="head-right">
+        <span class="dot dot-{{ 'ok' if status_ok else 'warn' }}" title="{{ status_message }}"></span>
+      </div>
+    </header>
+
+    <section class="stream" id="chat-stream">
+      <div class="welcome" id="chat-empty">
+        <h2>How can I help?</h2>
+        <p class="muted">Describe what you want to do. I can search, edit files, and call tools on your behalf.</p>
+        <div class="suggest">
+          <button class="chip" data-prompt="列出当前目录的 Python 文件并总结每个的用途">列出 Python 文件并总结用途</button>
+          <button class="chip" data-prompt="帮我读 docs/conversation.md 末尾 100 行">读 conversation.md 末尾</button>
+          <button class="chip" data-prompt="在 knowledge base 里搜索 'LoopContext'">搜索 LoopContext</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="composer">
+      <div class="composer-inner">
+        <div class="composer-preview" id="image-preview-container" hidden>
+          <div class="composer-preview-list" id="image-preview-list"></div>
+        </div>
+        <textarea
+          id="chat-input"
+          class="composer-input"
+          rows="1"
+          placeholder="Message the agent... (Ctrl+V paste images, drag-drop supported)"
+        ></textarea>
+        <div class="composer-row">
+          <label class="icon-btn" title="Upload image">
+            <input type="file" id="image-file-input" accept="image/*" multiple hidden />
+            <span>📎</span>
+          </label>
+          <select class="select-flat" id="chat-mode" title="Execution mode">
+            <option value="read">Read-only</option>
+            <option value="confirm" selected>Confirm</option>
+            <option value="auto">Auto</option>
+          </select>
+          <div class="composer-spacer"></div>
+          <span id="chat-status" class="chat-status"></span>
+          <button class="btn btn-primary" type="button" id="chat-send">
+            Send <span class="kbd">↵</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+{# ---- Modals (simplified; link to legacy /? for deep-edit forms) ---- #}
+<div class="modal" id="config-modal" aria-hidden="true">
+  <div class="modal-card modal-card-lg">
+    <header class="modal-head">
+      <h2>Settings</h2>
+      <div class="modal-head-actions">
+        <button class="btn btn-primary btn-sm" type="button" id="profile-add-toggle">
+          + New profile
+        </button>
+        <button class="icon-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+    </header>
+    <div class="modal-body">
+      <p class="muted">
+        Active profile: <strong>{{ active_profile or 'unset' }}</strong>
+        · Status: {{ status_message }}
+      </p>
+
+      <form id="profile-add-form" class="add-form" hidden>
+        <h3 class="form-title">Add profile</h3>
+        <p class="muted form-hint">API key is persisted to keyring on save.</p>
+
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="name" required placeholder="gpt-5.4" />
+          <span class="muted form-hint">Allowed: letters, digits, <code>. _ -</code></span>
+        </label>
+
+        <fieldset class="fieldset">
+          <legend>LLM (required)</legend>
+          <div class="field-row">
+            <label class="field">
+              <span>Vendor</span>
+              <select name="llm_vendor" id="llm-vendor" required>
+                <option value="openai">OpenAI</option>
+                <option value="deepseek">DeepSeek</option>
+                <option value="zhipu">ZhipuAI</option>
+                <option value="openai_compat">OpenAI-compatible</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Model</span>
+              <div class="with-action">
+                <select name="llm_model" id="llm-model" required></select>
+                <button type="button" class="btn btn-ghost btn-sm" id="llm-detect">Detect</button>
+              </div>
+            </label>
+          </div>
+          <label class="field">
+            <span>API key</span>
+            <input type="password" name="llm_api_key" id="llm-api-key" required autocomplete="off" placeholder="sk-..." />
+          </label>
+          <label class="field">
+            <span>Base URL <span class="muted">(optional unless compat)</span></span>
+            <input type="text" name="llm_base_url" id="llm-base-url" placeholder="https://api.openai.com/v1" />
+          </label>
+          <p id="llm-detect-status" class="status-inline" aria-live="polite"></p>
+        </fieldset>
+
+        <fieldset class="fieldset fieldset-collapsible" id="image-gen-fieldset">
+          <legend>
+            <label class="toggle">
+              <input type="checkbox" id="image-gen-enable" />
+              <span>Image generation (optional)</span>
+            </label>
+          </legend>
+          <div class="fieldset-body" hidden>
+            <p class="muted form-hint">Leave empty if you don't need image generation.</p>
+            <div class="field-row">
+              <label class="field">
+                <span>Vendor</span>
+                <select name="image_vendor" id="image-vendor">
+                  <option value="openai">OpenAI</option>
+                  <option value="zhipu">ZhipuAI</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Model</span>
+                <div class="with-action">
+                  <select name="image_model" id="image-model"></select>
+                  <button type="button" class="btn btn-ghost btn-sm" id="image-detect">Detect</button>
+                </div>
+              </label>
+            </div>
+            <label class="field">
+              <span>API key</span>
+              <input type="password" name="image_api_key" id="image-api-key" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Base URL <span class="muted">(optional)</span></span>
+              <input type="text" name="image_base_url" id="image-base-url" />
+            </label>
+            <p id="image-detect-status" class="status-inline" aria-live="polite"></p>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="profile-add-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create profile</button>
+        </div>
+        <p id="profile-add-status" class="status-inline" aria-live="polite"></p>
+      </form>
+
+      <div class="list">
+        {% for name in profiles %}
+        <div class="list-row {% if name == active_profile %}is-active{% endif %}">
+          <div>
+            <p class="list-title">{{ name }}</p>
+            <p class="list-sub model-sub">
+              <span class="mono">{{ profile_models.get(name, '—') }}</span>
+            </p>
+          </div>
+          <div class="list-actions">
+            <form method="post" action="/profiles/select" class="inline">
+              <input type="hidden" name="profile" value="{{ name }}" />
+              <button class="btn btn-ghost btn-sm" type="submit">
+                {% if name == active_profile %}Active{% else %}Activate{% endif %}
+              </button>
+            </form>
+          </div>
+        </div>
+        {% else %}
+        <p class="muted">No profiles yet. Click "+ New profile" above.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="kb-modal" aria-hidden="true">
+  <div class="modal-card">
+    <header class="modal-head">
+      <h2>Knowledge bases</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">✕</button>
+    </header>
+    <div class="modal-body">
+      <div id="kb-status" class="status-inline"></div>
+      <div class="list">
+        {% for kb in knowledge_bases %}
+        <div class="list-row {% if kb.get('name') in active_kbs %}is-active{% endif %}">
+          <div>
+            <p class="list-title">{{ kb.get('name') }}</p>
+            <p class="list-sub">{{ kb.get('path') }}</p>
+          </div>
+          <div class="list-actions">
+            <form method="post" action="/kb/select" class="inline">
+              <input type="hidden" name="name" value="{{ kb.get('name') }}" />
+              <button class="btn btn-ghost btn-sm" type="submit">
+                {% if kb.get('name') in active_kbs %}Deactivate{% else %}Activate{% endif %}
+              </button>
+            </form>
+          </div>
+        </div>
+        {% else %}
+        <p class="muted">No knowledge bases yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="memory-modal" aria-hidden="true">
+  <div class="modal-card">
+    <header class="modal-head">
+      <h2>Memory</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">✕</button>
+    </header>
+    <div class="modal-body">
+      <p class="muted">
+        Total: <span id="memory-count">0</span> entries ·
+        <span id="memory-tokens">0</span> tokens
+      </p>
+      <div class="list" id="memory-list">
+        <p class="muted" id="memory-empty">Loading memories...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app.js" defer></script>
+{% endblock %}

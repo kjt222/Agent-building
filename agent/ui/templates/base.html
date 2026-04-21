@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Agent Console{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/app.css" />
+    {% block head_extra %}{% endblock %}
+  </head>
+  <body
+    data-modal="{{ modal_target or '' }}"
+    data-panel="{{ panel_target or '' }}"
+    data-active-profile="{{ active_profile or '' }}"
+    data-image-gen-model="{{ active_image_gen_model or '' }}"
+  >
+    {% block body %}{% endblock %}
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

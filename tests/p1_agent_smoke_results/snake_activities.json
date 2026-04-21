@@ -1,0 +1,48 @@
+[
+  {
+    "id": "7be2ac9c_agent",
+    "type": "agent_start",
+    "title": "Agent v2 started",
+    "detail": "profile=gpt-5.4 provider=openai model=gpt-5.4",
+    "status": "start",
+    "ts": 225497915.5246,
+    "meta": {
+      "endpoint": "agent_chat_v2",
+      "session_id": "7be2ac9c",
+      "conversation_id": null,
+      "profile": "gpt-5.4",
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "runtime": {
+        "mode": "inline",
+        "monitor_enabled": false,
+        "wake_on_task_complete": false,
+        "heartbeat_seconds": 30
+      }
+    }
+  },
+  {
+    "id": "7be2ac9c_tools",
+    "type": "tool_manifest",
+    "title": "Tools loaded: 9",
+    "detail": "Bash, DocxEdit, Edit, Glob, Grep, KnowledgeIndex, KnowledgeSearch, Read, Write",
+    "status": "done",
+    "ts": 225497915.7519,
+    "meta": {
+      "endpoint": "/api/agent_chat_v2",
+      "executor": "AgentLoop",
+      "tools": [
+        "Bash",
+        "DocxEdit",
+        "Edit",
+        "Glob",
+        "Grep",
+        "KnowledgeIndex",
+        "KnowledgeSearch",
+        "Read",
+        "Write"
+      ],
+      "images": 0
+    }
+  }
+]

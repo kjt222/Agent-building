@@ -1,0 +1,230 @@
+profiles:
+  research:
+    llm:
+      active: openai
+      fallback:
+      - openai
+      - gemini
+      providers:
+        openai:
+          type: openai
+          model: gpt-4.1
+          api_key_env: OPENAI_API_KEY
+          api_key_ref: research.llm.openai
+        gemini:
+          type: gemini
+          model: gemini-1.5-pro
+          api_key_env: GEMINI_API_KEY
+          api_key_ref: research.llm.gemini
+        openai_compat:
+          type: openai_compat
+          model: ''
+          base_url: ''
+          api_key_env: ''
+          api_key_ref: research.llm.openai_compat
+    embedding:
+      active: openai
+      fallback:
+      - openai
+      providers:
+        openai:
+          type: openai
+          model: text-embedding-3-large
+          api_key_env: OPENAI_API_KEY
+          api_key_ref: research.embedding.openai
+        gemini:
+          type: gemini
+          model: text-embedding-004
+          api_key_env: GEMINI_API_KEY
+          api_key_ref: research.embedding.gemini
+        openai_compat:
+          type: openai_compat
+          model: ''
+          base_url: ''
+          api_key_env: ''
+          api_key_ref: research.embedding.openai_compat
+  sensitive:
+    llm:
+      active: openai
+      fallback:
+      - openai
+      - gemini
+      providers:
+        openai:
+          type: openai
+          model: gpt-4.1
+          api_key_env: OPENAI_API_KEY
+          api_key_ref: sensitive.llm.openai
+        gemini:
+          type: gemini
+          model: gemini-1.5-pro
+          api_key_env: GEMINI_API_KEY
+          api_key_ref: sensitive.llm.gemini
+        openai_compat:
+          type: openai_compat
+          model: ''
+          base_url: ''
+          api_key_env: ''
+          api_key_ref: sensitive.llm.openai_compat
+    embedding:
+      active: openai
+      fallback:
+      - openai
+      providers:
+        openai:
+          type: openai
+          model: text-embedding-3-large
+          api_key_env: OPENAI_API_KEY
+          api_key_ref: sensitive.embedding.openai
+        gemini:
+          type: gemini
+          model: text-embedding-004
+          api_key_env: GEMINI_API_KEY
+          api_key_ref: sensitive.embedding.gemini
+        openai_compat:
+          type: openai_compat
+          model: ''
+          base_url: ''
+          api_key_env: ''
+          api_key_ref: sensitive.embedding.openai_compat
+  '11':
+    llm:
+      active: openai
+      fallback:
+      - openai
+      providers:
+        openai:
+          type: openai
+          model: gpt-5.2
+          api_key_env: OPENAI_API_KEY
+          api_key_ref: 11.llm.openai
+          base_url: https://api.openai.com/v1
+        gemini:
+          type: gemini
+          model: gemini-1.5-pro
+          api_key_env: GEMINI_API_KEY
+          api_key_ref: 11.llm.gemini
+        openai_compat:
+          type: openai_compat
+          model: glm-4-plus
+          base_url: https://open.bigmodel.cn/api/coding/paas/v4
+          api_key_env: ''
+          api_key_ref: 11.llm.openai_compat
+        zhipu:
+          type: zhipu
+          base_url: https://open.bigmodel.cn/api/coding/paas/v4
+          api_key_ref: 11.llm.zhipu
+          model: glm-4.7
+        deepseek:
+          type: deepseek
+          base_url: https://api.deepseek.com/v1
+          api_key_ref: 11.llm.deepseek
+          model: deepseek-reasoner
+      vendor: openai
+    embedding:
+      active: zhipu
+      fallback:
+      - zhipu
+      providers:
+        openai:
+          type: openai
+          model: text-embedding-3-small
+          api_key_env: OPENAI_API_KEY
+          api_key_ref: 11.embedding.openai
+        gemini:
+          type: gemini
+          model: text-embedding-004
+          api_key_env: GEMINI_API_KEY
+          api_key_ref: 11.embedding.gemini
+        openai_compat:
+          type: openai_compat
+          model: embedding-3
+          base_url: https://open.bigmodel.cn/api/coding/paas/v4
+          api_key_env: ''
+          api_key_ref: 11.embedding.openai_compat
+        zhipu:
+          type: zhipu
+          base_url: https://open.bigmodel.cn/api/coding/paas/v4
+          api_key_ref: 11.embedding.zhipu
+          model: embedding-3
+        deepseek:
+          type: deepseek
+          base_url: https://api.deepseek.com/v1
+          api_key_ref: 11.embedding.deepseek
+          model: deepseek-chat
+      vendor: zhipu
+  '22':
+    llm:
+      active: openai
+      fallback:
+      - openai
+      - zhipu
+      providers:
+        openai:
+          type: openai
+          model: gpt-5.2
+          api_key_env: OPENAI_API_KEY
+          api_key_ref: 22.llm.openai
+        gemini:
+          type: gemini
+          model: gemini-1.5-pro
+          api_key_env: GEMINI_API_KEY
+          api_key_ref: 22.llm.gemini
+        openai_compat:
+          type: openai_compat
+          model: glm-4.6
+          base_url: https://open.bigmodel.cn/api/coding/paas/v4
+          api_key_env: ''
+          api_key_ref: 22.llm.openai_compat
+        zhipu:
+          type: zhipu
+          base_url: https://open.bigmodel.cn/api/coding/paas/v4
+          api_key_ref: 22.llm.zhipu
+          model: glm-4.7
+        deepseek:
+          type: deepseek
+          api_key_ref: 22.llm.deepseek
+      vendor: openai
+    embedding:
+      active: zhipu
+      fallback:
+      - zhipu
+      providers:
+        openai:
+          type: openai
+          model: text-embedding-3-small
+          api_key_env: OPENAI_API_KEY
+          api_key_ref: 22.embedding.openai
+        gemini:
+          type: gemini
+          model: text-embedding-004
+          api_key_env: GEMINI_API_KEY
+          api_key_ref: 22.embedding.gemini
+        openai_compat:
+          type: openai_compat
+          model: embedding-3
+          base_url: https://open.bigmodel.cn/api/coding/paas/v4
+          api_key_env: ''
+          api_key_ref: 22.embedding.openai_compat
+        zhipu:
+          type: zhipu
+          base_url: https://open.bigmodel.cn/api/coding/paas/v4
+          api_key_ref: 22.embedding.zhipu
+          model: embedding-3
+        deepseek:
+          type: deepseek
+          api_key_ref: 22.embedding.deepseek
+      vendor: zhipu
+  gpt-5.4:
+    llm:
+      active: openai
+      fallback:
+      - openai
+      providers:
+        openai:
+          type: openai
+          model: gpt-5.4
+          api_key_env: ''
+          api_key_ref: gpt-5.4.llm.openai
+          base_url: https://api.openai.com/v1
+      vendor: openai

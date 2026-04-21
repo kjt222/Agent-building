@@ -1,0 +1,10 @@
+id: kb_search_004
+category: kb_retrieval
+user_message: "在'半导体工艺'这个知识库中搜索薄膜沉积相关内容"
+expected_trace:
+  must_call: [search_knowledge_base]
+  must_not_call: []
+  max_steps: 4
+expected_answer:
+  contains_keywords: ["沉积"]
+graders: [code]

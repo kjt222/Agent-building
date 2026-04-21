@@ -1,0 +1,20 @@
+backend: com
+visible: false
+display_alerts: false
+prefer: wps
+apps:
+  word:
+    heading_styles:
+      - "Heading {level}"
+    wps_progids:
+      - Wps.Application
+      - KWps.Application
+      - Kwps.Application
+    office_progids:
+      - Word.Application
+  excel:
+    wps_progids:
+      - Et.Application
+      - KET.Application
+    office_progids:
+      - Excel.Application

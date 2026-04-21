@@ -1,0 +1,10 @@
+id: chat_002
+category: no_tool
+user_message: "地球到月球的距离大约是多少？"
+expected_trace:
+  must_call: []
+  must_not_call: [search_knowledge_base, remember_fact, get_system_config]
+  max_steps: 2
+expected_answer:
+  contains_keywords: []
+graders: [code]

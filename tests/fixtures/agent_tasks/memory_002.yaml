@@ -1,0 +1,10 @@
+id: memory_002
+category: memory
+user_message: "请记住我的邮箱是 test@example.com，以后发通知用这个"
+expected_trace:
+  must_call: [remember_fact]
+  must_not_call: [search_knowledge_base]
+  max_steps: 3
+expected_answer:
+  contains_keywords: ["记住", "邮箱"]
+graders: [code]

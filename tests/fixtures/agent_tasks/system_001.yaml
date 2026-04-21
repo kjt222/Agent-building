@@ -1,0 +1,10 @@
+id: system_001
+category: system
+user_message: "你是什么模型？用的什么API？"
+expected_trace:
+  must_call: [get_system_config]
+  must_not_call: [search_knowledge_base]
+  max_steps: 3
+expected_answer:
+  contains_keywords: []
+graders: [code]

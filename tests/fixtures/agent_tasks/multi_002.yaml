@@ -1,0 +1,10 @@
+id: multi_002
+category: multi_tool
+user_message: "帮我搜索一下光刻工艺的内容，并且记住我对光刻技术感兴趣"
+expected_trace:
+  must_call: [search_knowledge_base, remember_fact]
+  must_not_call: []
+  max_steps: 6
+expected_answer:
+  contains_keywords: ["光刻"]
+graders: [code]

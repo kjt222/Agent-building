@@ -1,0 +1,10 @@
+id: kb_search_003
+category: kb_retrieval
+user_message: "资料库中有关于量子隐形传态的内容吗？"
+expected_trace:
+  must_call: [search_knowledge_base]
+  must_not_call: [remember_fact]
+  max_steps: 4
+expected_answer:
+  contains_keywords: []
+graders: [code]

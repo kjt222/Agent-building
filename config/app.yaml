@@ -1,0 +1,82 @@
+active_profile: gpt-5.4
+profiles:
+  research:
+    rag_db_path: data/research/rag.sqlite
+    logs_dir: logs/research
+    lexicon_files:
+    - lexicons/global.yaml
+    - lexicons/research.yaml
+    - lexicons/global.txt
+    - lexicons/research.txt
+    cloud_send: raw
+    allow_raw_on_confirm: true
+    conflict_confirm: false
+    vector_store_content: raw
+  sensitive:
+    rag_db_path: data/sensitive/rag.sqlite
+    logs_dir: logs/sensitive
+    lexicon_files:
+    - lexicons/global.yaml
+    - lexicons/sensitive.yaml
+    - lexicons/global.txt
+    - lexicons/sensitive.txt
+    cloud_send: masked
+    allow_raw_on_confirm: true
+    conflict_confirm: false
+    vector_store_content: raw
+  '11':
+    rag_db_path: data/11/rag.sqlite
+    logs_dir: logs/11
+    lexicon_files:
+    - lexicons/global.yaml
+    - lexicons/11.yaml
+    - lexicons/global.txt
+    - lexicons/11.txt
+    cloud_send: raw
+    allow_raw_on_confirm: true
+    conflict_confirm: false
+    vector_store_content: raw
+  '22':
+    rag_db_path: data/22/rag.sqlite
+    logs_dir: logs/22
+    lexicon_files:
+    - lexicons/global.yaml
+    - lexicons/22.yaml
+    - lexicons/global.txt
+    - lexicons/22.txt
+    cloud_send: raw
+    allow_raw_on_confirm: true
+    conflict_confirm: false
+    vector_store_content: raw
+  gpt-5.4:
+    rag_db_path: data/gpt-5.4/rag.sqlite
+    logs_dir: logs/gpt-5.4
+    lexicon_files:
+    - lexicons/global.yaml
+    - lexicons/gpt-5.4.yaml
+    - lexicons/global.txt
+    - lexicons/gpt-5.4.txt
+    cloud_send: raw
+    allow_raw_on_confirm: true
+    conflict_confirm: false
+    vector_store_content: raw
+knowledge_bases:
+- name: '1'
+  path: "D:\\D\\python\u7F16\u7A0B\\Agent-building\\\u56FE\u7247"
+  db_path: data\kb\1\rag.sqlite
+- name: '22'
+  path: "D:\\D\\\u8BFE\u7A0B\u6C47\u62A5\\\u5FAE\u7EB3\u52A0\u5DE5\u8BFE\u7A0B\u6C47\
+    \u62A5\\\u8BFE\u4EF6PPT"
+  db_path: data\kb\22\rag.sqlite
+- name: '33'
+  path: "D:\\D\\\u6587\u732E\\AI\\AI+\u6750\u6599\\RL\\RL\u5BFB\u627E\u53CD\u5E94\u8DEF\
+    \u5F84"
+  db_path: data\kb\33\rag.sqlite
+- name: '4'
+  path: "C:\\Users\\kjt\\Desktop\\\u6E38\u620F"
+  db_path: data\kb\4\rag.sqlite
+active_kb: '22'
+active_kbs:
+- '22'
+- '1'
+- '33'

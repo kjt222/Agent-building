@@ -1,0 +1,10 @@
+id: kb_info_001
+category: kb_retrieval
+user_message: "我有哪些知识库？分别有多少文件？"
+expected_trace:
+  must_call: [list_knowledge_bases]
+  must_not_call: [search_knowledge_base]
+  max_steps: 3
+expected_answer:
+  contains_keywords: []
+graders: [code]

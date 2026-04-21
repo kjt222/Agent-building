@@ -1,0 +1,10 @@
+id: kb_files_001
+category: kb_retrieval
+user_message: "列出'课件资料'知识库中的所有文件"
+expected_trace:
+  must_call: [list_kb_files]
+  must_not_call: [remember_fact]
+  max_steps: 3
+expected_answer:
+  contains_keywords: []
+graders: [code]

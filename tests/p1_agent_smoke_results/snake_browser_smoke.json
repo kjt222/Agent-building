@@ -1,0 +1,10 @@
+{
+  "url": "file:///D:/D/python%E7%BC%96%E7%A8%8B/Agent-building/tests/p1_agent_smoke_results/snake_generated.html",
+  "start_overlay_visible_initially": true,
+  "start_overlay_visible_after_start": false,
+  "game_over_after_instant_reverse": false,
+  "game_over_after_normal_turn": false,
+  "score_text": "0",
+  "console": [],
+  "page_errors": []
+}

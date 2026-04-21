@@ -1,0 +1,10 @@
+id: memory_003
+category: memory
+user_message: "今天天气真好啊"
+expected_trace:
+  must_call: []
+  must_not_call: [remember_fact]
+  max_steps: 2
+expected_answer:
+  contains_keywords: []
+graders: [code]

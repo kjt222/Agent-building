@@ -1,0 +1,10 @@
+id: system_002
+category: system
+user_message: "当前系统配置是什么？用的哪个profile？"
+expected_trace:
+  must_call: [get_system_config]
+  must_not_call: [remember_fact]
+  max_steps: 3
+expected_answer:
+  contains_keywords: []
+graders: [code]

@@ -1,0 +1,92 @@
+defaults:
+  language: zh
+  system_prompt: "你是一个可靠、严谨的助手。回答要简洁、可验证、遵守指令。"
+
+providers:
+  openai:
+    models:
+      gpt-4.1:
+        temperature: 1
+        top_p: 1
+      gpt-4.1-mini:
+        temperature: 1
+        top_p: 1
+      gpt-4o:
+        temperature: 1
+        top_p: 1
+      gpt-4o-mini:
+        temperature: 1
+        top_p: 1
+      gpt-4:
+        temperature: 1
+        top_p: 1
+      gpt-3.5-turbo:
+        temperature: 1
+        top_p: 1
+  deepseek:
+    models:
+      deepseek-chat:
+        temperature: 1
+        top_p: 1
+      deepseek-reasoner:
+        temperature: 1
+        top_p: 1
+  zhipu:
+    models:
+      # Per-model defaults from Zhipu API reference.
+      glm-4.7:
+        temperature: 1.0
+        top_p: 0.95
+        extra_body:
+          do_sample: true
+          thinking:
+            type: enabled
+      glm-4.6:
+        temperature: 1.0
+        top_p: 0.95
+        extra_body:
+          do_sample: true
+          thinking:
+            type: enabled
+      glm-4.5:
+        temperature: 0.6
+        top_p: 0.95
+        extra_body:
+          do_sample: true
+          thinking:
+            type: enabled
+      glm-4:
+        temperature: 0.75
+        top_p: 0.9
+        extra_body:
+          do_sample: true
+      glm-4-plus:
+        temperature: 0.75
+        top_p: 0.9
+        extra_body:
+          do_sample: true
+      glm-4-0520:
+        temperature: 0.75
+        top_p: 0.9
+        extra_body:
+          do_sample: true
+      glm-4-air:
+        temperature: 0.75
+        top_p: 0.9
+        extra_body:
+          do_sample: true
+      glm-4-airx:
+        temperature: 0.75
+        top_p: 0.9
+        extra_body:
+          do_sample: true
+      glm-4-long:
+        temperature: 0.75
+        top_p: 0.9
+        extra_body:
+          do_sample: true
+      glm-4-flash:
+        temperature: 0.75
+        top_p: 0.9
+        extra_body:
+          do_sample: true

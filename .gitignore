@@ -1,0 +1,23 @@
+# Project ignores
+
+tmp/
+logs/
+data/
+datasets/
+dist/
+.venv/
+.claude/settings.local.json
+图片/
+config/conversations/
+data/kb/
+tests/results/
+tests/__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+*.log
+
+# Secrets
+.env
+.env.*
+!.env.example

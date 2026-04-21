@@ -1,0 +1,10 @@
+id: kb_search_002
+category: kb_retrieval
+user_message: "关于半导体制造中的刻蚀工艺和沉积工艺，资料库里有什么说明？"
+expected_trace:
+  must_call: [search_knowledge_base]
+  must_not_call: [remember_fact]
+  max_steps: 5
+expected_answer:
+  contains_keywords: ["刻蚀"]
+graders: [code]

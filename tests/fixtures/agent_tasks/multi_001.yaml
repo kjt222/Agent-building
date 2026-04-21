@@ -1,0 +1,10 @@
+id: multi_001
+category: multi_tool
+user_message: "先看看我有哪些知识库，然后搜索其中关于'CVD工艺'的内容"
+expected_trace:
+  must_call: [list_knowledge_bases, search_knowledge_base]
+  must_not_call: [remember_fact]
+  max_steps: 6
+expected_answer:
+  contains_keywords: ["CVD"]
+graders: [code]
