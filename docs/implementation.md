@@ -2070,6 +2070,61 @@ P2 Normal  '下季度预计保持同等增速。'（未动）
 
 ---
 
+## 2026-04-21 | Codex | Final Guard: tool-evidence delivery contract
+
+This section was recorded by **Codex**.
+
+### Goal
+
+Prevent the agent from hallucinating execution. If the assistant says it
+created, modified, ran, tested, or verified something, the framework now checks
+the AgentLoop tool evidence before accepting the final answer.
+
+This is framework-level behavior. The user prompt does not need to say
+"self-check before delivery"; the loop enforces a minimum delivery contract.
+
+### Changed files
+
+| File | Type | Notes |
+| --- | --- | --- |
+| `agent/core/loop.py` | Modified | Records per-tool evidence in `ctx.scratch`: successful tool names, written files, edited files, read files, Bash commands, and a short tool result preview. |
+| `agent/core/hooks.py` | Modified | Adds `make_final_guard_hook(max_nudges=2)`. The hook resumes the loop when final text claims file/artifact work, command execution, or verification without matching tool evidence. Chinese phrase matching is represented with Unicode escapes so the source remains ASCII-stable. |
+| `agent/ui/server.py` | Modified | Wires `make_final_guard_hook()` into `/api/agent_chat_v2` beside the existing intent-without-action hook. |
+| `tests/unit/test_hooks.py` | Modified | Adds Final Guard tests for false write claims, real Write evidence, and false command-execution claims. |
+| `tests/unit/test_primitives_contract.py` | Added | Locks the Read-before-Write/Edit contract for existing files and exact unique-string Edit behavior. |
+
+### Behavior contract
+
+- Existing files cannot be overwritten with `Write` unless they were first read
+  in the same AgentLoop session.
+- `Edit` cannot run unless the file was read first.
+- `Edit` requires an exact `old_string`; ambiguous multi-match edits fail unless
+  `replace_all=true`.
+- Artifact claims require successful `Write`, `Edit`, `DocxEdit`, or `Bash`
+  evidence.
+- Command execution claims require successful `Bash` evidence.
+- Verification claims require successful check evidence such as `Bash`, `Read`,
+  `Grep`, `Glob`, or future `Verify`/render tools.
+- Explicit output paths require matching write/edit evidence for that path, or a
+  successful Bash run plus the target file existing.
+
+### Validation
+
+- [x] `python -m compileall -q agent tests\unit`
+- [x] `.venv\Scripts\python.exe -m pytest tests/unit/test_hooks.py tests/unit/test_primitives_contract.py tests/unit/test_control_tools.py tests/unit/test_agent_loop.py -q` -> 35 passed
+- [x] `.venv\Scripts\python.exe -m pytest tests/unit/test_agent_chat_v2_contract.py -q` -> 8 passed
+- [x] `.venv\Scripts\python.exe -m pytest tests/unit -q` -> 197 passed, 5 skipped
+
+### Remaining limits
+
+- This prevents unsupported delivery claims. It does not prove visual or
+  semantic correctness of generated artifacts.
+- Full visual self-review still belongs to P3: render/screenshot tools,
+  `Verify` tool, and image-block feedback into the next model turn.
+- Stronger Bash write restrictions and sandboxing belong to P2/P6.
+
+---
+
 ## 2026-04-20 | Codex | P0：新对话入侧栏 + Agent runtime 调试入口
 
 本节由 **Codex** 记录。内容只覆盖本轮实际落地的 P0 修复、调试入口和验收结果。

@@ -503,4 +503,53 @@ class AgentLoop:
         result.tool_use_id = use.id
         for hook in self.hooks.post_tool_use:
             result = await hook(use, result, ctx)
+        self._record_tool_evidence(use, result, ctx)
         return result
+
+    def _record_tool_evidence(
+        self, use: ToolUseBlock, result: ToolResultBlock, ctx: LoopContext
+    ) -> None:
+        """Record tool evidence for delivery guards and debugging.
+
+        The model's final answer is not trusted as proof that work happened.
+        Stop hooks can inspect these sets to confirm that claimed writes,
+        edits, commands, or verification had a corresponding tool call.
+        """
+
+        def _preview(value) -> str:
+            text = value if isinstance(value, str) else json.dumps(
+                value, ensure_ascii=False
+            )
+            return text if len(text) <= 400 else text[:400] + "...<truncated>"
+
+        evidence = ctx.scratch.setdefault("tool_evidence", [])
+        evidence.append({
+            "tool": use.name,
+            "input": dict(use.input or {}),
+            "is_error": bool(result.is_error),
+            "content": _preview(result.content),
+        })
+
+        if result.is_error:
+            return
+
+        tool_name = use.name.lower()
+        ctx.scratch.setdefault("successful_tool_names", set()).add(tool_name)
+
+        path_value = (use.input or {}).get("path") or (use.input or {}).get("file_path")
+        if path_value:
+            try:
+                path_key = str(Path(str(path_value)).resolve())
+            except Exception:
+                path_key = str(path_value)
+            if tool_name == "read":
+                ctx.scratch.setdefault("read_files", set()).add(path_key)
+            elif tool_name == "write":
+                ctx.scratch.setdefault("written_files", set()).add(path_key)
+            elif tool_name in {"edit", "docxedit"}:
+                ctx.scratch.setdefault("edited_files", set()).add(path_key)
+
+        if tool_name == "bash":
+            command = str((use.input or {}).get("command") or "")
+            if command:
+                ctx.scratch.setdefault("ran_commands", []).append(command)
