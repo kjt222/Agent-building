@@ -57,6 +57,8 @@ def answer_question(
 
     # No relevant context: call LLM directly without RAG constraints
     if not context:
+        if not allow_empty:
+            return NO_CONTEXT_MESSAGE
         if llm_kwargs:
             return llm.chat(question, **llm_kwargs)
         return llm.chat(question)

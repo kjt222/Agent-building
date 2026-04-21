@@ -317,7 +317,7 @@ h1, h2, h3, p { margin: 0; }
   font-size: var(--text-xs);
   line-height: var(--leading-normal);
 }
-.activity-tool-args, .activity-tool-success, .activity-tool-error {
+.activity-tool-args, .activity-tool-success, .activity-tool-error, .activity-approval {
   font-family: var(--font-mono); font-size: 11px;
   padding: var(--sp-2);
   border-radius: var(--radius-xs);
@@ -326,6 +326,7 @@ h1, h2, h3, p { margin: 0; }
   max-height: 200px; overflow-y: auto;
 }
 .activity-tool-error { color: var(--error); }
+.activity-approval { color: var(--ink-primary); border-left: 2px solid var(--accent-500); }
 .activity-reasoning {
   font-style: italic;
   padding: var(--sp-2);

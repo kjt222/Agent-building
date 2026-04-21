@@ -44,7 +44,8 @@ class Database:
     """Unified SQLite database for Agent system."""
 
     # Schema version for migrations
-    SCHEMA_VERSION = 1
+    SCHEMA_VERSION = 2
+    FTS_TOKENIZER = "trigram"
 
     def __init__(self, db_path: Path):
         self.db_path = db_path
@@ -108,8 +109,12 @@ class Database:
         row = cur.fetchone()
         current_version = row[0] if row else 0
 
-        if current_version < self.SCHEMA_VERSION:
+        if current_version == 0:
             self._create_tables(cur)
+        elif current_version < 2:
+            self._migrate_v2_cjk_fts(cur)
+
+        if current_version < self.SCHEMA_VERSION:
             cur.execute("DELETE FROM schema_version")
             cur.execute(
                 "INSERT INTO schema_version (version) VALUES (?)",
@@ -216,30 +221,44 @@ class Database:
             ON file_index(content_hash)
         """)
 
-        # ============================================================
-        # FTS5 full-text search for file content
-        # ============================================================
-        cur.execute("""
+        self._create_fts_tables(cur)
+
+    def _create_fts_tables(self, cur: sqlite3.Cursor):
+        """Create CJK-friendly FTS5 virtual tables."""
+        cur.execute(f"""
             CREATE VIRTUAL TABLE IF NOT EXISTS file_content_fts USING fts5(
                 file_id,
                 kb_name,
                 filename,
                 content,
-                tokenize='unicode61'
+                tokenize='{self.FTS_TOKENIZER}'
             )
         """)
 
-        # ============================================================
-        # FTS5 full-text search for messages (for searching conversations)
-        # ============================================================
-        cur.execute("""
+        cur.execute(f"""
             CREATE VIRTUAL TABLE IF NOT EXISTS messages_fts USING fts5(
                 message_id,
                 conversation_id,
                 role,
                 content,
-                tokenize='unicode61'
+                tokenize='{self.FTS_TOKENIZER}'
             )
+        """)
+
+    def _migrate_v2_cjk_fts(self, cur: sqlite3.Cursor):
+        """Rebuild FTS tables with trigram tokenizer for CJK substring search."""
+        cur.execute("DROP TABLE IF EXISTS file_content_fts")
+        cur.execute("DROP TABLE IF EXISTS messages_fts")
+        self._create_fts_tables(cur)
+        cur.execute("""
+            INSERT INTO file_content_fts (file_id, kb_name, filename, content)
+            SELECT CAST(id AS TEXT), kb_name, filename, COALESCE(content, '')
+            FROM file_index
+        """)
+        cur.execute("""
+            INSERT INTO messages_fts (message_id, conversation_id, role, content)
+            SELECT id, conversation_id, role, COALESCE(content, '')
+            FROM messages
         """)
 
     # ================================================================

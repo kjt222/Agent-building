@@ -2383,3 +2383,40 @@ P2 Normal  '下季度预计保持同等增速。'（未动）
 - `/api/agent_chat_v2` 后端主路径已具备：单一 UI 路径、streaming delta、多模态图片输入、active profile、session metadata、Context Compactor、MemoryManager user_facts 注入、trace assistant text/system prompt hash、read-only 权限门。
 - 还没有实现的 P1 项：PreToolUse 前端审批 prompter、Anthropic/DeepSeek/Gemini v2 adapter、FTS5 CJK tokenizer、Activity 展示层格式化。
 - “生成后先自检再交付”不属于 P1 后端输入/上下文合同本身；它需要 P3 的 `Verify` tool / render→image block 回灌，以及后续任务级 runtime/monitor 策略来约束 agent 行为。
+
+---
+
+## 2026-04-21 | Codex | P1 最终补齐：审批 / 多 provider / CJK FTS / Activity 摘要
+
+本节由 **Codex** 记录。用户要求继续补齐 P1 剩余项。本轮按“先补测试，再实现”的方式完成 P1 收尾。
+
+### 修改文件
+
+| 文件 | 类型 | 说明 |
+| --- | --- | --- |
+| `tests/unit/test_agent_chat_v2_contract.py` | 修改 | 将“非 OpenAI provider 返回 400”的旧合同改为“通过 adapter factory 正常进入 v2”，覆盖 v2 多 provider 创建路径。 |
+| `tests/unit/test_knowledge_tools.py` | 修改 | 新增 CJK substring 检索测试：`微纳加工` 能命中中文内容，锁定 FTS5 trigram 行为。 |
+| `tests/unit/test_ui_static_contract.py` | 新增 | 锁定前端 approval prompter 合同：收到 `approval_request` 后 POST `/api/tool_approvals/{id}`。 |
+| `agent/models/agent_loop_adapters.py` | 新增 | 新增 `AnthropicAgentLoopAdapter` 与 `GeminiAgentLoopAdapter`，把 provider 响应归一到 AgentLoop 的 `TextDelta` / `ToolUseDelta` / `TurnEnd`。DeepSeek 走 OpenAI-compatible chat adapter。 |
+| `agent/ui/server.py` | 修改 | 新增 `_create_agent_loop_adapter()` factory；v2 支持 OpenAI / OpenAI-compatible / DeepSeek / Anthropic / Gemini；新增 `/api/tool_approvals/{approval_id}`；Confirm mode 下 PreToolUse hook 发 `approval_request` 并等待前端审批；tool args/result 在 Activity 中输出摘要和相对路径。 |
+| `agent/ui/static/js/app.js` | 修改 | 收到 `approval_request` 后用前端确认框询问用户，并回 POST 审批结果；Activity 展示 approval response；Settings provider 列表加入 Anthropic/Gemini。 |
+| `agent/ui/static/css/app.css` | 修改 | 新增 approval activity 样式。 |
+| `agent/ui/templates/app.html` | 修改 | Add profile 的 LLM vendor 下拉加入 Anthropic/Gemini。 |
+| `agent/storage/database.py` | 修改 | Schema version 升到 2；新库和迁移后的旧库都用 FTS5 `tokenize='trigram'`；迁移时重建 `file_content_fts` / `messages_fts` 并回填旧数据。 |
+| `agent/rag/qa.py` | 修改 | 修复旧单测：`allow_empty=False` 且无 context 时返回 `NO_CONTEXT_MESSAGE`。 |
+| `agent/rag/service.py` | 修改 | 修复旧单测：embed cache key 对测试替身使用 `getattr` fallback，不要求 dummy embedder 暴露 `provider/model`。 |
+| `docs/conversation.md` | 修改 | 将 P1 剩余项标记为完成，推荐落地顺序推进到 P2/P3。 |
+
+### 验收
+
+- [x] `python -m compileall -q agent tests\unit` 通过。
+- [x] P1 相关集合：`.venv\Scripts\python.exe -m pytest tests/unit/test_agent_chat_v2_contract.py tests/unit/test_runtime_metadata.py tests/unit/test_agent_loop.py tests/unit/test_adapter_conversion.py tests/unit/test_hooks.py tests/unit/test_memory.py tests/unit/test_compactor.py tests/unit/test_control_tools.py tests/unit/test_knowledge_tools.py tests/unit/test_ui_static_contract.py -q` → 104 passed。
+- [x] 全量 unit：`.venv\Scripts\python.exe -m pytest tests/unit -q` → 189 passed, 5 skipped。
+- [x] Playwright UI smoke：`http://127.0.0.1:8686/` 渲染无 console/page error；composer 存在；mode 下拉为 `read/confirm/auto`；Settings vendor 下拉包含 `openai/anthropic/deepseek/gemini/zhipu/openai_compat`。
+- [x] 截图产物：`tmp/p1-ui-smoke/desktop.png`、`tmp/p1-ui-smoke/settings.png`。
+
+### 当前 P1 结论
+
+- P1 已收尾：v2 单一路径、streaming delta、多模态输入、profile/provider 读取、session metadata、Context Compactor、MemoryManager、PreToolUse 前端审批、v2 多 provider、trace 字段、CJK FTS、Activity 摘要均已落地并有测试覆盖。
+- `Confirm` mode 现在是前端确认框级别的审批，不是更复杂的多用户/跨设备审批中心；后续如需持久化审批记录或更强权限策略，应放到 P6 sandbox/runtime。
+- “写完产物后自动渲染自检”仍属于 P3 Vision-in-the-loop，不归 P1。

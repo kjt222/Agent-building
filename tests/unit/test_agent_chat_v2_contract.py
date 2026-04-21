@@ -231,15 +231,29 @@ def test_v2_accepts_image_payload_and_announces_it(v2_client):
     assert image.name == "pixel.png"
 
 
-def test_v2_rejects_non_openai_provider_until_multi_provider_lands(tmp_path, monkeypatch):
+def test_v2_accepts_non_openai_provider_via_adapter_factory(tmp_path, monkeypatch):
     _write_config(tmp_path, provider_type="gemini", model="gemini-1.5-pro")
+    created: list[dict] = []
+
+    def fake_factory(provider_type, model_name, api_key, base_url=None):
+        created.append({
+            "provider_type": provider_type,
+            "model_name": model_name,
+            "api_key": api_key,
+            "base_url": base_url,
+        })
+        return FakeResponsesAdapter(model=model_name, api_key=api_key, base_url=base_url)
+
     monkeypatch.setattr("agent.ui.server.resolve_api_key", lambda **_: "test-key")
+    monkeypatch.setattr("agent.ui.server._create_agent_loop_adapter", fake_factory)
     client = TestClient(create_app(str(tmp_path)))
 
     res = client.post("/api/agent_chat_v2", json={"message": "hello"})
 
-    assert res.status_code == 400
-    assert "OpenAI/OpenAI-compatible" in res.json()["error"]
+    assert res.status_code == 200
+    assert created[-1]["provider_type"] == "gemini"
+    assert created[-1]["model_name"] == "gemini-1.5-pro"
+    assert _events(res.text)[-1][1]["provider"] == "provider"
 
 
 def test_v2_read_mode_blocks_needs_approval_tools(tmp_path, monkeypatch):

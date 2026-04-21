@@ -7,6 +7,7 @@
     currentId: null,
     history: [],          // [{role, content}]
     pendingImages: [],    // [{base64, mediaType, name}]
+    pendingApprovals: new Set(),
     sending: false,
   };
 
@@ -210,6 +211,52 @@
   }
 
   // ---------- activity (tool trace) ----------
+  async function sendToolApproval(approvalId, approved) {
+    const res = await fetch(`/api/tool_approvals/${encodeURIComponent(approvalId)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ approved }),
+    });
+    if (!res.ok) {
+      let msg = `Approval failed (${res.status})`;
+      try {
+        const data = await res.json();
+        msg = data.error || msg;
+      } catch {}
+      throw new Error(msg);
+    }
+  }
+
+  function promptToolApproval(event, activity) {
+    const meta = event.meta || {};
+    const approvalId = meta.approval_id;
+    if (!approvalId || state.pendingApprovals.has(approvalId)) return;
+    state.pendingApprovals.add(approvalId);
+    const tool = meta.tool || event.title || "tool";
+    const detail = meta.input_summary || event.detail || "";
+    const approved = window.confirm(`Allow ${tool}?\n\n${detail}`);
+    sendToolApproval(approvalId, approved)
+      .then(() => {
+        activity.addEvent({
+          id: `${event.id}_response`,
+          type: "approval_response",
+          title: approved ? "Approved" : "Denied",
+          detail: `${tool} ${approved ? "approved" : "denied"} by user.`,
+          status: approved ? "done" : "error",
+        });
+      })
+      .catch((err) => {
+        activity.addEvent({
+          id: `${event.id}_response`,
+          type: "approval_response",
+          title: "Approval failed",
+          detail: err.message,
+          status: "error",
+        });
+      })
+      .finally(() => state.pendingApprovals.delete(approvalId));
+  }
+
   class ActivityView {
     constructor(host) {
       this.events = [];
@@ -271,6 +318,7 @@
       const isToolCall = event.type === "tool_call";
       const isToolResult = event.type === "tool_result";
       const isManifest = event.type === "tool_manifest";
+      const isApproval = event.type === "approval_request" || event.type === "approval_response";
       const detailText = event.detail || "";
 
       let detailHtml = `<div class="activity-item-detail">${esc(detailText)}</div>`;
@@ -286,11 +334,14 @@
         const meta = event.meta || {};
         const tools = Array.isArray(meta.tools) ? meta.tools : [];
         detailHtml = `<div class="activity-item-detail activity-tool-args"><code>${esc(tools.join(", ") || detailText)}</code></div>`;
+      } else if (isApproval) {
+        detailHtml = `<div class="activity-item-detail activity-approval"><code>${esc(detailText)}</code></div>`;
       }
 
       let iconHtml = `<span class="dot ${event.status === "start" || event.status === "progress" ? "pending" : ""}"></span>`;
       if (isToolCall) iconHtml = `<span class="tool-icon">🔧</span>`;
       else if (isToolResult) iconHtml = event.status === "error" ? `<span class="tool-icon">⚠</span>` : `<span class="tool-icon">✓</span>`;
+      else if (isApproval) iconHtml = event.status === "wait" ? `<span class="tool-icon">?</span>` : `<span class="tool-icon">✓</span>`;
 
       if (existing >= 0) {
         this.events[existing] = event;
@@ -510,6 +561,9 @@
 
           if (event === "activity") {
             activity.addEvent(payload);
+            if (payload.type === "approval_request") {
+              promptToolApproval(payload, activity);
+            }
           } else if (event === "token") {
             fullText += payload.text || "";
             asstBubble.textContent = fullText;
@@ -613,7 +667,9 @@
   // options; Detect merges real results from the vendor on top.
   const LLM_CATALOG = {
     openai: ["gpt-5.4", "gpt-5.4-mini", "gpt-5.2", "gpt-5-mini", "gpt-4.1", "gpt-4.1-mini", "gpt-4o", "gpt-4o-mini", "o3", "o3-mini", "o1", "o1-mini"],
+    anthropic: ["claude-sonnet-4-5-20250929", "claude-opus-4-1-20250805", "claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022"],
     deepseek: ["deepseek-chat", "deepseek-reasoner"],
+    gemini: ["models/gemini-1.5-flash", "models/gemini-1.5-pro", "models/gemini-1.0-pro"],
     zhipu: ["glm-4.7", "glm-4.6", "glm-4-plus", "glm-4-flash", "glm-4-air"],
     openai_compat: [],
   };
@@ -623,7 +679,9 @@
   };
   const VENDOR_BASE_URLS = {
     openai: "https://api.openai.com/v1",
+    anthropic: "https://api.anthropic.com/v1",
     deepseek: "https://api.deepseek.com/v1",
+    gemini: "",
     zhipu: "https://open.bigmodel.cn/api/paas/v4",
     openai_compat: "",
   };

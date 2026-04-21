@@ -99,7 +99,9 @@ _QUERY_EMBED_CACHE_LOCK = Lock()
 
 
 def _embed_with_cache(embedder: ModelAdapter, text: str) -> tuple[list[float], bool, float]:
-    key = f"{embedder.provider}:{embedder.model}:{text}"
+    provider = getattr(embedder, "provider", embedder.__class__.__name__)
+    model = getattr(embedder, "model", "default")
+    key = f"{provider}:{model}:{text}"
     with _QUERY_EMBED_CACHE_LOCK:
         cached = _QUERY_EMBED_CACHE.get(key)
         if cached is not None:

@@ -51,12 +51,54 @@ from ..tools.filesystem import create_filesystem_tools
 from ..tools.system import create_system_tools
 
 
-PROVIDERS = ("openai", "deepseek", "zhipu", "openai_compat")
+PROVIDERS = ("openai", "anthropic", "deepseek", "gemini", "zhipu", "openai_compat")
 VENDOR_BASE_URLS = {
     "openai": "https://api.openai.com/v1",
+    "anthropic": "https://api.anthropic.com/v1",
     "deepseek": "https://api.deepseek.com",
+    "gemini": "",
     "zhipu": "https://open.bigmodel.cn/api/paas/v4",
 }
+
+
+def _create_agent_loop_adapter(
+    provider_type: str,
+    model_name: str,
+    api_key: str,
+    base_url: Optional[str] = None,
+):
+    """Create a provider-neutral AgentLoop adapter from profile settings."""
+    from ..models.openai_adapter_v2 import OpenAIAdapter
+    from ..models.openai_responses_adapter import OpenAIResponsesAdapter
+    from ..models.agent_loop_adapters import (
+        AnthropicAgentLoopAdapter,
+        GeminiAgentLoopAdapter,
+    )
+
+    provider = (provider_type or "openai").lower()
+    if provider == "openai" and model_name.startswith("gpt-5"):
+        return OpenAIResponsesAdapter(model=model_name, api_key=api_key, base_url=base_url)
+    if provider in {"openai", "openai_compat"}:
+        return OpenAIAdapter(model=model_name, api_key=api_key, base_url=base_url)
+    if provider == "deepseek":
+        return OpenAIAdapter(
+            model=model_name,
+            api_key=api_key,
+            base_url=base_url or "https://api.deepseek.com/v1",
+        )
+    if provider == "anthropic":
+        return AnthropicAgentLoopAdapter(
+            model=model_name,
+            api_key=api_key,
+            base_url=base_url,
+        )
+    if provider == "gemini":
+        return GeminiAgentLoopAdapter(
+            model=model_name,
+            api_key=api_key,
+            base_url=base_url,
+        )
+    raise RuntimeError(f"Unsupported AgentLoop v2 provider: {provider_type}")
 
 
 def _config_paths(config_dir: str | None) -> Dict[str, Path]:
@@ -141,6 +183,8 @@ def _detect_provider(key: str, base_url: Optional[str]) -> Optional[str]:
         return "openai_compat"
     if key.startswith("AIza"):
         return "gemini"
+    if key.startswith("sk-ant"):
+        return "anthropic"
     if key.startswith("sk-") or key.startswith("rk-"):
         return "openai"
     return None
@@ -151,12 +195,23 @@ def _default_models(provider: str, section: str) -> list[str]:
         if section == "embedding":
             return ["text-embedding-3-small", "text-embedding-3-large"]
         return [
+            "gpt-5.4",
+            "gpt-5.4-mini",
             "gpt-4.1",
             "gpt-4.1-mini",
             "gpt-4o-mini",
             "gpt-4o",
             "gpt-4",
             "gpt-3.5-turbo",
+        ]
+    if provider == "anthropic":
+        if section == "embedding":
+            return []
+        return [
+            "claude-sonnet-4-5-20250929",
+            "claude-opus-4-1-20250805",
+            "claude-3-7-sonnet-20250219",
+            "claude-3-5-sonnet-20241022",
         ]
     if provider == "gemini":
         if section == "embedding":
@@ -230,6 +285,54 @@ def _extract_error_code(message: str) -> Optional[str]:
         if data.get("code") is not None:
             return str(data.get("code"))
     return None
+
+
+def _compact_json(value: Any, limit: int = 500) -> str:
+    if isinstance(value, str):
+        text = value
+    else:
+        text = json.dumps(value, ensure_ascii=False, separators=(",", ": "))
+    cwd = str(Path.cwd())
+    text = text.replace(cwd, ".")
+    text = re.sub(r"\s+", " ", text).strip()
+    return text if len(text) <= limit else text[:limit] + "...<truncated>"
+
+
+def _summarize_tool_input(tool_name: str, tool_input: dict) -> str:
+    if not isinstance(tool_input, dict):
+        return _compact_json(tool_input)
+    path = tool_input.get("path") or tool_input.get("directory")
+    if path:
+        try:
+            path = str(Path(path).resolve().relative_to(Path.cwd()))
+        except Exception:
+            path = str(path).replace(str(Path.cwd()), ".")
+    if tool_name == "Bash":
+        return _compact_json({
+            "command": tool_input.get("command", ""),
+            "timeout": tool_input.get("timeout", 60),
+        })
+    if tool_name in {"Read", "Write", "Edit", "Grep", "Glob", "KnowledgeSearch", "KnowledgeIndex"}:
+        summarized = dict(tool_input)
+        if path:
+            if "path" in summarized:
+                summarized["path"] = path
+            if "directory" in summarized:
+                summarized["directory"] = path
+        if "content" in summarized and isinstance(summarized["content"], str):
+            summarized["content"] = f"<{len(summarized['content'])} chars>"
+        return _compact_json(summarized)
+    return _compact_json(tool_input)
+
+
+def _summarize_tool_result(content: Any, *, limit: int = 600) -> str:
+    text = content if isinstance(content, str) else json.dumps(content, ensure_ascii=False)
+    text = text.replace(str(Path.cwd()), ".")
+    text = text.replace("\r\n", "\n")
+    lines = text.splitlines()
+    if len(lines) > 18:
+        text = "\n".join(lines[:18]) + "\n...<truncated>"
+    return text if len(text) <= limit else text[:limit] + "...<truncated>"
 
 
 def _probe_zhipu_models(key: str, section: str, base_url: Optional[str]) -> list[str]:
@@ -1029,6 +1132,8 @@ def create_app(config_dir: str | None = None) -> FastAPI:
 
     # 初始化记忆管理器（外层作用域，供 Memory API 端点使用）
     memory_manager = get_memory_manager()
+    pending_tool_approvals: dict[str, dict[str, Any]] = {}
+    app.state.pending_tool_approvals = pending_tool_approvals
 
     @app.get("/", response_class=HTMLResponse)
     def index(request: Request, profile: Optional[str] = None) -> HTMLResponse:
@@ -1106,6 +1211,20 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             "legacy_tools": [_legacy_tool_info(t) for t in legacy_tools],
             "v2_tools": [_v2_tool_info(t) for t in v2_tools],
         }
+
+    @app.post("/api/tool_approvals/{approval_id}")
+    async def api_tool_approval(approval_id: str, request: Request):
+        payload = await request.json()
+        record = pending_tool_approvals.get(approval_id)
+        if not record:
+            return JSONResponse(
+                {"ok": False, "error": "Approval request not found or expired."},
+                status_code=404,
+            )
+        future = record.get("future")
+        if future is not None and not future.done():
+            future.set_result(bool(payload.get("approved")))
+        return {"ok": True, "approval_id": approval_id}
 
     @app.post("/profiles/select")
     async def select_profile(request: Request):
@@ -2340,8 +2459,6 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             build_agent_system_prompt,
         )
         from ..core.compactor import ConversationCompactor
-        from ..models.openai_adapter_v2 import OpenAIAdapter
-        from ..models.openai_responses_adapter import OpenAIResponsesAdapter
         from ..tools_v2.knowledge_tool import KnowledgeIndexTool, KnowledgeSearchTool
         from ..tools_v2.primitives import full_toolset
 
@@ -2382,18 +2499,18 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             )
         base_url = provider_cfg.get("base_url") or None
 
-        if provider_type == "openai" and model_name.startswith("gpt-5"):
-            adapter = OpenAIResponsesAdapter(model=model_name, api_key=api_key)
-        elif provider_type in {"openai", "openai_compat"}:
-            adapter = OpenAIAdapter(model=model_name, api_key=api_key, base_url=base_url)
-        else:
+        try:
+            adapter = _create_agent_loop_adapter(
+                provider_type,
+                model_name,
+                api_key,
+                base_url=base_url,
+            )
+        except Exception as exc:
             return JSONResponse(
                 {
                     "ok": False,
-                    "error": (
-                        f"AgentLoop v2 currently supports OpenAI/OpenAI-compatible "
-                        f"profiles only; active provider is {provider_name!r}."
-                    ),
+                    "error": str(exc),
                 },
                 status_code=400,
             )
@@ -2431,9 +2548,51 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 "</user_facts>"
             )
 
+        approval_mode = str(payload.get("mode") or "confirm").lower()
+        stream_queue: asyncio.Queue[tuple[str, dict] | None] = asyncio.Queue()
+
+        async def emit(event_name: str, data: dict) -> None:
+            await stream_queue.put((event_name, data))
+
+        async def approval_prompter(use: ToolUseBlock, ctx) -> bool:
+            if approval_mode == "auto":
+                return True
+            if approval_mode == "read":
+                return True
+            approval_id = f"{request_id}_{use.id}"
+            future = asyncio.get_running_loop().create_future()
+            pending_tool_approvals[approval_id] = {
+                "future": future,
+                "tool": use.name,
+                "input": use.input,
+                "created_at": perf_counter(),
+            }
+            await emit("activity", {
+                "id": f"{request_id}_approval_{use.id}",
+                "type": "approval_request",
+                "title": f"Approve: {use.name}",
+                "detail": _summarize_tool_input(use.name, use.input),
+                "status": "wait",
+                "ts": perf_counter() * 1000,
+                "meta": {
+                    "approval_id": approval_id,
+                    "tool": use.name,
+                    "input_summary": _summarize_tool_input(use.name, use.input),
+                },
+            })
+            timeout = float(
+                ((app_cfg.get("runtime") or {}).get("approval_timeout_seconds") or 300)
+            )
+            try:
+                return bool(await asyncio.wait_for(future, timeout=timeout))
+            except asyncio.TimeoutError:
+                return False
+            finally:
+                pending_tool_approvals.pop(approval_id, None)
+
         hooks = Hooks(
             on_stop=[make_intent_without_action_hook()],
-            pre_tool_use=[make_approval_hook(tools)],  # auto-allow; UI prompter lands later
+            pre_tool_use=[make_approval_hook(tools, approval_prompter)],
         )
 
         class _CompactionSummaryLLM:
@@ -2537,11 +2696,11 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         def fmt(event: str, data: dict) -> str:
             return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
-        async def stream():
+        async def produce():
             rid = request_id
             t0 = perf_counter()
             try:
-                yield fmt("activity", {
+                await emit("activity", {
                     "id": f"{rid}_agent",
                     "type": "agent_start",
                     "title": "Agent v2 started",
@@ -2558,7 +2717,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                         "runtime": runtime_cfg.to_metadata(),
                     },
                 })
-                yield fmt("activity", {
+                await emit("activity", {
                     "id": f"{rid}_tools",
                     "type": "tool_manifest",
                     "title": f"Tools loaded: {len(tools)}",
@@ -2573,7 +2732,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     },
                 })
                 if image_blocks:
-                    yield fmt("activity", {
+                    await emit("activity", {
                         "id": f"{rid}_images",
                         "type": "input_images",
                         "title": f"Images attached: {len(image_blocks)}",
@@ -2589,11 +2748,11 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     if isinstance(event, TextDelta):
                         streamed_text_since_message = True
                         if event.text:
-                            yield fmt("token", {"text": event.text})
+                            await emit("token", {"text": event.text})
                         continue
                     if isinstance(event, ReasoningDelta):
                         if event.text:
-                            yield fmt("activity", {
+                            await emit("activity", {
                                 "id": f"{rid}_reasoning",
                                 "type": "thinking_update",
                                 "title": "Thinking",
@@ -2609,41 +2768,48 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                         for b in event.content:
                             if isinstance(b, TextBlock) and b.text:
                                 if not streamed_text_since_message:
-                                    yield fmt("token", {"text": b.text})
+                                    await emit("token", {"text": b.text})
                             elif isinstance(b, ToolUseBlock):
-                                yield fmt("activity", {
+                                await emit("activity", {
                                     "id": f"{rid}_tc_{b.id}",
                                     "type": "tool_call",
                                     "title": f"Calling: {b.name}",
-                                    "detail": json.dumps(b.input, ensure_ascii=False)[:400],
+                                    "detail": _summarize_tool_input(b.name, b.input),
                                     "status": "start",
                                     "ts": perf_counter() * 1000,
-                                    "meta": {"id": b.id, "name": b.name},
+                                    "meta": {
+                                        "id": b.id,
+                                        "name": b.name,
+                                        "input": b.input,
+                                    },
                                 })
                         streamed_text_since_message = False
                     else:  # Role.USER with tool_result blocks
                         for b in event.content:
                             if not isinstance(b, ToolResultBlock):
                                 continue
-                            preview = b.content if isinstance(b.content, str) else json.dumps(b.content, ensure_ascii=False)
-                            yield fmt("activity", {
+                            preview = _summarize_tool_result(b.content)
+                            await emit("activity", {
                                 "id": f"{rid}_tr_{b.tool_use_id}",
                                 "type": "tool_result",
                                 "title": "Tool result",
-                                "detail": preview[:400],
+                                "detail": preview,
                                 "status": "error" if b.is_error else "done",
                                 "ts": perf_counter() * 1000,
-                                "meta": {"is_error": b.is_error},
+                                "meta": {
+                                    "is_error": b.is_error,
+                                    "tool_use_id": b.tool_use_id,
+                                },
                             })
 
-                yield fmt("done", {
+                await emit("done", {
                     "total_time_ms": int((perf_counter() - t0) * 1000),
                     "sources": [],
                     "provider": provider_name or provider_type,
                     "model": model_name,
                 })
             except Exception as exc:
-                yield fmt("activity", {
+                await emit("activity", {
                     "id": f"{rid}_error",
                     "type": "error",
                     "title": "Agent v2 error",
@@ -2652,13 +2818,28 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     "ts": perf_counter() * 1000,
                     "meta": {},
                 })
-                yield fmt("done", {
+                await emit("done", {
                     "total_time_ms": int((perf_counter() - t0) * 1000),
                     "error": str(exc),
                     "sources": [],
                     "provider": provider_name or provider_type,
                     "model": model_name,
                 })
+            finally:
+                await stream_queue.put(None)
+
+        async def stream():
+            producer = asyncio.create_task(produce())
+            try:
+                while True:
+                    item = await stream_queue.get()
+                    if item is None:
+                        break
+                    event_name, data = item
+                    yield fmt(event_name, data)
+            finally:
+                if not producer.done():
+                    producer.cancel()
 
         return StreamingResponse(
             stream(),

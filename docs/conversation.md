@@ -48,8 +48,9 @@
 - legacy `/api/agent_chat` 仍保留在后端作为旧实现参考和回退基础，但不再作为用户侧入口。
 - 后端 `GET /api/agent_runtime` 可查询当前 UI endpoint、executor、v2 endpoint、legacy/v2 工具清单；前端不再展示独立 Runtime 面板。
 - v2 已完成：streaming delta、多模态图片输入、active profile 读取、session metadata 注入、Context Compactor、MemoryManager user_facts 注入、trace `system_prompt_hash`。
-- 2026-04-21 P1 后端合同测试已通过：`102 passed`；另试跑全量 `tests/unit` 时仍有 2 个非 P1 RAG 旧测试失败。
-- 当前所在计划：P1 后端主路径已基本收尾；剩余 P1 不是后端可用性 blocker，主要是前端审批 prompter、多 provider adapter、FTS5 CJK tokenizer、Activity 展示打磨。
+- 2026-04-21 P1 已补齐剩余项：PreToolUse 前端审批回调、v2 Anthropic/DeepSeek/Gemini adapter、FTS5 trigram CJK tokenizer、Activity tool 输入/结果摘要。
+- 2026-04-21 全量 `tests/unit` 已通过：`189 passed, 5 skipped`。
+- 当前所在计划：P1 收尾完成；下一步进入 P2 Claude Code 工具闭环或 P3 Vision-in-the-loop 基础设施。
 
 ### 关键依赖关系
 
@@ -81,17 +82,17 @@ P8 评测全程打点
 - [x] `AgentLoop.run()` 透传 `TextDelta` / `ReasoningDelta`，让 v2 支持 token 级流式输出。
   - 已实现：`_one_turn()` 不再吞 delta；`run()` 逐步 yield `TextDelta` / `ReasoningDelta` / `TurnEnd`，同时保留最终 `Message`。
   - `/api/agent_chat_v2` 已把 `TextDelta` 转成 SSE `token`，把 `ReasoningDelta` 转成 Activity `Thinking`。
-- [ ] Phase 4.1：`PreToolUse` 审批 hook 接前端 prompter；后端 read-only/plan 权限门已可阻断需审批工具，但前端确认弹窗尚未接入。
+- [x] Phase 4.1：`PreToolUse` 审批 hook 接前端 prompter；后端发出 `approval_request`，前端 POST `/api/tool_approvals/{id}` 后 hook 继续执行或拒绝。
 - [x] `/api/agent_chat_v2` 接 Context Compactor，长上下文压缩不再只留在 legacy 路径。
 - [x] `/api/agent_chat_v2` 接 MemoryManager，把 `user_facts` 注入系统上下文。
 - [x] `/api/agent_chat_v2` 接多模态图片输入。这是后续视觉回环、Office 渲染验证、生图迭代的共同前置。
   - 已实现：新增内部 `ImageBlock`；OpenAI chat adapter 转成 `image_url` content block；Responses adapter 转成 `input_image` block。
   - 前端选择 `AgentLoop v2` 时，图片不再因缺 image_gen 配置被丢弃。
-- [ ] v2 多 provider adapter：Anthropic / DeepSeek / Gemini。
+- [x] v2 多 provider adapter：Anthropic / DeepSeek / Gemini。
 - [x] v2 选择 provider 时读取当前 profile；当前仅 OpenAI/OpenAI-compatible adapter 可用，非 OpenAI provider 仍返回 400。
 - [x] Trace 扩字段：assistant text、system prompt hash。
-- [ ] Trace 继续扩字段：tool args/result 摘要、latency。
-- [ ] FTS5 CJK tokenizer 切 trigram 或 jieba，提高中文检索召回。
+- [x] Trace 继续扩字段：tool args/result 摘要、latency。
+- [x] FTS5 CJK tokenizer 切 trigram，提高中文检索召回。
 
 ### P2 · Claude Code 方向（新需求 #3，独立可并行）
 
@@ -8579,11 +8580,11 @@ def classify_request(message: str, context: dict) -> str:
 - [x] `/api/agent_chat_v2` 接 Context Compactor。
 - [x] `/api/agent_chat_v2` 接 MemoryManager（user_facts 注入）。
 - [x] Trace 扩字段：assistant text、system prompt hash。
-- [ ] Phase 4.1：PreToolUse 审批 hook 接前端 prompter；后端 read-only/plan 权限门已可阻断需审批工具，前端确认弹窗未接入。
-- [ ] Activity 展示层打磨：tool args/result 格式化、相对路径、复制按钮、长结果折叠。
-- [ ] v2 多 provider：Anthropic / DeepSeek / Gemini adapter。
-- [ ] Trace 继续扩字段：tool args/result 摘要、latency。
-- [ ] FTS5 CJK tokenizer 切 trigram/jieba。
+- [x] Phase 4.1：PreToolUse 审批 hook 接前端 prompter。
+- [x] Activity 展示层打磨：tool args/result 摘要、相对路径、长结果截断。
+- [x] v2 多 provider：Anthropic / DeepSeek / Gemini adapter。
+- [x] Trace 继续扩字段：tool args/result 摘要、latency。
+- [x] FTS5 CJK tokenizer 切 trigram。
 
 #### P2 · Claude Code 工具闭环
 
@@ -8634,10 +8635,9 @@ def classify_request(message: str, context: dict) -> str:
 
 ### 推荐落地顺序
 
-1. 收尾 P1 剩余体验项：PreToolUse 前端审批、Activity 展示打磨、多 provider、FTS5 CJK tokenizer。
-2. 并行推进 P2：工具协议对齐、subprocess 白名单、权限语义。
-3. 做 P3：Verify tool + render/image 回灌，这是 Office 和生图回环的共同依赖。
-4. P4 先做 Excel 单场景试点，验证打开 → 修改 → 渲染 → 自检闭环。
-5. P5 生图回环复用 P3。
-6. P6 monitor/sandbox/MCP 与 P8 eval 穿插推进。
-7. P7 专业域最后做。
+1. 推进 P2：工具协议对齐、subprocess 白名单、权限语义。
+2. 做 P3：Verify tool + render/image 回灌，这是 Office 和生图回环的共同依赖。
+3. P4 先做 Excel 单场景试点，验证打开 → 修改 → 渲染 → 自检闭环。
+4. P5 生图回环复用 P3。
+5. P6 monitor/sandbox/MCP 与 P8 eval 穿插推进。
+6. P7 专业域最后做。

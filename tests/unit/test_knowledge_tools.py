@@ -112,6 +112,26 @@ def test_search_returns_snippet(seeded_kb):
     assert "Python" in res.content
 
 
+def test_search_matches_cjk_substrings_with_trigram_tokenizer(kb_ctx, tmp_path):
+    kb_dir = tmp_path / "cjk_src"
+    kb_dir.mkdir()
+    (kb_dir / "note.md").write_text(
+        "用RRF效果很好，微纳加工课程材料也能被中文片段检索命中。",
+        encoding="utf-8",
+    )
+    mgr: KnowledgeManager = kb_ctx.scratch["knowledge_manager"]
+    mgr.index_directory("cjk", kb_dir, extensions=[".md"])
+
+    tool = KnowledgeSearchTool()
+    res = asyncio.run(tool.run(
+        {"action": "search", "query": "微纳加工", "kb_names": ["cjk"]},
+        kb_ctx,
+    ))
+
+    assert res.is_error is False
+    assert "note.md" in res.content
+
+
 def test_search_no_match(seeded_kb):
     ctx, _ = seeded_kb
     tool = KnowledgeSearchTool()
