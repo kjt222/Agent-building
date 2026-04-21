@@ -2121,7 +2121,58 @@ This is framework-level behavior. The user prompt does not need to say
   semantic correctness of generated artifacts.
 - Full visual self-review still belongs to P3: render/screenshot tools,
   `Verify` tool, and image-block feedback into the next model turn.
-- Stronger Bash write restrictions and sandboxing belong to P2/P6.
+- Stronger sandboxing belongs to P6.
+
+---
+
+## 2026-04-22 | Codex | P2 completion: Bash policy and replay acceptance
+
+This section was recorded by **Codex**.
+
+### Goal
+
+Complete P2 by turning the initial Claude-Code-style primitives into a tested
+tool contract: explicit permission/parallel flags, read-before-write/edit,
+Final Guard evidence enforcement, minimal Bash subprocess policy, and replay
+tests for important failure paths.
+
+### Changed files
+
+| File | Type | Notes |
+| --- | --- | --- |
+| `agent/tools_v2/primitives.py` | Modified | Bash now validates one simple allowlisted command per call, blocks shell control operators and dangerous mutation commands, restricts `git` to read-only subcommands, supports `cwd`, clamps `timeout`, truncates long output, and returns stable `[stdout]`, `[stderr]`, `[exit_code]` sections. |
+| `tests/unit/test_primitives_contract.py` | Modified | Adds protocol checks for tool permission/parallel flags, Bash structured output, allowlist rejection, shell-control/danger rejection, and read-only git enforcement. |
+| `tests/unit/test_p2_agent_replay.py` | Added | Adds deterministic AgentLoop replay tests for edit-fail-then-read/edit recovery, false delivery corrected by Final Guard, and blocked dangerous Bash mutation. |
+| `tests/p2_agent_behavior_results/2026-04-22-contract/replay_review.md` | Added | Records P2 replay scenarios and acceptance result. |
+| `docs/conversation.md` | Modified | Marks P2 protocol alignment, Bash policy, and P2 replay acceptance as complete. |
+
+### Bash policy
+
+- Allowed command heads by default: `python`, `python3`, `py`, `pytest`, `node`,
+  `npm`, `npx`, `pnpm`, `git`, `rg`, `uv`, and basic read-only inspection
+  commands such as `ls`, `dir`, `pwd`, `type`, `cat`, `where`, `whoami`,
+  `Get-Content`, `Get-ChildItem`.
+- Blocked shell controls: command chaining, pipes, redirection, backticks,
+  command substitution, and multiline shell input.
+- Blocked dangerous commands: deletion/move/permission/system shutdown style
+  commands such as `rm`, `del`, `Remove-Item`, `mv`, `chmod`, `takeown`,
+  `shutdown`, etc.
+- `git` is restricted to read-only/check subcommands: `status`, `diff`, `show`,
+  `log`, `rev-parse`, `branch`, `ls-files`, `grep`.
+- The allowlists can still be overridden via `ctx.scratch` for future sandbox or
+  runtime profiles.
+
+### Validation
+
+- [x] `python -m compileall -q agent tests\unit`
+- [x] `.venv\Scripts\python.exe -m pytest tests/unit/test_primitives_contract.py tests/unit/test_p2_agent_replay.py tests/unit/test_hooks.py tests/unit/test_control_tools.py tests/unit/test_agent_loop.py -q` -> 43 passed
+- [x] `.venv\Scripts\python.exe -m pytest tests/unit -q` -> 205 passed, 5 skipped
+
+### Current P2 conclusion
+
+P2 is now complete for the local AgentLoop/tool-contract layer. Remaining
+stronger isolation work belongs to P6: Docker sandbox execution, filesystem diff
+capture, MCP isolation, and runtime monitor.
 
 ---
 

@@ -8561,6 +8561,7 @@ def classify_request(message: str, context: dict) -> str:
 - 2026-04-21 UX smoke 已完成：v2 API 和 UI 路径可用，`Glob` 工具 Activity 可见；已去掉 assistant 正文下方重复模型元信息，并修正 Activity 单数文案。剩余体验问题集中在 Activity 展示层和前端审批。
 - 2026-04-21 P1 contract 测试已补并推进到通过：`tests/unit/test_agent_chat_v2_contract.py` 用 fake adapter 锁定 v2 单一路径、SSE、metadata、图片输入、provider 限制、Context Compactor、MemoryManager user_facts 注入、read-only 权限门；相关 P1 后端测试为 `102 passed`。
 - 2026-04-21 Codex 补了框架级防幻觉交付约束：AgentLoop 记录工具证据，Final Guard 在 assistant 声称已写入/执行/测试/验证但无对应 tool evidence 时强制续跑；现有文件仍必须先 Read 再 Write/Edit。
+- 2026-04-22 Codex 补齐 P2 验收项：Bash 增加 allowlist、危险命令拦截、只读 git 子命令、timeout/cwd/输出截断和结构化 stdout/stderr/exit_code；新增 P2 replay，覆盖失败后纠正、假交付被 Final Guard 逼回工具调用、危险 Bash 被拦截。
 
 ### 最新完整计划
 
@@ -8595,8 +8596,9 @@ def classify_request(message: str, context: dict) -> str:
 - [x] Edit tool：精确字符串替换 + 未 Read 失败保护 + 多匹配失败保护。
 - [x] Final Guard 交付约束：最终回答不能只声称“已执行/已创建/已测试”，必须有 AgentLoop tool evidence 支撑，否则自动追加纠偏消息并续跑。
 - [x] Read-before-Write/Edit 单测：已有文件必须先 Read，Edit 必须精确唯一字符串。
-- [ ] 对齐协议细节：tool schema、并行安全标记、错误格式、权限语义。
-- [ ] 最小 subprocess 白名单 + 超时，为 P6 sandbox 打底。
+- [x] 对齐协议细节：tool schema、并行安全标记、错误格式、权限语义。
+- [x] 最小 subprocess 白名单 + 超时，为 P6 sandbox 打底。
+- [x] P2 replay 验收：`tests/p2_agent_behavior_results/2026-04-22-contract/replay_review.md`。
 
 #### P3 · Vision-in-the-loop 基础设施
 

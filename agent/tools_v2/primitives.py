@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import asyncio
-import fnmatch
+import contextlib
 import os
 import re
-import subprocess
+import shlex
 from pathlib import Path
 
 from agent.core.loop import (
@@ -38,18 +38,139 @@ class _ToolBase:
 # Bash
 # ---------------------------------------------------------------------------
 
+_DEFAULT_BASH_ALLOWED_COMMANDS = {
+    "python",
+    "python3",
+    "py",
+    "pytest",
+    "node",
+    "npm",
+    "npx",
+    "pnpm",
+    "git",
+    "rg",
+    "uv",
+    "dir",
+    "ls",
+    "pwd",
+    "type",
+    "cat",
+    "where",
+    "whoami",
+    "get-content",
+    "get-childitem",
+}
+_DEFAULT_GIT_ALLOWED_SUBCOMMANDS = {
+    "status",
+    "diff",
+    "show",
+    "log",
+    "rev-parse",
+    "branch",
+    "ls-files",
+    "grep",
+}
+_SHELL_CONTROL_PATTERN = re.compile(r"(\|\||&&|[;|<>`]\s*|\$\(|\r|\n)")
+_DANGEROUS_COMMAND_PATTERN = re.compile(
+    r"\b(?:rm|del|erase|rmdir|rd|remove-item|remove|move-item|mv|"
+    r"set-content|add-content|out-file|format|shutdown|restart-computer|"
+    r"stop-computer|attrib|takeown|icacls|chmod|chown)\b",
+    re.IGNORECASE,
+)
+
+
+def _command_tokens(command: str) -> list[str]:
+    try:
+        return shlex.split(command, posix=False)
+    except ValueError:
+        return command.split()
+
+
+def _command_key(token: str) -> str:
+    raw = token.strip().strip("\"'")
+    name = Path(raw).name or raw
+    lower = name.lower()
+    for suffix in (".exe", ".cmd", ".bat", ".ps1"):
+        if lower.endswith(suffix):
+            lower = lower[: -len(suffix)]
+            break
+    return lower
+
+
+def _validate_bash_command(command: str, ctx: LoopContext) -> str | None:
+    if not command.strip():
+        return "empty command"
+    if _SHELL_CONTROL_PATTERN.search(command):
+        return (
+            "blocked shell control operator. Run one simple command per Bash "
+            "call; use Write/Edit for file changes."
+        )
+    if _DANGEROUS_COMMAND_PATTERN.search(command):
+        return "blocked dangerous command. Use dedicated file tools or sandboxed tasks."
+
+    tokens = _command_tokens(command)
+    if not tokens:
+        return "empty command"
+    allowed = set(
+        ctx.scratch.get("bash_allowed_commands")
+        or _DEFAULT_BASH_ALLOWED_COMMANDS
+    )
+    head = _command_key(tokens[0])
+    if head not in allowed:
+        return (
+            f"command {head!r} is not in the Bash allowlist. "
+            "Use Read/Write/Edit/Grep/Glob when possible."
+        )
+
+    if head == "git":
+        if len(tokens) < 2:
+            return "git requires an allowed read-only subcommand"
+        subcommand = tokens[1].strip().lower()
+        allowed_git = set(
+            ctx.scratch.get("git_allowed_subcommands")
+            or _DEFAULT_GIT_ALLOWED_SUBCOMMANDS
+        )
+        if subcommand not in allowed_git:
+            return f"git subcommand {subcommand!r} is not allowed in Bash"
+    return None
+
+
+def _format_bash_result(stdout: str, stderr: str, exit_code: int) -> str:
+    return (
+        "[stdout]\n"
+        f"{stdout.rstrip()}\n"
+        "[stderr]\n"
+        f"{stderr.rstrip()}\n"
+        "[exit_code]\n"
+        f"{exit_code}"
+    )
+
+
+def _truncate_output(text: str, max_chars: int) -> str:
+    if len(text) <= max_chars:
+        return text
+    keep = max(0, max_chars - 32)
+    return text[:keep] + "\n...<truncated>"
+
+
 class BashTool(_ToolBase):
     name = "Bash"
     description = (
-        "Execute a shell command and return its stdout/stderr. "
-        "Use for running scripts, git, file operations that don't fit other tools. "
-        "Prefer dedicated tools (Read/Write/Edit/Grep/Glob) when they apply."
+        "Execute one allowlisted shell command and return structured "
+        "stdout/stderr/exit_code. Use for tests and read-only diagnostics. "
+        "Prefer Read/Write/Edit/Grep/Glob for file work."
     )
     input_schema = {
         "type": "object",
         "properties": {
             "command": {"type": "string", "description": "Shell command to run"},
             "timeout": {"type": "number", "description": "Seconds (default 60)", "default": 60},
+            "cwd": {"type": "string", "description": "Working directory (default cwd)"},
+            "max_output_chars": {
+                "type": "integer",
+                "description": "Maximum combined output characters (default 12000)",
+                "default": 12000,
+            },
         },
         "required": ["command"],
     }
@@ -57,25 +178,36 @@ class BashTool(_ToolBase):
     parallel_safe = False
 
     async def run(self, input: dict, ctx: LoopContext) -> ToolResultBlock:
-        cmd = input.get("command", "")
-        timeout = float(input.get("timeout", 60))
-        if not cmd:
-            return self._err("empty command")
+        cmd = str(input.get("command", ""))
+        timeout = min(max(float(input.get("timeout", 60)), 1.0), 600.0)
+        max_output_chars = max(1000, int(input.get("max_output_chars", 12000)))
+        policy_error = _validate_bash_command(cmd, ctx)
+        if policy_error:
+            return self._err(policy_error)
+        cwd = input.get("cwd")
+        if cwd:
+            cwd_path = Path(str(cwd))
+            if not cwd_path.exists() or not cwd_path.is_dir():
+                return self._err(f"cwd not found or not a directory: {cwd}")
+        else:
+            cwd_path = None
+
         try:
             proc = await asyncio.create_subprocess_shell(
                 cmd,
+                cwd=str(cwd_path) if cwd_path else None,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
             )
             stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=timeout)
         except asyncio.TimeoutError:
+            with contextlib.suppress(ProcessLookupError):
+                proc.kill()
             return self._err(f"timeout after {timeout}s")
         out = stdout.decode("utf-8", errors="replace")
         err = stderr.decode("utf-8", errors="replace")
-        body = out
-        if err:
-            body += f"\n[stderr]\n{err}"
-        body += f"\n[exit={proc.returncode}]"
+        combined = _format_bash_result(out, err, int(proc.returncode or 0))
+        body = _truncate_output(combined, max_output_chars)
         return self._ok(body) if proc.returncode == 0 else self._err(body)
 
 
