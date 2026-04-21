@@ -1,0 +1,22 @@
+{
+  "snake": {
+    "title": "Snake Game - Doubao Code",
+    "console_errors": [],
+    "screenshot": "tests\\provider_comparison_results\\2026-04-22-doubao-code\\snake_render.png",
+    "body_text_sample": "Score: 0\nGame Over!\nRestart Game",
+    "canvas_count": 1,
+    "restart_count": 1,
+    "score_text": "Score: 0",
+    "score_after_key": "Score: 0"
+  },
+  "claude_clone": {
+    "title": "Claude Home Mock",
+    "console_errors": [],
+    "screenshot": "tests\\provider_comparison_results\\2026-04-22-doubao-code\\claude_clone_render.png",
+    "body_text_sample": "Claude\n+\nNew chat\n🔍\nSearch\n⚙️\nCustomize\n💬\nChats\n📁\nProjects\n📦\nArtifacts\n💻\nCode\n🎨\nDesign\nRECENTS\nU\nUser Account\nHow can I help you today?\n+\nClaude 3.7 Sonnet\n▼\nWrite\nLearn\nCode\nLife stuff\nClaude's choice",
+    "sidebar_width": "300px",
+    "composer_count": 1,
+    "pill_count": 5,
+    "horizontal_overflow": false
+  }
+}

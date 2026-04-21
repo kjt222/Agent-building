@@ -228,3 +228,16 @@ profiles:
           api_key_ref: gpt-5.4.llm.openai
           base_url: https://api.openai.com/v1
       vendor: openai
+  doubao-code:
+    llm:
+      active: openai_compat
+      fallback:
+      - openai_compat
+      providers:
+        openai_compat:
+          type: openai_compat
+          model: doubao-seed-2.0-code
+          base_url: https://ark.cn-beijing.volces.com/api/coding/v3
+          api_key_env: ''
+          api_key_ref: doubao-code.llm.openai_compat
+      vendor: openai_compat

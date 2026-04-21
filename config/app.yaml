@@ -1,4 +1,4 @@
-active_profile: gpt-5.4
+active_profile: doubao-code
 profiles:
   research:
     rag_db_path: data/research/rag.sqlite
@@ -56,6 +56,18 @@ profiles:
     - lexicons/gpt-5.4.yaml
     - lexicons/global.txt
     - lexicons/gpt-5.4.txt
+    cloud_send: raw
+    allow_raw_on_confirm: true
+    conflict_confirm: false
+    vector_store_content: raw
+  doubao-code:
+    rag_db_path: data/doubao-code/rag.sqlite
+    logs_dir: logs/doubao-code
+    lexicon_files:
+    - lexicons/global.yaml
+    - lexicons/doubao-code.yaml
+    - lexicons/global.txt
+    - lexicons/doubao-code.txt
     cloud_send: raw
     allow_raw_on_confirm: true
     conflict_confirm: false

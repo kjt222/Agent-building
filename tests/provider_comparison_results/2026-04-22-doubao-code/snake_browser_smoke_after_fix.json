@@ -1,0 +1,6 @@
+{
+  "console_errors": [],
+  "initial_game_over_display": "none",
+  "after_move_game_over_display": "none",
+  "screenshot": "tests\\provider_comparison_results\\2026-04-22-doubao-code\\snake_render_after_fix.png"
+}

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Home Mock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background-color: #f9f9f9;
+            border-right: 1px solid #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .wordmark {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 4px;
+            transition: background-color 0.15s;
+        }
+
+        .nav-item:hover {
+            background-color: #e9e9e9;
+        }
+
+        .nav-item.new-chat {
+            background-color: #1a1a1a;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .nav-item.new-chat:hover {
+            background-color: #333;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #e5e5e5;
+            margin: 16px 0;
+        }
+
+        .recents-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #888;
+            margin: 8px 0 12px;
+            padding: 0 16px;
+        }
+
+        .account-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .account-footer:hover {
+            background-color: #e9e9e9;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #6366f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .greeting {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 60px;
+            color: #1a1a1a;
+        }
+
+        .composer-container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .composer {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid #e5e5e5;
+            border-radius: 24px;
+            background-color: #f9f9f9;
+        }
+
+        .plus-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid #e5e5e5;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .composer-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+            resize: none;
+            color: #1a1a1a;
+        }
+
+        .composer-input::placeholder {
+            color: #999;
+        }
+
+        .model-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .model-dropdown:hover {
+            background-color: #e9e9e9;
+        }
+
+        .pill-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .pill {
+            padding: 12px 24px;
+            border-radius: 24px;
+            border: 1px solid #e5e5e5;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            font-size: 14px;
+            color: #1a1a1a;
+            transition: background-color 0.15s, border-color 0.15s;
+        }
+
+        .pill:hover {
+            background-color: #e9e9e9;
+            border-color: #ddd;
+        }
+
+        /* Icons (simple text representations) */
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            text-align: center;
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="wordmark">Claude</div>
+        
+        <div class="nav-item new-chat">
+            <span class="icon">+</span>
+            <span>New chat</span>
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">🔍</span>
+            <span>Search</span>
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">⚙️</span>
+            <span>Customize</span>
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">💬</span>
+            <span>Chats</span>
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">📁</span>
+            <span>Projects</span>
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">📦</span>
+            <span>Artifacts</span>
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">💻</span>
+            <span>Code</span>
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">🎨</span>
+            <span>Design</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="recents-label">Recents</div>
+
+        <div class="account-footer">
+            <div class="avatar">U</div>
+            <span>User Account</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="greeting">How can I help you today?</h1>
+
+        <div class="composer-container">
+            <div class="composer">
+                <div class="plus-button">+</div>
+                <textarea class="composer-input" placeholder="Message Claude..." rows="1"></textarea>
+                <div class="model-dropdown">
+                    <span>Claude 3.7 Sonnet</span>
+                    <span>▼</span>
+                </div>
+            </div>
+
+            <div class="pill-buttons">
+                <div class="pill">Write</div>
+                <div class="pill">Learn</div>
+                <div class="pill">Code</div>
+                <div class="pill">Life stuff</div>
+                <div class="pill">Claude's choice</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple auto-resize for textarea
+        const textarea = document.querySelector('.composer-input');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+        });
+    </script>
+</body>
+</html>

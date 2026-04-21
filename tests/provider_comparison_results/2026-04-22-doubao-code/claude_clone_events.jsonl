@@ -1,0 +1,520 @@
+{"event": "http_status", "status": 200}
+{"event": "activity", "data": {"id": "065cc761_agent", "type": "agent_start", "title": "Agent v2 started", "detail": "profile=doubao-code provider=openai_compat model=doubao-seed-2.0-code", "status": "start", "ts": 4112343.1686000004, "meta": {"endpoint": "agent_chat_v2", "session_id": "065cc761", "conversation_id": "doubao-claude_clone", "profile": "doubao-code", "provider": "openai_compat", "model": "doubao-seed-2.0-code", "capability_scope": "artifact", "runtime": {"mode": "inline", "monitor_enabled": false, "wake_on_task_complete": false, "heartbeat_seconds": 30}}}}
+{"event": "activity", "data": {"id": "065cc761_tools", "type": "tool_manifest", "title": "Tools loaded: 9", "detail": "Bash, DocxEdit, Edit, Glob, Grep, KnowledgeIndex, KnowledgeSearch, Read, Write", "status": "done", "ts": 4112343.1836, "meta": {"endpoint": "/api/agent_chat_v2", "executor": "AgentLoop", "tools": ["Bash", "DocxEdit", "Edit", "Glob", "Grep", "KnowledgeIndex", "KnowledgeSearch", "Read", "Write"], "images": 0}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Let", "status": "progress", "ts": 4123142.8675999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "'s", "status": "progress", "ts": 4123154.2147, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " work", "status": "progress", "ts": 4123154.3057999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " through", "status": "progress", "ts": 4123154.3830999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " this", "status": "progress", "ts": 4123165.5672, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " problem", "status": "progress", "ts": 4123165.6531999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " step", "status": "progress", "ts": 4123165.7260000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " by", "status": "progress", "ts": 4123165.8127, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " step", "status": "progress", "ts": 4123180.7784, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4123180.8671, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " First", "status": "progress", "ts": 4123180.9633000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ",", "status": "progress", "ts": 4123181.0475000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " let", "status": "progress", "ts": 4123191.2157999994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "'s", "status": "progress", "ts": 4123191.3102999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " understand", "status": "progress", "ts": 4123191.3842, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " what", "status": "progress", "ts": 4123191.4556, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "'s", "status": "progress", "ts": 4123202.2114, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " needed", "status": "progress", "ts": 4123202.3102, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4123202.3918000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 4123202.5020000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "The", "status": "progress", "ts": 4123221.1519000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " user", "status": "progress", "ts": 4123221.2422, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " wants", "status": "progress", "ts": 4123221.3158000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " us", "status": "progress", "ts": 4123221.3846000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " to", "status": "progress", "ts": 4123238.5993999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " create", "status": "progress", "ts": 4123238.6895, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " a", "status": "progress", "ts": 4123238.9463, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " single", "status": "progress", "ts": 4123239.0297000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "-file", "status": "progress", "ts": 4123262.2201000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " HTML", "status": "progress", "ts": 4123262.3162, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/C", "status": "progress", "ts": 4123262.4778, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "SS", "status": "progress", "ts": 4123262.5546999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " frontend", "status": "progress", "ts": 4123266.0494000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " mock", "status": "progress", "ts": 4123266.1326999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " that", "status": "progress", "ts": 4123266.2602, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " replicates", "status": "progress", "ts": 4123266.353, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " a", "status": "progress", "ts": 4123278.4326, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Claude", "status": "progress", "ts": 4123278.5259000002, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " home", "status": "progress", "ts": 4123278.6022, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " screen", "status": "progress", "ts": 4123278.6764, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " layout", "status": "progress", "ts": 4123288.8672999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4123288.9563999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " The", "status": "progress", "ts": 4123289.0291000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " file", "status": "progress", "ts": 4123289.1227, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " should", "status": "progress", "ts": 4123303.8866, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " be", "status": "progress", "ts": 4123303.9741, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " saved", "status": "progress", "ts": 4123304.0474, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " to", "status": "progress", "ts": 4123304.1673999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " tests", "status": "progress", "ts": 4123313.5574, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/provider", "status": "progress", "ts": 4123313.6510000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "_com", "status": "progress", "ts": 4123313.8030999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "par", "status": "progress", "ts": 4123313.8781, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ison", "status": "progress", "ts": 4123359.03, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "_results", "status": "progress", "ts": 4123359.131, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/", "status": "progress", "ts": 4123359.2179999994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 4123359.2976, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "0", "status": "progress", "ts": 4123359.5725, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 4123359.6476000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "6", "status": "progress", "ts": 4123359.7166999998, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "-", "status": "progress", "ts": 4123359.7855999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "0", "status": "progress", "ts": 4123359.9089, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "4", "status": "progress", "ts": 4123359.9793000002, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "-", "status": "progress", "ts": 4123360.0491, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 4123360.1379, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 4123360.2517999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "-d", "status": "progress", "ts": 4123360.3225999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ou", "status": "progress", "ts": 4123360.3933000006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "bao", "status": "progress", "ts": 4123360.4803, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "-code", "status": "progress", "ts": 4123380.3995999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/cl", "status": "progress", "ts": 4123380.4952000002, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "aude", "status": "progress", "ts": 4123380.5733999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "_home", "status": "progress", "ts": 4123380.65, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "_d", "status": "progress", "ts": 4123380.8573, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ou", "status": "progress", "ts": 4123380.9359999998, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "bao", "status": "progress", "ts": 4123381.0083999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".html", "status": "progress", "ts": 4123381.0772999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4123395.4186, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Let", "status": "progress", "ts": 4123395.5268, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "'s", "status": "progress", "ts": 4123395.6185, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " start", "status": "progress", "ts": 4123395.8016, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " by", "status": "progress", "ts": 4123405.8545, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " checking", "status": "progress", "ts": 4123405.9469000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " the", "status": "progress", "ts": 4123406.0995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " directory", "status": "progress", "ts": 4123406.1763999998, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " structure", "status": "progress", "ts": 4123490.9884999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4123491.116, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4123491.3116999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "First"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " let"}}
+{"event": "token", "data": {"text": "'s"}}
+{"event": "token", "data": {"text": " check"}}
+{"event": "token", "data": {"text": " if"}}
+{"event": "token", "data": {"text": " the"}}
+{"event": "token", "data": {"text": " directory"}}
+{"event": "token", "data": {"text": " exists"}}
+{"event": "token", "data": {"text": " and"}}
+{"event": "token", "data": {"text": " create"}}
+{"event": "token", "data": {"text": " it"}}
+{"event": "token", "data": {"text": " if"}}
+{"event": "token", "data": {"text": " necessary"}}
+{"event": "token", "data": {"text": "."}}
+{"event": "activity", "data": {"id": "065cc761_tc_call_d1ru8r0s213b20nnjingrjlk", "type": "tool_call", "title": "Calling: Bash", "detail": "{\"command\": \"if not exist \\\"tests\\\\provider_comparison_results\\\\2026-04-22-doubao-code\\\" mkdir \\\"tests\\\\provider_comparison_results\\\\2026-04-22-doubao-code\\\"\",\"timeout\": 60}", "status": "start", "ts": 4123564.0082, "meta": {"id": "call_d1ru8r0s213b20nnjingrjlk", "name": "Bash", "input": {"command": "if not exist \"tests\\provider_comparison_results\\2026-04-22-doubao-code\" mkdir \"tests\\provider_comparison_results\\2026-04-22-doubao-code\"", "cwd": "D:\\D\\python编程\\Agent-building"}}}}
+{"event": "activity", "data": {"id": "065cc761_tr_call_d1ru8r0s213b20nnjingrjlk", "type": "tool_result", "title": "Tool result", "detail": "command 'if' is not in the Bash allowlist. Use Read/Write/Edit/Grep/Glob when possible.", "status": "error", "ts": 4123564.1499, "meta": {"is_error": true, "tool_use_id": "call_d1ru8r0s213b20nnjingrjlk"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Okay", "status": "progress", "ts": 4128315.2017, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ",", "status": "progress", "ts": 4128415.9025, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " the", "status": "progress", "ts": 4128416.0195000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " bash", "status": "progress", "ts": 4128416.1144, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " command", "status": "progress", "ts": 4128493.1438, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " failed", "status": "progress", "ts": 4128493.2578, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4128493.3389, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Let", "status": "progress", "ts": 4128493.4163999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "'s", "status": "progress", "ts": 4128507.5435999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " just", "status": "progress", "ts": 4128507.6358, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " write", "status": "progress", "ts": 4128507.7117999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " the", "status": "progress", "ts": 4128507.7819, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " file", "status": "progress", "ts": 4128549.0719, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " directly", "status": "progress", "ts": 4128549.1632000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " using", "status": "progress", "ts": 4128549.2391, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Write", "status": "progress", "ts": 4128549.3385, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ",", "status": "progress", "ts": 4128565.9991, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " which", "status": "progress", "ts": 4128566.0974000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " should", "status": "progress", "ts": 4128566.1778, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " create", "status": "progress", "ts": 4128566.2531999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " directories", "status": "progress", "ts": 4128619.4697000002, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " if", "status": "progress", "ts": 4128619.5967, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " needed", "status": "progress", "ts": 4128619.6812, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " (", "status": "progress", "ts": 4128619.7920000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "or", "status": "progress", "ts": 4128681.4465999994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " we", "status": "progress", "ts": 4128681.5938999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " can", "status": "progress", "ts": 4128681.6754, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " create", "status": "progress", "ts": 4128681.9280999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " them", "status": "progress", "ts": 4128791.9592999998, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " implicitly", "status": "progress", "ts": 4128792.0636, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " by", "status": "progress", "ts": 4128792.1536000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " writing", "status": "progress", "ts": 4128792.2342000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " the", "status": "progress", "ts": 4128822.8945, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " file", "status": "progress", "ts": 4128823.0152, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " path", "status": "progress", "ts": 4128823.1126, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ").", "status": "progress", "ts": 4128823.2035000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Let", "status": "progress", "ts": 4128853.5700000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "'s", "status": "progress", "ts": 4128853.6645000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " proceed", "status": "progress", "ts": 4128853.7465, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " to", "status": "progress", "ts": 4128853.8232, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " create", "status": "progress", "ts": 4128885.5268999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " the", "status": "progress", "ts": 4128885.6238999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " HTML", "status": "progress", "ts": 4128885.7008, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " file", "status": "progress", "ts": 4128885.8057999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4128962.3611999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "Now"}}
+{"event": "token", "data": {"text": " let"}}
+{"event": "token", "data": {"text": "'s"}}
+{"event": "token", "data": {"text": " create"}}
+{"event": "token", "data": {"text": " the"}}
+{"event": "token", "data": {"text": " HTML"}}
+{"event": "token", "data": {"text": "/C"}}
+{"event": "token", "data": {"text": "SS"}}
+{"event": "token", "data": {"text": " file"}}
+{"event": "token", "data": {"text": " directly"}}
+{"event": "token", "data": {"text": "."}}
+{"event": "activity", "data": {"id": "065cc761_tc_call_l858ep3eoci17rn9pbnhxz03", "type": "tool_call", "title": "Calling: Write", "detail": "{\"path\": \"tests\\\\provider_comparison_results\\\\2026-04-22-doubao-code\\\\claude_home_doubao.html\",\"content\": \"<7601 chars>\"}", "status": "start", "ts": 4157664.0001, "meta": {"id": "call_l858ep3eoci17rn9pbnhxz03", "name": "Write", "input": {"path": "tests/provider_comparison_results/2026-04-22-doubao-code/claude_home_doubao.html", "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Claude Home Mock</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;\n        }\n\n        body {\n            display: flex;\n            height: 100vh;\n            background-color: #ffffff;\n            color: #1a1a1a;\n        }\n\n        /* Sidebar */\n        .sidebar {\n            width: 300px;\n            background-color: #f9f9f9;\n            border-right: 1px solid #e5e5e5;\n            display: flex;\n            flex-direction: column;\n            padding: 20px;\n        }\n\n        .wordmark {\n            font-size: 24px;\n            font-weight: 600;\n            margin-bottom: 30px;\n            color: #1a1a1a;\n        }\n\n        .nav-item {\n            display: flex;\n            align-items: center;\n            gap: 12px;\n            padding: 12px 16px;\n            border-radius: 8px;\n            cursor: pointer;\n            margin-bottom: 4px;\n            transition: background-color 0.15s;\n        }\n\n        .nav-item:hover {\n            background-color: #e9e9e9;\n        }\n\n        .nav-item.new-chat {\n            background-color: #1a1a1a;\n            color: white;\n            margin-bottom: 20px;\n        }\n\n        .nav-item.new-chat:hover {\n            background-color: #333;\n        }\n\n        .divider {\n            height: 1px;\n            background-color: #e5e5e5;\n            margin: 16px 0;\n        }\n\n        .recents-label {\n            font-size: 12px;\n            text-transform: uppercase;\n            color: #888;\n            margin: 8px 0 12px;\n            padding: 0 16px;\n        }\n\n        .account-footer {\n            margin-top: auto;\n            display: flex;\n            align-items: center;\n            gap: 12px;\n            padding: 12px 16px;\n            border-radius: 8px;\n            cursor: pointer;\n        }\n\n        .account-footer:hover {\n            background-color: #e9e9e9;\n        }\n\n        .avatar {\n            width: 32px;\n            height: 32px;\n            background-color: #6366f1;\n            border-radius: 50%;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            color: white;\n            font-weight: 600;\n        }\n\n        /* Main Content */\n        .main-content {\n            flex: 1;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            justify-content: center;\n            padding: 40px;\n        }\n\n        .greeting {\n            font-size: 48px;\n            font-weight: 600;\n            margin-bottom: 60px;\n            color: #1a1a1a;\n        }\n\n        .composer-container {\n            width: 100%;\n            max-width: 800px;\n        }\n\n        .composer {\n            display: flex;\n            align-items: flex-end;\n            gap: 12px;\n            padding: 16px;\n            border: 1px solid #e5e5e5;\n            border-radius: 24px;\n            background-color: #f9f9f9;\n        }\n\n        .plus-button {\n            width: 36px;\n            height: 36px;\n            border-radius: 50%;\n            border: 1px solid #e5e5e5;\n            background-color: white;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            cursor: pointer;\n            font-size: 20px;\n            color: #666;\n        }\n\n        .composer-input {\n            flex: 1;\n            border: none;\n            background: transparent;\n            font-size: 16px;\n            outline: none;\n            resize: none;\n            color: #1a1a1a;\n        }\n\n        .composer-input::placeholder {\n            color: #999;\n        }\n\n        .model-dropdown {\n            display: flex;\n            align-items: center;\n            gap: 4px;\n            color: #666;\n            font-size: 14px;\n            cursor: pointer;\n            padding: 8px 12px;\n            border-radius: 8px;\n        }\n\n        .model-dropdown:hover {\n            background-color: #e9e9e9;\n        }\n\n        .pill-buttons {\n            display: flex;\n            flex-wrap: wrap;\n            gap: 12px;\n            margin-top: 40px;\n            justify-content: center;\n        }\n\n        .pill {\n            padding: 12px 24px;\n            border-radius: 24px;\n            border: 1px solid #e5e5e5;\n            background-color: #f9f9f9;\n            cursor: pointer;\n            font-size: 14px;\n            color: #1a1a1a;\n            transition: background-color 0.15s, border-color 0.15s;\n        }\n\n        .pill:hover {\n            background-color: #e9e9e9;\n            border-color: #ddd;\n        }\n\n        /* Icons (simple text representations) */\n        .icon {\n            width: 20px;\n            height: 20px;\n            display: inline-block;\n            text-align: center;\n            line-height: 20px;\n        }\n    </style>\n</head>\n<body>\n    <!-- Sidebar -->\n    <div class=\"sidebar\">\n        <div class=\"wordmark\">Claude</div>\n        \n        <div class=\"nav-item new-chat\">\n            <span class=\"icon\">+</span>\n            <span>New chat</span>\n        </div>\n\n        <div class=\"nav-item\">\n            <span class=\"icon\">🔍</span>\n            <span>Search</span>\n        </div>\n\n        <div class=\"nav-item\">\n            <span class=\"icon\">⚙️</span>\n            <span>Customize</span>\n        </div>\n\n        <div class=\"nav-item\">\n            <span class=\"icon\">💬</span>\n            <span>Chats</span>\n        </div>\n\n        <div class=\"nav-item\">\n            <span class=\"icon\">📁</span>\n            <span>Projects</span>\n        </div>\n\n        <div class=\"nav-item\">\n            <span class=\"icon\">📦</span>\n            <span>Artifacts</span>\n        </div>\n\n        <div class=\"nav-item\">\n            <span class=\"icon\">💻</span>\n            <span>Code</span>\n        </div>\n\n        <div class=\"nav-item\">\n            <span class=\"icon\">🎨</span>\n            <span>Design</span>\n        </div>\n\n        <div class=\"divider\"></div>\n\n        <div class=\"recents-label\">Recents</div>\n\n        <div class=\"account-footer\">\n            <div class=\"avatar\">U</div>\n            <span>User Account</span>\n        </div>\n    </div>\n\n    <!-- Main Content -->\n    <div class=\"main-content\">\n        <h1 class=\"greeting\">How can I help you today?</h1>\n\n        <div class=\"composer-container\">\n            <div class=\"composer\">\n                <div class=\"plus-button\">+</div>\n                <textarea class=\"composer-input\" placeholder=\"Message Claude...\" rows=\"1\"></textarea>\n                <div class=\"model-dropdown\">\n                    <span>Claude 3.7 Sonnet</span>\n                    <span>▼</span>\n                </div>\n            </div>\n\n            <div class=\"pill-buttons\">\n                <div class=\"pill\">Write</div>\n                <div class=\"pill\">Learn</div>\n                <div class=\"pill\">Code</div>\n                <div class=\"pill\">Life stuff</div>\n                <div class=\"pill\">Claude's choice</div>\n            </div>\n        </div>\n    </div>\n\n    <script>\n        // Simple auto-resize for textarea\n        const textarea = document.querySelector('.composer-input');\n        textarea.addEventListener('input', function() {\n            this.style.height = 'auto';\n            this.style.height = Math.min(this.scrollHeight, 200) + 'px';\n        });\n    </script>\n</body>\n</html>\n"}}}}
+{"event": "activity", "data": {"id": "065cc761_tr_call_l858ep3eoci17rn9pbnhxz03", "type": "tool_result", "title": "Tool result", "detail": "wrote 7601 chars to tests\\provider_comparison_results\\2026-04-22-doubao-code\\claude_home_doubao.html", "status": "done", "ts": 4157665.1276000002, "meta": {"is_error": false, "tool_use_id": "call_l858ep3eoci17rn9pbnhxz03"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Now", "status": "progress", "ts": 4163420.1722, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " let", "status": "progress", "ts": 4163523.0469, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "'s", "status": "progress", "ts": 4163523.1412000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " read", "status": "progress", "ts": 4163523.2153, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " the", "status": "progress", "ts": 4163596.3304999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " file", "status": "progress", "ts": 4163596.425, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " back", "status": "progress", "ts": 4163596.5912, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " to", "status": "progress", "ts": 4163596.6865999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " verify", "status": "progress", "ts": 4163630.8126000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " it", "status": "progress", "ts": 4163630.9499999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " was", "status": "progress", "ts": 4163631.0346999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " created", "status": "progress", "ts": 4163631.1969, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " correctly", "status": "progress", "ts": 4163723.5741000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " and", "status": "progress", "ts": 4163723.6695000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " check", "status": "progress", "ts": 4163723.7416, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " the", "status": "progress", "ts": 4163723.8091999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " content", "status": "progress", "ts": 4163792.9354999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4163793.0391, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "Now"}}
+{"event": "token", "data": {"text": " let"}}
+{"event": "token", "data": {"text": "'s"}}
+{"event": "token", "data": {"text": " read"}}
+{"event": "token", "data": {"text": " the"}}
+{"event": "token", "data": {"text": " file"}}
+{"event": "token", "data": {"text": " back"}}
+{"event": "token", "data": {"text": " to"}}
+{"event": "token", "data": {"text": " verify"}}
+{"event": "token", "data": {"text": " it"}}
+{"event": "token", "data": {"text": " was"}}
+{"event": "token", "data": {"text": " created"}}
+{"event": "token", "data": {"text": " correctly"}}
+{"event": "token", "data": {"text": "."}}
+{"event": "activity", "data": {"id": "065cc761_tc_call_ova39zflcqmf01rrbpbnn4ow", "type": "tool_call", "title": "Calling: Read", "detail": "{\"path\": \"tests\\\\provider_comparison_results\\\\2026-04-22-doubao-code\\\\claude_home_doubao.html\"}", "status": "start", "ts": 4164591.9844, "meta": {"id": "call_ova39zflcqmf01rrbpbnn4ow", "name": "Read", "input": {"path": "tests/provider_comparison_results/2026-04-22-doubao-code/claude_home_doubao.html"}}}}
+{"event": "activity", "data": {"id": "065cc761_tr_call_ova39zflcqmf01rrbpbnn4ow", "type": "tool_result", "title": "Tool result", "detail": "1\t<!DOCTYPE html>\n2\t<html lang=\"en\">\n3\t<head>\n4\t    <meta charset=\"UTF-8\">\n5\t    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n6\t    <title>Claude Home Mock</title>\n7\t    <style>\n8\t        * {\n9\t            margin: 0;\n10\t            padding: 0;\n11\t            box-sizing: border-box;\n12\t            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;\n13\t        }\n14\t\n15\t        body {\n16\t            display: flex;\n17\t            height: 100vh;\n18\t            background-color: #ffffff;\n...<truncated>", "status": "done", "ts": 4164608.1815, "meta": {"is_error": false, "tool_use_id": "call_ova39zflcqmf01rrbpbnn4ow"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Perfect", "status": "progress", "ts": 4167266.1217000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "!", "status": "progress", "ts": 4167383.6140000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " The", "status": "progress", "ts": 4167383.7346, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " file", "status": "progress", "ts": 4167383.8669999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " has", "status": "progress", "ts": 4167398.6720000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " been", "status": "progress", "ts": 4167398.7786999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " created", "status": "progress", "ts": 4167398.8663999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " successfully", "status": "progress", "ts": 4167398.9848, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " and", "status": "progress", "ts": 4167465.2956, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " all", "status": "progress", "ts": 4167465.3935, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " the", "status": "progress", "ts": 4167465.4701, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " required", "status": "progress", "ts": 4167465.5555999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " elements", "status": "progress", "ts": 4167524.3321999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " are", "status": "progress", "ts": 4167524.4472000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " present", "status": "progress", "ts": 4167524.5201, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ":", "status": "progress", "ts": 4167524.5912, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 4167580.6656000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 4167580.9811, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4167581.6986999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4167581.9943, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Left", "status": "progress", "ts": 4167641.4817000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " sidebar", "status": "progress", "ts": 4167641.7405000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " (", "status": "progress", "ts": 4167642.1413, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "3", "status": "progress", "ts": 4167642.3644, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "0", "status": "progress", "ts": 4167670.2637, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "0", "status": "progress", "ts": 4167670.4129999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "px", "status": "progress", "ts": 4167670.6782, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " wide", "status": "progress", "ts": 4167670.8132, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ")", "status": "progress", "ts": 4167689.8616, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4167690.0157999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 4167690.6671999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4167690.7703999993, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4167767.6264, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Claude", "status": "progress", "ts": 4167767.739, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " word", "status": "progress", "ts": 4167767.9052000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "mark", "status": "progress", "ts": 4167767.9838000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4167828.2399, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "3", "status": "progress", "ts": 4167828.3386000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4167828.5032, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4167828.6349, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Navigation", "status": "progress", "ts": 4167878.9735999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " rows", "status": "progress", "ts": 4167879.0676999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ":", "status": "progress", "ts": 4167879.1442, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " New", "status": "progress", "ts": 4167879.2433999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " chat", "status": "progress", "ts": 4167938.2060999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/S", "status": "progress", "ts": 4167938.3582, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "earch", "status": "progress", "ts": 4167938.4448, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/C", "status": "progress", "ts": 4167938.5239000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ustom", "status": "progress", "ts": 4168004.8877, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ize", "status": "progress", "ts": 4168004.9769999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/C", "status": "progress", "ts": 4168005.1500999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "hats", "status": "progress", "ts": 4168005.2232999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/", "status": "progress", "ts": 4168038.2212000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Projects", "status": "progress", "ts": 4168038.3093, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/", "status": "progress", "ts": 4168038.4052999998, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Art", "status": "progress", "ts": 4168038.4758, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ifacts", "status": "progress", "ts": 4168108.1457, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/", "status": "progress", "ts": 4168108.2422999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Code", "status": "progress", "ts": 4168108.3489, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/", "status": "progress", "ts": 4168108.4253, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Design", "status": "progress", "ts": 4168134.4124, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4168134.5278, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "4", "status": "progress", "ts": 4168134.6970000006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4168134.8195, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4168229.234, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Rec", "status": "progress", "ts": 4168229.3456999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ents", "status": "progress", "ts": 4168229.6684000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " item", "status": "progress", "ts": 4168229.9617999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4168319.2940999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "5", "status": "progress", "ts": 4168319.3943, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4168319.5133999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4168319.5948, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Account", "status": "progress", "ts": 4168345.2596999994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " footer", "status": "progress", "ts": 4168345.3692, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4168345.4798000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "6", "status": "progress", "ts": 4168345.5538999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4168432.1854999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4168432.2824999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Large", "status": "progress", "ts": 4168432.3565, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " centered", "status": "progress", "ts": 4168432.4269999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " greeting", "status": "progress", "ts": 4168516.8127999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4168516.9066999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "7", "status": "progress", "ts": 4168517.0672000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4168517.3011, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4168531.8006999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " R", "status": "progress", "ts": 4168531.8954000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ounded", "status": "progress", "ts": 4168531.9980000006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " composer", "status": "progress", "ts": 4168532.0859000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " with", "status": "progress", "ts": 4168562.6964000002, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " placeholder", "status": "progress", "ts": 4168562.7923000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4168562.9556000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "8", "status": "progress", "ts": 4168563.0859000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4168626.1297, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4168626.2263999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Plus", "status": "progress", "ts": 4168626.3351999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " button", "status": "progress", "ts": 4168626.5507, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4168694.6827000002, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "9", "status": "progress", "ts": 4168694.7769, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4168694.9379999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4168695.0638999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Model", "status": "progress", "ts": 4168721.4621, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " dropdown", "status": "progress", "ts": 4168721.5503, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " text", "status": "progress", "ts": 4168721.6989999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4168721.7717000004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 4168793.513, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "0", "status": "progress", "ts": 4168793.6332, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4168793.7877, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4168793.9157000002, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Pill", "status": "progress", "ts": 4168881.9334, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " buttons", "status": "progress", "ts": 4168882.1300999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ":", "status": "progress", "ts": 4168882.2825999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " Write", "status": "progress", "ts": 4168882.3699000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/L", "status": "progress", "ts": 4168882.5502, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ear", "status": "progress", "ts": 4168882.6276999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "n", "status": "progress", "ts": 4168882.7036, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/", "status": "progress", "ts": 4168882.7805999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Code", "status": "progress", "ts": 4168893.4897999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/L", "status": "progress", "ts": 4168893.5855, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ife", "status": "progress", "ts": 4168893.7454999997, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " stuff", "status": "progress", "ts": 4168893.8216, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/C", "status": "progress", "ts": 4168934.6605, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "la", "status": "progress", "ts": 4168934.7612, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ude", "status": "progress", "ts": 4168934.9425, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "'s", "status": "progress", "ts": 4168994.1835999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " choice", "status": "progress", "ts": 4168994.3581, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 4168994.4346000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 4168994.5631, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 4168994.6391000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4169087.4975999994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✅", "status": "progress", "ts": 4169087.5964999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " No", "status": "progress", "ts": 4169087.7579999994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " external", "status": "progress", "ts": 4169087.8749, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " assets", "status": "progress", "ts": 4169137.4828, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 4169137.5795000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Let", "status": "progress", "ts": 4169137.7409999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " me", "status": "progress", "ts": 4169137.8658000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " finish", "status": "progress", "ts": 4169260.3525000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " up", "status": "progress", "ts": 4169260.4725, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " and", "status": "progress", "ts": 4169260.6202999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " confirm", "status": "progress", "ts": 4169260.7353000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "065cc761_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 4169345.8625000003, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "I"}}
+{"event": "token", "data": {"text": "'ve"}}
+{"event": "token", "data": {"text": " successfully"}}
+{"event": "token", "data": {"text": " created"}}
+{"event": "token", "data": {"text": " the"}}
+{"event": "token", "data": {"text": " Claude"}}
+{"event": "token", "data": {"text": " home"}}
+{"event": "token", "data": {"text": " screen"}}
+{"event": "token", "data": {"text": " mock"}}
+{"event": "token", "data": {"text": "up"}}
+{"event": "token", "data": {"text": " as"}}
+{"event": "token", "data": {"text": " a"}}
+{"event": "token", "data": {"text": " single"}}
+{"event": "token", "data": {"text": "-file"}}
+{"event": "token", "data": {"text": " HTML"}}
+{"event": "token", "data": {"text": "/C"}}
+{"event": "token", "data": {"text": "SS"}}
+{"event": "token", "data": {"text": " document"}}
+{"event": "token", "data": {"text": " at"}}
+{"event": "token", "data": {"text": ":"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "`"}}
+{"event": "token", "data": {"text": "tests"}}
+{"event": "token", "data": {"text": "/provider"}}
+{"event": "token", "data": {"text": "_com"}}
+{"event": "token", "data": {"text": "par"}}
+{"event": "token", "data": {"text": "ison"}}
+{"event": "token", "data": {"text": "_results"}}
+{"event": "token", "data": {"text": "/"}}
+{"event": "token", "data": {"text": "2"}}
+{"event": "token", "data": {"text": "0"}}
+{"event": "token", "data": {"text": "2"}}
+{"event": "token", "data": {"text": "6"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": "0"}}
+{"event": "token", "data": {"text": "4"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": "2"}}
+{"event": "token", "data": {"text": "2"}}
+{"event": "token", "data": {"text": "-d"}}
+{"event": "token", "data": {"text": "ou"}}
+{"event": "token", "data": {"text": "bao"}}
+{"event": "token", "data": {"text": "-code"}}
+{"event": "token", "data": {"text": "/cl"}}
+{"event": "token", "data": {"text": "aude"}}
+{"event": "token", "data": {"text": "_home"}}
+{"event": "token", "data": {"text": "_d"}}
+{"event": "token", "data": {"text": "ou"}}
+{"event": "token", "data": {"text": "bao"}}
+{"event": "token", "data": {"text": ".html"}}
+{"event": "token", "data": {"text": "`"}}
+{"event": "token", "data": {"text": "\n\n"}}
+{"event": "token", "data": {"text": "The"}}
+{"event": "token", "data": {"text": " mock"}}
+{"event": "token", "data": {"text": "up"}}
+{"event": "token", "data": {"text": " includes"}}
+{"event": "token", "data": {"text": " all"}}
+{"event": "token", "data": {"text": " requested"}}
+{"event": "token", "data": {"text": " elements"}}
+{"event": "token", "data": {"text": ":"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "3"}}
+{"event": "token", "data": {"text": "0"}}
+{"event": "token", "data": {"text": "0"}}
+{"event": "token", "data": {"text": "px"}}
+{"event": "token", "data": {"text": " wide"}}
+{"event": "token", "data": {"text": " left"}}
+{"event": "token", "data": {"text": " sidebar"}}
+{"event": "token", "data": {"text": " with"}}
+{"event": "token", "data": {"text": " Claude"}}
+{"event": "token", "data": {"text": " word"}}
+{"event": "token", "data": {"text": "mark"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " Navigation"}}
+{"event": "token", "data": {"text": ":"}}
+{"event": "token", "data": {"text": " New"}}
+{"event": "token", "data": {"text": " chat"}}
+{"event": "token", "data": {"text": " ("}}
+{"event": "token", "data": {"text": "primary"}}
+{"event": "token", "data": {"text": " style"}}
+{"event": "token", "data": {"text": "),"}}
+{"event": "token", "data": {"text": " Search"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Custom"}}
+{"event": "token", "data": {"text": "ize"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Ch"}}
+{"event": "token", "data": {"text": "ats"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Projects"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Art"}}
+{"event": "token", "data": {"text": "ifacts"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Code"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Design"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " Rec"}}
+{"event": "token", "data": {"text": "ents"}}
+{"event": "token", "data": {"text": " section"}}
+{"event": "token", "data": {"text": " label"}}
+{"event": "token", "data": {"text": " and"}}
+{"event": "token", "data": {"text": " account"}}
+{"event": "token", "data": {"text": " footer"}}
+{"event": "token", "data": {"text": " with"}}
+{"event": "token", "data": {"text": " avatar"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " Cent"}}
+{"event": "token", "data": {"text": "ered"}}
+{"event": "token", "data": {"text": " main"}}
+{"event": "token", "data": {"text": " content"}}
+{"event": "token", "data": {"text": " with"}}
+{"event": "token", "data": {"text": " large"}}
+{"event": "token", "data": {"text": " greeting"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " R"}}
+{"event": "token", "data": {"text": "ounded"}}
+{"event": "token", "data": {"text": " composer"}}
+{"event": "token", "data": {"text": " with"}}
+{"event": "token", "data": {"text": " plus"}}
+{"event": "token", "data": {"text": " button"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " text"}}
+{"event": "token", "data": {"text": "area"}}
+{"event": "token", "data": {"text": " placeholder"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " and"}}
+{"event": "token", "data": {"text": " model"}}
+{"event": "token", "data": {"text": " dropdown"}}
+{"event": "token", "data": {"text": " (\""}}
+{"event": "token", "data": {"text": "Cla"}}
+{"event": "token", "data": {"text": "ude"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "3"}}
+{"event": "token", "data": {"text": "."}}
+{"event": "token", "data": {"text": "7"}}
+{"event": "token", "data": {"text": " Son"}}
+{"event": "token", "data": {"text": "net"}}
+{"event": "token", "data": {"text": "\")"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " Pill"}}
+{"event": "token", "data": {"text": " buttons"}}
+{"event": "token", "data": {"text": ":"}}
+{"event": "token", "data": {"text": " Write"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Learn"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Code"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Life"}}
+{"event": "token", "data": {"text": " stuff"}}
+{"event": "token", "data": {"text": ","}}
+{"event": "token", "data": {"text": " Claude"}}
+{"event": "token", "data": {"text": "'s"}}
+{"event": "token", "data": {"text": " choice"}}
+{"event": "token", "data": {"text": "\n\n"}}
+{"event": "token", "data": {"text": "No"}}
+{"event": "token", "data": {"text": " external"}}
+{"event": "token", "data": {"text": " assets"}}
+{"event": "token", "data": {"text": " are"}}
+{"event": "token", "data": {"text": " used"}}
+{"event": "token", "data": {"text": " -"}}
+{"event": "token", "data": {"text": " all"}}
+{"event": "token", "data": {"text": " styling"}}
+{"event": "token", "data": {"text": " is"}}
+{"event": "token", "data": {"text": " inline"}}
+{"event": "token", "data": {"text": " in"}}
+{"event": "token", "data": {"text": " the"}}
+{"event": "token", "data": {"text": " single"}}
+{"event": "token", "data": {"text": " file"}}
+{"event": "token", "data": {"text": "."}}
+{"event": "done", "data": {"total_time_ms": 59737, "sources": [], "provider": "openai_compat", "model": "doubao-seed-2.0-code"}}
