@@ -1,4 +1,4 @@
-"""Document rendering tool for vision-in-the-loop workflows."""
+"""Document/image rendering tool for vision-in-the-loop workflows."""
 
 from __future__ import annotations
 
@@ -16,10 +16,11 @@ from agent.tools_v2.primitives import _ToolBase
 class RenderDocumentTool(_ToolBase):
     name = "RenderDocument"
     description = (
-        "Render PDF/DOCX/XLSX documents to PNG images for visual inspection. "
+        "Render PDF/DOCX/XLSX documents or inspect image files for visual feedback. "
         "PDF is rendered directly with PyMuPDF. DOCX/XLSX are converted to PDF "
-        "with LibreOffice headless first, then rendered. Returns image paths "
-        "that the AgentLoop can attach to the next model turn."
+        "with LibreOffice headless first, then rendered. Existing PNG/JPG/WebP "
+        "images can be returned directly or cropped/zoomed like a magnifier. "
+        "Returns image paths that the AgentLoop can attach to the next model turn."
     )
     input_schema = {
         "type": "object",
@@ -36,6 +37,27 @@ class RenderDocumentTool(_ToolBase):
             },
             "dpi": {"type": "integer", "default": 150},
             "max_pages": {"type": "integer", "default": 3},
+            "regions": {
+                "type": "array",
+                "description": (
+                    "Optional pixel crop boxes for magnified inspection. "
+                    "Each item: {x,y,width,height,scale?,page?,name?}. For PDF, "
+                    "coordinates are in rendered page pixels."
+                ),
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "x": {"type": "integer"},
+                        "y": {"type": "integer"},
+                        "width": {"type": "integer"},
+                        "height": {"type": "integer"},
+                        "scale": {"type": "number", "default": 2},
+                        "page": {"type": "integer"},
+                        "name": {"type": "string"},
+                    },
+                    "required": ["x", "y", "width", "height"],
+                },
+            },
         },
         "required": ["path"],
     }
@@ -68,6 +90,8 @@ class RenderDocumentTool(_ToolBase):
         render_source = source
         converted_pdf: str | None = None
         suffix = source.suffix.lower()
+        if suffix in {".png", ".jpg", ".jpeg", ".webp", ".bmp"}:
+            return self._inspect_image(source, output_dir, input.get("regions") or [])
         if suffix in {".docx", ".doc", ".xlsx", ".xls", ".pptx", ".ppt"}:
             render_source = self._convert_to_pdf(source, output_dir)
             converted_pdf = str(render_source)
@@ -77,6 +101,12 @@ class RenderDocumentTool(_ToolBase):
             )
 
         rendered = self._render_pdf(render_source, pages, output_dir, dpi)
+        regions = self._crop_regions(
+            rendered["images"],
+            input.get("regions") or [],
+            output_dir,
+            source.stem,
+        )
         return {
             "type": "rendered_document",
             "source_path": str(source),
@@ -84,6 +114,36 @@ class RenderDocumentTool(_ToolBase):
             "pages_requested": pages,
             "total_pages": rendered["total_pages"],
             "images": rendered["images"],
+            "regions": regions,
+        }
+
+    def _inspect_image(
+        self,
+        source: Path,
+        output_dir: Path,
+        regions: list[dict],
+    ) -> dict:
+        try:
+            from PIL import Image
+        except ImportError as exc:
+            raise RuntimeError("Pillow is not installed") from exc
+
+        with Image.open(source) as img:
+            width, height = img.size
+        image = {
+            "page": 1,
+            "width": width,
+            "height": height,
+            "media_type": self._image_media_type(source),
+            "rendered_image_path": str(source),
+        }
+        crops = self._crop_regions([image], regions, output_dir, source.stem)
+        return {
+            "type": "rendered_image",
+            "source_path": str(source),
+            "total_pages": 1,
+            "images": [image],
+            "regions": crops,
         }
 
     def _convert_to_pdf(self, source: Path, output_dir: Path) -> Path:
@@ -182,3 +242,81 @@ class RenderDocumentTool(_ToolBase):
             )
         return {"total_pages": total_pages, "images": images}
 
+    def _crop_regions(
+        self,
+        images: list[dict[str, Any]],
+        regions: list[dict],
+        output_dir: Path,
+        source_stem: str,
+    ) -> list[dict[str, Any]]:
+        if not regions:
+            return []
+        try:
+            from PIL import Image
+        except ImportError as exc:
+            raise RuntimeError("Pillow is not installed") from exc
+
+        crops: list[dict[str, Any]] = []
+        by_page = {int(item.get("page") or 1): item for item in images}
+        for idx, region in enumerate(regions[:10], 1):
+            page_number = int(region.get("page") or 1)
+            image_info = by_page.get(page_number)
+            if not image_info:
+                continue
+            image_path = Path(str(image_info["rendered_image_path"]))
+            if not image_path.exists():
+                continue
+
+            x = max(0, int(region["x"]))
+            y = max(0, int(region["y"]))
+            width = max(1, int(region["width"]))
+            height = max(1, int(region["height"]))
+            scale = max(1.0, min(float(region.get("scale") or 2.0), 8.0))
+            label = str(region.get("name") or f"region_{idx}")
+            safe_label = "".join(c if c.isalnum() or c in "-_" else "_" for c in label)
+
+            with Image.open(image_path) as img:
+                right = min(img.width, x + width)
+                bottom = min(img.height, y + height)
+                if right <= x or bottom <= y:
+                    continue
+                crop = img.crop((x, y, right, bottom))
+                if scale != 1.0:
+                    crop = crop.resize(
+                        (
+                            max(1, int(crop.width * scale)),
+                            max(1, int(crop.height * scale)),
+                        ),
+                        Image.Resampling.LANCZOS,
+                    )
+                out_path = (
+                    output_dir
+                    / f"{source_stem}_page_{page_number}_{safe_label}_crop.png"
+                )
+                crop.save(out_path)
+                crops.append({
+                    "page": page_number,
+                    "region": {
+                        "x": x,
+                        "y": y,
+                        "width": right - x,
+                        "height": bottom - y,
+                        "scale": scale,
+                        "name": label,
+                    },
+                    "width": crop.width,
+                    "height": crop.height,
+                    "media_type": "image/png",
+                    "rendered_image_path": str(out_path),
+                })
+        return crops
+
+    def _image_media_type(self, path: Path) -> str:
+        suffix = path.suffix.lower()
+        return {
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".webp": "image/webp",
+            ".bmp": "image/bmp",
+        }.get(suffix, "image/png")

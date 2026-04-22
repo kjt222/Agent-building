@@ -106,3 +106,38 @@ Image-generation direction:
 - P5 should be designed as an iterative image production loop, not only a generate-image endpoint.
 - Required capabilities: full-image review, crop/zoom magnifier review, local inpainting/detail fixes, image comparison, identity/style reference storage, and series-level consistency profiles.
 - The main technical dependency is already started in P3: generated or rendered images can be returned into the next model turn as image blocks.
+
+## P3 Minimal Completion - 2026-04-22
+
+Runner: Codex
+
+P3 minimal infrastructure is now complete under the Claude Code-style "few tools, strong contracts" principle.
+
+Final P3 tool surface:
+
+- `Verify`: browser/HTML/URL verification and screenshot capture.
+- `RenderDocument`: PDF/Office document rendering, existing image inspection, and crop/zoom magnifier regions.
+
+Completed:
+
+- Browser artifact verification.
+- PDF rendering to PNG.
+- LibreOffice-backed Office-to-PDF-to-PNG path when LibreOffice is installed.
+- Existing image passthrough.
+- Region crop magnifier for screenshots/generated images/document renders.
+- Automatic image feedback into the next model turn.
+- Activity trace for image feedback.
+- Unit coverage and two replay artifacts:
+  - `tests/p3_vision_loop_results/2026-04-22-render-feedback/`
+  - `tests/p3_vision_loop_results/2026-04-22-magnifier-feedback/`
+
+Moved out of P3:
+
+- Excel COM high-fidelity rendering: P4 Office skill.
+- Image generation/inpainting/identity consistency: P5.
+- Script execution screenshot and sandboxed capture: P6.
+- Provider live vision evals and regression scoring: P8.
+
+Next phase:
+
+- Start P5 only after defining image asset identity/style persistence and local-edit workflow, otherwise generated characters will drift between turns.

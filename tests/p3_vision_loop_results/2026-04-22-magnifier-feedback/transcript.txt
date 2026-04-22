@@ -1,0 +1,1 @@
+saw-magnified-crop=true; images=digital_human_detail_fixture.png,digital_human_detail_fixture_page_1_badge_detail_crop.png

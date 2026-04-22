@@ -107,3 +107,38 @@ Implication for P5:
 - `ImageGenerate` is only the first tool.
 - Required follow-up tools are `ImageInspect`, `ImageCrop`/magnifier, `ImageEdit`/inpaint, `ImageCompare`, and an asset-reference store.
 - Cost/budget hooks remain necessary because iterative image review can multiply calls quickly.
+
+## 2026-04-22 - Codex - P3 Minimal Tool Completion
+
+Codex kept the P3 tool surface minimal instead of adding separate image/crop/inspect tools.
+
+Tool boundary:
+
+- `Verify`: browser/HTML/URL verification and screenshot capture.
+- `RenderDocument`: document rendering plus image-file inspection and crop/zoom magnifier regions.
+
+Changed files:
+
+- `agent/tools_v2/render_tool.py`: extended `RenderDocument` to accept existing PNG/JPG/WebP/BMP images and optional `regions` crop boxes. Region crops are zoomed and returned as image paths for automatic feedback into the next model turn.
+- `tests/unit/test_render_tool.py`: added coverage for image-file crop magnifier and PDF-page crop magnifier.
+- `requirements.txt`: added explicit `pillow` dependency.
+- `agent/ui/server.py`: prompt now tells the model to use `RenderDocument` regions as a magnifier for screenshots/generated images/local visual details.
+
+Replay:
+
+- `tests/p3_vision_loop_results/2026-04-22-magnifier-feedback/`
+- Result: passed. The second model call received both the original image and the magnified crop as image feedback.
+
+Verification:
+
+- `pytest tests/unit/test_render_tool.py tests/unit/test_agent_loop.py tests/unit/test_adapter_conversion.py tests/unit/test_agent_chat_v2_contract.py -q`
+- Result: `41 passed`
+
+P3 minimal infrastructure status:
+
+- Complete.
+- Browser verification, document rendering, image magnifier crops, and image-block feedback are implemented with two tools.
+- Office-specific high-fidelity Excel COM belongs to P4 Office skill work.
+- Generated-image creation/editing belongs to P5, built on this P3 feedback path.
+- Sandbox/active-window execution capture belongs to P6.
+- Regression scoring belongs to P8.
