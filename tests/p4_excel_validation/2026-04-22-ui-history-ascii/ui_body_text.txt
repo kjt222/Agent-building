@@ -1,0 +1,76 @@
+A
+
+Agent
+
+doubao-code
+
++
+New chat
+
+CONVERSATIONS
+
+P4 Excel validation task. Modi...
+20:24
+P4 Excel ?????????????? Excel ...
+20:22
+[UI Bench 04 - frontend] Creat...
+02:27
+[UI Bench 03 - SWE bugfix] In ...
+02:26
+[UI Bench 02 - repo read] Use ...
+02:26
+[UI Smoke 02 - RAG] Search the...
+02:15
+[UI Smoke 01 - metadata] Answe...
+02:15
+你是什么模型
+02:13
+请使用 Glob 工具列出 agent/core 下的 Py...
+2026/4/21
+请使用 Glob 工具列出 agent/core 下的 Py...
+2026/4/21
+你是什么模型？只回答一句。
+2026/4/21
+你是什么模型
+2026/4/21
+你是什么模型
+2026/4/20
+你好你是什么模型
+2026/4/20
+你能看到KB=22的第一个PDF嘛
+2026/4/20
+你是什么模型
+2026/4/20
+你是什么模型。
+2026/4/20
+你是什么模型
+2026/2/26
+你是什么模型
+2026/2/26
+你好你是什么模型
+2026/2/26
+⚙
+Settings
+▤
+Knowledge
+3
+✦
+Memory
+New conversation
+
+doubao-code
+22 · 1 · 33
+
+How can I help?
+
+Describe what you want to do. I can search, edit files, and call tools on your behalf.
+
+列出 Python 文件并总结用途
+读 conversation.md 末尾
+搜索 LoopContext
+📎
+Read-only
+Confirm
+Auto
+Send
+↵
