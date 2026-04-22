@@ -12,8 +12,10 @@ permission gating are wired in Phases 2-4.
 from __future__ import annotations
 
 import asyncio
+import base64
 import hashlib
 import json
+import mimetypes
 import time
 from dataclasses import dataclass, field
 from enum import Enum
@@ -282,7 +284,18 @@ class AgentLoop:
             tool_results: list[ToolResultBlock] = []
             if tool_uses and stop_reason == "tool_use":
                 tool_results = await self._dispatch_tools(tool_uses, ctx)
-                tool_result_msg = Message(role=Role.USER, content=list(tool_results))
+                tool_result_content: list[Block] = list(tool_results)
+                feedback_images = self._extract_image_feedback(tool_results, ctx)
+                if feedback_images:
+                    names = ", ".join(b.name or b.media_type for b in feedback_images)
+                    tool_result_content.append(TextBlock(
+                        text=(
+                            "Rendered image feedback from tool results is attached "
+                            f"for visual inspection: {names}"
+                        )
+                    ))
+                    tool_result_content.extend(feedback_images)
+                tool_result_msg = Message(role=Role.USER, content=tool_result_content)
                 ctx.messages.append(tool_result_msg)
                 yield tool_result_msg
                 self._write_trace(ctx, assistant_msg, tool_uses, tool_results,
@@ -409,6 +422,89 @@ class AgentLoop:
         }
         with path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+    def _extract_image_feedback(
+        self,
+        tool_results: list[ToolResultBlock],
+        ctx: LoopContext,
+    ) -> list[ImageBlock]:
+        """Extract screenshot/rendered image artifacts for the next model turn.
+
+        Tools keep their textual/function output intact. When a result also
+        points at a rendered image, the loop attaches an ImageBlock to the
+        following model call so the model can visually inspect the artifact.
+        """
+        blocks: list[ImageBlock] = []
+        max_bytes = int(ctx.scratch.get("image_feedback_max_bytes") or 8_000_000)
+
+        def _payloads(value) -> list[dict]:
+            if isinstance(value, str):
+                try:
+                    value = json.loads(value)
+                except json.JSONDecodeError:
+                    return []
+            found: list[dict] = []
+            if isinstance(value, dict):
+                found.append(value)
+                for child in value.values():
+                    found.extend(_payloads(child))
+            elif isinstance(value, list):
+                for child in value:
+                    found.extend(_payloads(child))
+            return found
+
+        def _from_base64(payload: dict) -> ImageBlock | None:
+            base64_data = payload.get("base64") or payload.get("_image_base64")
+            if not base64_data:
+                return None
+            media_type = (
+                payload.get("media_type")
+                or payload.get("_image_media_type")
+                or "image/png"
+            )
+            name = payload.get("file_name") or payload.get("name") or "tool-image"
+            return ImageBlock(
+                base64=str(base64_data),
+                media_type=str(media_type),
+                name=str(name),
+            )
+
+        def _from_path(payload: dict) -> ImageBlock | None:
+            raw_path = (
+                payload.get("screenshot_path")
+                or payload.get("rendered_image_path")
+                or payload.get("image_path")
+            )
+            if not raw_path:
+                return None
+            path = Path(str(raw_path)).expanduser()
+            if not path.exists() or not path.is_file():
+                return None
+            media_type = mimetypes.guess_type(path.name)[0] or "image/png"
+            if not media_type.startswith("image/"):
+                return None
+            if path.stat().st_size > max_bytes:
+                return None
+            data = base64.b64encode(path.read_bytes()).decode("ascii")
+            return ImageBlock(base64=data, media_type=media_type, name=path.name)
+
+        seen: set[tuple[str, str]] = set()
+        for result in tool_results:
+            for payload in _payloads(result.content):
+                block = _from_base64(payload) or _from_path(payload)
+                if not block:
+                    continue
+                key = (block.name, block.base64[:64])
+                if key in seen:
+                    continue
+                seen.add(key)
+                blocks.append(block)
+
+        if blocks:
+            ctx.scratch.setdefault("image_feedback", []).extend(
+                {"name": b.name, "media_type": b.media_type} for b in blocks
+            )
+        return blocks
 
     async def _dispatch_tools(
         self,

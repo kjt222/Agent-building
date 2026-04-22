@@ -74,6 +74,27 @@ class WriteSideEffectTool:
         return ToolResultBlock(tool_use_id="", content=f"wrote {input.get('path')}")
 
 
+class ScreenshotTool:
+    name = "screenshot"
+    description = "Return a rendered screenshot path"
+    input_schema = {
+        "type": "object",
+        "properties": {"path": {"type": "string"}},
+        "required": ["path"],
+    }
+    permission_level = PermissionLevel.SAFE
+    parallel_safe = False
+
+    async def run(self, input: dict, ctx: LoopContext) -> ToolResultBlock:
+        return ToolResultBlock(
+            tool_use_id="",
+            content=json.dumps({
+                "ok": True,
+                "screenshot_path": input["path"],
+            }),
+        )
+
+
 async def _drive(loop: AgentLoop, user_message: str) -> list:
     out = []
     async for ev in loop.run(user_message):
@@ -169,6 +190,37 @@ def test_tool_use_round_trip_appends_result_message():
 
     assert msgs[2].role == Role.ASSISTANT
     assert msgs[2].content[0].text == "done"
+
+
+def test_tool_result_screenshot_is_attached_to_next_model_turn(tmp_path: Path):
+    screenshot = tmp_path / "screen.png"
+    screenshot.write_bytes(
+        b"\x89PNG\r\n\x1a\n"
+        b"\x00\x00\x00\rIHDR"
+        b"\x00\x00\x00\x01\x00\x00\x00\x01"
+        b"\x08\x02\x00\x00\x00\x90wS\xde"
+        b"\x00\x00\x00\x00IEND\xaeB`\x82"
+    )
+    adp = MockAdapter([
+        tool_turn("c1", "screenshot", {"path": str(screenshot)}),
+        text_turn("looked at screenshot"),
+    ])
+    loop = AgentLoop(adapter=adp, tools={"screenshot": ScreenshotTool()})
+
+    events = asyncio.run(_drive(loop, "verify visually"))
+
+    msgs = [e for e in events if isinstance(e, Message)]
+    feedback_msg = msgs[1]
+    assert feedback_msg.role == Role.USER
+    assert any(isinstance(b, ToolResultBlock) for b in feedback_msg.content)
+    image = next(b for b in feedback_msg.content if isinstance(b, ImageBlock))
+    assert image.name == "screen.png"
+    assert image.media_type == "image/png"
+    assert image.base64
+
+    second_call_messages = adp.call_log[1]["messages"]
+    second_call_feedback = second_call_messages[-1]
+    assert any(isinstance(b, ImageBlock) for b in second_call_feedback.content)
 
 
 def test_unknown_tool_yields_error_result():

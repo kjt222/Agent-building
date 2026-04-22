@@ -56,3 +56,31 @@ P3 status after this change:
 - Not complete.
 - Completed P3 slice: browser `Verify` for HTML/URL artifacts.
 - Remaining P3 scope: Office renderers, generated-image render handling, screenshot/image-block feedback into the next model turn, and model-controlled self-review loop.
+
+## 2026-04-22 - Codex - P3 Render Feedback Slice
+
+Codex continued P3 with the next vision-in-the-loop foundation slice.
+
+Changed files:
+
+- `agent/core/loop.py`: tool results that contain `screenshot_path`, `rendered_image_path`, or base64 image payloads are converted into `ImageBlock`s and attached to the next model turn.
+- `agent/models/openai_adapter_v2.py`: chat-completions conversion now supports tool results followed by multimodal image feedback.
+- `agent/models/openai_responses_adapter.py`: Responses API conversion now supports function-call outputs followed by multimodal image feedback.
+- `agent/ui/server.py`: Activity emits `image_feedback` when rendered images are attached; the system prompt now tells the model to inspect rendered screenshots and to use `RenderDocument` for document layout.
+- `agent/tools_v2/render_tool.py`: added `RenderDocument` for PDF rendering and LibreOffice-backed DOCX/XLSX/PPTX-to-PDF rendering when LibreOffice is available.
+- `agent/tools_v2/primitives.py`: registered `RenderDocument` in the v2 full toolset.
+- `tests/unit/test_agent_loop.py`: covers automatic screenshot attachment into the next model call.
+- `tests/unit/test_adapter_conversion.py`: covers tool-result-plus-image conversion for Chat Completions and Responses API.
+- `tests/unit/test_render_tool.py`: covers PDF-to-PNG rendering.
+
+Verification:
+
+- `pytest tests/unit/test_render_tool.py tests/unit/test_agent_loop.py tests/unit/test_adapter_conversion.py tests/unit/test_agent_chat_v2_contract.py -q`
+- Result: `39 passed`
+
+Current P3 status:
+
+- Browser verification: complete for HTML/URL artifacts.
+- Render feedback: partially complete. PDF rendering works directly; Office formats depend on installed LibreOffice.
+- Image feedback into the next model turn: complete for tool-result image paths/base64 payloads.
+- Remaining: native Excel COM rendering path, generated-image tool integration, active-window/script screenshot path, and a higher-level self-review policy/eval loop.

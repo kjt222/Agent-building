@@ -98,13 +98,25 @@ def _internal_to_responses_input(
                         "content": "".join(b.text for b in text_blocks),
                     }
                 )
-            elif text_blocks:
-                out.append(
-                    {
-                        "role": "user",
-                        "content": "".join(b.text for b in text_blocks),
-                    }
-                )
+            elif text_blocks or image_blocks:
+                if image_blocks:
+                    content: list[dict] = []
+                    text = "".join(b.text for b in text_blocks)
+                    if text:
+                        content.append({"type": "input_text", "text": text})
+                    for b in image_blocks:
+                        content.append({
+                            "type": "input_image",
+                            "image_url": f"data:{b.media_type};base64,{b.base64}",
+                        })
+                    out.append({"role": "user", "content": content})
+                else:
+                    out.append(
+                        {
+                            "role": "user",
+                            "content": "".join(b.text for b in text_blocks),
+                        }
+                    )
         elif msg.role == Role.ASSISTANT:
             text_blocks = [b for b in msg.content if isinstance(b, TextBlock)]
             tool_uses = [b for b in msg.content if isinstance(b, ToolUseBlock)]

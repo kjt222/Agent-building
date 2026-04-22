@@ -71,3 +71,26 @@ Next recommended step:
 
 1. Add a frontend "export trace" affordance or trace drawer backed by the new endpoints.
 2. Continue P3 with render outputs plus image-block feedback.
+
+## P3 Progress Update - 2026-04-22
+
+Runner: Codex
+
+P3 has advanced but is still not complete.
+
+Completed in this slice:
+
+- `RenderDocument` tool added to AgentLoop v2 full toolset.
+- PDF pages render directly to PNG with PyMuPDF.
+- DOCX/XLSX/PPTX can render through LibreOffice headless when LibreOffice is installed.
+- Tool results that include `screenshot_path`, `rendered_image_path`, or image base64 are automatically attached as `ImageBlock`s to the next model turn.
+- OpenAI Chat Completions and Responses adapter conversions both support function/tool output followed by image feedback.
+- UI Activity emits an `image_feedback` event when the loop attaches rendered images.
+
+P3 still open:
+
+- Excel COM rendering path for higher fidelity Windows Office screenshots.
+- Script/active-window screenshot capture.
+- Generated-image tool plus img2img/inpainting loop.
+- Self-review policy that decides when to run render/Verify again.
+- Regression tasks that prove the model actually uses visual feedback to correct artifacts.

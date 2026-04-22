@@ -451,6 +451,7 @@ def full_toolset() -> dict:
     """Default primitives + domain tools (docx, knowledge, verify)."""
     from agent.tools_v2.docx_tool import DocxEditTool
     from agent.tools_v2.knowledge_tool import KnowledgeIndexTool, KnowledgeSearchTool
+    from agent.tools_v2.render_tool import RenderDocumentTool
     from agent.tools_v2.verify_tool import VerifyTool
 
     tools = default_toolset()
@@ -458,4 +459,5 @@ def full_toolset() -> dict:
     tools["KnowledgeSearch"] = KnowledgeSearchTool()
     tools["KnowledgeIndex"] = KnowledgeIndexTool()
     tools["Verify"] = VerifyTool()
+    tools["RenderDocument"] = RenderDocumentTool()
     return tools

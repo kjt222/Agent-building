@@ -2586,6 +2586,10 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             "issues before the final answer. For HTML, CSS, JavaScript, browser "
             "UI, or game artifacts, call Verify with concrete browser assertions "
             "after writing and reading the file, then fix any failed assertion. "
+            "For PDF, DOCX, XLSX, PPTX, or document layout questions, use "
+            "RenderDocument to create page images before judging visual layout. "
+            "When rendered screenshots are attached after tool results, inspect "
+            "them as visual evidence before deciding whether the artifact is ready. "
             "In auto mode, do not ask the user "
             "whether to proceed with the requested creation unless blocked by "
             "missing required information or a permission failure. If "
@@ -2914,6 +2918,9 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                                 })
                         streamed_text_since_message = False
                     else:  # Role.USER with tool_result blocks
+                        image_feedback = [
+                            b for b in event.content if isinstance(b, ImageBlock)
+                        ]
                         for b in event.content:
                             if not isinstance(b, ToolResultBlock):
                                 continue
@@ -2928,6 +2935,27 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                                 "meta": {
                                     "is_error": b.is_error,
                                     "tool_use_id": b.tool_use_id,
+                                },
+                            })
+                        if image_feedback:
+                            await emit("activity", {
+                                "id": f"{rid}_image_feedback_{len(trace_events)}",
+                                "type": "image_feedback",
+                                "title": f"Image feedback attached: {len(image_feedback)}",
+                                "detail": ", ".join(
+                                    b.name or b.media_type for b in image_feedback
+                                ),
+                                "status": "done",
+                                "ts": perf_counter() * 1000,
+                                "meta": {
+                                    "count": len(image_feedback),
+                                    "images": [
+                                        {
+                                            "name": b.name,
+                                            "media_type": b.media_type,
+                                        }
+                                        for b in image_feedback
+                                    ],
                                 },
                             })
 
