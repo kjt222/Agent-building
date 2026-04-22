@@ -1,0 +1,648 @@
+event: activity
+data: {"id": "ffc9e94c_agent", "type": "agent_start", "title": "Agent v2 started", "detail": "profile=gpt-5.4 provider=openai model=gpt-5.4", "status": "start", "ts": 56094258.619100004, "meta": {"endpoint": "agent_chat_v2", "session_id": "ffc9e94c", "conversation_id": "conv_20260422_161858_78ad4c", "profile": "gpt-5.4", "provider": "openai", "model": "gpt-5.4", "capability_scope": "artifact", "runtime": {"mode": "inline", "monitor_enabled": false, "wake_on_task_complete": false, "heartbeat_seconds": 30}}}
+
+event: activity
+data: {"id": "ffc9e94c_tools", "type": "tool_manifest", "title": "Tools loaded: 11", "detail": "Bash, DocxEdit, Edit, Glob, Grep, KnowledgeIndex, KnowledgeSearch, Read, RenderDocument, Verify, Write", "status": "done", "ts": 56094258.6353, "meta": {"endpoint": "/api/agent_chat_v2", "executor": "AgentLoop", "tools": ["Bash", "DocxEdit", "Edit", "Glob", "Grep", "KnowledgeIndex", "KnowledgeSearch", "Read", "RenderDocument", "Verify", "Write"], "images": 0}}
+
+event: activity
+data: {"id": "ffc9e94c_tc_call_oCUJquJLkp37SDFfxof2wg4y", "type": "tool_call", "title": "Calling: Read", "detail": "{\"path\": \"tests\\\\model_comparison_results\\\\2026-04-22-p3-complex\\\\gpt-5.4\\\\landing.html\",\"offset\": 1,\"limit\": 400}", "status": "start", "ts": 56099249.9245, "meta": {"id": "call_oCUJquJLkp37SDFfxof2wg4y", "name": "Read", "input": {"path": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html", "offset": 1, "limit": 400}}}
+
+event: activity
+data: {"id": "ffc9e94c_tc_call_pc6za5turwIGF9jKvkFsrfzy", "type": "tool_call", "title": "Calling: RenderDocument", "detail": "{\"path\": \"D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/brand_brief.pdf\",\"pages\": [1,2,3],\"output_dir\": \"D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/renders\",\"dpi\": 170,\"max_pages\": 3,\"regions\": []}", "status": "start", "ts": 56099250.144, "meta": {"id": "call_pc6za5turwIGF9jKvkFsrfzy", "name": "RenderDocument", "input": {"path": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/brand_brief.pdf", "pages": [1, 2, 3], "output_dir": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/renders", "dpi": 170, "max_pages": 3, "regions": []}}}
+
+event: activity
+data: {"id": "ffc9e94c_tc_call_Sl1glyPGRO2v5QGLQnZIH4m8", "type": "tool_call", "title": "Calling: RenderDocument", "detail": "{\"path\": \"D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/avatar_reference.png\",\"pages\": [1],\"output_dir\": \"D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/renders\",\"dpi\": 200,\"max_pages\": 1,\"regions\": [{\"x\": 0,\"y\": 0,\"width\": 1200,\"height\": 1200,\"scale\": 1,\"page\": 1,\"name\": \"full\"},{\"x\": 700,\"y\": 650,\"width\": 260,\"height\": 180,\"scale\": 4,\"page\": 1,\"name\": \"badge_zoom\"}]}", "status": "start", "ts": 56099250.4822, "meta": {"id": "call_Sl1glyPGRO2v5QGLQnZIH4m8", "name": "RenderDocument", "input": {"path": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/avatar_reference.png", "pages": [1], "output_dir": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/renders", "dpi": 200, "max_pages": 1, "regions": [{"x": 0, "y": 0, "width": 1200, "height": 1200, "scale": 1, "page": 1, "name": "full"}, {"x": 700, "y": 650, "width": 260, "height": 180, "scale": 4, "page": 1, "name": "badge_zoom"}]}}}
+
+event: activity
+data: {"id": "ffc9e94c_tr_call_oCUJquJLkp37SDFfxof2wg4y", "type": "tool_result", "title": "Tool result", "detail": "1\t<!doctype html>\n2\t<html lang=\"en\">\n3\t<head>\n4\t  <meta charset=\"utf-8\" />\n5\t  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n6\t  <title>Broken Landing</title>\n7\t  <style>\n8\t    body { margin: 0; font-family: Arial, sans-serif; background: #fff; color: #222; }\n9\t    .shell { width: 1480px; padding: 48px; }\n10\t    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }\n11\t    .badge { color: #c00; font-weight: 700; }\n12\t    button { background: #f70; color: #111; border: 0; padding: 14px 20px; }\n13\t  </style>\n14\t</head>\n15\t<body>\n16\t  <main class=\"shell\">\n17\t...<truncated>", "status": "done", "ts": 56099293.069699995, "meta": {"is_error": false, "tool_use_id": "call_oCUJquJLkp37SDFfxof2wg4y"}}
+
+event: activity
+data: {"id": "ffc9e94c_tr_call_pc6za5turwIGF9jKvkFsrfzy", "type": "tool_result", "title": "Tool result", "detail": "{\n  \"type\": \"rendered_document\",\n  \"source_path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\model_comparison_results\\\\2026-04-22-p3-complex\\\\brand_brief.pdf\",\n  \"converted_pdf_path\": null,\n  \"pages_requested\": [\n    1,\n    2,\n    3\n  ],\n  \"total_pages\": 1,\n  \"images\": [\n    {\n      \"page\": 1,\n      \"width\": 1228,\n      \"height\": 850,\n      \"media_type\": \"image/png\",\n      \"rendered_image_path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\model_comparison_results\\\\2026-04-22-p3-complex\\\\renders\\\\brand_brief_page_1_1776845943519.png\"\n    }\n...<truncated>", "status": "done", "ts": 56099293.102299996, "meta": {"is_error": false, "tool_use_id": "call_pc6za5turwIGF9jKvkFsrfzy"}}
+
+event: activity
+data: {"id": "ffc9e94c_tr_call_Sl1glyPGRO2v5QGLQnZIH4m8", "type": "tool_result", "title": "Tool result", "detail": "{\n  \"type\": \"rendered_image\",\n  \"source_path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\model_comparison_results\\\\2026-04-22-p3-complex\\\\avatar_reference.png\",\n  \"total_pages\": 1,\n  \"images\": [\n    {\n      \"page\": 1,\n      \"width\": 520,\n      \"height\": 340,\n      \"media_type\": \"image/png\",\n      \"rendered_image_path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\model_comparison_results\\\\2026-04-22-p3-complex\\\\avatar_reference.png\"\n    }\n  ],\n  \"regions\": [\n    {\n      \"page\": 1,\n      \"region\": {\n        \"x\": 0,\n...<truncated>", "status": "done", "ts": 56099293.125800006, "meta": {"is_error": false, "tool_use_id": "call_Sl1glyPGRO2v5QGLQnZIH4m8"}}
+
+event: activity
+data: {"id": "ffc9e94c_image_feedback_8", "type": "image_feedback", "title": "Image feedback attached: 3", "detail": "brand_brief_page_1_1776845943519.png, avatar_reference.png, avatar_reference_page_1_full_crop.png", "status": "done", "ts": 56099293.1348, "meta": {"count": 3, "images": [{"name": "brand_brief_page_1_1776845943519.png", "media_type": "image/png"}, {"name": "avatar_reference.png", "media_type": "image/png"}, {"name": "avatar_reference_page_1_full_crop.png", "media_type": "image/png"}]}}
+
+event: activity
+data: {"id": "ffc9e94c_tc_call_vawXO1mNmH3c0bZgkEFdPpGA", "type": "tool_call", "title": "Calling: Write", "detail": "{\"path\": \"tests\\\\model_comparison_results\\\\2026-04-22-p3-complex\\\\gpt-5.4\\\\landing.html\",\"content\": \"<8639 chars>\"}", "status": "start", "ts": 56135346.791600004, "meta": {"id": "call_vawXO1mNmH3c0bZgkEFdPpGA", "name": "Write", "input": {"path": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html", "content": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  <title>AURORA LABS — Digital Human Product Guide</title>\n  <style>\n    :root {\n      --primary: #07564c;\n      --bg: #f5f2ea;\n      --panel: #fffdf8;\n      --text: #13201d;\n      --muted: #526561;\n      --accent: #b33647;\n      --border: rgba(7, 86, 76, 0.16);\n      --shadow: 0 20px 50px rgba(8, 33, 29, 0.12);\n      --radius: 24px;\n    }\n\n    * { box-sizing: border-box; }\n\n    body {\n      margin: 0;\n      font-family: Arial, Helvetica, sans-serif;\n      background:\n        radial-gradient(circle at top left, rgba(7, 86, 76, 0.08), transparent 24%),\n        linear-gradient(180deg, #faf7f1 0%, var(--bg) 100%);\n      color: var(--text);\n      line-height: 1.5;\n    }\n\n    img { max-width: 100%; display: block; }\n\n    .page {\n      width: min(100%, 1200px);\n      margin: 0 auto;\n      padding: 32px 20px 56px;\n    }\n\n    .hero {\n      display: grid;\n      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);\n      gap: 28px;\n      align-items: center;\n    }\n\n    .panel {\n      background: rgba(255, 253, 248, 0.92);\n      border: 1px solid var(--border);\n      border-radius: var(--radius);\n      box-shadow: var(--shadow);\n      padding: clamp(24px, 4vw, 44px);\n      min-width: 0;\n    }\n\n    .eyebrow {\n      display: inline-flex;\n      align-items: center;\n      gap: 10px;\n      margin-bottom: 18px;\n      padding: 8px 14px;\n      border-radius: 999px;\n      background: rgba(7, 86, 76, 0.1);\n      color: var(--primary);\n      font-size: 0.95rem;\n      font-weight: 700;\n      letter-spacing: 0.02em;\n    }\n\n    h1 {\n      margin: 0 0 14px;\n      font-size: clamp(2.3rem, 5vw, 4.5rem);\n      line-height: 0.98;\n      letter-spacing: -0.03em;\n    }\n\n    .tagline {\n      margin: 0 0 18px;\n      font-size: clamp(1.2rem, 2vw, 1.6rem);\n      color: var(--text);\n      max-width: 32rem;\n    }\n\n    .intro {\n      margin: 0 0 28px;\n      color: var(--muted);\n      font-size: 1.02rem;\n      max-width: 38rem;\n    }\n\n    .selling-points {\n      display: grid;\n      gap: 14px;\n      margin: 0 0 30px;\n      padding: 0;\n      list-style: none;\n    }\n\n    .selling-points li {\n      display: flex;\n      gap: 12px;\n      align-items: flex-start;\n      padding: 14px 16px;\n      border-radius: 18px;\n      background: #ffffff;\n      border: 1px solid rgba(7, 86, 76, 0.12);\n      min-width: 0;\n    }\n\n    .selling-points li::before {\n      content: \"\";\n      flex: 0 0 10px;\n      width: 10px;\n      height: 10px;\n      margin-top: 0.48rem;\n      border-radius: 50%;\n      background: var(--primary);\n      box-shadow: 0 0 0 6px rgba(7, 86, 76, 0.1);\n    }\n\n    .cta-row {\n      display: flex;\n      flex-wrap: wrap;\n      gap: 14px;\n      align-items: center;\n    }\n\n    .cta {\n      display: inline-flex;\n      align-items: center;\n      justify-content: center;\n      min-height: 52px;\n      padding: 14px 22px;\n      border: 0;\n      border-radius: 999px;\n      background: var(--primary);\n      color: #f8f5ee;\n      font-size: 1rem;\n      font-weight: 700;\n      text-decoration: none;\n      box-shadow: 0 12px 28px rgba(7, 86, 76, 0.22);\n    }\n\n    .cta-note {\n      color: var(--muted);\n      font-size: 0.96rem;\n    }\n\n    .spokesperson {\n      position: relative;\n      overflow: hidden;\n      min-height: 100%;\n    }\n\n    .spokesperson::after {\n      content: \"\";\n      position: absolute;\n      inset: auto -40px -70px auto;\n      width: 200px;\n      height: 200px;\n      border-radius: 50%;\n      background: rgba(7, 86, 76, 0.08);\n      pointer-events: none;\n    }\n\n    .avatar-stage {\n      display: grid;\n      place-items: center;\n      min-height: 560px;\n      padding: 12px;\n    }\n\n    .avatar-card {\n      position: relative;\n      width: min(100%, 420px);\n      aspect-ratio: 10 / 12;\n      border-radius: 28px;\n      background: linear-gradient(180deg, #f7f3eb 0%, #f2ede3 100%);\n      border: 1px solid rgba(19, 32, 29, 0.14);\n      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);\n      overflow: hidden;\n    }\n\n    .avatar-card .halo {\n      position: absolute;\n      inset: 30px auto auto 50%;\n      width: 280px;\n      height: 280px;\n      transform: translateX(-50%);\n      border-radius: 50%;\n      background: radial-gradient(circle, rgba(7, 86, 76, 0.18) 0%, rgba(7, 86, 76, 0.02) 62%, transparent 72%);\n    }\n\n    .head {\n      position: absolute;\n      top: 72px;\n      left: 72px;\n      width: 140px;\n      height: 140px;\n      border-radius: 50%;\n      background: #e4bc97;\n      border: 3px solid #2e2e2e;\n      z-index: 2;\n    }\n\n    .torso {\n      position: absolute;\n      top: 205px;\n      left: 110px;\n      width: 86px;\n      height: 180px;\n      background: var(--primary);\n      border: 3px solid #23312f;\n      z-index: 1;\n    }\n\n    .nameplate {\n      position: absolute;\n      top: 104px;\n      right: 54px;\n      padding: 16px 20px;\n      min-width: 132px;\n      background: var(--primary);\n      color: #f7f3eb;\n      font-size: 1rem;\n      letter-spacing: 0.04em;\n      text-transform: uppercase;\n      text-align: center;\n      z-index: 3;\n    }\n\n    .badge-card {\n      position: absolute;\n      right: 38px;\n      top: 224px;\n      width: 150px;\n      min-height: 70px;\n      padding: 18px 16px;\n      background: rgba(255, 251, 245, 0.96);\n      border: 2px solid var(--accent);\n      color: var(--accent);\n      font-size: 1rem;\n      display: flex;\n      align-items: center;\n      z-index: 3;\n    }\n\n    .badge-card::after {\n      content: \"\";\n      position: absolute;\n      right: 12px;\n      bottom: 10px;\n      width: 8px;\n      height: 8px;\n      background: #1f1f1f;\n    }\n\n    .avatar-caption {\n      position: absolute;\n      left: 28px;\n      right: 28px;\n      bottom: 24px;\n      padding: 14px 16px;\n      border-radius: 18px;\n      background: rgba(255, 255, 255, 0.75);\n      color: var(--muted);\n      font-size: 0.95rem;\n      z-index: 4;\n    }\n\n    @media (max-width: 920px) {\n      .hero { grid-template-columns: 1fr; }\n      .avatar-stage { min-height: 500px; }\n      .spokesperson { order: -1; }\n    }\n\n    @media (max-width: 520px) {\n      .page { padding-inline: 14px; }\n      .panel { border-radius: 20px; padding: 20px; }\n      .avatar-stage { min-height: 430px; padding: 0; }\n      .avatar-card { width: 100%; }\n      .head {\n        top: 62px;\n        left: 38px;\n        width: 118px;\n        height: 118px;\n      }\n      .torso {\n        top: 174px;\n        left: 72px;\n        width: 74px;\n        height: 150px;\n      }\n      .nameplate {\n        top: 88px;\n        right: 24px;\n        min-width: 112px;\n        padding: 13px 14px;\n        font-size: 0.9rem;\n      }\n      .badge-card {\n        top: 205px;\n        right: 18px;\n        width: 132px;\n        min-height: 62px;\n        padding: 14px 12px;\n        font-size: 0.93rem;\n      }\n      .avatar-caption {\n        left: 16px;\n        right: 16px;\n        bottom: 16px;\n      }\n    }\n  </style>\n</head>\n<body>\n  <main class=\"page\">\n    <section class=\"hero\" aria-label=\"AURORA LABS product spokesperson\">\n      <section class=\"panel copy-panel\">\n        <p class=\"eyebrow\">AURORA LABS digital spokesperson</p>\n        <h1>AURORA LABS</h1>\n        <p class=\"tagline\">Your calm AI product guide</p>\n        <p class=\"intro\">\n          Meet the on-brand digital human designed to introduce your product with clarity, confidence, and a steady voice across live demos, launches, and onboarding moments.\n        </p>\n\n        <ul class=\"selling-points\" aria-label=\"Selling points\">\n          <li>Explains complex workflows clearly</li>\n          <li>Keeps tool activity traceable</li>\n          <li>Reviews visual details before delivery</li>\n        </ul>\n\n        <div class=\"cta-row\">\n          <a class=\"cta\" href=\"#demo\">Book a guided demo</a>\n          <span class=\"cta-note\">Built for calm walkthroughs and trustworthy product storytelling.</span>\n        </div>\n      </section>\n\n      <section class=\"panel spokesperson\" id=\"demo\" aria-label=\"Digital human preview\">\n        <div class=\"avatar-stage\">\n          <div class=\"avatar-card\" role=\"img\" aria-label=\"AURORA digital human spokesperson with badge VX-17\">\n            <div class=\"halo\"></div>\n            <div class=\"head\"></div>\n            <div class=\"torso\"></div>\n            <div class=\"nameplate\">AURORA</div>\n            <div class=\"badge-card\">badge VX-17</div>\n            <div class=\"avatar-caption\">A poised, product-facing guide for clear, reassuring AI walkthroughs.</div>\n          </div>\n        </div>\n      </section>\n    </section>\n  </main>\n</body>\n</html>"}}}
+
+event: activity
+data: {"id": "ffc9e94c_tr_call_vawXO1mNmH3c0bZgkEFdPpGA", "type": "tool_result", "title": "Tool result", "detail": "wrote 8639 chars to .\\tests\\model_comparison_results\\2026-04-22-p3-complex\\gpt-5.4\\landing.html", "status": "done", "ts": 56135347.493200004, "meta": {"is_error": false, "tool_use_id": "call_vawXO1mNmH3c0bZgkEFdPpGA"}}
+
+event: activity
+data: {"id": "ffc9e94c_tc_call_S2H6ZBd90v38BttsoKJL05zG", "type": "tool_call", "title": "Calling: Read", "detail": "{\"path\": \"tests\\\\model_comparison_results\\\\2026-04-22-p3-complex\\\\gpt-5.4\\\\landing.html\",\"offset\": 1,\"limit\": 400}", "status": "start", "ts": 56139759.2515, "meta": {"id": "call_S2H6ZBd90v38BttsoKJL05zG", "name": "Read", "input": {"path": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html", "offset": 1, "limit": 400}}}
+
+event: activity
+data: {"id": "ffc9e94c_tc_call_iwG7JgXBSLGLrkc0x3uW86a6", "type": "tool_call", "title": "Calling: Verify", "detail": "{\"target\": \"D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html\",\"viewport\": {\"width\": 1280,\"height\": 900},\"assertions\": [{\"type\": \"no_horizontal_overflow\"},{\"type\": \"text_contains\",\"text\": \"Your calm AI product guide\"},{\"type\": \"text_contains\",\"text\": \"badge VX-17\"},{\"type\": \"text_contains\",\"text\": \"Book a guided demo\"},{\"type\": \"no_console_errors\"}],\"screenshot_path\": \"D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-c...<truncated>", "status": "start", "ts": 56139759.2968, "meta": {"id": "call_iwG7JgXBSLGLrkc0x3uW86a6", "name": "Verify", "input": {"target": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html", "viewport": {"width": 1280, "height": 900}, "assertions": [{"type": "no_horizontal_overflow"}, {"type": "text_contains", "text": "Your calm AI product guide"}, {"type": "text_contains", "text": "badge VX-17"}, {"type": "text_contains", "text": "Book a guided demo"}, {"type": "no_console_errors"}], "screenshot_path": "D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing-verify.png", "timeout_ms": 10000}}}
+
+event: activity
+data: {"id": "ffc9e94c_tr_call_S2H6ZBd90v38BttsoKJL05zG", "type": "tool_result", "title": "Tool result", "detail": "1\t<!doctype html>\n2\t<html lang=\"en\">\n3\t<head>\n4\t  <meta charset=\"utf-8\" />\n5\t  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n6\t  <title>AURORA LABS — Digital Human Product Guide</title>\n7\t  <style>\n8\t    :root {\n9\t      --primary: #07564c;\n10\t      --bg: #f5f2ea;\n11\t      --panel: #fffdf8;\n12\t      --text: #13201d;\n13\t      --muted: #526561;\n14\t      --accent: #b33647;\n15\t      --border: rgba(7, 86, 76, 0.16);\n16\t      --shadow: 0 20px 50px rgba(8, 33, 29, 0.12);\n17\t      --radius: 24px;\n18\t    }\n...<truncated>", "status": "done", "ts": 56140586.524, "meta": {"is_error": false, "tool_use_id": "call_S2H6ZBd90v38BttsoKJL05zG"}}
+
+event: activity
+data: {"id": "ffc9e94c_tr_call_iwG7JgXBSLGLrkc0x3uW86a6", "type": "tool_result", "title": "Tool result", "detail": "{\n  \"ok\": true,\n  \"target\": \"D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html\",\n  \"url\": \"file:///D:/D/python%E7%BC%96%E7%A8%8B/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html\",\n  \"title\": \"AURORA LABS — Digital Human Product Guide\",\n  \"viewport\": {\n    \"width\": 1280,\n    \"height\": 900\n  },\n  \"assertions\": [\n    {\n      \"type\": \"no_horizontal_overflow\",\n      \"ok\": true,\n      \"actual\": false\n    },\n    {\n      \"type\": \"text_contains\",\n      \"ok\": true,\n...<truncated>", "status": "done", "ts": 56140586.562199995, "meta": {"is_error": false, "tool_use_id": "call_iwG7JgXBSLGLrkc0x3uW86a6"}}
+
+event: activity
+data: {"id": "ffc9e94c_image_feedback_15", "type": "image_feedback", "title": "Image feedback attached: 1", "detail": "landing-verify.png", "status": "done", "ts": 56140586.569400005, "meta": {"count": 1, "images": [{"name": "landing-verify.png", "media_type": "image/png"}]}}
+
+event: token
+data: {"text": "Updated"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "D"}
+
+event: token
+data: {"text": ":/"}
+
+event: token
+data: {"text": "D"}
+
+event: token
+data: {"text": "/python"}
+
+event: token
+data: {"text": "编"}
+
+event: token
+data: {"text": "程"}
+
+event: token
+data: {"text": "/"}
+
+event: token
+data: {"text": "Agent"}
+
+event: token
+data: {"text": "-building"}
+
+event: token
+data: {"text": "/tests"}
+
+event: token
+data: {"text": "/model"}
+
+event: token
+data: {"text": "_com"}
+
+event: token
+data: {"text": "parison"}
+
+event: token
+data: {"text": "_results"}
+
+event: token
+data: {"text": "/"}
+
+event: token
+data: {"text": "202"}
+
+event: token
+data: {"text": "6"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "04"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "22"}
+
+event: token
+data: {"text": "-p"}
+
+event: token
+data: {"text": "3"}
+
+event: token
+data: {"text": "-com"}
+
+event: token
+data: {"text": "plex"}
+
+event: token
+data: {"text": "/g"}
+
+event: token
+data: {"text": "pt"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "5"}
+
+event: token
+data: {"text": "."}
+
+event: token
+data: {"text": "4"}
+
+event: token
+data: {"text": "/"}
+
+event: token
+data: {"text": "landing"}
+
+event: token
+data: {"text": ".html"}
+
+event: token
+data: {"text": "`"}
+
+event: token
+data: {"text": " into"}
+
+event: token
+data: {"text": " a"}
+
+event: token
+data: {"text": " responsive"}
+
+event: token
+data: {"text": " digital"}
+
+event: token
+data: {"text": "-human"}
+
+event: token
+data: {"text": " spokesperson"}
+
+event: token
+data: {"text": " page"}
+
+event: token
+data: {"text": " using"}
+
+event: token
+data: {"text": " the"}
+
+event: token
+data: {"text": " brief"}
+
+event: token
+data: {"text": "’s"}
+
+event: token
+data: {"text": " exact"}
+
+event: token
+data: {"text": " primary"}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "#"}
+
+event: token
+data: {"text": "075"}
+
+event: token
+data: {"text": "64"}
+
+event: token
+data: {"text": "c"}
+
+event: token
+data: {"text": "`,"}
+
+event: token
+data: {"text": " tagline"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "Your"}
+
+event: token
+data: {"text": " calm"}
+
+event: token
+data: {"text": " AI"}
+
+event: token
+data: {"text": " product"}
+
+event: token
+data: {"text": " guide"}
+
+event: token
+data: {"text": "`,"}
+
+event: token
+data: {"text": " selling"}
+
+event: token
+data: {"text": " points"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " CTA"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "Book"}
+
+event: token
+data: {"text": " a"}
+
+event: token
+data: {"text": " guided"}
+
+event: token
+data: {"text": " demo"}
+
+event: token
+data: {"text": "`,"}
+
+event: token
+data: {"text": " and"}
+
+event: token
+data: {"text": " the"}
+
+event: token
+data: {"text": " avatar"}
+
+event: token
+data: {"text": " badge"}
+
+event: token
+data: {"text": " text"}
+
+event: token
+data: {"text": " confirmed"}
+
+event: token
+data: {"text": " from"}
+
+event: token
+data: {"text": " the"}
+
+event: token
+data: {"text": " reference"}
+
+event: token
+data: {"text": " as"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "badge"}
+
+event: token
+data: {"text": " VX"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": "`.\n\n"}
+
+event: token
+data: {"text": "Visual"}
+
+event: token
+data: {"text": " checks"}
+
+event: token
+data: {"text": " performed"}
+
+event: token
+data: {"text": ":\n"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": " Render"}
+
+event: token
+data: {"text": "ed"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "brand"}
+
+event: token
+data: {"text": "_br"}
+
+event: token
+data: {"text": "ief"}
+
+event: token
+data: {"text": ".pdf"}
+
+event: token
+data: {"text": "`"}
+
+event: token
+data: {"text": " to"}
+
+event: token
+data: {"text": " extract"}
+
+event: token
+data: {"text": " exact"}
+
+event: token
+data: {"text": " color"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " tagline"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " selling"}
+
+event: token
+data: {"text": " points"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " and"}
+
+event: token
+data: {"text": " CTA"}
+
+event: token
+data: {"text": ".\n"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": " Ins"}
+
+event: token
+data: {"text": "pected"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "avatar"}
+
+event: token
+data: {"text": "_reference"}
+
+event: token
+data: {"text": ".png"}
+
+event: token
+data: {"text": "`"}
+
+event: token
+data: {"text": " and"}
+
+event: token
+data: {"text": " confirmed"}
+
+event: token
+data: {"text": " the"}
+
+event: token
+data: {"text": " small"}
+
+event: token
+data: {"text": " badge"}
+
+event: token
+data: {"text": " text"}
+
+event: token
+data: {"text": " visually"}
+
+event: token
+data: {"text": " as"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "badge"}
+
+event: token
+data: {"text": " VX"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": "`.\n"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": " Reviewed"}
+
+event: token
+data: {"text": " the"}
+
+event: token
+data: {"text": " final"}
+
+event: token
+data: {"text": " browser"}
+
+event: token
+data: {"text": " screenshot"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "landing"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "verify"}
+
+event: token
+data: {"text": ".png"}
+
+event: token
+data: {"text": "`"}
+
+event: token
+data: {"text": " to"}
+
+event: token
+data: {"text": " confirm"}
+
+event: token
+data: {"text": " the"}
+
+event: token
+data: {"text": " repaired"}
+
+event: token
+data: {"text": " layout"}
+
+event: token
+data: {"text": " and"}
+
+event: token
+data: {"text": " spokesperson"}
+
+event: token
+data: {"text": " presentation"}
+
+event: token
+data: {"text": ".\n\n"}
+
+event: token
+data: {"text": "Verify"}
+
+event: token
+data: {"text": " result"}
+
+event: token
+data: {"text": ":"}
+
+event: token
+data: {"text": " passed"}
+
+event: token
+data: {"text": " all"}
+
+event: token
+data: {"text": " required"}
+
+event: token
+data: {"text": " assertions"}
+
+event: token
+data: {"text": " —"}
+
+event: token
+data: {"text": " no"}
+
+event: token
+data: {"text": " horizontal"}
+
+event: token
+data: {"text": " overflow"}
+
+event: token
+data: {"text": ","}
+
+event: token
+data: {"text": " contains"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "Your"}
+
+event: token
+data: {"text": " calm"}
+
+event: token
+data: {"text": " AI"}
+
+event: token
+data: {"text": " product"}
+
+event: token
+data: {"text": " guide"}
+
+event: token
+data: {"text": "`,"}
+
+event: token
+data: {"text": " contains"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "badge"}
+
+event: token
+data: {"text": " VX"}
+
+event: token
+data: {"text": "-"}
+
+event: token
+data: {"text": "17"}
+
+event: token
+data: {"text": "`,"}
+
+event: token
+data: {"text": " contains"}
+
+event: token
+data: {"text": " `"}
+
+event: token
+data: {"text": "Book"}
+
+event: token
+data: {"text": " a"}
+
+event: token
+data: {"text": " guided"}
+
+event: token
+data: {"text": " demo"}
+
+event: token
+data: {"text": "`,"}
+
+event: token
+data: {"text": " and"}
+
+event: token
+data: {"text": " no"}
+
+event: token
+data: {"text": " console"}
+
+event: token
+data: {"text": " errors"}
+
+event: token
+data: {"text": "."}
+
+event: done
+data: {"total_time_ms": 50889, "sources": [], "provider": "openai", "model": "gpt-5.4"}
+

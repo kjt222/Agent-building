@@ -141,3 +141,24 @@ Moved out of P3:
 Next phase:
 
 - Start P5 only after defining image asset identity/style persistence and local-edit workflow, otherwise generated characters will drift between turns.
+
+## Model Comparison - 2026-04-22
+
+Runner: Codex
+
+Composite P3 task tested on both `doubao-code` and `gpt-5.4`.
+
+Location:
+
+- `tests/model_comparison_results/2026-04-22-p3-complex/`
+
+Outcome:
+
+- Both models used the visual/tool path and passed independent browser verification.
+- Doubao output was correct and literal but visually sparse.
+- GPT output was more polished and completed faster in this run.
+- The framework held up across providers: render feedback, edit/write, and Verify all worked.
+
+Follow-up:
+
+- Add P8 visual-quality rubrics, because current Verify assertions prove functional correctness but do not score design quality or reference-image fidelity deeply enough.

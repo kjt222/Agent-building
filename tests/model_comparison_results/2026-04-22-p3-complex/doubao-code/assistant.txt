@@ -1,0 +1,27 @@
+Let's first render the brand brief PDF and the avatar reference image to gather the required information.Now let's inspect the badge detail in avatar_reference.png with a magnifier region.
+Great, now let's read the target HTML file to see what needs to be fixed.
+Now let's write the complete fixed landing page with all the requirements.
+
+Now let's run Verify on the final HTML to ensure all requirements are satisfied.Perfect! The landing page is now complete and all requirements are satisfied. Here's what was done:
+
+## Summary of Changes
+1. **Fixed layout issues**: Replaced fixed width with `max-width` for responsive design and added `box-sizing: border-box`
+2. **Updated content with brand brief information**:
+   - Primary color: #07564c (applied to button and bullet points)
+   - Tagline: "Your calm AI product guide"
+   - Selling points: "Explains complex workflows clearly", "Keeps tool activity traceable", "Reviews visual details before delivery"
+   - CTA: "Book a guided demo"
+3. **Corrected badge text**: "badge VX-17" (verified from avatar reference)
+4. **Added avatar image**: Linked to avatar_reference.png
+5. **Added responsive design**: Media query for mobile devices
+6. **Improved typography**: Better font sizing and spacing
+
+## Verify Results
+All assertions pass:
+- ✅ No horizontal overflow
+- ✅ Contains "Your calm AI product guide"
+- ✅ Contains "badge VX-17"
+- ✅ Contains "Book a guided demo"
+- ✅ No console errors
+
+The landing page is now ready!

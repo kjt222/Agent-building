@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "target": "D:\\D\\python编程\\Agent-building\\tests\\model_comparison_results\\2026-04-22-p3-complex\\gpt-5.4\\landing.html",
+  "url": "file:///D:/D/python%E7%BC%96%E7%A8%8B/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html",
+  "title": "AURORA LABS — Digital Human Product Guide",
+  "viewport": {
+    "width": 1366,
+    "height": 768
+  },
+  "assertions": [
+    {
+      "type": "no_horizontal_overflow",
+      "ok": true,
+      "actual": false
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "Your calm AI product guide",
+      "actual": "AURORA LABS digital spokesperson\n\nAURORA LABS\n\nYour calm AI product guide\n\nMeet the on-brand digital human designed to introduce your product with clarity, confidence, and a steady voice across live demos, launches, and onboarding moments.\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo\nBuilt for calm walkthroughs and trus"
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "badge VX-17",
+      "actual": "AURORA LABS digital spokesperson\n\nAURORA LABS\n\nYour calm AI product guide\n\nMeet the on-brand digital human designed to introduce your product with clarity, confidence, and a steady voice across live demos, launches, and onboarding moments.\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo\nBuilt for calm walkthroughs and trus"
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "Book a guided demo",
+      "actual": "AURORA LABS digital spokesperson\n\nAURORA LABS\n\nYour calm AI product guide\n\nMeet the on-brand digital human designed to introduce your product with clarity, confidence, and a steady voice across live demos, launches, and onboarding moments.\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo\nBuilt for calm walkthroughs and trus"
+    },
+    {
+      "type": "no_console_errors",
+      "ok": true,
+      "actual": []
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "screenshot_path": "D:\\D\\python编程\\Agent-building\\tests\\model_comparison_results\\2026-04-22-p3-complex\\gpt-5.4\\independent_verify.png",
+  "body_text_sample": "AURORA LABS digital spokesperson\n\nAURORA LABS\n\nYour calm AI product guide\n\nMeet the on-brand digital human designed to introduce your product with clarity, confidence, and a steady voice across live demos, launches, and onboarding moments.\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo\nBuilt for calm walkthroughs and trustworthy product storytelling.\nAURORA\nbadge VX-17\nA poised, product-facing guide for clear, reassuring AI walkthroughs."
+}

@@ -1,0 +1,18 @@
+[P3 Complex Model Comparison]
+Use the shared files:
+- D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/brand_brief.pdf
+- D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/avatar_reference.png
+
+Fix and complete this target HTML:
+- D:/D/python编程/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/gpt-5.4/landing.html
+
+Requirements:
+1. Render the PDF brief before deciding copy, color, selling points, and CTA.
+2. Inspect avatar_reference.png and use RenderDocument regions as a magnifier to read the small badge detail. Do not guess the badge text.
+3. Repair the landing page as a digital-human product spokesperson page.
+4. Use the brief's primary color, tagline, three selling points, and CTA exactly.
+5. Fix horizontal overflow and make the page responsive.
+6. Read the target before editing, then write/edit it.
+7. Run Verify on the final HTML with assertions for no_horizontal_overflow, text_contains "Your calm AI product guide", text_contains "badge VX-17", text_contains "Book a guided demo", and no_console_errors.
+8. If Verify fails, fix and verify again before final.
+Final answer: concise summary of changed file, rendered visual checks, and Verify result.

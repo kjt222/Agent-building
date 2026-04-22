@@ -1,0 +1,67 @@
+{
+  "profile": "gpt-5.4",
+  "conversation_id": "conv_20260422_161858_78ad4c",
+  "status_code": 200,
+  "elapsed_seconds": 50.95,
+  "assistant_chars": 887,
+  "activity_count": 16,
+  "tool_result_count": 6,
+  "image_feedback_count": 2,
+  "activity_titles": [
+    "Agent v2 started",
+    "Tools loaded: 11",
+    "Calling: Read",
+    "Calling: RenderDocument",
+    "Calling: RenderDocument",
+    "Tool result",
+    "Tool result",
+    "Tool result",
+    "Image feedback attached: 3",
+    "Calling: Write",
+    "Tool result",
+    "Calling: Read",
+    "Calling: Verify",
+    "Tool result",
+    "Tool result",
+    "Image feedback attached: 1"
+  ],
+  "target_html": "D:\\D\\python编程\\Agent-building\\tests\\model_comparison_results\\2026-04-22-p3-complex\\gpt-5.4\\landing.html",
+  "independent_verify_ok": true,
+  "contains_primary_color": true,
+  "contains_tagline": true,
+  "contains_badge": true,
+  "contains_cta": true,
+  "verify_assertions": [
+    {
+      "type": "no_horizontal_overflow",
+      "ok": true,
+      "actual": false
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "Your calm AI product guide",
+      "actual": "AURORA LABS digital spokesperson\n\nAURORA LABS\n\nYour calm AI product guide\n\nMeet the on-brand digital human designed to introduce your product with clarity, confidence, and a steady voice across live demos, launches, and onboarding moments.\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo\nBuilt for calm walkthroughs and trus"
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "badge VX-17",
+      "actual": "AURORA LABS digital spokesperson\n\nAURORA LABS\n\nYour calm AI product guide\n\nMeet the on-brand digital human designed to introduce your product with clarity, confidence, and a steady voice across live demos, launches, and onboarding moments.\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo\nBuilt for calm walkthroughs and trus"
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "Book a guided demo",
+      "actual": "AURORA LABS digital spokesperson\n\nAURORA LABS\n\nYour calm AI product guide\n\nMeet the on-brand digital human designed to introduce your product with clarity, confidence, and a steady voice across live demos, launches, and onboarding moments.\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo\nBuilt for calm walkthroughs and trus"
+    },
+    {
+      "type": "no_console_errors",
+      "ok": true,
+      "actual": []
+    }
+  ]
+}

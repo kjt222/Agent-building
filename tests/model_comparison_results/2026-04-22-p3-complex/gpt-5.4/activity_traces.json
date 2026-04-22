@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "conversation_id": "conv_20260422_161858_78ad4c",
+  "traces": [
+    {
+      "request_id": "ffc9e94c",
+      "endpoint": "/api/agent_chat_v2",
+      "profile": "gpt-5.4",
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "capability_scope": "artifact",
+      "tool_names": [
+        "Bash",
+        "DocxEdit",
+        "Edit",
+        "Glob",
+        "Grep",
+        "KnowledgeIndex",
+        "KnowledgeSearch",
+        "Read",
+        "RenderDocument",
+        "Verify",
+        "Write"
+      ],
+      "status": "done",
+      "total_time_ms": 50889,
+      "error": null,
+      "created_at": "2026-04-22T16:19:49.420407",
+      "finished_at": "2026-04-22T16:19:49.420407"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "target": "D:\\D\\python编程\\Agent-building\\tests\\model_comparison_results\\2026-04-22-p3-complex\\doubao-code\\landing.html",
+  "url": "file:///D:/D/python%E7%BC%96%E7%A8%8B/Agent-building/tests/model_comparison_results/2026-04-22-p3-complex/doubao-code/landing.html",
+  "title": "AURORA LABS - AI Product Guide",
+  "viewport": {
+    "width": 1366,
+    "height": 768
+  },
+  "assertions": [
+    {
+      "type": "no_horizontal_overflow",
+      "ok": true,
+      "actual": false
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "Your calm AI product guide",
+      "actual": "badge VX-17\n\nAURORA LABS\n\nYour calm AI product guide\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo"
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "badge VX-17",
+      "actual": "badge VX-17\n\nAURORA LABS\n\nYour calm AI product guide\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo"
+    },
+    {
+      "type": "text_contains",
+      "ok": true,
+      "selector": "body",
+      "expected": "Book a guided demo",
+      "actual": "badge VX-17\n\nAURORA LABS\n\nYour calm AI product guide\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo"
+    },
+    {
+      "type": "no_console_errors",
+      "ok": true,
+      "actual": []
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "screenshot_path": "D:\\D\\python编程\\Agent-building\\tests\\model_comparison_results\\2026-04-22-p3-complex\\doubao-code\\independent_verify.png",
+  "body_text_sample": "badge VX-17\n\nAURORA LABS\n\nYour calm AI product guide\n\nExplains complex workflows clearly\nKeeps tool activity traceable\nReviews visual details before delivery\nBook a guided demo"
+}

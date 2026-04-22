@@ -142,3 +142,31 @@ P3 minimal infrastructure status:
 - Generated-image creation/editing belongs to P5, built on this P3 feedback path.
 - Sandbox/active-window execution capture belongs to P6.
 - Regression scoring belongs to P8.
+
+## 2026-04-22 - Codex - Doubao vs GPT P3 Composite Test
+
+Codex ran the same P3 composite task through `/api/agent_chat_v2` for:
+
+- `doubao-code` / `doubao-seed-2.0-code`
+- `gpt-5.4` / `gpt-5.4`
+
+Artifacts:
+
+- `tests/model_comparison_results/2026-04-22-p3-complex/`
+
+Task coverage:
+
+- PDF brief rendering.
+- Avatar image magnifier inspection.
+- HTML artifact repair.
+- Browser `Verify`.
+- Independent post-run verification.
+- Activity trace export.
+
+Result:
+
+- Both models passed independent Verify.
+- Doubao: correct but minimal output; many reasoning/activity deltas.
+- GPT: more polished output and faster in this run; recreated the avatar in CSS while preserving the required `badge VX-17` detail.
+
+This confirms the P3 minimal tool path is provider-robust for the tested task. Visual design quality and stricter reference-image fidelity should be moved into P8 rubrics.
