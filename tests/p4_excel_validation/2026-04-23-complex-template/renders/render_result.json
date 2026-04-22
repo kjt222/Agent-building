@@ -1,0 +1,27 @@
+{
+  "type": "rendered_document",
+  "source_path": "tests\\p4_excel_validation\\2026-04-23-complex-template\\complex_template_report.xlsx",
+  "converted_pdf_path": "tests\\p4_excel_validation\\2026-04-23-complex-template\\renders\\complex_template_report.pdf",
+  "pages_requested": [
+    1,
+    2
+  ],
+  "total_pages": 3,
+  "images": [
+    {
+      "page": 1,
+      "width": 1075,
+      "height": 1521,
+      "media_type": "image/png",
+      "rendered_image_path": "tests\\p4_excel_validation\\2026-04-23-complex-template\\renders\\complex_template_report_page_1_1776876075871.png"
+    },
+    {
+      "page": 2,
+      "width": 1075,
+      "height": 1521,
+      "media_type": "image/png",
+      "rendered_image_path": "tests\\p4_excel_validation\\2026-04-23-complex-template\\renders\\complex_template_report_page_2_1776876075871.png"
+    }
+  ],
+  "regions": []
+}

@@ -55,6 +55,11 @@ def _cell_count(ref: str) -> int:
     return (max_col - min_col + 1) * (max_row - min_row + 1)
 
 
+def _range_shape(ref: str) -> tuple[int, int]:
+    min_col, min_row, max_col, max_row = range_boundaries(ref)
+    return max_row - min_row + 1, max_col - min_col + 1
+
+
 def _range_ref_for_sheet(sheet) -> str:
     if sheet.max_row < 1 or sheet.max_column < 1:
         return "A1:A1"
@@ -143,6 +148,16 @@ def _worksheet_payload(sheet, *, ref: str | None, include_styles: bool, max_cell
         "merged_ranges": [str(rng) for rng in sheet.merged_cells.ranges],
         "freeze_panes": str(sheet.freeze_panes) if sheet.freeze_panes else None,
         "auto_filter": sheet.auto_filter.ref,
+        "row_heights": {
+            str(row): sheet.row_dimensions[row].height
+            for row in range(min_row, max_row + 1)
+            if sheet.row_dimensions[row].height is not None
+        },
+        "column_widths": {
+            get_column_letter(col): sheet.column_dimensions[get_column_letter(col)].width
+            for col in range(min_col, max_col + 1)
+            if sheet.column_dimensions[get_column_letter(col)].width is not None
+        },
         "cells": cells,
         "truncated": truncated,
     }
@@ -166,12 +181,28 @@ def _validate_edit_scope(op: dict, *, allow_large_scope: bool) -> None:
         if not op.get("cell"):
             raise ValueError("set_cell requires 'cell'")
         return
-    if op_type in {"set_range_style", "set_number_format"}:
+    if op_type in {
+        "set_range_style",
+        "set_number_format",
+        "copy_range_style",
+        "merge_cells",
+        "unmerge_cells",
+    }:
         ref = op.get("range")
         if not ref:
             raise ValueError(f"{op_type} requires 'range'")
         if op_type == "set_number_format" and "number_format" not in op:
             raise ValueError("set_number_format requires 'number_format'")
+        if op_type == "copy_range_style":
+            if not op.get("source_sheet"):
+                raise ValueError("copy_range_style requires 'source_sheet'")
+            if not op.get("source_range"):
+                raise ValueError("copy_range_style requires 'source_range'")
+            if _range_shape(str(ref)) != _range_shape(str(op["source_range"])):
+                raise ValueError(
+                    "copy_range_style source_range and target range must have "
+                    "the same shape"
+                )
         count = _cell_count(str(ref))
         if count > _MAX_EDIT_CELLS and not allow_large_scope:
             raise ValueError(
@@ -241,6 +272,55 @@ def _apply_range_style(sheet, ref: str, op: dict) -> int:
             if "number_format" in op:
                 cell.number_format = str(op["number_format"])
             touched += 1
+    return touched
+
+
+def _copy_range_style(workbook, op: dict) -> int:
+    source_sheet_name = str(op["source_sheet"])
+    target_sheet_name = str(op["sheet"])
+    if source_sheet_name not in workbook.sheetnames:
+        raise ValueError(f"source sheet not found: {source_sheet_name}")
+    if target_sheet_name not in workbook.sheetnames:
+        raise ValueError(f"sheet not found: {target_sheet_name}")
+    source_sheet = workbook[source_sheet_name]
+    target_sheet = workbook[target_sheet_name]
+    source_ref = str(op["source_range"])
+    target_ref = str(op["range"])
+    if _range_shape(source_ref) != _range_shape(target_ref):
+        raise ValueError(
+            "copy_range_style source_range and target range must have the same shape"
+        )
+
+    s_min_col, s_min_row, s_max_col, s_max_row = range_boundaries(source_ref)
+    t_min_col, t_min_row, t_max_col, t_max_row = range_boundaries(target_ref)
+    touched = 0
+    for row_offset, source_row in enumerate(range(s_min_row, s_max_row + 1)):
+        target_row = t_min_row + row_offset
+        for col_offset, source_col in enumerate(range(s_min_col, s_max_col + 1)):
+            target_col = t_min_col + col_offset
+            source_cell = source_sheet.cell(source_row, source_col)
+            target_cell = target_sheet.cell(target_row, target_col)
+            if source_cell.has_style:
+                target_cell._style = copy(source_cell._style)
+            target_cell.font = copy(source_cell.font)
+            target_cell.fill = copy(source_cell.fill)
+            target_cell.border = copy(source_cell.border)
+            target_cell.alignment = copy(source_cell.alignment)
+            target_cell.number_format = source_cell.number_format
+            target_cell.protection = copy(source_cell.protection)
+            touched += 1
+
+    if bool(op.get("include_dimensions", True)):
+        for row_offset, source_row in enumerate(range(s_min_row, s_max_row + 1)):
+            height = source_sheet.row_dimensions[source_row].height
+            if height is not None:
+                target_sheet.row_dimensions[t_min_row + row_offset].height = height
+        for col_offset, source_col in enumerate(range(s_min_col, s_max_col + 1)):
+            source_letter = get_column_letter(source_col)
+            target_letter = get_column_letter(t_min_col + col_offset)
+            width = source_sheet.column_dimensions[source_letter].width
+            if width is not None:
+                target_sheet.column_dimensions[target_letter].width = width
     return touched
 
 
@@ -337,7 +417,10 @@ class ExcelEditTool(_ToolBase):
                             "enum": [
                                 "set_cell",
                                 "set_range_style",
+                                "copy_range_style",
                                 "set_number_format",
+                                "merge_cells",
+                                "unmerge_cells",
                                 "insert_rows",
                                 "delete_rows",
                                 "set_column_width",
@@ -345,6 +428,8 @@ class ExcelEditTool(_ToolBase):
                             ],
                         },
                         "sheet": {"type": "string"},
+                        "source_sheet": {"type": "string"},
+                        "source_range": {"type": "string"},
                         "cell": {"type": "string"},
                         "range": {"type": "string"},
                         "value": {},
@@ -363,6 +448,7 @@ class ExcelEditTool(_ToolBase):
                         "row": {"type": "integer"},
                         "width": {"type": "number"},
                         "height": {"type": "number"},
+                        "include_dimensions": {"type": "boolean", "default": True},
                     },
                     "required": ["op", "sheet"],
                 },
@@ -419,6 +505,12 @@ class ExcelEditTool(_ToolBase):
                 elif op_type == "set_range_style":
                     count = _apply_range_style(sheet, str(op["range"]), op)
                     touched.append(f"{sheet_name}!{op['range']} ({count} cells)")
+                elif op_type == "copy_range_style":
+                    count = _copy_range_style(wb, op)
+                    touched.append(
+                        f"{op['source_sheet']}!{op['source_range']} -> "
+                        f"{sheet_name}!{op['range']} ({count} cells)"
+                    )
                 elif op_type == "set_number_format":
                     count = _apply_range_style(
                         sheet,
@@ -426,6 +518,14 @@ class ExcelEditTool(_ToolBase):
                         {"number_format": op["number_format"]},
                     )
                     touched.append(f"{sheet_name}!{op['range']} ({count} cells)")
+                elif op_type == "merge_cells":
+                    sheet.merge_cells(str(op["range"]))
+                    touched.append(f"{sheet_name}!merge:{op['range']}")
+                elif op_type == "unmerge_cells":
+                    ref = str(op["range"])
+                    if ref in [str(rng) for rng in sheet.merged_cells.ranges]:
+                        sheet.unmerge_cells(ref)
+                    touched.append(f"{sheet_name}!unmerge:{ref}")
                 elif op_type == "insert_rows":
                     amount = int(op.get("amount", 1))
                     sheet.insert_rows(int(op["index"]), amount)

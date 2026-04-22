@@ -206,3 +206,46 @@ Verification:
 - Result: `9 passed`
 - `.venv\Scripts\python.exe -m pytest tests/unit -q`
 - Result: `222 passed, 5 skipped`
+
+## 2026-04-23 - Codex - P4 Complex Excel Template Slice
+
+Codex expanded the Excel MVP with one targeted capability for realistic Office work: copying formatting from an explicit template range to an explicit target range.
+
+Principles applied:
+
+- No new top-level tools were added.
+- `ExcelEdit` remains the single mutation boundary for workbook edits.
+- Template operations are structured and scoped; no arbitrary Python/COM script execution.
+- Source and target ranges for style copy must have the same shape.
+- Large target ranges still require `allow_large_scope=true`.
+
+Changed files:
+
+- `agent/tools_v2/excel_tool.py`: added `copy_range_style`, `merge_cells`, and `unmerge_cells` operations; `ExcelRead` now reports row heights and column widths for inspected ranges.
+- `tests/unit/test_excel_tool.py`: added coverage for copying template style/dimensions and rejecting mismatched copy ranges.
+
+Complex UI validation:
+
+- `tests/p4_excel_validation/2026-04-23-complex-template/`
+- Conversation ID: `conv_20260423_003948_f4051b`
+- Task: copy title/header template styles from `Template` to `Report`, merge the report title, add delta formulas, render, and verify visually.
+- Observed tool path: `ExcelRead`, `ExcelRead`, `ExcelEdit`, `RenderDocument`.
+- `RenderDocument` succeeded and attached 2 image feedback blocks.
+
+Independent workbook check:
+
+- `Report!A1:D1` merged.
+- Title style copied: bold, dark blue fill, centered alignment.
+- Header style copied: bold, blue fill.
+- Row height and column width matched the template.
+- `Report!D4:D6` formulas were set.
+- `Notes!A1` remained unchanged.
+
+Verification:
+
+- `.venv\Scripts\python.exe -m pytest tests/unit/test_excel_tool.py -q`
+- Result: `7 passed`
+- `.venv\Scripts\python.exe -m pytest tests/unit/test_agent_chat_v2_contract.py -q`
+- Result: `9 passed`
+- `.venv\Scripts\python.exe -m pytest tests/unit -q`
+- Result: `224 passed, 5 skipped`

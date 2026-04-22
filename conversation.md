@@ -201,3 +201,47 @@ Next P4 work:
 1. Add a real Excel fixture task that edits values and formatting, renders it with `RenderDocument`, and stores the Activity trace under `tests/`.
 2. Expand supported structured ops only when a real task needs them.
 3. Keep EndNote/reference-manager integration as MCP-oriented work unless a local deterministic file-based citation flow is enough.
+
+## P4 Excel Complex Template Update - 2026-04-23
+
+Runner: Codex
+
+P4 Excel has moved beyond the minimal value/style edit scenario into a template-formatting scenario.
+
+Implemented in this slice:
+
+- `ExcelEdit.copy_range_style`: copy style from an explicit source range to an explicit target range.
+- `ExcelEdit.merge_cells` / `ExcelEdit.unmerge_cells`: explicit merge control.
+- `ExcelRead` now reports row heights and column widths for inspected ranges.
+
+Guardrails kept:
+
+- Still only two Excel tools: `ExcelRead` and `ExcelEdit`.
+- Style copy requires source and target ranges with the same shape.
+- Edits still require prior `ExcelRead`.
+- Large target ranges still require `allow_large_scope=true`.
+- No arbitrary Python/COM/script editing.
+
+Real UI validation:
+
+- Location: `tests/p4_excel_validation/2026-04-23-complex-template/`
+- Conversation ID: `conv_20260423_003948_f4051b`
+- The agent copied title/header template formatting from `Template` to `Report`, merged the title row, set delta formulas, rendered the workbook, and visually checked the result.
+- Tool path: `ExcelRead`, `ExcelRead`, `ExcelEdit`, `RenderDocument`.
+
+Independent check:
+
+- Template title/header style transfer succeeded.
+- Row height/column width matched the template.
+- Formulas were set in `Report!D4:D6`.
+- `Notes` sheet was unchanged.
+
+Verification:
+
+- Full unit suite: `224 passed, 5 skipped`.
+
+Next P4 work:
+
+1. Add a task where the model must preserve an existing workbook layout while modifying only one local section.
+2. Add chart/image/table-style operations only if that task forces the need.
+3. Decide whether high-fidelity Excel COM should stay in-process or move behind an MCP/server boundary.

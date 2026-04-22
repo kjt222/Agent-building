@@ -1,0 +1,2 @@
+Okay, let's get started. First, I need to inspect the Template and Report sheets using ExcelRead.Okay, now let's render the workbook to check everything.
+Tools called: ExcelRead (2x), ExcelEdit, RenderDocument. The title and header on Report visually match the Template sheet.

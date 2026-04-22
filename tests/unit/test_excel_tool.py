@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import asyncio
 import json
+from copy import copy
 
 import openpyxl
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 
 from agent.core.loop import LoopConfig, LoopContext, PermissionLevel
 from agent.tools_v2.excel_tool import ExcelEditTool, ExcelReadTool, excel_toolset
@@ -137,6 +139,110 @@ def test_excel_edit_rejects_implicit_sheet_and_large_ranges(tmp_path):
     assert "explicit 'sheet'" in missing_sheet.content
     assert large_range.is_error is True
     assert "allow_large_scope" in large_range.content
+
+
+def test_excel_edit_copies_template_style_and_dimensions(tmp_path):
+    target = tmp_path / "template.xlsx"
+    wb = openpyxl.Workbook()
+    template = wb.active
+    template.title = "Template"
+    template["A1"] = "Metric"
+    template["B1"] = "Value"
+    for cell in template["A1:B1"][0]:
+        cell.font = Font(bold=True, color="FFFFFFFF")
+        cell.fill = PatternFill(fill_type="solid", fgColor="FF1F4E78")
+        cell.alignment = Alignment(horizontal="center")
+        cell.border = Border(bottom=Side(style="thin", color="FF000000"))
+    template.column_dimensions["A"].width = 18
+    template.column_dimensions["B"].width = 12
+    template.row_dimensions[1].height = 24
+
+    report = wb.create_sheet("Report")
+    report["A1"] = "Metric"
+    report["B1"] = "Value"
+    report["A2"] = "Revenue"
+    report["B2"] = 10
+    notes = wb.create_sheet("Notes")
+    notes["A1"] = "keep"
+    wb.save(target)
+
+    ctx = _ctx()
+    asyncio.run(
+        ExcelReadTool().run(
+            {"path": str(target), "sheet": "Template", "range": "A1:B1"},
+            ctx,
+        )
+    )
+    result = asyncio.run(
+        ExcelEditTool().run(
+            {
+                "path": str(target),
+                "ops": [
+                    {
+                        "op": "copy_range_style",
+                        "source_sheet": "Template",
+                        "source_range": "A1:B1",
+                        "sheet": "Report",
+                        "range": "A1:B1",
+                    },
+                    {
+                        "op": "set_cell",
+                        "sheet": "Report",
+                        "cell": "B2",
+                        "value": 12,
+                    },
+                ],
+            },
+            ctx,
+        )
+    )
+
+    assert result.is_error is False
+    updated = openpyxl.load_workbook(target)
+    src = updated["Template"]
+    dst = updated["Report"]
+    assert dst["A1"].font.bold == src["A1"].font.bold
+    assert dst["A1"].font.color.rgb == src["A1"].font.color.rgb
+    assert dst["A1"].fill.fgColor.rgb == src["A1"].fill.fgColor.rgb
+    assert dst["A1"].alignment.horizontal == "center"
+    assert dst["A1"].border.bottom.style == "thin"
+    assert dst.column_dimensions["A"].width == src.column_dimensions["A"].width
+    assert dst.row_dimensions[1].height == src.row_dimensions[1].height
+    assert dst["B2"].value == 12
+    assert updated["Notes"]["A1"].value == "keep"
+
+
+def test_excel_edit_rejects_mismatched_copy_style_ranges(tmp_path):
+    target = tmp_path / "template.xlsx"
+    _workbook(target)
+    wb = openpyxl.load_workbook(target)
+    template = wb.create_sheet("Template")
+    template["A1"] = "Header"
+    template["A1"].font = copy(wb["Summary"]["A1"].font)
+    wb.save(target)
+    ctx = _ctx()
+    asyncio.run(ExcelReadTool().run({"path": str(target)}, ctx))
+
+    result = asyncio.run(
+        ExcelEditTool().run(
+            {
+                "path": str(target),
+                "ops": [
+                    {
+                        "op": "copy_range_style",
+                        "source_sheet": "Template",
+                        "source_range": "A1:A1",
+                        "sheet": "Summary",
+                        "range": "A1:B1",
+                    }
+                ],
+            },
+            ctx,
+        )
+    )
+
+    assert result.is_error is True
+    assert "same shape" in result.content
 
 
 def test_excel_tool_protocol_flags_are_minimal():
