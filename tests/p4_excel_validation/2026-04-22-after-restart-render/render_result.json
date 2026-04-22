@@ -1,0 +1,19 @@
+{
+  "type": "rendered_document",
+  "source_path": "tests\\p4_excel_validation\\2026-04-22-ui-history-ascii\\budget_validation_ascii.xlsx",
+  "converted_pdf_path": "tests\\p4_excel_validation\\2026-04-22-after-restart-render\\budget_validation_ascii.pdf",
+  "pages_requested": [
+    1
+  ],
+  "total_pages": 2,
+  "images": [
+    {
+      "page": 1,
+      "width": 1158,
+      "height": 1638,
+      "media_type": "image/png",
+      "rendered_image_path": "tests\\p4_excel_validation\\2026-04-22-after-restart-render\\budget_validation_ascii_page_1_1776864865618.png"
+    }
+  ],
+  "regions": []
+}
