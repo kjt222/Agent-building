@@ -2602,8 +2602,26 @@ def create_app(config_dir: str | None = None) -> FastAPI:
 
         approval_mode = str(payload.get("mode") or "confirm").lower()
         stream_queue: asyncio.Queue[tuple[str, dict] | None] = asyncio.Queue()
+        trace_events: list[dict] = []
+        assistant_token_chunks: list[str] = []
+        safe_conv_id = re.sub(r"[^A-Za-z0-9_.-]+", "_", conversation_id or "no-conv")
+        safe_request_id = re.sub(r"[^A-Za-z0-9_.-]+", "_", request_id)
+        trace_path = (
+            paths["base"].parent
+            / "logs"
+            / (active_profile or "default")
+            / "traces"
+            / safe_conv_id
+            / f"{safe_request_id}.jsonl"
+        )
 
         async def emit(event_name: str, data: dict) -> None:
+            trace_events.append({
+                "event": event_name,
+                "data": data,
+            })
+            if event_name == "token":
+                assistant_token_chunks.append(str(data.get("text") or ""))
             await stream_queue.put((event_name, data))
 
         async def approval_prompter(use: ToolUseBlock, ctx) -> bool:
@@ -2738,6 +2756,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     "plan" if str(payload.get("mode") or "").lower() == "read"
                     else "default"
                 ),
+                trace_path=trace_path,
                 system_prompt=build_agent_system_prompt(
                     base_agent_prompt,
                     session_metadata,
@@ -2751,6 +2770,63 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         async def produce():
             rid = request_id
             t0 = perf_counter()
+            persisted_error: str | None = None
+
+            def _loop_trace_records() -> list[dict]:
+                if not trace_path.exists():
+                    return []
+                records: list[dict] = []
+                for line in trace_path.read_text(encoding="utf-8").splitlines():
+                    if not line.strip():
+                        continue
+                    try:
+                        records.append(json.loads(line))
+                    except json.JSONDecodeError:
+                        records.append({"raw": line})
+                return records
+
+            def _last_done_payload() -> dict:
+                for event in reversed(trace_events):
+                    if event.get("event") == "done":
+                        data = event.get("data")
+                        if isinstance(data, dict):
+                            return data
+                return {}
+
+            def _persist_activity_trace() -> None:
+                if not conversation_id:
+                    return
+                loop_trace = _loop_trace_records()
+                first_hash = next(
+                    (
+                        item.get("system_prompt_hash")
+                        for item in loop_trace
+                        if item.get("system_prompt_hash")
+                    ),
+                    None,
+                )
+                done_payload = _last_done_payload()
+                error = persisted_error or done_payload.get("error")
+                conv_manager.add_activity_trace(
+                    conversation_id,
+                    request_id,
+                    endpoint="/api/agent_chat_v2",
+                    profile=active_profile,
+                    provider=provider_name or provider_type,
+                    model=model_name,
+                    user_message=message,
+                    assistant_text="".join(assistant_token_chunks),
+                    system_prompt_hash=first_hash,
+                    capability_scope=capability_scope,
+                    tool_names=sorted(tools),
+                    events=trace_events,
+                    loop_trace=loop_trace,
+                    trace_path=str(trace_path),
+                    status="error" if error else "done",
+                    total_time_ms=int(done_payload.get("total_time_ms") or 0),
+                    error=str(error) if error else None,
+                )
+
             try:
                 await emit("activity", {
                     "id": f"{rid}_agent",
@@ -2862,6 +2938,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     "model": model_name,
                 })
             except Exception as exc:
+                persisted_error = str(exc)
                 await emit("activity", {
                     "id": f"{rid}_error",
                     "type": "error",
@@ -2879,6 +2956,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     "model": model_name,
                 })
             finally:
+                _persist_activity_trace()
                 await stream_queue.put(None)
 
         async def stream():
@@ -2918,6 +2996,76 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         if conv:
             return {"ok": True, "conversation": conv}
         return JSONResponse({"ok": False, "error": "Not found"}, status_code=404)
+
+    @app.get("/api/conversations/{conv_id}/activity_traces")
+    async def list_conversation_activity_traces(conv_id: str):
+        """List persisted AgentLoop activity traces for a conversation."""
+        if not conv_manager.get(conv_id):
+            return JSONResponse({"ok": False, "error": "Not found"}, status_code=404)
+        return {
+            "ok": True,
+            "conversation_id": conv_id,
+            "traces": conv_manager.list_activity_traces(conv_id),
+        }
+
+    @app.get("/api/conversations/{conv_id}/activity_traces/{request_id}")
+    async def get_conversation_activity_trace(conv_id: str, request_id: str):
+        """Fetch one persisted AgentLoop activity trace."""
+        if not conv_manager.get(conv_id):
+            return JSONResponse({"ok": False, "error": "Not found"}, status_code=404)
+        trace = conv_manager.get_activity_trace(conv_id, request_id)
+        if not trace:
+            return JSONResponse({"ok": False, "error": "Trace not found"}, status_code=404)
+        return {"ok": True, "conversation_id": conv_id, "trace": trace}
+
+    @app.get("/api/conversations/{conv_id}/activity_traces/{request_id}/export")
+    async def export_conversation_activity_trace(conv_id: str, request_id: str):
+        """Export one persisted trace as JSONL for offline debugging."""
+        if not conv_manager.get(conv_id):
+            return JSONResponse({"ok": False, "error": "Not found"}, status_code=404)
+        trace = conv_manager.get_activity_trace(conv_id, request_id)
+        if not trace:
+            return JSONResponse({"ok": False, "error": "Trace not found"}, status_code=404)
+
+        def lines():
+            header = {
+                "event": "trace_metadata",
+                "data": {
+                    key: trace.get(key)
+                    for key in (
+                        "conversation_id",
+                        "request_id",
+                        "endpoint",
+                        "profile",
+                        "provider",
+                        "model",
+                        "capability_scope",
+                        "tool_names",
+                        "status",
+                        "total_time_ms",
+                        "error",
+                        "system_prompt_hash",
+                    )
+                },
+            }
+            yield json.dumps(header, ensure_ascii=False) + "\n"
+            for item in trace.get("events") or []:
+                yield json.dumps(item, ensure_ascii=False) + "\n"
+            for item in trace.get("loop_trace") or []:
+                yield json.dumps(
+                    {"event": "loop_trace", "data": item},
+                    ensure_ascii=False,
+                ) + "\n"
+
+        return StreamingResponse(
+            lines(),
+            media_type="application/x-ndjson",
+            headers={
+                "Content-Disposition": (
+                    f'attachment; filename="{conv_id}_{request_id}_activity.jsonl"'
+                )
+            },
+        )
 
     @app.post("/api/conversations")
     async def create_conversation(request: Request):

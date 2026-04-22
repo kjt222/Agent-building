@@ -44,7 +44,7 @@ class Database:
     """Unified SQLite database for Agent system."""
 
     # Schema version for migrations
-    SCHEMA_VERSION = 2
+    SCHEMA_VERSION = 3
     FTS_TOKENIZER = "trigram"
 
     def __init__(self, db_path: Path):
@@ -111,8 +111,11 @@ class Database:
 
         if current_version == 0:
             self._create_tables(cur)
-        elif current_version < 2:
-            self._migrate_v2_cjk_fts(cur)
+        else:
+            if current_version < 2:
+                self._migrate_v2_cjk_fts(cur)
+            if current_version < 3:
+                self._create_activity_trace_tables(cur)
 
         if current_version < self.SCHEMA_VERSION:
             cur.execute("DELETE FROM schema_version")
@@ -222,6 +225,40 @@ class Database:
         """)
 
         self._create_fts_tables(cur)
+        self._create_activity_trace_tables(cur)
+
+    def _create_activity_trace_tables(self, cur: sqlite3.Cursor):
+        """Create persisted AgentLoop activity trace tables."""
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS activity_traces (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                conversation_id TEXT NOT NULL,
+                request_id TEXT NOT NULL UNIQUE,
+                endpoint TEXT,
+                profile TEXT,
+                provider TEXT,
+                model TEXT,
+                user_message TEXT,
+                assistant_text TEXT,
+                system_prompt_hash TEXT,
+                capability_scope TEXT,
+                tool_names TEXT,
+                events TEXT NOT NULL,
+                loop_trace TEXT,
+                trace_path TEXT,
+                status TEXT NOT NULL DEFAULT 'done',
+                total_time_ms INTEGER DEFAULT 0,
+                error TEXT,
+                created_at TEXT NOT NULL,
+                finished_at TEXT NOT NULL,
+                FOREIGN KEY (conversation_id) REFERENCES conversations(id)
+                    ON DELETE CASCADE
+            )
+        """)
+        cur.execute("""
+            CREATE INDEX IF NOT EXISTS idx_activity_traces_conversation
+            ON activity_traces(conversation_id, created_at)
+        """)
 
     def _create_fts_tables(self, cur: sqlite3.Cursor):
         """Create CJK-friendly FTS5 virtual tables."""
@@ -415,6 +452,106 @@ class Database:
             self.update_conversation(conv_id)
 
         return message_id
+
+    # ================================================================
+    # Activity trace methods
+    # ================================================================
+
+    def add_activity_trace(
+        self,
+        conv_id: str,
+        request_id: str,
+        *,
+        endpoint: Optional[str] = None,
+        profile: Optional[str] = None,
+        provider: Optional[str] = None,
+        model: Optional[str] = None,
+        user_message: Optional[str] = None,
+        assistant_text: Optional[str] = None,
+        system_prompt_hash: Optional[str] = None,
+        capability_scope: Optional[str] = None,
+        tool_names: Optional[list[str]] = None,
+        events: Optional[list[dict]] = None,
+        loop_trace: Optional[list[dict]] = None,
+        trace_path: Optional[str] = None,
+        status: str = "done",
+        total_time_ms: int = 0,
+        error: Optional[str] = None,
+    ) -> int:
+        """Persist one UI/AgentLoop trace for a conversation turn."""
+        now = datetime.now().isoformat()
+        cur = self.conn.execute(
+            """
+            INSERT OR REPLACE INTO activity_traces (
+                conversation_id, request_id, endpoint, profile, provider, model,
+                user_message, assistant_text, system_prompt_hash,
+                capability_scope, tool_names, events, loop_trace, trace_path,
+                status, total_time_ms, error, created_at, finished_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                conv_id,
+                request_id,
+                endpoint,
+                profile,
+                provider,
+                model,
+                user_message,
+                assistant_text,
+                system_prompt_hash,
+                capability_scope,
+                json.dumps(tool_names or [], ensure_ascii=False),
+                json.dumps(events or [], ensure_ascii=False),
+                json.dumps(loop_trace or [], ensure_ascii=False),
+                trace_path,
+                status,
+                total_time_ms,
+                error,
+                now,
+                now,
+            ),
+        )
+        self.update_conversation(conv_id)
+        return int(cur.lastrowid or 0)
+
+    def list_activity_traces(self, conv_id: str) -> list[dict]:
+        """List persisted traces for a conversation."""
+        cur = self.conn.execute(
+            """
+            SELECT request_id, endpoint, profile, provider, model,
+                   capability_scope, tool_names, status, total_time_ms,
+                   error, created_at, finished_at
+            FROM activity_traces
+            WHERE conversation_id = ?
+            ORDER BY created_at
+            """,
+            (conv_id,),
+        )
+        rows = []
+        for row in cur:
+            item = dict(row)
+            item["tool_names"] = json.loads(item.get("tool_names") or "[]")
+            rows.append(item)
+        return rows
+
+    def get_activity_trace(self, conv_id: str, request_id: str) -> Optional[dict]:
+        """Get one persisted trace with events and loop records."""
+        cur = self.conn.execute(
+            """
+            SELECT *
+            FROM activity_traces
+            WHERE conversation_id = ? AND request_id = ?
+            """,
+            (conv_id, request_id),
+        )
+        row = cur.fetchone()
+        if not row:
+            return None
+        trace = dict(row)
+        for key in ("tool_names", "events", "loop_trace"):
+            trace[key] = json.loads(trace.get(key) or "[]")
+        return trace
 
     def search_messages(self, query: str, limit: int = 20) -> list[dict]:
         """Full-text search in messages."""

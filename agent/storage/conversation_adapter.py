@@ -131,6 +131,24 @@ class ConversationManagerV2:
         self.db.add_message(conv_id, role, content, model, sources)
         return True
 
+    def add_activity_trace(self, conv_id: str, request_id: str, **trace) -> bool:
+        """Persist an AgentLoop activity trace for a conversation turn."""
+        conv = self.db.get_conversation(conv_id)
+        if not conv:
+            return False
+        self.db.add_activity_trace(conv_id, request_id, **trace)
+        return True
+
+    def list_activity_traces(self, conv_id: str) -> list[dict]:
+        """List persisted AgentLoop traces for a conversation."""
+        if not self.db.get_conversation(conv_id):
+            return []
+        return self.db.list_activity_traces(conv_id)
+
+    def get_activity_trace(self, conv_id: str, request_id: str) -> Optional[dict]:
+        """Fetch one persisted AgentLoop trace."""
+        return self.db.get_activity_trace(conv_id, request_id)
+
     def delete(self, conv_id: str) -> bool:
         """Delete a conversation.
 

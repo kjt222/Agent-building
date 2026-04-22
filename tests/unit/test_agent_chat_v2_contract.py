@@ -13,6 +13,7 @@ from agent.core.loop import (
     ToolUseDelta,
     TurnEnd,
 )
+from agent.storage.database import Database
 from agent.ui.server import create_app, _select_v2_tools_for_turn
 
 
@@ -319,6 +320,56 @@ def test_v2_injects_user_facts_into_system_prompt(tmp_path, monkeypatch):
     assert "## user_facts" in (adapter.system or "")
     assert "User prefers concise Chinese answers." in (adapter.system or "")
     assert memory.calls[-1]["conv_id"] == "conv-memory"
+
+
+def test_v2_persists_activity_trace_for_ui_conversation(tmp_path, monkeypatch):
+    _write_config(tmp_path)
+    db = Database(tmp_path / "agent.db")
+    FakeResponsesAdapter.instances.clear()
+
+    monkeypatch.setattr("agent.storage.conversation_adapter.get_database", lambda: db)
+    monkeypatch.setattr("agent.ui.server.resolve_api_key", lambda **_: "test-key")
+    monkeypatch.setattr(
+        "agent.models.openai_responses_adapter.OpenAIResponsesAdapter",
+        FakeResponsesAdapter,
+    )
+    client = TestClient(create_app(str(tmp_path)))
+
+    created = client.post("/api/conversations", json={"profile": "test"}).json()
+    conv_id = created["conversation_id"]
+    res = client.post(
+        "/api/agent_chat_v2",
+        json={
+            "message": "What model are you?",
+            "conversation_id": conv_id,
+            "max_iterations": 1,
+        },
+    )
+
+    assert res.status_code == 200
+    traces = client.get(f"/api/conversations/{conv_id}/activity_traces").json()
+    assert traces["ok"] is True
+    assert len(traces["traces"]) == 1
+    request_id = traces["traces"][0]["request_id"]
+
+    detail = client.get(
+        f"/api/conversations/{conv_id}/activity_traces/{request_id}"
+    ).json()
+    trace = detail["trace"]
+    assert trace["assistant_text"] == "hello"
+    assert trace["system_prompt_hash"]
+    assert trace["tool_names"] == []
+    assert any(item["event"] == "activity" for item in trace["events"])
+    assert any(item["event"] == "token" for item in trace["events"])
+    assert trace["loop_trace"][0]["assistant_text"] == "hello"
+    assert "system contract" not in json.dumps(trace, ensure_ascii=False)
+
+    exported = client.get(
+        f"/api/conversations/{conv_id}/activity_traces/{request_id}/export"
+    )
+    assert exported.status_code == 200
+    assert '"event": "trace_metadata"' in exported.text
+    assert '"event": "loop_trace"' in exported.text
 
 
 def test_v2_progressively_discloses_tools_by_task_type():
