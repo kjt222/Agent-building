@@ -94,3 +94,15 @@ P3 still open:
 - Generated-image tool plus img2img/inpainting loop.
 - Self-review policy that decides when to run render/Verify again.
 - Regression tasks that prove the model actually uses visual feedback to correct artifacts.
+
+P3 replay result:
+
+- `tests/p3_vision_loop_results/2026-04-22-render-feedback/summary.json`
+- Result: passed.
+- The framework successfully rendered a PDF page and attached the PNG as an `ImageBlock` to the next model call.
+
+Image-generation direction:
+
+- P5 should be designed as an iterative image production loop, not only a generate-image endpoint.
+- Required capabilities: full-image review, crop/zoom magnifier review, local inpainting/detail fixes, image comparison, identity/style reference storage, and series-level consistency profiles.
+- The main technical dependency is already started in P3: generated or rendered images can be returned into the next model turn as image blocks.

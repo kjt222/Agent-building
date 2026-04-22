@@ -84,3 +84,26 @@ Current P3 status:
 - Render feedback: partially complete. PDF rendering works directly; Office formats depend on installed LibreOffice.
 - Image feedback into the next model turn: complete for tool-result image paths/base64 payloads.
 - Remaining: native Excel COM rendering path, generated-image tool integration, active-window/script screenshot path, and a higher-level self-review policy/eval loop.
+
+Additional P3 replay:
+
+- `tests/p3_vision_loop_results/2026-04-22-render-feedback/`
+- The replay creates `layout_fixture.pdf`, calls `RenderDocument`, and verifies the second model call receives one PNG `ImageBlock`.
+- Result: passed.
+
+## Image Generation Architecture Notes - 2026-04-22 - Codex
+
+The image-generation tool must not be implemented as a one-shot "prompt in, image out" utility only. The user requirement is iterative visual production:
+
+- Detail correction: many failures are local details, not the whole composition. The system needs crop/zoom inspection and inpainting/editing so small regions can be revised without changing the full image.
+- Visual inspection: generated images should be fed back into the model as image blocks. The agent should be able to inspect the whole image and selected crop regions before deciding whether to revise.
+- Magnifier workflow: image review should support region crops by coordinates or semantic boxes, producing enlarged inspection images that can move across the source image.
+- Identity/style consistency: recurring assets such as a digital human spokesperson need persistent references. Store canonical reference images, style descriptors, seed/parameter metadata when available, and use image-to-image/reference inputs for later generations.
+- Series consistency: a campaign or storyboard should have an asset profile that carries subject identity, wardrobe, background style, palette, camera/lens language, and negative constraints across turns.
+- Minimal-change edits: prefer img2img/inpainting for detail fixes; full regeneration should be a deliberate fallback because it risks changing identity, layout, or style.
+
+Implication for P5:
+
+- `ImageGenerate` is only the first tool.
+- Required follow-up tools are `ImageInspect`, `ImageCrop`/magnifier, `ImageEdit`/inpaint, `ImageCompare`, and an asset-reference store.
+- Cost/budget hooks remain necessary because iterative image review can multiply calls quickly.

@@ -1,0 +1,16 @@
+{
+  "task": "Render a PDF page, feed the rendered PNG back into the next model turn, and confirm the model can see that an image block arrived.",
+  "pdf": "tests\\p3_vision_loop_results\\2026-04-22-render-feedback\\layout_fixture.pdf",
+  "render_dir": "tests\\p3_vision_loop_results\\2026-04-22-render-feedback\\renders",
+  "model_calls": 2,
+  "final_text": "saw-rendered-image=true; images=layout_fixture_page_1_1776842651838.png",
+  "feedback_image_count": 1,
+  "feedback_images": [
+    {
+      "name": "layout_fixture_page_1_1776842651838.png",
+      "media_type": "image/png",
+      "base64_chars": 11892
+    }
+  ],
+  "passed": true
+}
