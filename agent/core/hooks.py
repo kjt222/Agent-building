@@ -240,9 +240,9 @@ def _missing_delivery_evidence(ctx: LoopContext, assistant_text: str) -> list[st
             missing.append(f"requested output path {path!r} {state}")
 
     if "artifact" in categories and not (
-        successful & {"write", "edit", "docxedit", "bash"}
+        successful & {"write", "edit", "docxedit", "exceledit", "bash"}
     ):
-        missing.append("artifact claim has no successful Write/Edit/Bash evidence")
+        missing.append("artifact claim has no successful write/edit tool evidence")
     if "command" in categories and "bash" not in successful:
         missing.append("command execution claim has no successful Bash evidence")
     if "verification" in categories and not (
@@ -252,7 +252,9 @@ def _missing_delivery_evidence(ctx: LoopContext, assistant_text: str) -> list[st
             "read",
             "grep",
             "glob",
+            "excelread",
             "verify",
+            "renderdocument",
             "render_pdf_page",
             "read_image",
         }

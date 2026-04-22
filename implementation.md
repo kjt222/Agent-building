@@ -170,3 +170,39 @@ Result:
 - GPT: more polished output and faster in this run; recreated the avatar in CSS while preserving the required `badge VX-17` detail.
 
 This confirms the P3 minimal tool path is provider-robust for the tested task. Visual design quality and stricter reference-image fidelity should be moved into P8 rubrics.
+
+## 2026-04-22 - Codex - P4 Excel Minimal Tool Slice
+
+Codex started P4 with a constrained Excel path instead of exposing arbitrary Python/COM scripting.
+
+Principles applied:
+
+- Sandbox boundary: Excel mutation is a structured tool call, not arbitrary shell/Python/COM code.
+- Minimal tools: only `ExcelRead` and `ExcelEdit` were added; rendering still reuses `RenderDocument`.
+- Progressive disclosure: Excel/Office prompts expose `Read`, `Glob`, `ExcelRead`, `ExcelEdit`, and `RenderDocument` only. They do not expose `Bash`, `Write`, or text-file `Edit` by default.
+
+Changed files:
+
+- `agent/tools_v2/excel_tool.py`: added `ExcelRead` and `ExcelEdit`.
+- `agent/ui/server.py`: added an `office_excel` capability scope with the narrow Excel tool surface.
+- `agent/core/loop.py`: records Excel read/edit evidence for delivery guards.
+- `agent/core/hooks.py`: final guard accepts `ExcelEdit` as artifact evidence and `ExcelRead`/`RenderDocument` as verification evidence.
+- `tests/unit/test_excel_tool.py`: covers Excel read, read-before-edit, scoped edits, large-range rejection, and protocol flags.
+- `tests/unit/test_agent_chat_v2_contract.py`: covers Excel progressive disclosure.
+
+Current Excel behavior:
+
+- `ExcelEdit` requires `ExcelRead` on the same workbook in the current AgentLoop run.
+- Every edit operation requires an explicit sheet and cell/range/index.
+- Large range edits are rejected unless `allow_large_scope=true`.
+- A backup copy is created by default before mutation.
+- Supported first-slice operations: `set_cell`, `set_range_style`, `set_number_format`, `insert_rows`, `delete_rows`, `set_column_width`, and `set_row_height`.
+
+Verification:
+
+- `.venv\Scripts\python.exe -m pytest tests/unit/test_excel_tool.py -q`
+- Result: `5 passed`
+- `.venv\Scripts\python.exe -m pytest tests/unit/test_agent_chat_v2_contract.py -q`
+- Result: `9 passed`
+- `.venv\Scripts\python.exe -m pytest tests/unit -q`
+- Result: `222 passed, 5 skipped`

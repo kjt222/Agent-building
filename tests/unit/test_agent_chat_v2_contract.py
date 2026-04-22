@@ -385,6 +385,21 @@ def test_v2_progressively_discloses_tools_by_task_type():
     assert artifact_scope == "artifact"
     assert {"Read", "Write", "Edit", "Bash", "Glob", "Grep"}.issubset(artifact_tools)
 
+    excel_tools, excel_scope = _select_v2_tools_for_turn(
+        "Modify this Excel workbook budget.xlsx and render the result", [], {}
+    )
+    assert excel_scope == "office_excel"
+    assert set(excel_tools) == {
+        "Read",
+        "Glob",
+        "ExcelRead",
+        "ExcelEdit",
+        "RenderDocument",
+    }
+    assert "Bash" not in excel_tools
+    assert "Write" not in excel_tools
+    assert "Edit" not in excel_tools
+
     kb_tools, kb_scope = _select_v2_tools_for_turn(
         "在知识库里搜索 LoopContext", [], {}
     )

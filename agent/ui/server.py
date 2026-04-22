@@ -312,7 +312,18 @@ def _summarize_tool_input(tool_name: str, tool_input: dict) -> str:
             "command": tool_input.get("command", ""),
             "timeout": tool_input.get("timeout", 60),
         })
-    if tool_name in {"Read", "Write", "Edit", "Grep", "Glob", "KnowledgeSearch", "KnowledgeIndex"}:
+    if tool_name in {
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob",
+        "KnowledgeSearch",
+        "KnowledgeIndex",
+        "ExcelRead",
+        "ExcelEdit",
+        "RenderDocument",
+    }:
         summarized = dict(tool_input)
         if path:
             if "path" in summarized:
@@ -346,15 +357,33 @@ _KNOWLEDGE_INTENT_RE = re.compile(
     r"知识库|搜索|检索|资料|文档|记忆|事实|PDF)",
     re.IGNORECASE,
 )
+_OFFICE_EXCEL_INTENT_RE = re.compile(
+    r"(?:excel|xlsx|xlsm|spreadsheet|workbook|worksheet|sheet|office|"
+    r"\u8868\u683c|\u5de5\u4f5c\u7c3f|\u5de5\u4f5c\u8868|"
+    r"\u7535\u5b50\u8868\u683c|\u4fee\u6539\u8868\u683c|"
+    r"\u8868\u683c\u683c\u5f0f)",
+    re.IGNORECASE,
+)
 
 
 def _select_v2_tools_for_turn(message: str, images: list, app_cfg: dict) -> tuple[dict, str]:
     """Progressively disclose only the tool surface useful for this turn."""
+    from ..tools_v2.excel_tool import ExcelEditTool, ExcelReadTool
     from ..tools_v2.knowledge_tool import KnowledgeIndexTool, KnowledgeSearchTool
-    from ..tools_v2.primitives import full_toolset
+    from ..tools_v2.primitives import default_toolset, full_toolset
+    from ..tools_v2.render_tool import RenderDocumentTool
 
     text = message or ""
     selected: dict = {}
+    if _OFFICE_EXCEL_INTENT_RE.search(text):
+        base_tools = default_toolset()
+        for name in ("Read", "Glob"):
+            selected[name] = base_tools[name]
+        selected["ExcelRead"] = ExcelReadTool()
+        selected["ExcelEdit"] = ExcelEditTool()
+        selected["RenderDocument"] = RenderDocumentTool()
+        return selected, "office_excel"
+
     if _ARTIFACT_INTENT_RE.search(text):
         selected.update(full_toolset())
         selected["KnowledgeSearch"] = KnowledgeSearchTool()
@@ -2588,6 +2617,9 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             "after writing and reading the file, then fix any failed assertion. "
             "For PDF, DOCX, XLSX, PPTX, or document layout questions, use "
             "RenderDocument to create page images before judging visual layout. "
+            "For Excel workbook edits, inspect the workbook with ExcelRead "
+            "before ExcelEdit; use explicit sheet/cell/range scopes and avoid "
+            "global changes unless the user explicitly requested them. "
             "For existing screenshots, generated images, or local visual "
             "details, use RenderDocument regions as a movable magnifier instead "
             "of regenerating the whole artifact. "

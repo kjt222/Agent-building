@@ -162,3 +162,42 @@ Outcome:
 Follow-up:
 
 - Add P8 visual-quality rubrics, because current Verify assertions prove functional correctness but do not score design quality or reference-image fidelity deeply enough.
+
+## P4 Excel Start - 2026-04-22
+
+Runner: Codex
+
+P4 has started with the Excel slice.
+
+Implemented now:
+
+- `ExcelRead`: inspect workbook/sheet/range values, formulas, styles, merged ranges, filters, and used ranges.
+- `ExcelEdit`: apply scoped structured edits after `ExcelRead`.
+- Excel-specific progressive disclosure: Excel/Office prompts expose only `Read`, `Glob`, `ExcelRead`, `ExcelEdit`, and `RenderDocument`.
+- Final guard evidence now recognizes Excel edits and Excel/render verification evidence.
+
+Guardrails:
+
+- No arbitrary Python/COM script execution for workbook edits in this slice.
+- `ExcelEdit` requires the workbook to be inspected first in the same AgentLoop run.
+- Every edit op must specify an explicit sheet and target cell/range/index.
+- Broad range edits are blocked unless explicitly requested through `allow_large_scope=true`.
+- Backups are created before mutation by default.
+
+Why this shape:
+
+- It follows the Claude Code-style Read/Edit contract while keeping tool count small.
+- `RenderDocument` remains the visual verification tool, so P4 does not add a separate Excel screenshot tool.
+- High-fidelity Windows Excel COM rendering/editing remains a later P4 expansion or MCP/server boundary, especially for plugin-dependent workflows such as EndNote.
+
+Verification so far:
+
+- `tests/unit/test_excel_tool.py`: passed.
+- `tests/unit/test_agent_chat_v2_contract.py`: passed.
+- Full unit suite: `222 passed, 5 skipped`.
+
+Next P4 work:
+
+1. Add a real Excel fixture task that edits values and formatting, renders it with `RenderDocument`, and stores the Activity trace under `tests/`.
+2. Expand supported structured ops only when a real task needs them.
+3. Keep EndNote/reference-manager integration as MCP-oriented work unless a local deterministic file-based citation flow is enough.
