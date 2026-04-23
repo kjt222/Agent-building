@@ -400,6 +400,22 @@ def test_v2_progressively_discloses_tools_by_task_type():
     assert "Write" not in excel_tools
     assert "Edit" not in excel_tools
 
+    word_tools, word_scope = _select_v2_tools_for_turn(
+        "Modify this Word document report.docx and render the result", [], {}
+    )
+    assert word_scope == "office_word"
+    assert set(word_tools) == {
+        "Read",
+        "Glob",
+        "WordRead",
+        "WordEdit",
+        "RenderDocument",
+    }
+    assert "Bash" not in word_tools
+    assert "Write" not in word_tools
+    assert "Edit" not in word_tools
+    assert "DocxEdit" not in word_tools
+
     kb_tools, kb_scope = _select_v2_tools_for_turn(
         "在知识库里搜索 LoopContext", [], {}
     )

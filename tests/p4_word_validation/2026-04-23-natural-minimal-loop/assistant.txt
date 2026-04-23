@@ -1,0 +1,12 @@
+First, let's inspect the Word document to see its current content and styles.Now, let's apply the changes: first copy the template heading style, update the heading text, then update the revenue number.
+Let's inspect the modified document to verify the changes.
+Let's render the document to visually confirm the result.
+
+Perfect! Let's check the results:
+
+1. **Old Section Heading → Revenue Summary**: Changed successfully (paragraph index 1 now says "Revenue Summary").
+2. **Heading style matches template**: Yes, we copied the style from the template heading (paragraph index 0), so now "Revenue Summary" also uses "Heading 1" with bold formatting and correct size.
+3. **Revenue from 10 → 12**: Updated in paragraph index 2 to "Revenue is 12.".
+4. **Note and table unchanged**: Paragraph 3 ("Notes: ...") and the table are still as they were.
+
+The rendered image confirms everything looks correct visually too. All requirements are satisfied!

@@ -245,3 +245,48 @@ Next P4 work:
 1. Add a task where the model must preserve an existing workbook layout while modifying only one local section.
 2. Add chart/image/table-style operations only if that task forces the need.
 3. Decide whether high-fidelity Excel COM should stay in-process or move behind an MCP/server boundary.
+
+## P4 Word Minimal Loop - 2026-04-23
+
+Runner: Codex
+
+P4 Word now has the same minimal Read/Edit/Render loop as the Excel slice.
+
+Implemented:
+
+- `WordRead`: inspect `.docx` paragraphs, runs, styles, and tables.
+- `WordEdit`: apply structured local edits after `WordRead`.
+- Word-specific progressive disclosure: Word/docx prompts expose only `Read`, `Glob`, `WordRead`, `WordEdit`, and `RenderDocument`.
+- Evidence guards recognize `WordRead` and `WordEdit`.
+
+Guardrails:
+
+- `WordEdit` requires `WordRead` first in the same AgentLoop run.
+- Text replacement requires `paragraph_index` unless `allow_global=true`.
+- Template-style copying is explicit: source paragraph index to target paragraph index.
+- No arbitrary `python-docx`, COM, shell, or legacy `DocxEdit` editing is exposed for normal Word/docx intent.
+
+Natural validation:
+
+- Location: `tests/p4_word_validation/2026-04-23-natural-minimal-loop/`
+- Conversation ID: `conv_20260423_093306_7f75ba`
+- The validation prompt did not name tools, paragraph indexes, local edit operations, or rendering. It only asked the agent to update a Word document, match an existing template heading style, change one sentence, preserve a note/table, and check the result.
+- Observed tool path: `WordRead`, `WordEdit`, `WordRead`, `RenderDocument`.
+
+Independent check:
+
+- Heading text became `Revenue Summary`.
+- Heading style became `Heading 1` and bold.
+- Revenue sentence became `Revenue is 12.`.
+- Note paragraph and table remained unchanged.
+- `RenderDocument` attached one image feedback block.
+
+Verification:
+
+- Full unit suite: `229 passed, 5 skipped`.
+
+Next P4 work:
+
+1. Add a natural Word layout task involving spacing around a figure, table, or caption.
+2. Add image/table-specific `WordEdit` ops only when a real task forces the need.
+3. Keep EndNote/plugin automation behind an MCP-oriented boundary unless a deterministic file-based citation workflow is enough.

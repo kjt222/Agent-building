@@ -638,11 +638,11 @@ class AgentLoop:
                 path_key = str(Path(str(path_value)).resolve())
             except Exception:
                 path_key = str(path_value)
-            if tool_name in {"read", "excelread"}:
+            if tool_name in {"read", "excelread", "wordread"}:
                 ctx.scratch.setdefault("read_files", set()).add(path_key)
             elif tool_name == "write":
                 ctx.scratch.setdefault("written_files", set()).add(path_key)
-            elif tool_name in {"edit", "docxedit", "exceledit"}:
+            elif tool_name in {"edit", "docxedit", "exceledit", "wordedit"}:
                 ctx.scratch.setdefault("edited_files", set()).add(path_key)
 
         if tool_name == "bash":

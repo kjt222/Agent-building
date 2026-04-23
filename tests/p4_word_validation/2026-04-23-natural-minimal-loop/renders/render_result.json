@@ -1,0 +1,19 @@
+{
+  "type": "rendered_document",
+  "source_path": "tests\\p4_word_validation\\2026-04-23-natural-minimal-loop\\word_natural_task.docx",
+  "converted_pdf_path": "tests\\p4_word_validation\\2026-04-23-natural-minimal-loop\\renders\\word_natural_task.pdf",
+  "pages_requested": [
+    1
+  ],
+  "total_pages": 1,
+  "images": [
+    {
+      "page": 1,
+      "width": 1105,
+      "height": 1430,
+      "media_type": "image/png",
+      "rendered_image_path": "tests\\p4_word_validation\\2026-04-23-natural-minimal-loop\\renders\\word_natural_task_page_1_1776908156126.png"
+    }
+  ],
+  "regions": []
+}

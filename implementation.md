@@ -249,3 +249,48 @@ Verification:
 - Result: `9 passed`
 - `.venv\Scripts\python.exe -m pytest tests/unit -q`
 - Result: `224 passed, 5 skipped`
+
+## 2026-04-23 - Codex - P4 Word Minimal Loop
+
+Codex added a Word-specific Read/Edit loop instead of relying on the older `DocxEdit` primitive for P4 Word work.
+
+Principles applied:
+
+- Minimal tools: only `WordRead` and `WordEdit` were added for Word; rendering still reuses `RenderDocument`.
+- Progressive disclosure: Word/docx prompts expose `Read`, `Glob`, `WordRead`, `WordEdit`, and `RenderDocument`; they do not expose `Bash`, `Write`, text `Edit`, or legacy `DocxEdit`.
+- Sandbox boundary: Word edits are structured `WordEdit` operations, not arbitrary `python-docx`/COM scripts.
+- Read-before-edit: `WordEdit` requires `WordRead` on the same document in the current AgentLoop run.
+- Scoped edits: `replace_text` requires `paragraph_index` unless `allow_global=true`.
+
+Changed files:
+
+- `agent/tools_v2/word_tool.py`: added `WordRead` and `WordEdit`.
+- `agent/ui/server.py`: added `office_word` capability scope and Word-specific prompt guidance.
+- `agent/core/loop.py`: records Word read/edit evidence.
+- `agent/core/hooks.py`: final guard accepts `WordEdit` and `WordRead` evidence.
+- `tests/unit/test_word_tool.py`: covers reading, read-before-edit, scoped replacement, style copy, local insertion, and protocol flags.
+- `tests/unit/test_agent_chat_v2_contract.py`: covers Word progressive disclosure.
+
+Natural UI validation:
+
+- `tests/p4_word_validation/2026-04-23-natural-minimal-loop/`
+- Conversation ID: `conv_20260423_093306_7f75ba`
+- The prompt did not name tools, paragraph indexes, or rendering; it only asked to update a Word document, match an existing template heading style, change one revenue sentence, preserve a note/table, and check the result.
+- Observed tool path: `WordRead`, `WordEdit`, `WordRead`, `RenderDocument`.
+- `RenderDocument` succeeded and attached 1 image feedback block.
+
+Independent document check:
+
+- Heading text changed to `Revenue Summary`.
+- Heading style became `Heading 1` and bold.
+- Revenue sentence changed to `Revenue is 12.`.
+- Note paragraph and table remained unchanged.
+
+Verification:
+
+- `.venv\Scripts\python.exe -m pytest tests/unit/test_word_tool.py -q`
+- Result: `5 passed`
+- `.venv\Scripts\python.exe -m pytest tests/unit/test_agent_chat_v2_contract.py -q`
+- Result: `9 passed`
+- `.venv\Scripts\python.exe -m pytest tests/unit -q`
+- Result: `229 passed, 5 skipped`

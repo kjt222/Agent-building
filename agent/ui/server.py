@@ -322,6 +322,8 @@ def _summarize_tool_input(tool_name: str, tool_input: dict) -> str:
         "KnowledgeIndex",
         "ExcelRead",
         "ExcelEdit",
+        "WordRead",
+        "WordEdit",
         "RenderDocument",
     }:
         summarized = dict(tool_input)
@@ -364,6 +366,12 @@ _OFFICE_EXCEL_INTENT_RE = re.compile(
     r"\u8868\u683c\u683c\u5f0f)",
     re.IGNORECASE,
 )
+_OFFICE_WORD_INTENT_RE = re.compile(
+    r"(?:word|docx|\\.docx|word document|document formatting|"
+    r"\u6587\u6863\u683c\u5f0f|\u4fee\u6539\u6587\u6863|"
+    r"\u6bb5\u843d|\u6807\u9898|\u56fe\u6ce8|\u6b63\u6587)",
+    re.IGNORECASE,
+)
 
 
 def _select_v2_tools_for_turn(message: str, images: list, app_cfg: dict) -> tuple[dict, str]:
@@ -372,9 +380,19 @@ def _select_v2_tools_for_turn(message: str, images: list, app_cfg: dict) -> tupl
     from ..tools_v2.knowledge_tool import KnowledgeIndexTool, KnowledgeSearchTool
     from ..tools_v2.primitives import default_toolset, full_toolset
     from ..tools_v2.render_tool import RenderDocumentTool
+    from ..tools_v2.word_tool import WordEditTool, WordReadTool
 
     text = message or ""
     selected: dict = {}
+    if _OFFICE_WORD_INTENT_RE.search(text):
+        base_tools = default_toolset()
+        for name in ("Read", "Glob"):
+            selected[name] = base_tools[name]
+        selected["WordRead"] = WordReadTool()
+        selected["WordEdit"] = WordEditTool()
+        selected["RenderDocument"] = RenderDocumentTool()
+        return selected, "office_word"
+
     if _OFFICE_EXCEL_INTENT_RE.search(text):
         base_tools = default_toolset()
         for name in ("Read", "Glob"):
@@ -2620,6 +2638,9 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             "For Excel workbook edits, inspect the workbook with ExcelRead "
             "before ExcelEdit; use explicit sheet/cell/range scopes and avoid "
             "global changes unless the user explicitly requested them. "
+            "For Word document edits, inspect the document with WordRead "
+            "before WordEdit; prefer paragraph_index-scoped operations and "
+            "avoid global replacement unless the user explicitly requested it. "
             "For existing screenshots, generated images, or local visual "
             "details, use RenderDocument regions as a movable magnifier instead "
             "of regenerating the whole artifact. "
