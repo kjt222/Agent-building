@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import shutil
 import time
-from copy import copy
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -97,6 +97,67 @@ def _table_payload(table, index: int, *, max_cells: int) -> dict:
     }
 
 
+def _document_structure_payload(path: Path) -> dict:
+    headings: list[dict[str, Any]] = []
+    footnotes: list[dict[str, Any]] = []
+    headers: list[dict[str, Any]] = []
+    footers: list[dict[str, Any]] = []
+    has_toc_field = False
+    has_page_field = False
+    has_footnotes_part = False
+
+    try:
+        document = _load_document(path)
+        for idx, paragraph in enumerate(document.paragraphs):
+            style_name = paragraph.style.name if paragraph.style else ""
+            if style_name.startswith("Heading"):
+                headings.append({
+                    "paragraph_index": idx,
+                    "text": paragraph.text,
+                    "style": style_name,
+                })
+        for section_index, section in enumerate(document.sections):
+            header_text = "\n".join(p.text for p in section.header.paragraphs if p.text)
+            footer_text = "\n".join(p.text for p in section.footer.paragraphs if p.text)
+            headers.append({"section": section_index, "text": header_text})
+            footers.append({"section": section_index, "text": footer_text})
+    except Exception:
+        pass
+
+    try:
+        with zipfile.ZipFile(path) as zf:
+            names = set(zf.namelist())
+            document_xml = zf.read("word/document.xml").decode("utf-8", errors="replace")
+            has_toc_field = "TOC" in document_xml
+            if "word/footer1.xml" in names:
+                footer_xml = zf.read("word/footer1.xml").decode("utf-8", errors="replace")
+                has_page_field = "PAGE" in footer_xml
+            if "word/footnotes.xml" in names:
+                has_footnotes_part = True
+                from xml.etree import ElementTree as ET
+
+                root = ET.fromstring(zf.read("word/footnotes.xml"))
+                ns = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+                for item in root.findall("w:footnote", ns):
+                    fid = item.attrib.get(f"{{{ns['w']}}}id")
+                    if fid in {"-1", "0"}:
+                        continue
+                    texts = [node.text or "" for node in item.findall(".//w:t", ns)]
+                    footnotes.append({"id": fid, "text": "".join(texts)})
+    except Exception:
+        pass
+
+    return {
+        "headings": headings,
+        "headers": headers,
+        "footers": footers,
+        "has_toc_field": has_toc_field,
+        "has_footnotes_part": has_footnotes_part,
+        "footnotes": footnotes,
+        "has_page_field": has_page_field,
+    }
+
+
 def _copy_paragraph_style(document, source_index: int, target_index: int) -> str:
     source = document.paragraphs[source_index]
     target = document.paragraphs[target_index]
@@ -157,6 +218,154 @@ def _insert_paragraph_after(paragraph, text: str, style: str | None = None):
     return inserted
 
 
+def _insert_table_after(paragraph, rows: list[list[Any]], style: str | None = None) -> str:
+    if not rows:
+        raise ValueError("insert_table_after requires non-empty rows")
+    column_count = max(len(row) for row in rows)
+    if column_count <= 0:
+        raise ValueError("insert_table_after requires at least one column")
+    document = paragraph.part.document
+    table = document.add_table(rows=len(rows), cols=column_count)
+    if style:
+        table.style = style
+    for row_index, row in enumerate(rows):
+        for col_index in range(column_count):
+            table.cell(row_index, col_index).text = (
+                "" if col_index >= len(row) else str(row[col_index])
+            )
+    paragraph._p.addnext(table._tbl)
+    return f"insert_table_after rows={len(rows)} cols={column_count}"
+
+
+def _add_field_run(paragraph, instruction: str, placeholder: str | None = None) -> None:
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+
+    run = paragraph.add_run()
+
+    begin = OxmlElement("w:fldChar")
+    begin.set(qn("w:fldCharType"), "begin")
+    run._r.append(begin)
+
+    instr = OxmlElement("w:instrText")
+    instr.set(qn("xml:space"), "preserve")
+    instr.text = instruction
+    run._r.append(instr)
+
+    separate = OxmlElement("w:fldChar")
+    separate.set(qn("w:fldCharType"), "separate")
+    run._r.append(separate)
+
+    if placeholder:
+        text = OxmlElement("w:t")
+        text.text = placeholder
+        run._r.append(text)
+
+    end = OxmlElement("w:fldChar")
+    end.set(qn("w:fldCharType"), "end")
+    run._r.append(end)
+
+
+def _insert_toc_after(paragraph, levels: str = "1-3", title: str | None = None) -> str:
+    if title:
+        title_para = _insert_paragraph_after(paragraph, title, style="Heading 1")
+        target = _insert_paragraph_after(title_para, "", style="Normal")
+    else:
+        target = _insert_paragraph_after(paragraph, "", style="Normal")
+    _add_field_run(target, f'TOC \\o "{levels}" \\h \\z \\u', "Update field to generate table of contents.")
+    return f"insert_toc_after:{levels}"
+
+
+def _set_header(document, text: str, section_index: int = 0) -> str:
+    section = document.sections[section_index]
+    paragraph = section.header.paragraphs[0]
+    paragraph.text = text
+    return f"set_header:{section_index}"
+
+
+def _set_footer(document, text: str, *, page_number: bool, section_index: int = 0) -> str:
+    section = document.sections[section_index]
+    paragraph = section.footer.paragraphs[0]
+    paragraph.text = text
+    if page_number:
+        if paragraph.text:
+            paragraph.add_run(" ")
+        _add_field_run(paragraph, "PAGE", "1")
+    return f"set_footer:{section_index} page_number={page_number}"
+
+
+def _get_or_create_footnotes_part(document):
+    from docx.opc.constants import CONTENT_TYPE as CT
+    from docx.opc.constants import RELATIONSHIP_TYPE as RT
+    from docx.opc.packuri import PackURI
+    from docx.opc.part import XmlPart
+    from docx.oxml import parse_xml
+
+    try:
+        part = document.part.part_related_by(RT.FOOTNOTES)
+        if hasattr(part, "element"):
+            return part
+        xml_part = XmlPart.load(
+            part.partname,
+            part.content_type,
+            part.blob,
+            document.part.package,
+        )
+        for rel in document.part.rels.values():
+            if rel.reltype == RT.FOOTNOTES:
+                rel._target = xml_part
+                break
+        return xml_part
+    except KeyError:
+        xml = (
+            '<w:footnotes xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            '<w:footnote w:type="separator" w:id="-1"><w:p><w:r><w:separator/></w:r></w:p></w:footnote>'
+            '<w:footnote w:type="continuationSeparator" w:id="0"><w:p><w:r><w:continuationSeparator/></w:r></w:p></w:footnote>'
+            "</w:footnotes>"
+        )
+        part = XmlPart(
+            PackURI("/word/footnotes.xml"),
+            CT.WML_FOOTNOTES,
+            parse_xml(xml),
+            document.part.package,
+        )
+        document.part.relate_to(part, RT.FOOTNOTES)
+        return part
+
+
+def _add_footnote(paragraph, text: str) -> str:
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+
+    part = _get_or_create_footnotes_part(paragraph.part.document)
+    root = part.element
+    existing_ids = []
+    for child in root:
+        raw_id = child.get(qn("w:id"))
+        try:
+            existing_ids.append(int(raw_id))
+        except (TypeError, ValueError):
+            continue
+    footnote_id = max([0, *existing_ids]) + 1
+
+    footnote = OxmlElement("w:footnote")
+    footnote.set(qn("w:id"), str(footnote_id))
+    p = OxmlElement("w:p")
+    r = OxmlElement("w:r")
+    t = OxmlElement("w:t")
+    t.text = text
+    r.append(t)
+    p.append(r)
+    footnote.append(p)
+    root.append(footnote)
+
+    run = paragraph.add_run()
+    ref = OxmlElement("w:footnoteReference")
+    ref.set(qn("w:id"), str(footnote_id))
+    run._r.append(ref)
+    return f"add_footnote:{footnote_id}"
+
+
 class WordReadTool(_ToolBase):
     name = "WordRead"
     description = (
@@ -204,6 +413,7 @@ class WordReadTool(_ToolBase):
                 "table_count": len(document.tables),
                 "paragraphs": paragraphs,
                 "tables": tables,
+                "structure": _document_structure_payload(path),
             }
         except Exception as exc:
             return self._err(f"{type(exc).__name__}: {exc}")
@@ -236,7 +446,13 @@ class WordEditTool(_ToolBase):
                                 "set_paragraph_text",
                                 "append_paragraph",
                                 "add_heading",
+                                "set_heading_level",
                                 "insert_paragraph_after",
+                                "insert_table_after",
+                                "insert_toc_after",
+                                "add_footnote",
+                                "set_header",
+                                "set_footer",
                                 "copy_paragraph_style",
                                 "set_run_style",
                             ],
@@ -248,6 +464,17 @@ class WordEditTool(_ToolBase):
                         "text": {"type": "string"},
                         "style": {"type": "string"},
                         "level": {"type": "integer"},
+                        "levels": {"type": "string"},
+                        "title": {"type": "string"},
+                        "rows": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                        },
+                        "section_index": {"type": "integer"},
+                        "page_number": {"type": "boolean"},
                         "bold": {"type": "boolean"},
                         "italic": {"type": "boolean"},
                         "underline": {"type": "boolean"},
@@ -279,6 +506,7 @@ class WordEditTool(_ToolBase):
                 return self._err("WordEdit requires a non-empty ops list")
             allow_global = bool(input.get("allow_global", False))
             strict = bool(input.get("strict", False))
+            allow_empty_text = bool(input.get("allow_empty_text", False))
 
             backup_path = None
             if bool(input.get("backup", True)):
@@ -329,6 +557,12 @@ class WordEditTool(_ToolBase):
                     if paragraph is None:
                         raise ValueError("set_paragraph_text requires paragraph_index")
                     text = str(op.get("text") or "")
+                    op_allow_empty_text = bool(op.get("allow_empty_text", allow_empty_text))
+                    if not text and paragraph.text and not op_allow_empty_text:
+                        raise ValueError(
+                            "set_paragraph_text would clear existing text; set "
+                            "allow_empty_text=true if that is intentional"
+                        )
                     if paragraph.runs:
                         paragraph.runs[0].text = text
                         for run in paragraph.runs[1:]:
@@ -343,6 +577,26 @@ class WordEditTool(_ToolBase):
                     level = int(op.get("level", 1))
                     document.add_heading(str(op.get("text") or ""), level=level)
                     touched.append(f"add_heading:{level}")
+                elif op_type == "set_heading_level":
+                    if paragraph is None:
+                        raise ValueError("set_heading_level requires paragraph_index")
+                    level = max(1, min(int(op.get("level", 1)), 9))
+                    paragraph.style = f"Heading {level}"
+                    if op.get("text") is not None:
+                        text = str(op.get("text") or "")
+                        op_allow_empty_text = bool(op.get("allow_empty_text", allow_empty_text))
+                        if not text and paragraph.text and not op_allow_empty_text:
+                            raise ValueError(
+                                "set_heading_level text would clear existing text; "
+                                "set allow_empty_text=true if intentional"
+                            )
+                        if paragraph.runs:
+                            paragraph.runs[0].text = text
+                            for run in paragraph.runs[1:]:
+                                run.text = ""
+                        else:
+                            paragraph.add_run(text)
+                    touched.append(f"set_heading_level:{paragraph_index}:{level}")
                 elif op_type == "insert_paragraph_after":
                     if paragraph is None:
                         raise ValueError("insert_paragraph_after requires paragraph_index")
@@ -352,6 +606,47 @@ class WordEditTool(_ToolBase):
                         op.get("style"),
                     )
                     touched.append(f"insert_after:{paragraph_index}")
+                elif op_type == "insert_table_after":
+                    if paragraph is None:
+                        raise ValueError("insert_table_after requires paragraph_index")
+                    rows = op.get("rows")
+                    if not isinstance(rows, list):
+                        raise ValueError("insert_table_after requires rows")
+                    touched.append(_insert_table_after(paragraph, rows, op.get("style")))
+                elif op_type == "insert_toc_after":
+                    if paragraph is None:
+                        raise ValueError("insert_toc_after requires paragraph_index")
+                    touched.append(
+                        _insert_toc_after(
+                            paragraph,
+                            str(op.get("levels") or "1-3"),
+                            str(op["title"]) if op.get("title") is not None else None,
+                        )
+                    )
+                elif op_type == "add_footnote":
+                    if paragraph is None:
+                        raise ValueError("add_footnote requires paragraph_index")
+                    text = str(op.get("text") or "")
+                    if not text:
+                        raise ValueError("add_footnote requires text")
+                    touched.append(_add_footnote(paragraph, text))
+                elif op_type == "set_header":
+                    text = str(op.get("text") or "")
+                    if not text:
+                        raise ValueError("set_header requires text")
+                    section_index = int(op.get("section_index") or 0)
+                    touched.append(_set_header(document, text, section_index))
+                elif op_type == "set_footer":
+                    text = str(op.get("text") or "")
+                    section_index = int(op.get("section_index") or 0)
+                    touched.append(
+                        _set_footer(
+                            document,
+                            text,
+                            page_number=bool(op.get("page_number", False)),
+                            section_index=section_index,
+                        )
+                    )
                 elif op_type == "copy_paragraph_style":
                     source_index = op.get("source_paragraph_index")
                     if source_index is None or paragraph_index is None:

@@ -1,0 +1,2 @@
+老师说这个毕业论文格式不行，帮我整理一下：D:\D\python编程\Agent-building\tests\p4_word_complex_validation\2026-04-23-thesis-short-natural\thesis_all_in_one\doubao-code\thesis_all_in_one_doubao-code.docx
+目录、一二三级标题、表格、脚注、页眉页脚都要有，正文意思不要改。

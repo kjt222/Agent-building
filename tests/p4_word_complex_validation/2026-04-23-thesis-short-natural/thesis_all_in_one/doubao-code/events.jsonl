@@ -1,0 +1,785 @@
+{"event": "activity", "data": {"id": "3c8fadd4_agent", "type": "agent_start", "title": "Agent v2 started", "detail": "profile=doubao-code provider=openai_compat model=doubao-seed-2.0-code", "status": "start", "ts": 49227872.376, "meta": {"endpoint": "agent_chat_v2", "session_id": "3c8fadd4", "conversation_id": "conv_20260423_113313_8ffc41", "profile": "doubao-code", "provider": "openai_compat", "model": "doubao-seed-2.0-code", "capability_scope": "office_word", "runtime": {"mode": "inline", "monitor_enabled": false, "wake_on_task_complete": false, "heartbeat_seconds": 30}}}}
+{"event": "activity", "data": {"id": "3c8fadd4_tools", "type": "tool_manifest", "title": "Tools loaded: 5", "detail": "Glob, Read, RenderDocument, WordEdit, WordRead", "status": "done", "ts": 49227872.3939, "meta": {"endpoint": "/api/agent_chat_v2", "executor": "AgentLoop", "tools": ["Glob", "Read", "RenderDocument", "WordEdit", "WordRead"], "images": 0}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "让", "status": "progress", "ts": 49232708.7075, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49232886.0008, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "来", "status": "progress", "ts": 49232886.1235, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "帮", "status": "progress", "ts": 49232886.214999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "您", "status": "progress", "ts": 49232928.463, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "整理", "status": "progress", "ts": 49232928.6087, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "毕业论文", "status": "progress", "ts": 49232928.7175, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49232928.8582, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49232981.26710001, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "首先", "status": "progress", "ts": 49232981.3847, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49232981.4813, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "需要", "status": "progress", "ts": 49232981.8591, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "查看", "status": "progress", "ts": 49233058.2697, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "文档", "status": "progress", "ts": 49233058.4639, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49233058.5837, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "当前", "status": "progress", "ts": 49233058.6752, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "状态", "status": "progress", "ts": 49233110.7593, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "，", "status": "progress", "ts": 49233110.8741, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "然后", "status": "progress", "ts": 49233111.0018, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "根据", "status": "progress", "ts": 49233111.0973, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "要求", "status": "progress", "ts": 49233187.3576, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "进行", "status": "progress", "ts": 49233187.4552, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49233187.5652, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "调整", "status": "progress", "ts": 49233187.646, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49233289.0492, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 49233289.1715, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49233289.3191, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "会", "status": "progress", "ts": 49233289.4233, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "按照", "status": "progress", "ts": 49233319.953600004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "以下", "status": "progress", "ts": 49233320.0696, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "步骤", "status": "progress", "ts": 49233320.165, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "进行", "status": "progress", "ts": 49233320.256799996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "：", "status": "progress", "ts": 49233360.8036, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49233360.9024, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 49233361.01230001, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49233361.0918, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49233405.5701, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "先", "status": "progress", "ts": 49233405.673599996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "查看", "status": "progress", "ts": 49233405.7559, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "文档", "status": "progress", "ts": 49233405.8629, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49233506.4356, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "整体", "status": "progress", "ts": 49233506.570700005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "结构", "status": "progress", "ts": 49233506.6753, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49233506.762600005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 49233645.324099995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49233645.4568, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " 添加", "status": "progress", "ts": 49233645.5684, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "目录", "status": "progress", "ts": 49233645.8193, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49233692.4103, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "3", "status": "progress", "ts": 49233692.573400006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49233692.6681, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49233692.7575, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "调整", "status": "progress", "ts": 49233819.3212, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "标题", "status": "progress", "ts": 49233819.4246, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "级别", "status": "progress", "ts": 49233819.5084, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49233819.5893, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "4", "status": "progress", "ts": 49233896.635800004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49233896.7408, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49233896.8225, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "确保", "status": "progress", "ts": 49233896.9077, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "表格", "status": "progress", "ts": 49233987.2153, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49233987.3279, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "正确", "status": "progress", "ts": 49233987.414000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49233987.5062, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "5", "status": "progress", "ts": 49234032.2021, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49234032.2971, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " 添加", "status": "progress", "ts": 49234032.3847, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "脚", "status": "progress", "ts": 49234032.464600004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "注", "status": "progress", "ts": 49234128.3033, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "（", "status": "progress", "ts": 49234128.4053, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "如果", "status": "progress", "ts": 49234128.4885, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "需要", "status": "progress", "ts": 49234128.5685, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "）", "status": "progress", "ts": 49234177.6974, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49234177.8079, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "6", "status": "progress", "ts": 49234177.886999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49234177.9936, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " 设置", "status": "progress", "ts": 49234215.1972, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页眉", "status": "progress", "ts": 49234215.3472, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页", "status": "progress", "ts": 49234215.4641, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "脚", "status": "progress", "ts": 49234215.62019999, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49234292.9809, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "7", "status": "progress", "ts": 49234293.1059, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49234293.207499996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49234293.3447, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "保持", "status": "progress", "ts": 49234333.8507, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "正文", "status": "progress", "ts": 49234333.9566, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "内容", "status": "progress", "ts": 49234334.0458, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "不变", "status": "progress", "ts": 49234334.1615, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 49234412.838, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "让", "status": "progress", "ts": 49234412.9467, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49234413.0282, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "开始", "status": "progress", "ts": 49234413.1034, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "查看", "status": "progress", "ts": 49234627.99510001, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "文档", "status": "progress", "ts": 49234628.1021, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49234628.2241, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "我"}}
+{"event": "token", "data": {"text": "来"}}
+{"event": "token", "data": {"text": "帮"}}
+{"event": "token", "data": {"text": "您"}}
+{"event": "token", "data": {"text": "整理"}}
+{"event": "token", "data": {"text": "毕业论文"}}
+{"event": "token", "data": {"text": "格式"}}
+{"event": "token", "data": {"text": "。"}}
+{"event": "token", "data": {"text": "首先"}}
+{"event": "token", "data": {"text": "让"}}
+{"event": "token", "data": {"text": "我"}}
+{"event": "token", "data": {"text": "查看"}}
+{"event": "token", "data": {"text": "一下"}}
+{"event": "token", "data": {"text": "文档"}}
+{"event": "token", "data": {"text": "的"}}
+{"event": "token", "data": {"text": "当前"}}
+{"event": "token", "data": {"text": "状态"}}
+{"event": "token", "data": {"text": "。"}}
+{"event": "activity", "data": {"id": "3c8fadd4_tc_call_my1ddin4fwurs89272hvfdfs", "type": "tool_call", "title": "Calling: WordRead", "detail": "{\"path\": \"tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\"paragraph_limit\": 150}", "status": "start", "ts": 49236648.2384, "meta": {"id": "call_my1ddin4fwurs89272hvfdfs", "name": "WordRead", "input": {"path": "D:\\D\\python编程\\Agent-building\\tests\\p4_word_complex_validation\\2026-04-23-thesis-short-natural\\thesis_all_in_one\\doubao-code\\thesis_all_in_one_doubao-code.docx", "paragraph_limit": 150}}}}
+{"event": "activity", "data": {"id": "3c8fadd4_tr_call_my1ddin4fwurs89272hvfdfs", "type": "tool_result", "title": "Tool result", "detail": "{\n  \"type\": \"word_read\",\n  \"path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\n  \"paragraph_count\": 22,\n  \"table_count\": 1,\n  \"paragraphs\": [\n    {\n      \"index\": 0,\n      \"text\": \"二维材料霍尔效应测试平台设计\",\n      \"style\": \"Title\",\n      \"alignment\": null,\n      \"runs\": [\n        {\n          \"index\": 0,\n          \"text\": \"二维材料霍尔效应测试平台设计\",\n          \"bold\": false,\n          \"italic\": false,\n          \"underline\": false,\n...<truncated>", "status": "done", "ts": 49236778.1076, "meta": {"is_error": false, "tool_use_id": "call_my1ddin4fwurs89272hvfdfs"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "好", "status": "progress", "ts": 49240355.379, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49240533.3759, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "，", "status": "progress", "ts": 49240533.486200005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49240533.5774, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "看到", "status": "progress", "ts": 49240583.265499994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "了", "status": "progress", "ts": 49240583.3948, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "文档", "status": "progress", "ts": 49240583.503, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49240583.606699996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "当前", "status": "progress", "ts": 49240680.2761, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "状态", "status": "progress", "ts": 49240680.4052, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49240680.5468, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "现在", "status": "progress", "ts": 49240680.652100004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "让", "status": "progress", "ts": 49240732.4384, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49240732.5512, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "来", "status": "progress", "ts": 49240732.6428, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "整理", "status": "progress", "ts": 49240732.73199999, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "这个", "status": "progress", "ts": 49240853.0203, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "毕业论文", "status": "progress", "ts": 49240853.148200005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49240853.255499996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49240853.3604, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49240904.08710001, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "需要", "status": "progress", "ts": 49240904.1892, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "：", "status": "progress", "ts": 49240904.2734, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 49240904.3871, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 49240991.970800005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49240992.0978, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " 设置", "status": "progress", "ts": 49240992.216, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "正确", "status": "progress", "ts": 49240992.3231, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49241046.87, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "标题", "status": "progress", "ts": 49241046.9815, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "样式", "status": "progress", "ts": 49241047.0699, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "（", "status": "progress", "ts": 49241047.1548, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "一二", "status": "progress", "ts": 49241125.9992, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "三级", "status": "progress", "ts": 49241126.1113, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "标题", "status": "progress", "ts": 49241126.2049, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "）", "status": "progress", "ts": 49241126.2948, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49241214.174, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 49241214.291600004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49241214.3896, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " 添加", "status": "progress", "ts": 49241214.4937, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "目录", "status": "progress", "ts": 49241429.124000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49241429.2591, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "3", "status": "progress", "ts": 49241429.3672, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49241429.4688, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " 添加", "status": "progress", "ts": 49241515.3659, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页眉", "status": "progress", "ts": 49241515.4675, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页", "status": "progress", "ts": 49241515.5536, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "脚", "status": "progress", "ts": 49241515.636199996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49241527.566199996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "4", "status": "progress", "ts": 49241527.6585, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49241527.7362, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " 添加", "status": "progress", "ts": 49241527.8235, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "脚", "status": "progress", "ts": 49241541.5131, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "注", "status": "progress", "ts": 49241541.6526, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49241541.767900005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "5", "status": "progress", "ts": 49241541.905, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49241585.176400006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49241585.287, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "确保", "status": "progress", "ts": 49241585.382800005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "表格", "status": "progress", "ts": 49241585.503, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49241675.1202, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "正确", "status": "progress", "ts": 49241675.2585, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 49241675.377, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "让", "status": "progress", "ts": 49241675.491900004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49241770.0368, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "开始", "status": "progress", "ts": 49241770.3287, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "整理", "status": "progress", "ts": 49241770.4627, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "：", "status": "progress", "ts": 49241770.5708, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "现在"}}
+{"event": "token", "data": {"text": "让"}}
+{"event": "token", "data": {"text": "我"}}
+{"event": "token", "data": {"text": "来"}}
+{"event": "token", "data": {"text": "整理"}}
+{"event": "token", "data": {"text": "这个"}}
+{"event": "token", "data": {"text": "毕业论文"}}
+{"event": "token", "data": {"text": "格式"}}
+{"event": "token", "data": {"text": "。"}}
+{"event": "token", "data": {"text": "我"}}
+{"event": "token", "data": {"text": "会"}}
+{"event": "token", "data": {"text": "设置"}}
+{"event": "token", "data": {"text": "正确"}}
+{"event": "token", "data": {"text": "的"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "样式"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "添加"}}
+{"event": "token", "data": {"text": "目录"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "页眉"}}
+{"event": "token", "data": {"text": "页"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "和"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "注"}}
+{"event": "token", "data": {"text": "。"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "activity", "data": {"id": "3c8fadd4_tc_call_bvrl8fd0dlvl2igtiq7qfr8w", "type": "tool_call", "title": "Calling: WordEdit", "detail": "{\"path\": \"tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\"ops\": [{\"op\": \"set_heading_level\",\"paragraph_index\": 7,\"level\": 1},{\"op\": \"set_heading_level\",\"paragraph_index\": 8,\"level\": 2},{\"op\": \"set_heading_level\",\"paragraph_index\": 10,\"level\": 3},{\"op\": \"set_heading_level\",\"paragraph_index\": 12,\"level\": 1},{\"op\": \"set_heading_level\",\"paragraph_index\": 13,\"level\": 2},{\"op\": \"set_heading_level\",\"paragraph_index...<truncated>", "status": "start", "ts": 49250924.8542, "meta": {"id": "call_bvrl8fd0dlvl2igtiq7qfr8w", "name": "WordEdit", "input": {"path": "D:\\D\\python编程\\Agent-building\\tests\\p4_word_complex_validation\\2026-04-23-thesis-short-natural\\thesis_all_in_one\\doubao-code\\thesis_all_in_one_doubao-code.docx", "ops": [{"op": "set_heading_level", "paragraph_index": 7, "level": 1}, {"op": "set_heading_level", "paragraph_index": 8, "level": 2}, {"op": "set_heading_level", "paragraph_index": 10, "level": 3}, {"op": "set_heading_level", "paragraph_index": 12, "level": 1}, {"op": "set_heading_level", "paragraph_index": 13, "level": 2}, {"op": "set_heading_level", "paragraph_index": 15, "level": 1}, {"op": "set_heading_level", "paragraph_index": 16, "level": 2}, {"op": "set_heading_level", "paragraph_index": 18, "level": 1}, {"op": "add_heading", "paragraph_index": 20, "text": "参考文献", "level": 1}, {"op": "set_paragraph_text", "paragraph_index": 6, "text": ""}, {"op": "insert_toc_after", "paragraph_index": 5, "title": "目录", "levels": "1-3"}, {"op": "set_header", "section_index": 0, "text": "二维材料霍尔效应测试平台设计"}, {"op": "set_footer", "section_index": 0, "text": "", "page_number": true}, {"op": "add_footnote", "paragraph_index": 9, "text": "霍尔效应由Edwin Hall于1879年发现。"}, {"op": "add_footnote", "paragraph_index": 17, "text": "测试在标准大气压下进行。"}]}}}}
+{"event": "activity", "data": {"id": "3c8fadd4_tr_call_bvrl8fd0dlvl2igtiq7qfr8w", "type": "tool_result", "title": "Tool result", "detail": "ValueError: set_paragraph_text would clear existing text; set allow_empty_text=true if that is intentional", "status": "error", "ts": 49250940.697500005, "meta": {"is_error": true, "tool_use_id": "call_bvrl8fd0dlvl2igtiq7qfr8w"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "看起来", "status": "progress", "ts": 49255165.4659, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49255328.465799995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "需要", "status": "progress", "ts": 49255328.5929, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "调整", "status": "progress", "ts": 49255328.681600004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "一下", "status": "progress", "ts": 49255511.9788, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "操作", "status": "progress", "ts": 49255512.0757, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49255512.1577, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "让", "status": "progress", "ts": 49255512.268, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49255593.683400005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "重新", "status": "progress", "ts": 49255593.7869, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "整理", "status": "progress", "ts": 49255593.8696, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49255593.9473, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "，", "status": "progress", "ts": 49255744.8325, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "确保", "status": "progress", "ts": 49255744.97620001, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "正确", "status": "progress", "ts": 49255745.0855, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "设置", "status": "progress", "ts": 49255745.17690001, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "标题", "status": "progress", "ts": 49255860.0482, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "样式", "status": "progress", "ts": 49255860.1715, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "和", "status": "progress", "ts": 49255860.268999994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "目录", "status": "progress", "ts": 49255860.3587, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49256542.532400005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_tc_call_dkzm5x741fr2pb82xm4cxue2", "type": "tool_call", "title": "Calling: WordEdit", "detail": "{\"path\": \"tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\"ops\": [{\"op\": \"set_heading_level\",\"paragraph_index\": 7,\"level\": 1},{\"op\": \"set_heading_level\",\"paragraph_index\": 8,\"level\": 2},{\"op\": \"set_heading_level\",\"paragraph_index\": 10,\"level\": 3},{\"op\": \"set_heading_level\",\"paragraph_index\": 12,\"level\": 1},{\"op\": \"set_heading_level\",\"paragraph_index\": 13,\"level\": 2},{\"op\": \"set_heading_level\",\"paragraph_index...<truncated>", "status": "start", "ts": 49264209.54000001, "meta": {"id": "call_dkzm5x741fr2pb82xm4cxue2", "name": "WordEdit", "input": {"path": "D:\\D\\python编程\\Agent-building\\tests\\p4_word_complex_validation\\2026-04-23-thesis-short-natural\\thesis_all_in_one\\doubao-code\\thesis_all_in_one_doubao-code.docx", "ops": [{"op": "set_heading_level", "paragraph_index": 7, "level": 1}, {"op": "set_heading_level", "paragraph_index": 8, "level": 2}, {"op": "set_heading_level", "paragraph_index": 10, "level": 3}, {"op": "set_heading_level", "paragraph_index": 12, "level": 1}, {"op": "set_heading_level", "paragraph_index": 13, "level": 2}, {"op": "set_heading_level", "paragraph_index": 15, "level": 1}, {"op": "set_heading_level", "paragraph_index": 16, "level": 2}, {"op": "set_heading_level", "paragraph_index": 18, "level": 1}, {"op": "set_heading_level", "paragraph_index": 20, "level": 1}, {"op": "insert_toc_after", "paragraph_index": 5, "title": "目录", "levels": "1-3"}, {"op": "set_header", "section_index": 0, "text": "二维材料霍尔效应测试平台设计"}, {"op": "set_footer", "section_index": 0, "text": "", "page_number": true}, {"op": "add_footnote", "paragraph_index": 9, "text": "霍尔效应由Edwin Hall于1879年发现。"}, {"op": "add_footnote", "paragraph_index": 17, "text": "测试在标准大气压下进行。"}]}}}}
+{"event": "activity", "data": {"id": "3c8fadd4_tr_call_dkzm5x741fr2pb82xm4cxue2", "type": "tool_result", "title": "Tool result", "detail": "{\n  \"type\": \"word_edit\",\n  \"path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\n  \"backup_path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.bak-20260423113350.docx\",\n  \"ops_applied\": 14,\n  \"touched\": [\n    \"set_heading_level:7:1\",\n    \"set_heading_level:8:2\",\n    \"set_heading_level:10:3\",\n    \"set_heading_level:12:1\",\n    \"set_heading_level:13:2\",\n   ...<truncated>", "status": "done", "ts": 49264245.4878, "meta": {"is_error": false, "tool_use_id": "call_dkzm5x741fr2pb82xm4cxue2"}}}
+{"event": "token", "data": {"text": "完美"}}
+{"event": "token", "data": {"text": "！"}}
+{"event": "token", "data": {"text": "现在"}}
+{"event": "token", "data": {"text": "让"}}
+{"event": "token", "data": {"text": "我"}}
+{"event": "token", "data": {"text": "查看"}}
+{"event": "token", "data": {"text": "一下"}}
+{"event": "token", "data": {"text": "修改"}}
+{"event": "token", "data": {"text": "后的"}}
+{"event": "token", "data": {"text": "文档"}}
+{"event": "token", "data": {"text": "来"}}
+{"event": "token", "data": {"text": "确认"}}
+{"event": "token", "data": {"text": "格式"}}
+{"event": "token", "data": {"text": "正确"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "activity", "data": {"id": "3c8fadd4_tc_call_jwathnbxfryzv3bgc2r9qhcx", "type": "tool_call", "title": "Calling: WordRead", "detail": "{\"path\": \"tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\"paragraph_limit\": 30}", "status": "start", "ts": 49267839.5501, "meta": {"id": "call_jwathnbxfryzv3bgc2r9qhcx", "name": "WordRead", "input": {"path": "D:\\D\\python编程\\Agent-building\\tests\\p4_word_complex_validation\\2026-04-23-thesis-short-natural\\thesis_all_in_one\\doubao-code\\thesis_all_in_one_doubao-code.docx", "paragraph_limit": 30}}}}
+{"event": "activity", "data": {"id": "3c8fadd4_tr_call_jwathnbxfryzv3bgc2r9qhcx", "type": "tool_result", "title": "Tool result", "detail": "{\n  \"type\": \"word_read\",\n  \"path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\n  \"paragraph_count\": 24,\n  \"table_count\": 1,\n  \"paragraphs\": [\n    {\n      \"index\": 0,\n      \"text\": \"二维材料霍尔效应测试平台设计\",\n      \"style\": \"Title\",\n      \"alignment\": null,\n      \"runs\": [\n        {\n          \"index\": 0,\n          \"text\": \"二维材料霍尔效应测试平台设计\",\n          \"bold\": false,\n          \"italic\": false,\n          \"underline\": false,\n...<truncated>", "status": "done", "ts": 49267909.6078, "meta": {"is_error": false, "tool_use_id": "call_jwathnbxfryzv3bgc2r9qhcx"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "很好", "status": "progress", "ts": 49270814.4619, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "！", "status": "progress", "ts": 49271008.8121, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "现在", "status": "progress", "ts": 49271008.9267, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "让", "status": "progress", "ts": 49271009.0211, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49271119.4166, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "删除", "status": "progress", "ts": 49271119.5597, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "旧", "status": "progress", "ts": 49271119.799, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49271119.918, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "目录", "status": "progress", "ts": 49271199.4836, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "占位", "status": "progress", "ts": 49271199.604499996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "文本", "status": "progress", "ts": 49271199.703600004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "，", "status": "progress", "ts": 49271199.799200006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "因为", "status": "progress", "ts": 49271291.0316, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我们", "status": "progress", "ts": 49271291.1276, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "已经", "status": "progress", "ts": 49271291.2419, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "插入", "status": "progress", "ts": 49271291.728700005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "了", "status": "progress", "ts": 49271416.4473, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "真正", "status": "progress", "ts": 49271416.58, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49271416.747099996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "目录", "status": "progress", "ts": 49271416.833399996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "字段", "status": "progress", "ts": 49271532.4824, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49271532.6085, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "现在"}}
+{"event": "token", "data": {"text": "让"}}
+{"event": "token", "data": {"text": "我"}}
+{"event": "token", "data": {"text": "删除"}}
+{"event": "token", "data": {"text": "旧"}}
+{"event": "token", "data": {"text": "的"}}
+{"event": "token", "data": {"text": "目录"}}
+{"event": "token", "data": {"text": "占位"}}
+{"event": "token", "data": {"text": "文本"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "activity", "data": {"id": "3c8fadd4_tc_call_utimogegfb5febcuz1w3y0al", "type": "tool_call", "title": "Calling: WordEdit", "detail": "{\"path\": \"tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\"ops\": [{\"op\": \"set_paragraph_text\",\"paragraph_index\": 8,\"text\": \"\",\"allow_empty_text\": true}],\"strict\": false}", "status": "start", "ts": 49274072.7084, "meta": {"id": "call_utimogegfb5febcuz1w3y0al", "name": "WordEdit", "input": {"path": "D:\\D\\python编程\\Agent-building\\tests\\p4_word_complex_validation\\2026-04-23-thesis-short-natural\\thesis_all_in_one\\doubao-code\\thesis_all_in_one_doubao-code.docx", "ops": [{"op": "set_paragraph_text", "paragraph_index": 8, "text": "", "allow_empty_text": true}], "strict": false}}}}
+{"event": "activity", "data": {"id": "3c8fadd4_tr_call_utimogegfb5febcuz1w3y0al", "type": "tool_result", "title": "Tool result", "detail": "{\n  \"type\": \"word_edit\",\n  \"path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\n  \"backup_path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.bak-20260423113400.docx\",\n  \"ops_applied\": 1,\n  \"touched\": [\n    \"paragraph:8\"\n  ]\n}", "status": "done", "ts": 49274096.880899996, "meta": {"is_error": false, "tool_use_id": "call_utimogegfb5febcuz1w3y0al"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "现在", "status": "progress", "ts": 49278544.1326, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "让", "status": "progress", "ts": 49278691.4802, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49278691.6038, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "渲染", "status": "progress", "ts": 49278691.740200005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "一下", "status": "progress", "ts": 49278779.739999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "文档", "status": "progress", "ts": 49278779.845, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49278779.9272, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "图片", "status": "progress", "ts": 49278780.0079, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "，", "status": "progress", "ts": 49278906.244799994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "看看", "status": "progress", "ts": 49278906.459300004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "最终", "status": "progress", "ts": 49278906.5929, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49278906.7094, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49279018.2793, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "效果", "status": "progress", "ts": 49279018.412999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49279018.530300006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "完成"}}
+{"event": "token", "data": {"text": "！"}}
+{"event": "token", "data": {"text": "让"}}
+{"event": "token", "data": {"text": "我"}}
+{"event": "token", "data": {"text": "渲染"}}
+{"event": "token", "data": {"text": "一下"}}
+{"event": "token", "data": {"text": "文档"}}
+{"event": "token", "data": {"text": "查看"}}
+{"event": "token", "data": {"text": "最终"}}
+{"event": "token", "data": {"text": "效果"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "activity", "data": {"id": "3c8fadd4_tc_call_zv81gk3h8wqzfunhy3ch4t7w", "type": "tool_call", "title": "Calling: RenderDocument", "detail": "{\"path\": \"tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\"pages\": [1,2],\"max_pages\": 3}", "status": "start", "ts": 49281275.2627, "meta": {"id": "call_zv81gk3h8wqzfunhy3ch4t7w", "name": "RenderDocument", "input": {"path": "D:\\D\\python编程\\Agent-building\\tests\\p4_word_complex_validation\\2026-04-23-thesis-short-natural\\thesis_all_in_one\\doubao-code\\thesis_all_in_one_doubao-code.docx", "pages": [1, 2], "max_pages": 3}}}}
+{"event": "activity", "data": {"id": "3c8fadd4_tr_call_zv81gk3h8wqzfunhy3ch4t7w", "type": "tool_result", "title": "Tool result", "detail": "{\n  \"type\": \"rendered_document\",\n  \"source_path\": \"D:\\\\D\\\\python编程\\\\Agent-building\\\\tests\\\\p4_word_complex_validation\\\\2026-04-23-thesis-short-natural\\\\thesis_all_in_one\\\\doubao-code\\\\thesis_all_in_one_doubao-code.docx\",\n  \"converted_pdf_path\": \"tmp\\\\renders\\\\thesis_all_in_one_doubao-code.pdf\",\n  \"pages_requested\": [\n    1,\n    2\n  ],\n  \"total_pages\": 2,\n  \"images\": [\n    {\n      \"page\": 1,\n      \"width\": 1275,\n      \"height\": 1650,\n      \"media_type\": \"image/png\",\n      \"rendered_image_path\": \"tmp\\\\renders\\\\thesis_all_in_one_doubao-code_page_1_1776915249219.png\"\n    },\n    {\n...<truncated>", "status": "done", "ts": 49283083.4583, "meta": {"is_error": false, "tool_use_id": "call_zv81gk3h8wqzfunhy3ch4t7w"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_image_feedback_319", "type": "image_feedback", "title": "Image feedback attached: 2", "detail": "thesis_all_in_one_doubao-code_page_1_1776915249219.png, thesis_all_in_one_doubao-code_page_2_1776915249219.png", "status": "done", "ts": 49283083.4727, "meta": {"count": 2, "images": [{"name": "thesis_all_in_one_doubao-code_page_1_1776915249219.png", "media_type": "image/png"}, {"name": "thesis_all_in_one_doubao-code_page_2_1776915249219.png", "media_type": "image/png"}]}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "看", "status": "progress", "ts": 49286872.456999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "渲染", "status": "progress", "ts": 49287073.1904, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "后的", "status": "progress", "ts": 49287073.3022, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "文档", "status": "progress", "ts": 49287073.3947, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "，", "status": "progress", "ts": 49287166.8426, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我", "status": "progress", "ts": 49287166.94589999, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "需要", "status": "progress", "ts": 49287167.1065, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "确认", "status": "progress", "ts": 49287167.2361, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "是否", "status": "progress", "ts": 49287261.3959, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "所有", "status": "progress", "ts": 49287261.5516, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "要求", "status": "progress", "ts": 49287261.7426, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "都", "status": "progress", "ts": 49287261.8439, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "满足", "status": "progress", "ts": 49287400.298300005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "了", "status": "progress", "ts": 49287400.4116, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49287400.5051, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "从", "status": "progress", "ts": 49287400.6298, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "图片", "status": "progress", "ts": 49287442.406, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "来看", "status": "progress", "ts": 49287442.5357, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "：", "status": "progress", "ts": 49287442.618200004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 49287442.69679999, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 49287528.284, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49287528.3811, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✓", "status": "progress", "ts": 49287528.4973, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49287528.642400004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "标题", "status": "progress", "ts": 49287670.3364, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49287670.4805, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "正确", "status": "progress", "ts": 49287670.636, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " -", "status": "progress", "ts": 49287670.7602, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49287890.4049, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "有", "status": "progress", "ts": 49287890.5077, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "一", "status": "progress", "ts": 49287890.6378, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "、", "status": "progress", "ts": 49287890.7253, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "二", "status": "progress", "ts": 49287905.9644, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "、", "status": "progress", "ts": 49287906.1315, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "三级", "status": "progress", "ts": 49287906.2385, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "标题", "status": "progress", "ts": 49287906.4631, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "（", "status": "progress", "ts": 49287950.5239, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Heading", "status": "progress", "ts": 49287950.6698, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49287950.7669, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 49287950.8538, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ",", "status": "progress", "ts": 49288041.6967, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " He", "status": "progress", "ts": 49288041.84060001, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ading", "status": "progress", "ts": 49288041.9613, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49288042.1194, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 49288105.3799, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ",", "status": "progress", "ts": 49288105.5251, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " He", "status": "progress", "ts": 49288105.794, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "ading", "status": "progress", "ts": 49288106.0576, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49288163.2849, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "3", "status": "progress", "ts": 49288163.3889, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "）", "status": "progress", "ts": 49288163.4834, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49288163.6012, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 49288260.070999995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49288260.1735, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✓", "status": "progress", "ts": 49288260.4574, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49288260.6009, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "目录", "status": "progress", "ts": 49288286.959, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "已", "status": "progress", "ts": 49288287.1049, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "添加", "status": "progress", "ts": 49288287.2814, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "（", "status": "progress", "ts": 49288287.442, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\"", "status": "progress", "ts": 49288367.2409, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Update", "status": "progress", "ts": 49288367.377900004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " field", "status": "progress", "ts": 49288367.5431, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " to", "status": "progress", "ts": 49288367.629200004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " generate", "status": "progress", "ts": 49288459.9215, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " table", "status": "progress", "ts": 49288460.0587, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " of", "status": "progress", "ts": 49288460.294999994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " contents", "status": "progress", "ts": 49288460.4103, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\"", "status": "progress", "ts": 49288676.9556, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "提示", "status": "progress", "ts": 49288677.067999996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "会", "status": "progress", "ts": 49288677.1926, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "在", "status": "progress", "ts": 49288677.28, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "Word", "status": "progress", "ts": 49288796.6393, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "中", "status": "progress", "ts": 49288796.7691, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "打开", "status": "progress", "ts": 49288796.878, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "后", "status": "progress", "ts": 49288796.983100004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "自动", "status": "progress", "ts": 49288882.2191, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "生成", "status": "progress", "ts": 49288882.3523, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "）", "status": "progress", "ts": 49288882.565799996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49288882.666600004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "3", "status": "progress", "ts": 49288976.8677, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49288976.9686, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✓", "status": "progress", "ts": 49288977.139199995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49288978.3265, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "表格", "status": "progress", "ts": 49289081.7203, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "已", "status": "progress", "ts": 49289081.8541, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "保留", "status": "progress", "ts": 49289082.0082, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49289082.141600005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "4", "status": "progress", "ts": 49289172.8659, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49289172.964700006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✓", "status": "progress", "ts": 49289173.086399995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49289173.239099994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "脚", "status": "progress", "ts": 49289215.7082, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "注", "status": "progress", "ts": 49289215.8247, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "已", "status": "progress", "ts": 49289215.9168, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "添加", "status": "progress", "ts": 49289216.0414, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "（", "status": "progress", "ts": 49289298.686900005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "能", "status": "progress", "ts": 49289298.824700005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "看到", "status": "progress", "ts": 49289298.9111, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 49289298.9942, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "、", "status": "progress", "ts": 49289456.412300006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 49289456.5718, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49289456.674100004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "脚", "status": "progress", "ts": 49289456.7827, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "注", "status": "progress", "ts": 49289559.2893, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "标记", "status": "progress", "ts": 49289559.4547, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "和", "status": "progress", "ts": 49289559.751200005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "底部", "status": "progress", "ts": 49289559.8648, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49289647.096499994, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "脚", "status": "progress", "ts": 49289647.2191, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "注", "status": "progress", "ts": 49289647.3008, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "文本", "status": "progress", "ts": 49289647.4471, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "）", "status": "progress", "ts": 49289737.894700006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49289738.066700004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "5", "status": "progress", "ts": 49289738.271000005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49289738.4283, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✓", "status": "progress", "ts": 49289794.5241, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49289794.6713, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页眉", "status": "progress", "ts": 49289794.8494, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "：", "status": "progress", "ts": 49289794.945, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\"", "status": "progress", "ts": 49289928.2434, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "二维", "status": "progress", "ts": 49289928.3777, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "材料", "status": "progress", "ts": 49289928.507, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "霍尔", "status": "progress", "ts": 49289928.596099995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "效应", "status": "progress", "ts": 49289928.7857, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "测试", "status": "progress", "ts": 49289928.876099996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "平台", "status": "progress", "ts": 49289928.984500006, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "设计", "status": "progress", "ts": 49289929.1214, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\"", "status": "progress", "ts": 49290008.7528, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49290008.9037, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "6", "status": "progress", "ts": 49290008.9925, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49290009.074499995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✓", "status": "progress", "ts": 49290130.5133, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49290130.7259, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页", "status": "progress", "ts": 49290130.8433, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "脚", "status": "progress", "ts": 49290130.9643, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "：", "status": "progress", "ts": 49290144.1091, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页码", "status": "progress", "ts": 49290144.2599, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "已", "status": "progress", "ts": 49290144.4278, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "添加", "status": "progress", "ts": 49290144.6697, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "（", "status": "progress", "ts": 49290241.6086, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页面", "status": "progress", "ts": 49290241.7289, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "1", "status": "progress", "ts": 49290241.8197, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "、", "status": "progress", "ts": 49290241.9029, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "2", "status": "progress", "ts": 49290353.5319, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "底部", "status": "progress", "ts": 49290353.675500005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "有", "status": "progress", "ts": 49290353.831, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "页码", "status": "progress", "ts": 49290354.0456, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "）", "status": "progress", "ts": 49290439.910399996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n", "status": "progress", "ts": 49290440.0056, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "7", "status": "progress", "ts": 49290440.085200004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": ".", "status": "progress", "ts": 49290440.1575, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ✓", "status": "progress", "ts": 49290489.6953, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": " ", "status": "progress", "ts": 49290489.8249, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "正文", "status": "progress", "ts": 49290489.912099995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "内容", "status": "progress", "ts": 49290490.0849, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "没有", "status": "progress", "ts": 49290576.6628, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "改变", "status": "progress", "ts": 49290576.7975, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "\n\n", "status": "progress", "ts": 49290576.8878, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "格式", "status": "progress", "ts": 49290576.973900005, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "整理", "status": "progress", "ts": 49290808.6402, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "完成", "status": "progress", "ts": 49290808.7974, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "！", "status": "progress", "ts": 49290808.9937, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "毕业论文"}}
+{"event": "token", "data": {"text": "格式"}}
+{"event": "token", "data": {"text": "已经"}}
+{"event": "token", "data": {"text": "整理"}}
+{"event": "token", "data": {"text": "完毕"}}
+{"event": "token", "data": {"text": "！"}}
+{"event": "token", "data": {"text": "从"}}
+{"event": "token", "data": {"text": "渲染"}}
+{"event": "token", "data": {"text": "的"}}
+{"event": "token", "data": {"text": "图片"}}
+{"event": "token", "data": {"text": "可以"}}
+{"event": "token", "data": {"text": "看到"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "\n\n"}}
+{"event": "token", "data": {"text": "✓"}}
+{"event": "token", "data": {"text": " **"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "样式"}}
+{"event": "token", "data": {"text": "**"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "一"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "二"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "三级"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "已"}}
+{"event": "token", "data": {"text": "正确"}}
+{"event": "token", "data": {"text": "设置"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "✓"}}
+{"event": "token", "data": {"text": " **"}}
+{"event": "token", "data": {"text": "目录"}}
+{"event": "token", "data": {"text": "**"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "已"}}
+{"event": "token", "data": {"text": "插入"}}
+{"event": "token", "data": {"text": "目录"}}
+{"event": "token", "data": {"text": "域"}}
+{"event": "token", "data": {"text": "，"}}
+{"event": "token", "data": {"text": "在"}}
+{"event": "token", "data": {"text": "Word"}}
+{"event": "token", "data": {"text": "中"}}
+{"event": "token", "data": {"text": "打开"}}
+{"event": "token", "data": {"text": "更新"}}
+{"event": "token", "data": {"text": "域"}}
+{"event": "token", "data": {"text": "即可"}}
+{"event": "token", "data": {"text": "生成"}}
+{"event": "token", "data": {"text": "完整"}}
+{"event": "token", "data": {"text": "目录"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "✓"}}
+{"event": "token", "data": {"text": " **"}}
+{"event": "token", "data": {"text": "表格"}}
+{"event": "token", "data": {"text": "**"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "原始"}}
+{"event": "token", "data": {"text": "表格"}}
+{"event": "token", "data": {"text": "已"}}
+{"event": "token", "data": {"text": "保留"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "✓"}}
+{"event": "token", "data": {"text": " **"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "注"}}
+{"event": "token", "data": {"text": "**"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "已"}}
+{"event": "token", "data": {"text": "添加"}}
+{"event": "token", "data": {"text": "2"}}
+{"event": "token", "data": {"text": "个"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "注"}}
+{"event": "token", "data": {"text": "（"}}
+{"event": "token", "data": {"text": "霍尔"}}
+{"event": "token", "data": {"text": "效应"}}
+{"event": "token", "data": {"text": "发现"}}
+{"event": "token", "data": {"text": "历史"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "测试"}}
+{"event": "token", "data": {"text": "条件"}}
+{"event": "token", "data": {"text": "）"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "✓"}}
+{"event": "token", "data": {"text": " **"}}
+{"event": "token", "data": {"text": "页眉"}}
+{"event": "token", "data": {"text": "**"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "每页"}}
+{"event": "token", "data": {"text": "顶部"}}
+{"event": "token", "data": {"text": "显示"}}
+{"event": "token", "data": {"text": "论文"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "✓"}}
+{"event": "token", "data": {"text": " **"}}
+{"event": "token", "data": {"text": "页"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "**"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "自动"}}
+{"event": "token", "data": {"text": "页码"}}
+{"event": "token", "data": {"text": "已"}}
+{"event": "token", "data": {"text": "添加"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "✓"}}
+{"event": "token", "data": {"text": " **"}}
+{"event": "token", "data": {"text": "正文"}}
+{"event": "token", "data": {"text": "**"}}
+{"event": "token", "data": {"text": "："}}
+{"event": "token", "data": {"text": "所有"}}
+{"event": "token", "data": {"text": "正文"}}
+{"event": "token", "data": {"text": "内容"}}
+{"event": "token", "data": {"text": "保持"}}
+{"event": "token", "data": {"text": "不变"}}
+{"event": "token", "data": {"text": "\n\n"}}
+{"event": "token", "data": {"text": "原"}}
+{"event": "token", "data": {"text": "文档"}}
+{"event": "token", "data": {"text": "已"}}
+{"event": "token", "data": {"text": "备份"}}
+{"event": "token", "data": {"text": "为"}}
+{"event": "token", "data": {"text": " `."}}
+{"event": "token", "data": {"text": "bak"}}
+{"event": "token", "data": {"text": "`"}}
+{"event": "token", "data": {"text": " 文件"}}
+{"event": "token", "data": {"text": "，"}}
+{"event": "token", "data": {"text": "您"}}
+{"event": "token", "data": {"text": "可以"}}
+{"event": "token", "data": {"text": "放心"}}
+{"event": "token", "data": {"text": "使用"}}
+{"event": "token", "data": {"text": "整理"}}
+{"event": "token", "data": {"text": "后的"}}
+{"event": "token", "data": {"text": "论文"}}
+{"event": "token", "data": {"text": "。"}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "用户", "status": "progress", "ts": 49297042.6303, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "要求", "status": "progress", "ts": 49297206.9118, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "验收", "status": "progress", "ts": 49297207.1085, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "摘要", "status": "progress", "ts": 49297207.2288, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "，", "status": "progress", "ts": 49297268.6614, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "包含", "status": "progress", "ts": 49297268.7771, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "三个", "status": "progress", "ts": 49297268.8721, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "部分", "status": "progress", "ts": 49297268.96120001, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "：", "status": "progress", "ts": 49297439.618099995, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "完成", "status": "progress", "ts": 49297439.7293, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "、", "status": "progress", "ts": 49297439.8283, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "未", "status": "progress", "ts": 49297439.9173, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "完成", "status": "progress", "ts": 49297511.5048, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "/", "status": "progress", "ts": 49297511.6119, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "不", "status": "progress", "ts": 49297511.7032, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "支持", "status": "progress", "ts": 49297511.79, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "、", "status": "progress", "ts": 49297639.7833, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "证据", "status": "progress", "ts": 49297639.9251, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49297640.0454, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "根据", "status": "progress", "ts": 49297640.154699996, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "我们", "status": "progress", "ts": 49297782.9745, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "做", "status": "progress", "ts": 49297783.0732, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "的", "status": "progress", "ts": 49297783.155600004, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "工作", "status": "progress", "ts": 49297783.2691, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "来", "status": "progress", "ts": 49297899.6771, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "整理", "status": "progress", "ts": 49297899.8244, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "activity", "data": {"id": "3c8fadd4_reasoning", "type": "thinking_update", "title": "Thinking", "detail": "。", "status": "progress", "ts": 49297899.9099, "meta": {"endpoint": "/api/agent_chat_v2"}}}
+{"event": "token", "data": {"text": "#"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "验收"}}
+{"event": "token", "data": {"text": "摘要"}}
+{"event": "token", "data": {"text": "\n\n"}}
+{"event": "token", "data": {"text": "##"}}
+{"event": "token", "data": {"text": " Completed"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "一"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "二"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "三级"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "样式"}}
+{"event": "token", "data": {"text": "设置"}}
+{"event": "token", "data": {"text": "（"}}
+{"event": "token", "data": {"text": "Heading"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "1"}}
+{"event": "token", "data": {"text": "/"}}
+{"event": "token", "data": {"text": "2"}}
+{"event": "token", "data": {"text": "/"}}
+{"event": "token", "data": {"text": "3"}}
+{"event": "token", "data": {"text": "）"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "目录"}}
+{"event": "token", "data": {"text": "域"}}
+{"event": "token", "data": {"text": "插入"}}
+{"event": "token", "data": {"text": "（"}}
+{"event": "token", "data": {"text": "含"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "\""}}
+{"event": "token", "data": {"text": "目录"}}
+{"event": "token", "data": {"text": "\""}}
+{"event": "token", "data": {"text": "）"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "页眉"}}
+{"event": "token", "data": {"text": "设置"}}
+{"event": "token", "data": {"text": "（"}}
+{"event": "token", "data": {"text": "论文"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "）"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "页"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "设置"}}
+{"event": "token", "data": {"text": "（"}}
+{"event": "token", "data": {"text": "自动"}}
+{"event": "token", "data": {"text": "页码"}}
+{"event": "token", "data": {"text": "）"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "注"}}
+{"event": "token", "data": {"text": "添加"}}
+{"event": "token", "data": {"text": "（"}}
+{"event": "token", "data": {"text": "2"}}
+{"event": "token", "data": {"text": "个"}}
+{"event": "token", "data": {"text": "注释"}}
+{"event": "token", "data": {"text": "）"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "保留"}}
+{"event": "token", "data": {"text": "原始"}}
+{"event": "token", "data": {"text": "表格"}}
+{"event": "token", "data": {"text": "与"}}
+{"event": "token", "data": {"text": "正文"}}
+{"event": "token", "data": {"text": "内容"}}
+{"event": "token", "data": {"text": "\n\n"}}
+{"event": "token", "data": {"text": "##"}}
+{"event": "token", "data": {"text": " Not"}}
+{"event": "token", "data": {"text": " completed"}}
+{"event": "token", "data": {"text": "/"}}
+{"event": "token", "data": {"text": "uns"}}
+{"event": "token", "data": {"text": "upported"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " "}}
+{"event": "token", "data": {"text": "目录"}}
+{"event": "token", "data": {"text": "自动"}}
+{"event": "token", "data": {"text": "生成"}}
+{"event": "token", "data": {"text": "需"}}
+{"event": "token", "data": {"text": "在"}}
+{"event": "token", "data": {"text": "Word"}}
+{"event": "token", "data": {"text": "中"}}
+{"event": "token", "data": {"text": "手动"}}
+{"event": "token", "data": {"text": "更新"}}
+{"event": "token", "data": {"text": "域"}}
+{"event": "token", "data": {"text": "（"}}
+{"event": "token", "data": {"text": "Update"}}
+{"event": "token", "data": {"text": " field"}}
+{"event": "token", "data": {"text": "）"}}
+{"event": "token", "data": {"text": "\n\n"}}
+{"event": "token", "data": {"text": "##"}}
+{"event": "token", "data": {"text": " Evidence"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " Word"}}
+{"event": "token", "data": {"text": "Read"}}
+{"event": "token", "data": {"text": "确认"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "结构"}}
+{"event": "token", "data": {"text": "与"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "注"}}
+{"event": "token", "data": {"text": "存在"}}
+{"event": "token", "data": {"text": "\n"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": " Render"}}
+{"event": "token", "data": {"text": "Document"}}
+{"event": "token", "data": {"text": "渲染"}}
+{"event": "token", "data": {"text": "的"}}
+{"event": "token", "data": {"text": "页面"}}
+{"event": "token", "data": {"text": "1"}}
+{"event": "token", "data": {"text": "-"}}
+{"event": "token", "data": {"text": "2"}}
+{"event": "token", "data": {"text": "显示"}}
+{"event": "token", "data": {"text": "页眉"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "页"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "标题"}}
+{"event": "token", "data": {"text": "样式"}}
+{"event": "token", "data": {"text": "、"}}
+{"event": "token", "data": {"text": "脚"}}
+{"event": "token", "data": {"text": "注"}}
+{"event": "token", "data": {"text": "和"}}
+{"event": "token", "data": {"text": "表格"}}
+{"event": "done", "data": {"total_time_ms": 72694, "sources": [], "provider": "openai_compat", "model": "doubao-seed-2.0-code"}}

@@ -134,6 +134,17 @@ _BACKTICK_PATH_PATTERN = re.compile(
 )
 
 _FINAL_GUARD_PREFIX = "Delivery contract failed:"
+_ACCEPTANCE_SUMMARY_PATTERN = re.compile(
+    r"(?:Acceptance Summary|\u9a8c\u6536\u6458\u8981)",
+    re.IGNORECASE,
+)
+_ACCEPTANCE_EDIT_TOOLS = {
+    "write",
+    "edit",
+    "docxedit",
+    "exceledit",
+    "wordedit",
+}
 
 
 def _clean_path_text(value: str) -> str:
@@ -306,6 +317,52 @@ def make_final_guard_hook(max_nudges: int = 2):
             )
         )
         ctx.scratch["final_guard_nudges"] = nudges + 1
+        ctx.scratch["should_resume"] = True
+
+    return hook
+
+
+def make_acceptance_summary_hook(max_nudges: int = 1):
+    """Require explicit completion/non-completion summary after artifact edits."""
+
+    async def hook(ctx: LoopContext) -> None:
+        if not ctx.messages:
+            return
+        last = ctx.messages[-1]
+        if last.role != Role.ASSISTANT:
+            return
+        if any(isinstance(b, ToolUseBlock) for b in last.content):
+            return
+        text = "".join(b.text for b in last.content if isinstance(b, TextBlock))
+        if not text:
+            return
+        if _ACCEPTANCE_SUMMARY_PATTERN.search(text):
+            return
+        successful = _successful_tools(ctx)
+        if not (successful & _ACCEPTANCE_EDIT_TOOLS):
+            return
+
+        nudges = ctx.scratch.get("acceptance_summary_nudges", 0)
+        if nudges >= max_nudges:
+            return
+        ctx.messages.append(
+            Message(
+                role=Role.USER,
+                content=[
+                    TextBlock(
+                        text=(
+                            "Acceptance summary required. Reply with a concise "
+                            "`\u9a8c\u6536\u6458\u8981` containing three parts: "
+                            "Completed, Not completed/unsupported, and Evidence. "
+                            "If a requested item was not actually changed or "
+                            "verified, list it under Not completed/unsupported. "
+                            "Only call more tools if you can close a concrete gap."
+                        )
+                    )
+                ],
+            )
+        )
+        ctx.scratch["acceptance_summary_nudges"] = nudges + 1
         ctx.scratch["should_resume"] = True
 
     return hook

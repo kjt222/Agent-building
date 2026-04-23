@@ -290,3 +290,44 @@ Next P4 work:
 1. Add a natural Word layout task involving spacing around a figure, table, or caption.
 2. Add image/table-specific `WordEdit` ops only when a real task forces the need.
 3. Keep EndNote/plugin automation behind an MCP-oriented boundary unless a deterministic file-based citation workflow is enough.
+
+## P4 Word Coverage and Acceptance Summary - 2026-04-23
+
+Runner: Codex
+
+The complex thesis-format tests showed two problems:
+
+- Tool coverage was too narrow for real Word structure work.
+- The framework did not force a precise completion/non-completion report.
+
+Implemented:
+
+- Kept the same minimal Word tool surface: `WordRead` and `WordEdit`.
+- Added structured `WordEdit` operations for heading levels, tables, TOC fields, footnotes, headers, footers, and page numbers.
+- Added `WordRead` structure reporting for headings, TOC, footnotes, headers, footers, and page fields.
+- Added an acceptance-summary stop hook that requires `验收摘要` after artifact edits.
+- Added bounded final-answer handling when tool calls reach `max_iterations`.
+- Blocked further tool execution once the formal iteration cap is exceeded.
+
+Validation:
+
+- Location: `tests/p4_word_complex_validation/2026-04-23-thesis-short-natural/`
+- Latest post-change conversation: `conv_20260423_113313_8ffc41`
+- Prompt was short and non-technical; it did not mention tools, rendering, local edits, or verification.
+- Tool path: `WordRead`, `WordEdit`, `WordEdit`, `WordRead`, `WordEdit`, `RenderDocument`.
+- Final answer included `验收摘要` with Completed, Not completed/unsupported, and Evidence.
+
+Observed result:
+
+- Heading levels, TOC field, footnote part, header, footer/page field, abstract/reference preservation, and existing-table preservation were verified.
+- The requested new table was still missing in the latest smoke run, even though `insert_table_after` now exists.
+
+Verification:
+
+- Full unit suite: `239 passed, 5 skipped`.
+
+Next P4 work:
+
+1. Run another short-prompt table-specific Word task to see whether the model chooses `insert_table_after`.
+2. If it still does not, improve tool descriptions/schema examples before adding any new tool.
+3. Keep EndNote/Word COM as MCP-boundary work, not always-on in-process tooling.

@@ -7,6 +7,7 @@ import asyncio
 from agent.core.hooks import (
     detect_intent_without_action,
     make_approval_hook,
+    make_acceptance_summary_hook,
     make_final_guard_hook,
     make_intent_without_action_hook,
 )
@@ -267,3 +268,108 @@ def test_final_guard_resumes_when_command_claim_has_no_bash_evidence():
 
     user_texts = _text_user_messages(events)
     assert any("command execution claim" in text for text in user_texts)
+
+
+def test_acceptance_summary_hook_requires_summary_after_edit():
+    adp = MockAdapter([
+        tool_turn("c1", "write", {"path": "x.txt"}),
+        text_turn("Done."),
+        text_turn("\u9a8c\u6536\u6458\u8981\nCompleted: wrote file."),
+    ])
+    hooks = Hooks(on_stop=[make_acceptance_summary_hook(max_nudges=1)])
+    loop = AgentLoop(
+        adapter=adp,
+        tools={"write": DangerousWrite()},
+        hooks=hooks,
+    )
+
+    events = asyncio.run(_drive(loop, "write a file"))
+
+    user_texts = _text_user_messages(events)
+    assert any("Acceptance summary required" in text for text in user_texts)
+    assert len(adp.call_log) == 3
+
+
+def test_acceptance_summary_hook_allows_existing_summary():
+    adp = MockAdapter([
+        tool_turn("c1", "write", {"path": "x.txt"}),
+        text_turn("\u9a8c\u6536\u6458\u8981\nCompleted: wrote file."),
+    ])
+    hooks = Hooks(on_stop=[make_acceptance_summary_hook(max_nudges=1)])
+    loop = AgentLoop(
+        adapter=adp,
+        tools={"write": DangerousWrite()},
+        hooks=hooks,
+    )
+
+    events = asyncio.run(_drive(loop, "write a file"))
+
+    user_texts = _text_user_messages(events)
+    assert not any("Acceptance summary required" in text for text in user_texts)
+
+
+def test_guard_resume_can_use_limited_extra_iteration_after_max():
+    adp = MockAdapter([
+        tool_turn("c1", "write", {"path": "x.txt"}),
+        text_turn("Done."),
+        text_turn("\u9a8c\u6536\u6458\u8981\nCompleted: wrote file."),
+    ])
+    hooks = Hooks(on_stop=[make_acceptance_summary_hook(max_nudges=1)])
+    loop = AgentLoop(
+        adapter=adp,
+        tools={"write": DangerousWrite()},
+        hooks=hooks,
+        config=None,
+    )
+    loop.config.max_iterations = 2
+
+    events = asyncio.run(_drive(loop, "write a file"))
+
+    user_texts = _text_user_messages(events)
+    assert any("Acceptance summary required" in text for text in user_texts)
+    assert len(adp.call_log) == 3
+
+
+def test_tool_result_at_max_gets_final_answer_iteration():
+    adp = MockAdapter([
+        tool_turn("c1", "write", {"path": "x.txt"}),
+        text_turn("\u9a8c\u6536\u6458\u8981\nCompleted: wrote file."),
+    ])
+    loop = AgentLoop(
+        adapter=adp,
+        tools={"write": DangerousWrite()},
+        config=None,
+    )
+    loop.config.max_iterations = 1
+
+    events = asyncio.run(_drive(loop, "write a file"))
+
+    assistant_texts = [
+        "".join(b.text for b in event.content if isinstance(b, TextBlock))
+        for event in events
+        if isinstance(event, Message) and event.role == Role.ASSISTANT
+    ]
+    assert any("\u9a8c\u6536\u6458\u8981" in text for text in assistant_texts)
+    assert len(adp.call_log) == 2
+
+
+def test_tool_calls_after_max_are_blocked_for_final_summary():
+    adp = MockAdapter([
+        tool_turn("c1", "write", {"path": "x.txt"}),
+        tool_turn("c2", "write", {"path": "y.txt"}),
+        text_turn("\u9a8c\u6536\u6458\u8981\nCompleted: wrote first file."),
+    ])
+    loop = AgentLoop(
+        adapter=adp,
+        tools={"write": DangerousWrite()},
+        config=None,
+    )
+    loop.config.max_iterations = 1
+
+    events = asyncio.run(_drive(loop, "write a file"))
+
+    results = _tool_results(events)
+    assert results[0].is_error is False
+    assert results[1].is_error is True
+    assert "Iteration limit reached" in results[1].content
+    assert len(adp.call_log) == 3

@@ -2538,6 +2538,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         )
         from ..core.hooks import (
             make_approval_hook,
+            make_acceptance_summary_hook,
             make_final_guard_hook,
             make_intent_without_action_hook,
         )
@@ -2721,7 +2722,11 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 pending_tool_approvals.pop(approval_id, None)
 
         hooks = Hooks(
-            on_stop=[make_intent_without_action_hook(), make_final_guard_hook()],
+            on_stop=[
+                make_intent_without_action_hook(),
+                make_final_guard_hook(),
+                make_acceptance_summary_hook(),
+            ],
             pre_tool_use=[make_approval_hook(tools, approval_prompter)],
         )
 

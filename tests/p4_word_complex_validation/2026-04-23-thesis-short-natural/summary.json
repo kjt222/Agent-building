@@ -1,0 +1,1876 @@
+[
+  {
+    "scenario": "thesis_all_in_one",
+    "scenario_title": "毕业论文一次性整理",
+    "profile": "doubao-code",
+    "model_label": "doubao-code",
+    "model_override": null,
+    "conversation_id": "conv_20260423_104952_f76f9f",
+    "elapsed_seconds": 56.58,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 55459,
+      "sources": [],
+      "provider": "openai_compat",
+      "model": "doubao-seed-2.0-code"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "WordEdit",
+      "WordRead",
+      "WordEdit",
+      "WordRead",
+      "Glob"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "摘要",
+          "style": "Normal"
+        },
+        {
+          "index": 2,
+          "text": "本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "Abstract",
+          "style": "Normal"
+        },
+        {
+          "index": 4,
+          "text": "This draft studies a measurement workflow for two-dimensional materials.",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "目录",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "第一章 绪论\t\t\t1\n1.1 研究背景\t\t\t1\n1.1.1 国内外研究现状\t\t1\n第二章 实验方法\t\t\t2\n2.1 实验方案\t\t\t2\n第三章 结果讨论\t\t\t3\n3.1 测试结果\t\t\t3\n第四章 结论\t\t\t4\n参考文献\t\t\t5",
+          "style": "Normal"
+        },
+        {
+          "index": 7,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法。",
+          "style": "Normal"
+        },
+        {
+          "index": 10,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 11,
+          "text": "相关研究主要集中在低维材料和器件稳定性。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 13,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "实验包含样品制备、退火处理和电学测试。",
+          "style": "Normal"
+        },
+        {
+          "index": 15,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 16,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "测试结果显示器件在室温下具有稳定响应。",
+          "style": "Normal"
+        },
+        {
+          "index": 18,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 19,
+          "text": "本文完成了测试平台的初步验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 21,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        },
+        {
+          "index": 22,
+          "text": "第一章 绪论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 23,
+          "text": "1.1 研究背景",
+          "style": "Heading 2"
+        },
+        {
+          "index": 24,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Heading 3"
+        },
+        {
+          "index": 25,
+          "text": "第二章 实验方法",
+          "style": "Heading 1"
+        },
+        {
+          "index": 26,
+          "text": "2.1 实验方案",
+          "style": "Heading 2"
+        },
+        {
+          "index": 27,
+          "text": "第三章 结果讨论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 28,
+          "text": "3.1 测试结果",
+          "style": "Heading 2"
+        },
+        {
+          "index": 29,
+          "text": "第四章 结论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 30,
+          "text": "参考文献",
+          "style": "Heading 1"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "",
+      "footer_text": "",
+      "has_toc_field": false,
+      "has_footnotes_part": false,
+      "has_page_field": false
+    },
+    "checks": {
+      "heading_styles": {
+        "第一章 绪论\t\t\t1\n1.1 研究背景\t\t\t1\n1.1.1 国内外研究现状\t\t1\n第二章 实验方法\t\t\t2\n2.1 实验方案\t\t\t2\n第三章 结果讨论\t\t\t3\n3.1 测试结果\t\t\t3\n第四章 结论\t\t\t4\n参考文献\t\t\t5": "Normal",
+        "第一章 绪论": "Heading 1",
+        "1.1 研究背景": "Heading 2",
+        "1.1.1 国内外研究现状": "Heading 3",
+        "第二章 实验方法": "Heading 1",
+        "2.1 实验方案": "Heading 2",
+        "第三章 结果讨论": "Heading 1",
+        "3.1 测试结果": "Heading 2",
+        "第四章 结论": "Heading 1"
+      },
+      "toc_field": false,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": false,
+      "header_text": "",
+      "footer_text": "",
+      "page_field": false,
+      "abstract_preserved": true,
+      "references_preserved": true
+    }
+  },
+  {
+    "scenario": "thesis_all_in_one",
+    "scenario_title": "毕业论文一次性整理",
+    "profile": "gpt-5.4",
+    "model_label": "gpt-5.4-mini",
+    "model_override": "gpt-5.4-mini",
+    "conversation_id": "conv_20260423_105103_b2a967",
+    "elapsed_seconds": 31.41,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 31347,
+      "sources": [],
+      "provider": "openai",
+      "model": "gpt-5.4-mini"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead",
+      "RenderDocument"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "摘要\n本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 2,
+          "text": "本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "目录",
+          "style": "Normal"
+        },
+        {
+          "index": 4,
+          "text": "第一章 绪论",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "1.1 研究背景",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法。",
+          "style": "Normal"
+        },
+        {
+          "index": 7,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "相关研究主要集中在低维材料和器件稳定性。",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "第二章 实验方法",
+          "style": "Normal"
+        },
+        {
+          "index": 10,
+          "text": "2.1 实验方案",
+          "style": "Normal"
+        },
+        {
+          "index": 11,
+          "text": "实验包含样品制备、退火处理和电学测试。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "第三章 结果讨论",
+          "style": "Normal"
+        },
+        {
+          "index": 13,
+          "text": "3.1 测试结果",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "测试结果显示器件在室温下具有稳定响应。",
+          "style": "Normal"
+        },
+        {
+          "index": 15,
+          "text": "第四章 结论",
+          "style": "Normal"
+        },
+        {
+          "index": 16,
+          "text": "本文完成了测试平台的初步验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "参考文献",
+          "style": "Normal"
+        },
+        {
+          "index": 18,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        },
+        {
+          "index": 19,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "参考文献",
+          "style": "Normal"
+        },
+        {
+          "index": 21,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "",
+      "footer_text": "",
+      "has_toc_field": false,
+      "has_footnotes_part": false,
+      "has_page_field": false
+    },
+    "checks": {
+      "heading_styles": {
+        "第一章 绪论": "Normal",
+        "1.1 研究背景": "Normal",
+        "1.1.1 国内外研究现状": "Normal",
+        "第二章 实验方法": "Normal",
+        "2.1 实验方案": "Normal",
+        "第三章 结果讨论": "Normal",
+        "3.1 测试结果": "Normal",
+        "第四章 结论": "Normal"
+      },
+      "toc_field": false,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": false,
+      "header_text": "",
+      "footer_text": "",
+      "page_field": false,
+      "abstract_preserved": false,
+      "references_preserved": true
+    }
+  },
+  {
+    "scenario": "thesis_review_fix",
+    "scenario_title": "毕业论文评阅整改",
+    "profile": "doubao-code",
+    "model_label": "doubao-code",
+    "model_override": null,
+    "conversation_id": "conv_20260423_105146_529431",
+    "elapsed_seconds": 57.53,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 57449,
+      "sources": [],
+      "provider": "openai_compat",
+      "model": "doubao-seed-2.0-code"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "WordEdit",
+      "WordRead",
+      "WordEdit",
+      "WordEdit",
+      "WordRead"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 2,
+          "text": "本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 4,
+          "text": "This draft studies a measurement workflow for two-dimensional materials.",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "这里还是手工目录占位。",
+          "style": "Normal"
+        },
+        {
+          "index": 7,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法。",
+          "style": "Normal"
+        },
+        {
+          "index": 10,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 11,
+          "text": "相关研究主要集中在低维材料和器件稳定性。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 13,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "实验包含样品制备、退火处理和电学测试。",
+          "style": "Normal"
+        },
+        {
+          "index": 15,
+          "text": "迁移率可以反映材料在电场作用下的输运能力。",
+          "style": "Normal"
+        },
+        {
+          "index": 16,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 18,
+          "text": "测试结果显示器件在室温下具有稳定响应。",
+          "style": "Normal"
+        },
+        {
+          "index": 19,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "本文完成了测试平台的初步验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 21,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 22,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        },
+        {
+          "index": 23,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 24,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 25,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 26,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 27,
+          "text": "",
+          "style": "Heading 2"
+        },
+        {
+          "index": 28,
+          "text": "",
+          "style": "Heading 3"
+        },
+        {
+          "index": 29,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 30,
+          "text": "",
+          "style": "Heading 2"
+        },
+        {
+          "index": 31,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 32,
+          "text": "",
+          "style": "Heading 2"
+        },
+        {
+          "index": 33,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 34,
+          "text": "",
+          "style": "Heading 1"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "",
+      "footer_text": "",
+      "has_toc_field": false,
+      "has_footnotes_part": false,
+      "has_page_field": false
+    },
+    "checks": {
+      "heading_styles": {},
+      "toc_field": false,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": false,
+      "header_text": "",
+      "footer_text": "",
+      "page_field": false,
+      "abstract_preserved": false,
+      "references_preserved": false
+    }
+  },
+  {
+    "scenario": "thesis_review_fix",
+    "scenario_title": "毕业论文评阅整改",
+    "profile": "gpt-5.4",
+    "model_label": "gpt-5.4-mini",
+    "model_override": "gpt-5.4-mini",
+    "conversation_id": "conv_20260423_105256_a83df5",
+    "elapsed_seconds": 33.27,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 33195,
+      "sources": [],
+      "provider": "openai",
+      "model": "gpt-5.4-mini"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead",
+      "RenderDocument",
+      "WordEdit"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "摘 要",
+          "style": "Normal"
+        },
+        {
+          "index": 2,
+          "text": "本文围绕二维材料霍尔效应测试平台展开设计与验证，针对样品制备、退火处理、电学测试及结果分析流程进行了规范化整理，形成了较完整的论文结构。本文研究可为相关低维材料器件测试提供参考。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "Abstract",
+          "style": "Normal"
+        },
+        {
+          "index": 4,
+          "text": "This thesis focuses on the design and validation of a Hall-effect test platform for two-dimensional materials, with a more structured description of the experimental workflow and analysis. The study provides a concise reference for related low-dimensional material testing.",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "目录",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "（此处为自动生成目录位置，正式编辑时可在 Word 中更新目录字段。）",
+          "style": "Normal"
+        },
+        {
+          "index": 7,
+          "text": "第一章 绪论",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "1.1 研究背景",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法，尤其适用于二维材料体系中载流子输运特性的表征。",
+          "style": "Normal"
+        },
+        {
+          "index": 10,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Normal"
+        },
+        {
+          "index": 11,
+          "text": "近年来，相关研究主要集中在低维材料器件的稳定性、接触电阻控制以及高精度电输运测量方法的优化。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "第二章 实验方法",
+          "style": "Normal"
+        },
+        {
+          "index": 13,
+          "text": "2.1 实验方案",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "实验包含样品制备、退火处理和电学测试。为便于比较，本文将关键步骤与常见规范做法进行对照，如表1所示。",
+          "style": "Normal"
+        },
+        {
+          "index": 15,
+          "text": "迁移率可以反映材料在电场作用下的输运能力；在实际测试中，应结合磁场扫描与温度控制对结果进行交叉验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 16,
+          "text": "第三章 结果讨论",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "3.1 测试结果",
+          "style": "Normal"
+        },
+        {
+          "index": 18,
+          "text": "测试结果显示器件在室温下具有稳定响应，说明测试平台能够满足基础霍尔测量需求。",
+          "style": "Normal"
+        },
+        {
+          "index": 19,
+          "text": "第四章 结论",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "本文完成了测试平台的初步验证，并对论文结构、目录层级、参考文献与表格表达进行了规范化处理。",
+          "style": "Normal"
+        },
+        {
+          "index": 21,
+          "text": "参考文献",
+          "style": "Normal"
+        },
+        {
+          "index": 22,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "",
+      "footer_text": "",
+      "has_toc_field": false,
+      "has_footnotes_part": false,
+      "has_page_field": false
+    },
+    "checks": {
+      "heading_styles": {
+        "第一章 绪论": "Normal",
+        "1.1 研究背景": "Normal",
+        "1.1.1 国内外研究现状": "Normal",
+        "第二章 实验方法": "Normal",
+        "2.1 实验方案": "Normal",
+        "第三章 结果讨论": "Normal",
+        "3.1 测试结果": "Normal",
+        "第四章 结论": "Normal"
+      },
+      "toc_field": false,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": false,
+      "header_text": "",
+      "footer_text": "",
+      "page_field": false,
+      "abstract_preserved": false,
+      "references_preserved": true
+    }
+  },
+  {
+    "scenario": "thesis_all_in_one",
+    "scenario_title": "毕业论文一次性整理",
+    "profile": "doubao-code",
+    "model_label": "doubao-code",
+    "model_override": null,
+    "conversation_id": "conv_20260423_111812_b0373c",
+    "elapsed_seconds": 82.87,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 81778,
+      "sources": [],
+      "provider": "openai_compat",
+      "model": "doubao-seed-2.0-code"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "WordEdit",
+      "WordEdit",
+      "RenderDocument",
+      "WordRead",
+      "WordEdit",
+      "RenderDocument"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "摘要",
+          "style": "Normal"
+        },
+        {
+          "index": 2,
+          "text": "本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "Abstract",
+          "style": "Normal"
+        },
+        {
+          "index": 4,
+          "text": "This draft studies a measurement workflow for two-dimensional materials.",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "目录",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "目录",
+          "style": "Heading 1"
+        },
+        {
+          "index": 7,
+          "text": "Update field to generate table of contents.",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "这里还是手工目录占位。",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "第一章 绪论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 10,
+          "text": "1.1 研究背景",
+          "style": "Heading 2"
+        },
+        {
+          "index": 11,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Heading 3"
+        },
+        {
+          "index": 13,
+          "text": "相关研究主要集中在低维材料和器件稳定性。",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "第二章 实验方法",
+          "style": "Heading 1"
+        },
+        {
+          "index": 15,
+          "text": "2.1 实验方案",
+          "style": "Heading 2"
+        },
+        {
+          "index": 16,
+          "text": "实验包含样品制备、退火处理和电学测试。",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "第三章 结果讨论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 18,
+          "text": "3.1 测试结果",
+          "style": "Heading 2"
+        },
+        {
+          "index": 19,
+          "text": "测试结果显示器件在室温下具有稳定响应。",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "第四章 结论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 21,
+          "text": "本文完成了测试平台的初步验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 22,
+          "text": "参考文献",
+          "style": "Heading 1"
+        },
+        {
+          "index": 23,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "1",
+      "has_toc_field": true,
+      "has_footnotes_part": true,
+      "has_page_field": true
+    },
+    "checks": {
+      "heading_styles": {
+        "第一章 绪论": "Heading 1",
+        "1.1 研究背景": "Heading 2",
+        "1.1.1 国内外研究现状": "Heading 3",
+        "第二章 实验方法": "Heading 1",
+        "2.1 实验方案": "Heading 2",
+        "第三章 结果讨论": "Heading 1",
+        "3.1 测试结果": "Heading 2",
+        "第四章 结论": "Heading 1"
+      },
+      "toc_field": true,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": true,
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "1",
+      "page_field": true,
+      "abstract_preserved": true,
+      "references_preserved": true
+    }
+  },
+  {
+    "scenario": "thesis_all_in_one",
+    "scenario_title": "毕业论文一次性整理",
+    "profile": "gpt-5.4",
+    "model_label": "gpt-5.4-mini",
+    "model_override": "gpt-5.4-mini",
+    "conversation_id": "conv_20260423_111949_26b120",
+    "elapsed_seconds": 37.47,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 37353,
+      "sources": [],
+      "provider": "openai",
+      "model": "gpt-5.4-mini"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "WordEdit",
+      "WordEdit",
+      "WordRead",
+      "RenderDocument",
+      "WordEdit",
+      "WordEdit"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "摘要",
+          "style": "Title"
+        },
+        {
+          "index": 2,
+          "text": "本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "Abstract",
+          "style": "Normal"
+        },
+        {
+          "index": 4,
+          "text": "This draft studies a measurement workflow for two-dimensional materials.",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "目录",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "目录",
+          "style": "Heading 1"
+        },
+        {
+          "index": 7,
+          "text": "Update field to generate table of contents.",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "这里还是手工目录占位。",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "第一章 绪论",
+          "style": "Normal"
+        },
+        {
+          "index": 10,
+          "text": "1.1 研究背景",
+          "style": "Normal"
+        },
+        {
+          "index": 11,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Normal"
+        },
+        {
+          "index": 13,
+          "text": "相关研究主要集中在低维材料和器件稳定性。",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "第二章 实验方法",
+          "style": "Normal"
+        },
+        {
+          "index": 15,
+          "text": "2.1 实验方案",
+          "style": "Normal"
+        },
+        {
+          "index": 16,
+          "text": "实验包含样品制备、退火处理和电学测试。",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "第三章 结果讨论",
+          "style": "Normal"
+        },
+        {
+          "index": 18,
+          "text": "3.1 测试结果",
+          "style": "Normal"
+        },
+        {
+          "index": 19,
+          "text": "测试结果显示器件在室温下具有稳定响应。",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "第四章 结论",
+          "style": "Normal"
+        },
+        {
+          "index": 21,
+          "text": "本文完成了测试平台的初步验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 22,
+          "text": "参考文献",
+          "style": "Normal"
+        },
+        {
+          "index": 23,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "第 1 页 1",
+      "has_toc_field": true,
+      "has_footnotes_part": true,
+      "has_page_field": true
+    },
+    "checks": {
+      "heading_styles": {
+        "第一章 绪论": "Normal",
+        "1.1 研究背景": "Normal",
+        "1.1.1 国内外研究现状": "Normal",
+        "第二章 实验方法": "Normal",
+        "2.1 实验方案": "Normal",
+        "第三章 结果讨论": "Normal",
+        "3.1 测试结果": "Normal",
+        "第四章 结论": "Normal"
+      },
+      "toc_field": true,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": true,
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "第 1 页 1",
+      "page_field": true,
+      "abstract_preserved": true,
+      "references_preserved": true
+    }
+  },
+  {
+    "scenario": "thesis_all_in_one",
+    "scenario_title": "毕业论文一次性整理",
+    "profile": "doubao-code",
+    "model_label": "doubao-code",
+    "model_override": null,
+    "conversation_id": "conv_20260423_112541_5ea3ab",
+    "elapsed_seconds": 68.88,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 67869,
+      "sources": [],
+      "provider": "openai_compat",
+      "model": "doubao-seed-2.0-code"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "WordEdit",
+      "WordEdit",
+      "RenderDocument",
+      "WordEdit",
+      "WordEdit",
+      "RenderDocument",
+      "WordRead"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "摘要",
+          "style": "Normal"
+        },
+        {
+          "index": 2,
+          "text": "本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "Abstract",
+          "style": "Normal"
+        },
+        {
+          "index": 4,
+          "text": "This draft studies a measurement workflow for two-dimensional materials.",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "目录",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 7,
+          "text": "Update field to generate table of contents.",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "这里还是手工目录占位。",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "第一章 绪论",
+          "style": "Normal"
+        },
+        {
+          "index": 10,
+          "text": "1.1 研究背景",
+          "style": "Normal"
+        },
+        {
+          "index": 11,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Normal"
+        },
+        {
+          "index": 13,
+          "text": "相关研究主要集中在低维材料和器件稳定性。",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "第二章 实验方法",
+          "style": "Normal"
+        },
+        {
+          "index": 15,
+          "text": "2.1 实验方案",
+          "style": "Normal"
+        },
+        {
+          "index": 16,
+          "text": "实验包含样品制备、退火处理和电学测试。",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "第三章 结果讨论",
+          "style": "Normal"
+        },
+        {
+          "index": 18,
+          "text": "3.1 测试结果",
+          "style": "Normal"
+        },
+        {
+          "index": 19,
+          "text": "测试结果显示器件在室温下具有稳定响应。",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "第四章 结论",
+          "style": "Normal"
+        },
+        {
+          "index": 21,
+          "text": "本文完成了测试平台的初步验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 22,
+          "text": "参考文献",
+          "style": "Normal"
+        },
+        {
+          "index": 23,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        },
+        {
+          "index": 24,
+          "text": "第一章 绪论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 25,
+          "text": "1.1 研究背景",
+          "style": "Heading 2"
+        },
+        {
+          "index": 26,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Heading 3"
+        },
+        {
+          "index": 27,
+          "text": "第二章 实验方法",
+          "style": "Heading 1"
+        },
+        {
+          "index": 28,
+          "text": "2.1 实验方案",
+          "style": "Heading 2"
+        },
+        {
+          "index": 29,
+          "text": "第三章 结果讨论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 30,
+          "text": "3.1 测试结果",
+          "style": "Heading 2"
+        },
+        {
+          "index": 31,
+          "text": "第四章 结论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 32,
+          "text": "参考文献",
+          "style": "Heading 1"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "1",
+      "has_toc_field": true,
+      "has_footnotes_part": true,
+      "has_page_field": true
+    },
+    "checks": {
+      "heading_styles": {
+        "第一章 绪论": "Heading 1",
+        "1.1 研究背景": "Heading 2",
+        "1.1.1 国内外研究现状": "Heading 3",
+        "第二章 实验方法": "Heading 1",
+        "2.1 实验方案": "Heading 2",
+        "第三章 结果讨论": "Heading 1",
+        "3.1 测试结果": "Heading 2",
+        "第四章 结论": "Heading 1"
+      },
+      "toc_field": true,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": true,
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "1",
+      "page_field": true,
+      "abstract_preserved": true,
+      "references_preserved": true
+    }
+  },
+  {
+    "scenario": "thesis_all_in_one",
+    "scenario_title": "毕业论文一次性整理",
+    "profile": "doubao-code",
+    "model_label": "doubao-code",
+    "model_override": null,
+    "conversation_id": "conv_20260423_112939_f6a2d6",
+    "elapsed_seconds": 113.12,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 112118,
+      "sources": [],
+      "provider": "openai_compat",
+      "model": "doubao-seed-2.0-code"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "WordEdit",
+      "WordEdit",
+      "WordRead",
+      "WordEdit",
+      "WordEdit",
+      "RenderDocument",
+      "WordEdit",
+      "WordEdit"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "摘要",
+          "style": "Heading 1"
+        },
+        {
+          "index": 2,
+          "text": "本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "Abstract",
+          "style": "Heading 1"
+        },
+        {
+          "index": 4,
+          "text": "This draft studies a measurement workflow for two-dimensional materials.",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "目录",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "目录",
+          "style": "Heading 1"
+        },
+        {
+          "index": 7,
+          "text": "Update field to generate table of contents.",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "第一章 绪论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 10,
+          "text": "1.1 研究背景",
+          "style": "Heading 2"
+        },
+        {
+          "index": 11,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Heading 3"
+        },
+        {
+          "index": 13,
+          "text": "相关研究主要集中在低维材料和器件稳定性。",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "第二章 实验方法",
+          "style": "Heading 1"
+        },
+        {
+          "index": 15,
+          "text": "2.1 实验方案",
+          "style": "Heading 2"
+        },
+        {
+          "index": 16,
+          "text": "实验包含样品制备、退火处理和电学测试。",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "第三章 结果讨论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 18,
+          "text": "3.1 测试结果",
+          "style": "Heading 2"
+        },
+        {
+          "index": 19,
+          "text": "测试结果显示器件在室温下具有稳定响应。",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "第四章 结论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 21,
+          "text": "本文完成了测试平台的初步验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 22,
+          "text": "参考文献",
+          "style": "Heading 1"
+        },
+        {
+          "index": 23,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        },
+        {
+          "index": 24,
+          "text": "",
+          "style": "Heading 1"
+        },
+        {
+          "index": 25,
+          "text": "",
+          "style": "Heading 1"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "页码： 1",
+      "has_toc_field": true,
+      "has_footnotes_part": true,
+      "has_page_field": true
+    },
+    "checks": {
+      "heading_styles": {
+        "第一章 绪论": "Heading 1",
+        "1.1 研究背景": "Heading 2",
+        "1.1.1 国内外研究现状": "Heading 3",
+        "第二章 实验方法": "Heading 1",
+        "2.1 实验方案": "Heading 2",
+        "第三章 结果讨论": "Heading 1",
+        "3.1 测试结果": "Heading 2",
+        "第四章 结论": "Heading 1"
+      },
+      "toc_field": true,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": true,
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "页码： 1",
+      "page_field": true,
+      "abstract_preserved": true,
+      "references_preserved": true
+    }
+  },
+  {
+    "scenario": "thesis_all_in_one",
+    "scenario_title": "毕业论文一次性整理",
+    "profile": "doubao-code",
+    "model_label": "doubao-code",
+    "model_override": null,
+    "conversation_id": "conv_20260423_113313_8ffc41",
+    "elapsed_seconds": 73.72,
+    "timed_out": false,
+    "done": {
+      "total_time_ms": 72694,
+      "sources": [],
+      "provider": "openai_compat",
+      "model": "doubao-seed-2.0-code"
+    },
+    "tool_manifest": [
+      "Glob",
+      "Read",
+      "RenderDocument",
+      "WordEdit",
+      "WordRead"
+    ],
+    "tool_path": [
+      "WordRead",
+      "WordEdit",
+      "WordEdit",
+      "WordRead",
+      "WordEdit",
+      "RenderDocument"
+    ],
+    "inspection": {
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "二维材料霍尔效应测试平台设计",
+          "style": "Title"
+        },
+        {
+          "index": 1,
+          "text": "摘要",
+          "style": "Normal"
+        },
+        {
+          "index": 2,
+          "text": "本文讨论样品制备、测试流程与结果分析。",
+          "style": "Normal"
+        },
+        {
+          "index": 3,
+          "text": "Abstract",
+          "style": "Normal"
+        },
+        {
+          "index": 4,
+          "text": "This draft studies a measurement workflow for two-dimensional materials.",
+          "style": "Normal"
+        },
+        {
+          "index": 5,
+          "text": "目录",
+          "style": "Normal"
+        },
+        {
+          "index": 6,
+          "text": "目录",
+          "style": "Heading 1"
+        },
+        {
+          "index": 7,
+          "text": "Update field to generate table of contents.",
+          "style": "Normal"
+        },
+        {
+          "index": 8,
+          "text": "",
+          "style": "Normal"
+        },
+        {
+          "index": 9,
+          "text": "第一章 绪论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 10,
+          "text": "1.1 研究背景",
+          "style": "Heading 2"
+        },
+        {
+          "index": 11,
+          "text": "霍尔效应是判断载流子类型和迁移率的重要方法。",
+          "style": "Normal"
+        },
+        {
+          "index": 12,
+          "text": "1.1.1 国内外研究现状",
+          "style": "Heading 3"
+        },
+        {
+          "index": 13,
+          "text": "相关研究主要集中在低维材料和器件稳定性。",
+          "style": "Normal"
+        },
+        {
+          "index": 14,
+          "text": "第二章 实验方法",
+          "style": "Heading 1"
+        },
+        {
+          "index": 15,
+          "text": "2.1 实验方案",
+          "style": "Heading 2"
+        },
+        {
+          "index": 16,
+          "text": "实验包含样品制备、退火处理和电学测试。",
+          "style": "Normal"
+        },
+        {
+          "index": 17,
+          "text": "第三章 结果讨论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 18,
+          "text": "3.1 测试结果",
+          "style": "Heading 2"
+        },
+        {
+          "index": 19,
+          "text": "测试结果显示器件在室温下具有稳定响应。",
+          "style": "Normal"
+        },
+        {
+          "index": 20,
+          "text": "第四章 结论",
+          "style": "Heading 1"
+        },
+        {
+          "index": 21,
+          "text": "本文完成了测试平台的初步验证。",
+          "style": "Normal"
+        },
+        {
+          "index": 22,
+          "text": "参考文献",
+          "style": "Heading 1"
+        },
+        {
+          "index": 23,
+          "text": "[1] Sample reference.",
+          "style": "Normal"
+        }
+      ],
+      "table_count": 1,
+      "tables": [
+        [
+          [
+            "已有项目",
+            "状态"
+          ],
+          [
+            "原始表格",
+            "保留"
+          ]
+        ]
+      ],
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "1",
+      "has_toc_field": true,
+      "has_footnotes_part": true,
+      "has_page_field": true
+    },
+    "checks": {
+      "heading_styles": {
+        "第一章 绪论": "Heading 1",
+        "1.1 研究背景": "Heading 2",
+        "1.1.1 国内外研究现状": "Heading 3",
+        "第二章 实验方法": "Heading 1",
+        "2.1 实验方案": "Heading 2",
+        "第三章 结果讨论": "Heading 1",
+        "3.1 测试结果": "Heading 2",
+        "第四章 结论": "Heading 1"
+      },
+      "toc_field": true,
+      "table_count": 1,
+      "new_table_likely_present": false,
+      "footnotes_part": true,
+      "header_text": "二维材料霍尔效应测试平台设计",
+      "footer_text": "1",
+      "page_field": true,
+      "abstract_preserved": true,
+      "references_preserved": true
+    }
+  }
+]

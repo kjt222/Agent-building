@@ -1,0 +1,2 @@
+这份论文被说很不规范，你帮我改成像毕业论文的样子：D:\D\python编程\Agent-building\tests\p4_word_complex_validation\2026-04-23-thesis-short-natural\thesis_review_fix\doubao-code\thesis_review_fix_doubao-code.docx
+标题层级、目录、对比表、脚注、页眉页脚这些都帮我处理一下。

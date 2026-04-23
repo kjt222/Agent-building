@@ -260,7 +260,9 @@ class AgentLoop:
 
         while True:
             ctx.iteration += 1
-            if self.config.max_iterations and ctx.iteration > self.config.max_iterations:
+            max_iterations = self.config.max_iterations
+            guard_extra = int(ctx.scratch.get("guard_extra_iterations") or 0)
+            if max_iterations and ctx.iteration > max_iterations + guard_extra:
                 break
 
             turn_t0 = time.time()
@@ -283,7 +285,24 @@ class AgentLoop:
             tool_uses = [b for b in assistant_msg.content if isinstance(b, ToolUseBlock)]
             tool_results: list[ToolResultBlock] = []
             if tool_uses and stop_reason == "tool_use":
-                tool_results = await self._dispatch_tools(tool_uses, ctx)
+                if self.config.max_iterations and ctx.iteration > self.config.max_iterations:
+                    tool_results = [
+                        ToolResultBlock(
+                            tool_use_id=use.id,
+                            content=(
+                                "Iteration limit reached; no more tool calls will "
+                                "be executed. Provide the required acceptance "
+                                "summary from the evidence already gathered."
+                            ),
+                            is_error=True,
+                        )
+                        for use in tool_uses
+                    ]
+                    used = int(ctx.scratch.get("guard_extra_iterations") or 0)
+                    needed = ctx.iteration - self.config.max_iterations + 1
+                    ctx.scratch["guard_extra_iterations"] = min(2, max(used, needed))
+                else:
+                    tool_results = await self._dispatch_tools(tool_uses, ctx)
                 tool_result_content: list[Block] = list(tool_results)
                 feedback_images = self._extract_image_feedback(tool_results, ctx)
                 if feedback_images:
@@ -300,6 +319,28 @@ class AgentLoop:
                 yield tool_result_msg
                 self._write_trace(ctx, assistant_msg, tool_uses, tool_results,
                                   turn_usage, stop_reason, time.time() - turn_t0)
+                final_after_tool_names = {
+                    "write",
+                    "edit",
+                    "docxedit",
+                    "exceledit",
+                    "wordedit",
+                    "renderdocument",
+                    "verify",
+                }
+                needs_final_after_tool = any(
+                    use.name.lower() in final_after_tool_names for use in tool_uses
+                )
+                if (
+                    needs_final_after_tool
+                    and self.config.max_iterations
+                    and ctx.iteration >= self.config.max_iterations
+                    and not ctx.scratch.get("post_tool_final_extra_used")
+                ):
+                    used = int(ctx.scratch.get("guard_extra_iterations") or 0)
+                    if used < 2:
+                        ctx.scratch["guard_extra_iterations"] = used + 1
+                        ctx.scratch["post_tool_final_extra_used"] = True
                 continue
 
             self._write_trace(ctx, assistant_msg, tool_uses, tool_results,
@@ -312,6 +353,11 @@ class AgentLoop:
             for hook in self.hooks.on_stop:
                 await hook(ctx)
             if ctx.scratch.get("should_resume"):
+                if self.config.max_iterations and ctx.iteration >= self.config.max_iterations:
+                    used = int(ctx.scratch.get("guard_extra_iterations") or 0)
+                    if used >= 2:
+                        break
+                    ctx.scratch["guard_extra_iterations"] = used + 1
                 # A hook appended a user message; yield it so caller sees it,
                 # then loop.
                 if ctx.messages and ctx.messages[-1].role == Role.USER:

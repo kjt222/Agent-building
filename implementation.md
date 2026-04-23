@@ -294,3 +294,39 @@ Verification:
 - Result: `9 passed`
 - `.venv\Scripts\python.exe -m pytest tests/unit -q`
 - Result: `229 passed, 5 skipped`
+
+## 2026-04-23 - Codex - P4 Word Coverage and Acceptance Summary
+
+Codex expanded the existing two-tool Word boundary instead of adding a new skill or exposing script execution.
+
+Tool coverage changes:
+
+- `WordRead` now reports document structure: headings, headers, footers, TOC field presence, footnotes, and page-field presence.
+- `WordEdit` now supports structured operations for `set_heading_level`, `insert_table_after`, `insert_toc_after`, `add_footnote`, `set_header`, and `set_footer`.
+- `set_paragraph_text` and `set_heading_level` now reject accidental empty-text overwrites unless `allow_empty_text=true`.
+- Footnote editing supports a second edit pass after the document is reloaded.
+
+Framework acceptance changes:
+
+- Added an acceptance-summary stop hook after artifact edits.
+- Final answers after edits must include `验收摘要` / Acceptance Summary with Completed, Not completed/unsupported, and Evidence.
+- AgentLoop reserves a bounded final-answer path after tool calls at the iteration cap.
+- Once the formal iteration cap is exceeded, new tool calls are blocked and the model must summarize from existing evidence.
+
+Short-prompt validation:
+
+- Location: `tests/p4_word_complex_validation/2026-04-23-thesis-short-natural/`
+- Latest post-change conversation: `conv_20260423_113313_8ffc41`
+- Prompt did not name tools or implementation details.
+- Observed tool path: `WordRead`, `WordEdit`, `WordEdit`, `WordRead`, `WordEdit`, `RenderDocument`.
+- Verified present: heading levels, TOC field, footnotes part, header, footer/page field, preserved existing table, preserved abstract/reference sections.
+- Still missing in that run: the model did not use `insert_table_after` for the requested new table.
+
+Verification:
+
+- `.venv\Scripts\python.exe -m pytest tests/unit/test_word_tool.py -q`
+- Result: `10 passed`
+- `.venv\Scripts\python.exe -m pytest tests/unit/test_hooks.py -q`
+- Result: `17 passed`
+- `.venv\Scripts\python.exe -m pytest tests/unit -q`
+- Result: `239 passed, 5 skipped`
