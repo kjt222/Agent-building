@@ -149,6 +149,105 @@ class ConversationManagerV2:
         """Fetch one persisted AgentLoop trace."""
         return self.db.get_activity_trace(conv_id, request_id)
 
+    def fork(self, source_conv_id: str, from_message_id: int) -> Optional[dict]:
+        """Fork ``source_conv_id`` at ``from_message_id`` (P12.7).
+
+        Creates a new conversation containing every message of the source
+        that was written *before* the message identified by
+        ``from_message_id``. The message itself and everything after it are
+        intentionally dropped — the caller will replay them through the
+        normal chat flow.
+
+        Returns ``{"new_conversation_id": str, "copied_message_count": int}``
+        on success, or ``None`` if the source conversation does not exist or
+        ``from_message_id`` is not a user message of that conversation.
+        """
+        source = self.db.get_conversation(source_conv_id)
+        if source is None:
+            return None
+        target_msg = next(
+            (m for m in source.get("messages", []) if m.get("id") == int(from_message_id)),
+            None,
+        )
+        if target_msg is None or target_msg.get("role") != "user":
+            return None
+        new_conv_id = (
+            f"conv_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
+        )
+        copied = self.db.fork_conversation(
+            source_conv_id, new_conv_id, int(from_message_id)
+        )
+        return {
+            "new_conversation_id": new_conv_id,
+            "copied_message_count": int(copied),
+        }
+
+    def fork(self, source_conv_id: str, from_message_id: int) -> Optional[dict]:
+        """Fork ``source_conv_id`` at ``from_message_id`` (P12.7).
+
+        Creates a new conversation containing every message of the source
+        that was written *before* the message identified by
+        ``from_message_id``. The message itself and everything after it are
+        intentionally dropped — the caller will replay them through the
+        normal chat flow.
+
+        Returns ``{"new_conversation_id": str, "copied_message_count": int}``
+        on success, or ``None`` if the source conversation does not exist or
+        ``from_message_id`` is not a user message of that conversation.
+        """
+        source = self.db.get_conversation(source_conv_id)
+        if source is None:
+            return None
+        target_msg = next(
+            (m for m in source.get("messages", []) if m.get("id") == int(from_message_id)),
+            None,
+        )
+        if target_msg is None or target_msg.get("role") != "user":
+            return None
+        new_conv_id = (
+            f"conv_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
+        )
+        copied = self.db.fork_conversation(
+            source_conv_id, new_conv_id, int(from_message_id)
+        )
+        return {
+            "new_conversation_id": new_conv_id,
+            "copied_message_count": int(copied),
+        }
+
+    def fork(self, source_conv_id: str, from_message_id: int) -> Optional[dict]:
+        """Fork ``source_conv_id`` at ``from_message_id`` (P12.7).
+
+        Creates a new conversation containing every message of the source
+        that was written *before* the message identified by
+        ``from_message_id``. The message itself and everything after it are
+        intentionally dropped — the caller will replay them through the
+        normal chat flow.
+
+        Returns ``{"new_conversation_id": str, "copied_message_count": int}``
+        on success, or ``None`` if the source conversation does not exist or
+        ``from_message_id`` is not a user message of that conversation.
+        """
+        source = self.db.get_conversation(source_conv_id)
+        if source is None:
+            return None
+        target_msg = next(
+            (m for m in source.get("messages", []) if m.get("id") == int(from_message_id)),
+            None,
+        )
+        if target_msg is None or target_msg.get("role") != "user":
+            return None
+        new_conv_id = (
+            f"conv_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
+        )
+        copied = self.db.fork_conversation(
+            source_conv_id, new_conv_id, int(from_message_id)
+        )
+        return {
+            "new_conversation_id": new_conv_id,
+            "copied_message_count": int(copied),
+        }
+
     def delete(self, conv_id: str) -> bool:
         """Delete a conversation.
 

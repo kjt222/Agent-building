@@ -16,7 +16,6 @@ from openai import AsyncOpenAI
 from agent.core.loop import (
     BlockType,
     Delta,
-    ImageBlock,
     Message,
     ReasoningDelta,
     Role,
@@ -40,7 +39,6 @@ def _internal_to_openai(
         if msg.role == Role.USER:
             tool_result_blocks = [b for b in msg.content if isinstance(b, ToolResultBlock)]
             text_blocks = [b for b in msg.content if isinstance(b, TextBlock)]
-            image_blocks = [b for b in msg.content if isinstance(b, ImageBlock)]
             if tool_result_blocks:
                 for b in tool_result_blocks:
                     content = b.content if isinstance(b.content, str) else json.dumps(b.content, ensure_ascii=False)
@@ -49,40 +47,12 @@ def _internal_to_openai(
                         "tool_call_id": b.tool_use_id,
                         "content": content,
                     })
-                if text_blocks or image_blocks:
-                    if image_blocks:
-                        content_parts: list[dict] = []
-                        text = "".join(b.text for b in text_blocks)
-                        if text:
-                            content_parts.append({"type": "text", "text": text})
-                        for b in image_blocks:
-                            content_parts.append({
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:{b.media_type};base64,{b.base64}"
-                                },
-                            })
-                        out.append({"role": "user", "content": content_parts})
-                    else:
-                        out.append({
-                            "role": "user",
-                            "content": "".join(b.text for b in text_blocks),
-                        })
+                if text_blocks:
+                    out.append({
+                        "role": "user",
+                        "content": "".join(b.text for b in text_blocks),
+                    })
             else:
-                if image_blocks:
-                    content: list[dict] = []
-                    text = "".join(b.text for b in text_blocks)
-                    if text:
-                        content.append({"type": "text", "text": text})
-                    for b in image_blocks:
-                        content.append({
-                            "type": "image_url",
-                            "image_url": {
-                                "url": f"data:{b.media_type};base64,{b.base64}"
-                            },
-                        })
-                    out.append({"role": "user", "content": content})
-                    continue
                 out.append({
                     "role": "user",
                     "content": "".join(b.text for b in text_blocks),

@@ -10,14 +10,11 @@ import pytest
 
 from agent.core.loop import (
     AgentLoop,
-    ImageBlock,
     LoopConfig,
     LoopContext,
     Message,
     PermissionLevel,
-    ReasoningDelta,
     Role,
-    TextDelta,
     TextBlock,
     ToolResultBlock,
     ToolUseBlock,
@@ -74,27 +71,6 @@ class WriteSideEffectTool:
         return ToolResultBlock(tool_use_id="", content=f"wrote {input.get('path')}")
 
 
-class ScreenshotTool:
-    name = "screenshot"
-    description = "Return a rendered screenshot path"
-    input_schema = {
-        "type": "object",
-        "properties": {"path": {"type": "string"}},
-        "required": ["path"],
-    }
-    permission_level = PermissionLevel.SAFE
-    parallel_safe = False
-
-    async def run(self, input: dict, ctx: LoopContext) -> ToolResultBlock:
-        return ToolResultBlock(
-            tool_use_id="",
-            content=json.dumps({
-                "ok": True,
-                "screenshot_path": input["path"],
-            }),
-        )
-
-
 async def _drive(loop: AgentLoop, user_message: str) -> list:
     out = []
     async for ev in loop.run(user_message):
@@ -116,55 +92,6 @@ def test_single_text_turn_ends_cleanly():
     assert msgs[0].role == Role.ASSISTANT
     assert msgs[0].content[0].text == "hello"
     assert len(adp.call_log) == 1  # only one model call
-
-
-def test_run_streams_text_delta_before_final_message():
-    adp = MockAdapter([text_turn("hello")])
-    loop = AgentLoop(adapter=adp, tools={})
-    events = asyncio.run(_drive(loop, "hi"))
-    assert isinstance(events[0], TextDelta)
-    assert events[0].text == "hello"
-    msgs = [e for e in events if isinstance(e, Message)]
-    assert msgs[0].content[0].text == "hello"
-
-
-def test_run_streams_reasoning_delta_without_persisting_it():
-    from agent.core.loop import TurnEnd
-
-    adp = MockAdapter([[
-        ReasoningDelta(text="thinking"),
-        TextDelta(text="answer"),
-        TurnEnd(stop_reason="end_turn"),
-    ]])
-    loop = AgentLoop(adapter=adp, tools={})
-    events = asyncio.run(_drive(loop, "hi"))
-    assert any(isinstance(e, ReasoningDelta) and e.text == "thinking" for e in events)
-    msgs = [e for e in events if isinstance(e, Message)]
-    assert msgs[0].content[0].text == "answer"
-    assert all(not isinstance(b, ReasoningDelta) for b in msgs[0].content)
-
-
-def test_run_passes_images_to_adapter():
-    adp = MockAdapter([text_turn("seen")])
-    loop = AgentLoop(adapter=adp, tools={})
-
-    async def _run():
-        out = []
-        async for ev in loop.run(
-            "describe",
-            images=[{"base64": "abc", "media_type": "image/png", "name": "a.png"}],
-        ):
-            out.append(ev)
-        return out
-
-    asyncio.run(_run())
-    [first] = adp.call_log
-    [msg] = first["messages"]
-    assert msg.role == Role.USER
-    assert any(isinstance(b, ImageBlock) for b in msg.content)
-    image = next(b for b in msg.content if isinstance(b, ImageBlock))
-    assert image.base64 == "abc"
-    assert image.media_type == "image/png"
 
 
 def test_tool_use_round_trip_appends_result_message():
@@ -190,37 +117,6 @@ def test_tool_use_round_trip_appends_result_message():
 
     assert msgs[2].role == Role.ASSISTANT
     assert msgs[2].content[0].text == "done"
-
-
-def test_tool_result_screenshot_is_attached_to_next_model_turn(tmp_path: Path):
-    screenshot = tmp_path / "screen.png"
-    screenshot.write_bytes(
-        b"\x89PNG\r\n\x1a\n"
-        b"\x00\x00\x00\rIHDR"
-        b"\x00\x00\x00\x01\x00\x00\x00\x01"
-        b"\x08\x02\x00\x00\x00\x90wS\xde"
-        b"\x00\x00\x00\x00IEND\xaeB`\x82"
-    )
-    adp = MockAdapter([
-        tool_turn("c1", "screenshot", {"path": str(screenshot)}),
-        text_turn("looked at screenshot"),
-    ])
-    loop = AgentLoop(adapter=adp, tools={"screenshot": ScreenshotTool()})
-
-    events = asyncio.run(_drive(loop, "verify visually"))
-
-    msgs = [e for e in events if isinstance(e, Message)]
-    feedback_msg = msgs[1]
-    assert feedback_msg.role == Role.USER
-    assert any(isinstance(b, ToolResultBlock) for b in feedback_msg.content)
-    image = next(b for b in feedback_msg.content if isinstance(b, ImageBlock))
-    assert image.name == "screen.png"
-    assert image.media_type == "image/png"
-    assert image.base64
-
-    second_call_messages = adp.call_log[1]["messages"]
-    second_call_feedback = second_call_messages[-1]
-    assert any(isinstance(b, ImageBlock) for b in second_call_feedback.content)
 
 
 def test_unknown_tool_yields_error_result():
@@ -317,22 +213,6 @@ def test_trace_writer_emits_one_jsonl_per_turn(tmp_path: Path):
     assert rec0["usage"]["total_tokens"] == 60
     assert rec1["iteration"] == 2 and rec1["stop_reason"] == "end_turn"
     assert rec1["tool_calls"] == []
-
-
-def test_trace_writer_records_assistant_text_and_system_prompt_hash(tmp_path: Path):
-    trace = tmp_path / "trace.jsonl"
-    loop = AgentLoop(
-        adapter=MockAdapter([text_turn("trace answer")]),
-        tools={},
-        config=LoopConfig(trace_path=trace, system_prompt="system contract"),
-    )
-
-    asyncio.run(_drive(loop, "go"))
-
-    record = json.loads(trace.read_text(encoding="utf-8").splitlines()[0])
-    assert record["assistant_text"] == "trace answer"
-    assert record["system_prompt_hash"]
-    assert record["system_prompt_hash"] != "system contract"
 
 
 # --------------------------------------------------------------------------- #

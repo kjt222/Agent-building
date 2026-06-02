@@ -7,7 +7,6 @@ import json
 import pytest
 
 from agent.core.loop import (
-    ImageBlock,
     Message,
     Role,
     TextBlock,
@@ -42,23 +41,6 @@ def test_chat_system_prefix():
     )
     assert out[0] == {"role": "system", "content": "be helpful"}
     assert out[1] == {"role": "user", "content": "q"}
-
-
-def test_chat_user_with_image_block():
-    out = _internal_to_openai(
-        [Message(role=Role.USER, content=[
-            TextBlock(text="describe"),
-            ImageBlock(base64="abc", media_type="image/png", name="a.png"),
-        ])],
-        system=None,
-    )
-    assert out == [{
-        "role": "user",
-        "content": [
-            {"type": "text", "text": "describe"},
-            {"type": "image_url", "image_url": {"url": "data:image/png;base64,abc"}},
-        ],
-    }]
 
 
 def test_chat_assistant_with_tool_calls():
@@ -101,32 +83,6 @@ def test_chat_tool_result_dict_content_is_json_serialised():
     assert entry["content"] == '[{"k": "v"}]'
 
 
-def test_chat_tool_result_can_be_followed_by_image_feedback():
-    msgs = [
-        Message(
-            role=Role.USER,
-            content=[
-                ToolResultBlock(tool_use_id="call_x", content="verify output"),
-                TextBlock(text="Rendered image feedback is attached."),
-                ImageBlock(base64="abc", media_type="image/png", name="screen.png"),
-            ],
-        )
-    ]
-    out = _internal_to_openai(msgs, system=None)
-    assert out[0] == {
-        "role": "tool",
-        "tool_call_id": "call_x",
-        "content": "verify output",
-    }
-    assert out[1] == {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": "Rendered image feedback is attached."},
-            {"type": "image_url", "image_url": {"url": "data:image/png;base64,abc"}},
-        ],
-    }
-
-
 def test_chat_tools_schema_has_function_wrapper():
     out = _internal_tools_to_openai(
         [{"name": "t", "description": "d", "input_schema": {"type": "object"}}]
@@ -149,22 +105,6 @@ def test_responses_user_text_only():
         [Message(role=Role.USER, content=[TextBlock(text="hi")])]
     )
     assert out == [{"role": "user", "content": "hi"}]
-
-
-def test_responses_user_with_image_block():
-    out = _internal_to_responses_input(
-        [Message(role=Role.USER, content=[
-            TextBlock(text="describe"),
-            ImageBlock(base64="abc", media_type="image/png", name="a.png"),
-        ])]
-    )
-    assert out == [{
-        "role": "user",
-        "content": [
-            {"type": "input_text", "text": "describe"},
-            {"type": "input_image", "image_url": "data:image/png;base64,abc"},
-        ],
-    }]
 
 
 def test_responses_assistant_tool_call_is_flat_item():
@@ -197,32 +137,6 @@ def test_responses_tool_result_is_function_call_output():
         "type": "function_call_output",
         "call_id": "call_7",
         "output": "matched 3",
-    }
-
-
-def test_responses_tool_result_can_be_followed_by_image_feedback():
-    msgs = [
-        Message(
-            role=Role.USER,
-            content=[
-                ToolResultBlock(tool_use_id="call_7", content="verify output"),
-                TextBlock(text="Rendered image feedback is attached."),
-                ImageBlock(base64="abc", media_type="image/png", name="screen.png"),
-            ],
-        )
-    ]
-    out = _internal_to_responses_input(msgs)
-    assert out[0] == {
-        "type": "function_call_output",
-        "call_id": "call_7",
-        "output": "verify output",
-    }
-    assert out[1] == {
-        "role": "user",
-        "content": [
-            {"type": "input_text", "text": "Rendered image feedback is attached."},
-            {"type": "input_image", "image_url": "data:image/png;base64,abc"},
-        ],
     }
 
 

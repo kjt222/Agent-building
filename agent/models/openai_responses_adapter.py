@@ -33,7 +33,6 @@ from openai import AsyncOpenAI
 
 from agent.core.loop import (
     Delta,
-    ImageBlock,
     Message,
     ReasoningDelta,
     Role,
@@ -66,7 +65,6 @@ def _internal_to_responses_input(
         if msg.role == Role.USER:
             tool_results = [b for b in msg.content if isinstance(b, ToolResultBlock)]
             text_blocks = [b for b in msg.content if isinstance(b, TextBlock)]
-            image_blocks = [b for b in msg.content if isinstance(b, ImageBlock)]
             for b in tool_results:
                 content = (
                     b.content
@@ -80,43 +78,20 @@ def _internal_to_responses_input(
                         "output": content,
                     }
                 )
-            if image_blocks and not tool_results:
-                content: list[dict] = []
-                text = "".join(b.text for b in text_blocks)
-                if text:
-                    content.append({"type": "input_text", "text": text})
-                for b in image_blocks:
-                    content.append({
-                        "type": "input_image",
-                        "image_url": f"data:{b.media_type};base64,{b.base64}",
-                    })
-                out.append({"role": "user", "content": content})
-            elif text_blocks and not tool_results:
+            if text_blocks and not tool_results:
                 out.append(
                     {
                         "role": "user",
                         "content": "".join(b.text for b in text_blocks),
                     }
                 )
-            elif text_blocks or image_blocks:
-                if image_blocks:
-                    content: list[dict] = []
-                    text = "".join(b.text for b in text_blocks)
-                    if text:
-                        content.append({"type": "input_text", "text": text})
-                    for b in image_blocks:
-                        content.append({
-                            "type": "input_image",
-                            "image_url": f"data:{b.media_type};base64,{b.base64}",
-                        })
-                    out.append({"role": "user", "content": content})
-                else:
-                    out.append(
-                        {
-                            "role": "user",
-                            "content": "".join(b.text for b in text_blocks),
-                        }
-                    )
+            elif text_blocks:
+                out.append(
+                    {
+                        "role": "user",
+                        "content": "".join(b.text for b in text_blocks),
+                    }
+                )
         elif msg.role == Role.ASSISTANT:
             text_blocks = [b for b in msg.content if isinstance(b, TextBlock)]
             tool_uses = [b for b in msg.content if isinstance(b, ToolUseBlock)]
@@ -238,6 +213,10 @@ class OpenAIResponsesAdapter:
         # only to the chat.completions adapter.
         for bad in ("seed", "temperature", "top_p"):
             options.pop(bad, None)
+        # chat.completions uses `max_tokens`; responses.create renamed it.
+        max_tokens = options.pop("max_tokens", None)
+        if max_tokens is not None and "max_output_tokens" not in options:
+            options["max_output_tokens"] = int(max_tokens)
         kwargs.update(options)
 
         # Per-call_id function arg buffers (streamed as fragments).

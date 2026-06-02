@@ -1,9 +1,81 @@
 from __future__ import annotations
 
+import ipaddress
 import json
+import socket
 from typing import Any, Dict, Optional
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlparse
 from urllib.request import Request, urlopen
+
+
+def _is_public_ip(host: str) -> bool:
+    try:
+        addr = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    return not (
+        addr.is_private
+        or addr.is_loopback
+        or addr.is_link_local
+        or addr.is_multicast
+        or addr.is_reserved
+        or addr.is_unspecified
+    )
+
+
+def assert_public_http_url(
+    url: str,
+    *,
+    allow_localhost: bool = False,
+    purpose: str = "fetch",
+) -> None:
+    """Reject schemes other than http/https and hosts that resolve to
+    private/loopback/link-local/metadata addresses. Raises RuntimeError on
+    rejection. Set ``allow_localhost`` only for explicit dev-server flows.
+    """
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"}:
+        raise RuntimeError(
+            f"{purpose} requires http/https url, got scheme {parsed.scheme!r}"
+        )
+    if parsed.username or parsed.password:
+        raise RuntimeError(
+            f"{purpose} url must not embed credentials"
+        )
+    host = parsed.hostname or ""
+    if not host:
+        raise RuntimeError(f"{purpose} url has no host")
+    try:
+        addr = ipaddress.ip_address(host)
+        addresses = [addr]
+    except ValueError:
+        try:
+            infos = socket.getaddrinfo(host, None)
+        except socket.gaierror as exc:
+            raise RuntimeError(f"{purpose} url host could not be resolved: {exc}")
+        addresses = []
+        for info in infos:
+            try:
+                addresses.append(ipaddress.ip_address(info[4][0]))
+            except ValueError:
+                continue
+        if not addresses:
+            raise RuntimeError(f"{purpose} url host did not resolve to an IP")
+    for addr in addresses:
+        if addr.is_loopback and allow_localhost:
+            continue
+        if (
+            addr.is_private
+            or addr.is_loopback
+            or addr.is_link_local
+            or addr.is_multicast
+            or addr.is_reserved
+            or addr.is_unspecified
+        ):
+            raise RuntimeError(
+                f"{purpose} url host {host!r} resolves to non-public address {addr}"
+            )
 
 
 def _read_body(resp) -> str:
