@@ -10,6 +10,42 @@ from typing import Any
 from agent.tools_v2.primitives import default_toolset
 
 
+class _UnavailableTool:
+    """Placeholder for a tool whose implementation module is missing.
+
+    Some optional tools (web_tool, image_tool, the Excel COM runtime) were
+    lost in the D-drive-format recovery and have no surviving spec to rebuild
+    from. Rather than crash the whole tool-build with a cryptic
+    ``ModuleNotFoundError`` when a skill/config still references one, we hand
+    back this stub: it builds cleanly and, if the model ever calls it, returns
+    a clear actionable error instead of 500-ing the turn.
+    """
+
+    parallel_safe = True
+
+    def __init__(self, name: str, reason: str):
+        from agent.core.loop import PermissionLevel
+
+        self.name = name
+        self.description = f"(unavailable) {reason}"
+        self.input_schema = {"type": "object"}
+        self.permission_level = PermissionLevel.SAFE
+        self._reason = reason
+
+    async def run(self, input: dict, ctx: Any):
+        from agent.core.loop import ToolResultBlock
+
+        return ToolResultBlock(
+            tool_use_id="",
+            content=(
+                f"Tool '{self.name}' is unavailable in this build: "
+                f"{self._reason}. Proceed without it or tell the user it is "
+                f"not installed."
+            ),
+            is_error=True,
+        )
+
+
 def build_tool(name: str, app_cfg: dict | None = None) -> Any:
     """Return a tool instance for ``name``. Raises ``KeyError`` if unknown."""
     base = default_toolset()
@@ -41,11 +77,21 @@ def build_tool(name: str, app_cfg: dict | None = None) -> Any:
         from agent.tools_v2.knowledge_tool import KnowledgeIndexTool
         return KnowledgeIndexTool()
     if name == "WebSearch":
-        from agent.tools_v2.web_tool import WebSearchTool
-        return WebSearchTool()
+        try:
+            from agent.tools_v2.web_tool import WebSearchTool
+            return WebSearchTool()
+        except ImportError:
+            return _UnavailableTool(
+                "WebSearch", "the web_tool module is not installed"
+            )
     if name == "FetchURL":
-        from agent.tools_v2.web_tool import FetchURLTool
-        return FetchURLTool()
+        try:
+            from agent.tools_v2.web_tool import FetchURLTool
+            return FetchURLTool()
+        except ImportError:
+            return _UnavailableTool(
+                "FetchURL", "the web_tool module is not installed"
+            )
     if name == "Verify":
         from agent.tools_v2.verify_tool import VerifyTool
         return VerifyTool()
@@ -76,7 +122,11 @@ def build_tool(name: str, app_cfg: dict | None = None) -> Any:
 
 def _build_image_tool(app_cfg: dict) -> Any:
     from agent.credentials import resolve_api_key
-    from agent.tools_v2.image_tool import ImageTool
+
+    try:
+        from agent.tools_v2.image_tool import ImageTool
+    except ImportError:
+        return _UnavailableTool("Image", "the image_tool module is not installed")
 
     image_cfg = app_cfg.get("image_generation") or {}
     semantic = image_cfg.get("semantic_review") or {}
