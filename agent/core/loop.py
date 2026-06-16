@@ -191,6 +191,10 @@ class LoopConfig:
     # diff-preview / guarded-path helpers use it to locate files. None = no
     # boundary (paths used as-is).
     workspace_root: Optional[Path] = None
+    # Seed values copied into ``ctx.scratch`` at the start of the run. Lets the
+    # caller hand run-scoped callbacks (e.g. an interactive user-question
+    # handler) to tools that read them from ``ctx.scratch``.
+    initial_scratch: Optional[dict] = None
 
 
 @dataclass
@@ -249,6 +253,8 @@ class AgentLoop:
         # Expose the live context so callers can read cumulative usage (and
         # other run state) after ``run()`` drains.
         self.context = ctx
+        if getattr(self.config, "initial_scratch", None):
+            ctx.scratch.update(self.config.initial_scratch)
         ctx.messages = list(history or [])
         user_content: list[Block] = [TextBlock(text=user_message)]
         for img in images or []:

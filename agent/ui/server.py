@@ -394,6 +394,13 @@ def _select_v2_tools_for_turn(
 
     text = message or ""
     selected: dict = {}
+    # AskUserQuestion is an always-available meta-tool: the agent may pause to
+    # ask the user a clarifying question in any turn/mode.
+    try:
+        from ..tools_v2.control import AskUserQuestionTool
+        selected["AskUserQuestion"] = AskUserQuestionTool()
+    except Exception:
+        pass
     if mode == "full-access":
         selected.update(full_toolset())
         selected["KnowledgeSearch"] = KnowledgeSearchTool()
@@ -1273,6 +1280,10 @@ def create_app(config_dir: str | None = None) -> FastAPI:
     memory_manager = get_memory_manager()
     pending_tool_approvals: dict[str, dict[str, Any]] = {}
     app.state.pending_tool_approvals = pending_tool_approvals
+    pending_user_questions: dict[str, dict[str, Any]] = {}
+    app.state.pending_user_questions = pending_user_questions
+    pending_diff_previews: dict[str, dict[str, Any]] = {}
+    app.state.pending_diff_previews = pending_diff_previews
 
     @app.get("/", response_class=HTMLResponse)
     def index(request: Request, profile: Optional[str] = None) -> HTMLResponse:
@@ -2607,12 +2618,16 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         history = payload.get("history") or []
         images = payload.get("images") or []
         conversation_id = str(payload.get("conversation_id") or "").strip() or None
+        unattended = bool(payload.get("unattended") or False)
         if not message:
             return JSONResponse({"ok": False, "error": "Empty message."}, status_code=400)
 
         app_cfg = load_app_config(config_dir)
         models_cfg = load_models_config(config_dir)
-        active_profile = str(app_cfg.get("active_profile") or "")
+        # Allow the caller to override the active profile per-request (the
+        # bench runner switches models without rewriting config/app.yaml).
+        profile_override = str(payload.get("profile") or "").strip()
+        active_profile = profile_override or str(app_cfg.get("active_profile") or "")
         provider_name, provider_cfg = _profile_active_llm_provider(models_cfg, active_profile)
         provider_type = str(provider_cfg.get("type") or provider_name or "openai")
         model_name = str(
@@ -2758,6 +2773,21 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         except Exception:
             pass
 
+        # Clarification policy (P12.3): only injected when the AskUserQuestion
+        # tool is in this turn's tool set, so the model is told when/how to use it.
+        if "AskUserQuestion" in tools:
+            base_agent_prompt = (
+                f"{base_agent_prompt}\n\n"
+                "<clarification_policy>\n"
+                "You have an AskUserQuestion tool. When a load-bearing detail of "
+                "the request is genuinely ambiguous (output location, format, "
+                "target audience, naming, or scope), call AskUserQuestion with "
+                "1-2 concise questions before doing the work, instead of "
+                "guessing. Do NOT ask about trivial defaults — pick a sensible "
+                "default and proceed. Never ask more questions than necessary.\n"
+                "</clarification_policy>"
+            )
+
         approval_mode = str(payload.get("mode") or "confirm").lower()
         stream_queue: asyncio.Queue[tuple[str, dict] | None] = asyncio.Queue()
         trace_events: list[dict] = []
@@ -2793,6 +2823,24 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             # SMOKE_NO_APPROVER=1 to the same effect (no UI to answer the prompt).
             if approval_mode == "full-access" or os.getenv("SMOKE_NO_APPROVER"):
                 return True
+            if unattended:
+                # No human approver in unattended runs and the mode is
+                # restricted (not auto/read/full-access): fast-fail the
+                # approval so the model sees the denial in its tool-result
+                # feed instead of hanging on the human-wait below.
+                await emit("activity", {
+                    "id": f"{request_id}_approval_deny_{use.id}",
+                    "type": "approval_auto_deny",
+                    "title": f"Auto-denied: {use.name}",
+                    "detail": "Mode is restricted with no approver.",
+                    "status": "error",
+                    "ts": perf_counter() * 1000,
+                    "meta": {
+                        "tool": use.name,
+                        "reason": "unattended_no_approver",
+                    },
+                })
+                return False
             approval_id = f"{request_id}_{use.id}"
             future = asyncio.get_running_loop().create_future()
             pending_tool_approvals[approval_id] = {
@@ -2823,6 +2871,39 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 return False
             finally:
                 pending_tool_approvals.pop(approval_id, None)
+
+        async def user_question_prompter(q_payload: dict) -> dict:
+            """Handler wired into ctx.scratch for AskUserQuestion (P12.3).
+
+            Registers a future, emits a ``user_question_request`` activity, and
+            blocks until the UI POSTs an answer to ``/api/user_questions/{id}``.
+            """
+            qid = str(q_payload.get("question_id") or uuid.uuid4().hex)
+            future = asyncio.get_running_loop().create_future()
+            pending_user_questions[qid] = {
+                "future": future,
+                "question": q_payload.get("question"),
+            }
+            await emit("activity", {
+                "id": f"{request_id}_uq_{qid}",
+                "type": "user_question_request",
+                "title": "Question for you",
+                "detail": str(q_payload.get("question") or ""),
+                "status": "wait",
+                "ts": perf_counter() * 1000,
+                "meta": {
+                    "question_id": qid,
+                    "question": q_payload.get("question"),
+                    "options": q_payload.get("options") or [],
+                    "multi_select": bool(q_payload.get("multi_select")),
+                    "context": q_payload.get("context") or "",
+                },
+            })
+            timeout = float(q_payload.get("timeout_s") or 600.0)
+            try:
+                return await asyncio.wait_for(future, timeout=timeout)
+            finally:
+                pending_user_questions.pop(qid, None)
 
         hooks = Hooks(
             on_stop=[
@@ -2929,6 +3010,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     base_agent_prompt,
                     session_metadata,
                 ),
+                initial_scratch={"user_question_handler": user_question_prompter},
             ),
         )
 
@@ -3297,6 +3379,49 @@ def create_app(config_dir: str | None = None) -> FastAPI:
     async def get_conversation_usage(conv_id: str):
         """Cumulative token usage for a conversation (P12.6)."""
         return {"ok": True, "cumulative": usage_registry.get_cumulative(conv_id)}
+
+    @app.post("/api/user_questions/{question_id}")
+    async def answer_user_question(question_id: str, request: Request):
+        """Resolve a pending AskUserQuestion future with the user's reply (P12.3)."""
+        record = pending_user_questions.get(question_id)
+        if record is None:
+            return JSONResponse(
+                {"ok": False, "error": "Unknown question"}, status_code=404
+            )
+        payload = await request.json()
+        reply = {
+            "answer": payload.get("answer"),
+            "selected_option": payload.get("selected_option"),
+            "selected_options": payload.get("selected_options"),
+        }
+        future = record.get("future")
+        if future is not None and not future.done():
+            # The future may belong to a different event loop/thread (the agent
+            # run); schedule the resolution on its own loop, thread-safely.
+            try:
+                future.get_loop().call_soon_threadsafe(future.set_result, reply)
+            except RuntimeError:
+                if not future.done():
+                    future.set_result(reply)
+        return {"ok": True}
+
+    @app.post("/api/diff_previews/{preview_id}")
+    async def resolve_diff_preview(preview_id: str, request: Request):
+        """Resolve a pending write/edit diff-preview approval (P12.2)."""
+        record = pending_diff_previews.get(preview_id)
+        if record is None:
+            return JSONResponse(
+                {"ok": False, "error": "Unknown preview"}, status_code=404
+            )
+        reply = await request.json()
+        future = record.get("future")
+        if future is not None and not future.done():
+            try:
+                future.get_loop().call_soon_threadsafe(future.set_result, reply)
+            except RuntimeError:
+                if not future.done():
+                    future.set_result(reply)
+        return {"ok": True}
 
     @app.post("/api/conversations/{conv_id}/messages")
     async def add_conversation_message(conv_id: str, request: Request):
