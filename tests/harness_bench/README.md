@@ -27,6 +27,13 @@ middleware / verifier）后跑全集，pass 率曲线写进 `docs/experiments.md
 | P18-C | Desktop observe/act/verify | 4 |
 | P18-D | Verifier 红灯体检（假阳性必须报红） | 2 |
 
+> **P18-C 说明（重建版）**：原 P18-C 是"视觉/截图"桌面任务（需 vision 模型 +
+> 截图工具），其 spec 随 `docs/conversation.md` 在 D 盘格式化中丢失，且当前 build
+> 没有桌面 observe/act 工具。task_09–12 是按"本地 OS/文件系统 observe→act→verify"
+> 的诚实重解重写的（整理文件夹 / 去重 / 统计标记 / 低迭代上限单点编辑），agent 用
+> full-access Bash/Read/Write 真能跑，verifier 检查磁盘终态。结构与 verifier 逻辑由
+> `tests/unit/test_harness_bench_tasks.py` 守护。
+
 > Tier 名带 `P18-` 前缀是为了和 `agent.eval` 里的 `tier_a`（Word/Excel/PPTX office 套件）
 > 区分开 —— 那是另一套独立测试集，两边都叫 "Tier A" 容易混。
 > `summary.json` 的 `by_tier_pass / by_tier_fail` 里也是 `P18-A/B/C/D` 这套 key。

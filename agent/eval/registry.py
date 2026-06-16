@@ -80,6 +80,9 @@ def build_tier_a() -> list[EvalCase]:
     for scenario, title in [
         ("thesis_all_in_one", "Word — thesis once-over cleanup"),
         ("thesis_review_fix", "Word — thesis review-comment fix"),
+        ("report_cleanup", "Word — format into a structured report"),
+        ("heading_normalize", "Word — normalize heading styles + rebuild TOC"),
+        ("toc_footnotes", "Word — add TOC, footnotes, page numbers"),
     ]:
         cases.append(EvalCase(
             id=f"p4_word_{scenario}",
