@@ -20,7 +20,7 @@ import time
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
-from typing import AsyncIterator, Awaitable, Callable, Literal, Optional, Protocol
+from typing import Any, AsyncIterator, Awaitable, Callable, Literal, Optional, Protocol
 
 
 # ---------------------------------------------------------------------------
@@ -107,6 +107,10 @@ class TurnEnd:
 
 
 Delta = TextDelta | ToolUseDelta | ReasoningDelta | TurnEnd
+
+
+# Sentinel yielded by _iter_with_cancel when a user interrupt fires mid-stream.
+_CANCELLED = object()
 
 
 @dataclass
@@ -239,6 +243,7 @@ class AgentLoop:
         user_message: str,
         history: Optional[list[Message]] = None,
         images: Optional[list[ImageBlock | dict]] = None,
+        cancel_event: Optional[asyncio.Event] = None,
     ) -> AsyncIterator[Delta | Message]:
         """Run the loop, yielding streaming deltas and final messages.
 
@@ -272,6 +277,10 @@ class AgentLoop:
         ctx.messages.append(Message(role=Role.USER, content=user_content))
 
         while True:
+            # User-interrupt: checked at the top so a cancel arriving between
+            # turns stops the loop before the next model call / tool dispatch.
+            if cancel_event is not None and cancel_event.is_set():
+                break
             ctx.iteration += 1
             max_iterations = self.config.max_iterations
             guard_extra = int(ctx.scratch.get("guard_extra_iterations") or 0)
@@ -282,7 +291,7 @@ class AgentLoop:
             assistant_msg: Message | None = None
             stop_reason = "end_turn"
             turn_usage: dict = {}
-            async for item in self._one_turn(ctx):
+            async for item in self._one_turn(ctx, cancel_event):
                 if isinstance(item, _TurnComplete):
                     assistant_msg = item.message
                     stop_reason = item.stop_reason
@@ -378,11 +387,17 @@ class AgentLoop:
                 continue
             break
 
-    async def _one_turn(self, ctx: LoopContext) -> AsyncIterator[Delta | _TurnComplete]:
+    async def _one_turn(
+        self,
+        ctx: LoopContext,
+        cancel_event: Optional[asyncio.Event] = None,
+    ) -> AsyncIterator[Delta | _TurnComplete]:
         """Run one model turn; accumulate streamed deltas into a Message.
 
         Yields provider deltas as they arrive, then a private completion object
-        with the accumulated assistant message and turn metadata.
+        with the accumulated assistant message and turn metadata. If
+        ``cancel_event`` fires mid-stream the turn returns promptly without a
+        ``_TurnComplete`` (the caller treats the partial turn as the end).
         """
         tool_schemas = [
             {
@@ -398,11 +413,16 @@ class AgentLoop:
         stop_reason = "end_turn"
         turn_usage: dict = {}
 
-        async for delta in self.adapter.stream(
+        stream = self.adapter.stream(
             messages=ctx.messages,
             tools=tool_schemas,
             system=self.config.system_prompt,
-        ):
+        )
+        interrupted = False
+        async for delta in self._iter_with_cancel(stream, cancel_event):
+            if delta is _CANCELLED:
+                interrupted = True
+                break
             if isinstance(delta, TextDelta):
                 text_buf.append(delta.text)
                 yield delta
@@ -420,6 +440,11 @@ class AgentLoop:
                 turn_usage = delta.usage or {}
                 yield delta
 
+        if interrupted:
+            # User cancelled mid-stream: don't emit _TurnComplete — the run
+            # loop treats the absent completion as the end of the run.
+            return
+
         content: list[Block] = []
         if text_buf:
             content.append(TextBlock(text="".join(text_buf)))
@@ -429,6 +454,62 @@ class AgentLoop:
             stop_reason=stop_reason,
             usage=turn_usage,
         )
+
+    async def _iter_with_cancel(
+        self,
+        stream: "AsyncIterator[Delta]",
+        cancel_event: Optional[asyncio.Event],
+    ) -> AsyncIterator[Any]:
+        """Yield deltas from ``stream``; yield the ``_CANCELLED`` sentinel and
+        stop promptly if ``cancel_event`` fires (even while awaiting the next
+        delta from a slow provider)."""
+        agen = stream.__aiter__()
+        try:
+            while True:
+                if cancel_event is not None and cancel_event.is_set():
+                    yield _CANCELLED
+                    return
+                next_task = asyncio.ensure_future(agen.__anext__())
+                if cancel_event is None:
+                    try:
+                        item = await next_task
+                    except StopAsyncIteration:
+                        return
+                    yield item
+                    continue
+                cancel_task = asyncio.ensure_future(cancel_event.wait())
+                try:
+                    done, _pending = await asyncio.wait(
+                        {next_task, cancel_task},
+                        return_when=asyncio.FIRST_COMPLETED,
+                    )
+                finally:
+                    if not cancel_task.done():
+                        cancel_task.cancel()
+                if next_task in done:
+                    try:
+                        item = next_task.result()
+                    except StopAsyncIteration:
+                        return
+                    yield item
+                else:
+                    # Cancel won the race; abandon the in-flight delta.
+                    next_task.cancel()
+                    try:
+                        await next_task
+                    except (StopAsyncIteration, asyncio.CancelledError):
+                        pass
+                    except Exception:
+                        pass
+                    yield _CANCELLED
+                    return
+        finally:
+            aclose = getattr(agen, "aclose", None)
+            if aclose is not None:
+                try:
+                    await aclose()
+                except Exception:
+                    pass
 
     def _write_trace(
         self,

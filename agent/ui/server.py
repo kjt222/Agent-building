@@ -46,6 +46,7 @@ from ..storage.conversation_adapter import ConversationManagerV2 as Conversation
 from ..storage.knowledge_manager import KnowledgeManager
 from ..core import AgentExecutor, AgentConfig, MemoryManager, get_memory_manager, create_compactor, CompactionConfig
 from ..core import usage_registry
+from ..core import interrupt_registry
 from ..tools.registry import get_registry
 from ..tools.knowledge import create_kb_tools
 from ..tools.filesystem import create_filesystem_tools
@@ -394,13 +395,6 @@ def _select_v2_tools_for_turn(
 
     text = message or ""
     selected: dict = {}
-    # AskUserQuestion is an always-available meta-tool: the agent may pause to
-    # ask the user a clarifying question in any turn/mode.
-    try:
-        from ..tools_v2.control import AskUserQuestionTool
-        selected["AskUserQuestion"] = AskUserQuestionTool()
-    except Exception:
-        pass
     if mode == "full-access":
         selected.update(full_toolset())
         selected["KnowledgeSearch"] = KnowledgeSearchTool()
@@ -2674,6 +2668,14 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         tools, capability_scope = _select_v2_tools_for_turn(
             message, images, app_cfg, mode=turn_mode
         )
+        # AskUserQuestion is an always-available meta-tool, added after the
+        # scoped selection so _select_v2_tools_for_turn's contract stays pure
+        # (the progressive-disclosure tests assert exact per-scope tool sets).
+        try:
+            from ..tools_v2.control import AskUserQuestionTool
+            tools.setdefault("AskUserQuestion", AskUserQuestionTool())
+        except Exception:
+            pass
         runtime_cfg = RuntimeConfig.from_app_config(app_cfg)
         session_metadata = SessionMetadata(
             session_id=request_id,
@@ -2721,7 +2723,13 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             "In auto mode, do not ask the user "
             "whether to proceed with the requested creation unless blocked by "
             "missing required information or a permission failure. If "
-            "verification is not possible with the exposed tools, say so briefly."
+            "verification is not possible with the exposed tools, say so briefly.\n"
+            "When the request names a specific entity (a file, function, class, "
+            "or symbol), locate it by name first with Glob and Grep. Do not "
+            "pick a candidate by recency (mtime) or listdir order — the most "
+            "recently modified match is not necessarily the right one. If a "
+            "name-based search returns zero matches, "
+            "ask the user before guessing at a different target."
         )
         memory_context = memory_manager.get_context_injection(conv_id=conversation_id)
         if memory_context:
@@ -3074,6 +3082,15 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 )
                 done_payload = _last_done_payload()
                 error = persisted_error or done_payload.get("error")
+                # Report tools actually USED this run (not the available set —
+                # always-on meta-tools like AskUserQuestion would otherwise
+                # show up even when the model never called a tool).
+                used_tool_names = sorted({
+                    str(tc.get("name"))
+                    for rec in loop_trace
+                    for tc in (rec.get("tool_calls") or [])
+                    if tc.get("name")
+                })
                 conv_manager.add_activity_trace(
                     conversation_id,
                     request_id,
@@ -3085,7 +3102,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     assistant_text="".join(assistant_token_chunks),
                     system_prompt_hash=first_hash,
                     capability_scope=capability_scope,
-                    tool_names=sorted(tools),
+                    tool_names=used_tool_names,
                     events=trace_events,
                     loop_trace=loop_trace,
                     trace_path=str(trace_path),
@@ -3094,6 +3111,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     error=str(error) if error else None,
                 )
 
+            cancel_event = interrupt_registry.acquire_event(conversation_id)
             try:
                 await emit("activity", {
                     "id": f"{rid}_agent",
@@ -3140,7 +3158,12 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                         "meta": {"count": len(image_blocks)},
                     })
                 streamed_text_since_message = False
-                async for event in loop.run(message, history=prior, images=image_blocks):
+                async for event in loop.run(
+                    message,
+                    history=prior,
+                    images=image_blocks,
+                    cancel_event=cancel_event,
+                ):
                     if isinstance(event, TextDelta):
                         streamed_text_since_message = True
                         if event.text:
@@ -3239,13 +3262,30 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     "ts": perf_counter() * 1000,
                     "meta": usage_meta,
                 })
-                await emit("done", {
+                was_interrupted = (
+                    cancel_event is not None and cancel_event.is_set()
+                )
+                if was_interrupted:
+                    await emit("activity", {
+                        "id": f"{rid}_interrupted",
+                        "type": "interrupted",
+                        "title": "Run interrupted",
+                        "detail": "Stopped by user.",
+                        "status": "error",
+                        "ts": perf_counter() * 1000,
+                        "meta": {"conversation_id": conversation_id},
+                    })
+                done_payload = {
                     "total_time_ms": int((perf_counter() - t0) * 1000),
                     "sources": [],
                     "provider": provider_name or provider_type,
                     "model": model_name,
                     "plan_mode_used": plan_mode,
-                })
+                    "interrupted": was_interrupted,
+                }
+                if was_interrupted:
+                    done_payload["stop_reason"] = "user_interrupt"
+                await emit("done", done_payload)
             except Exception as exc:
                 persisted_error = str(exc)
                 await emit("activity", {
@@ -3265,6 +3305,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     "model": model_name,
                 })
             finally:
+                interrupt_registry.release_event(conversation_id)
                 _persist_activity_trace()
                 await stream_queue.put(None)
 
@@ -3397,6 +3438,12 @@ def create_app(config_dir: str | None = None) -> FastAPI:
     async def get_conversation_usage(conv_id: str):
         """Cumulative token usage for a conversation (P12.6)."""
         return {"ok": True, "cumulative": usage_registry.get_cumulative(conv_id)}
+
+    @app.post("/api/conversations/{conv_id}/interrupt")
+    async def interrupt_conversation(conv_id: str):
+        """Signal the active run for this conversation to stop (P12.1)."""
+        signalled = interrupt_registry.set_interrupt(conv_id)
+        return {"ok": True, "signalled": signalled, "conversation_id": conv_id}
 
     @app.post("/api/user_questions/{question_id}")
     async def answer_user_question(question_id: str, request: Request):
