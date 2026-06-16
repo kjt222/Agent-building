@@ -45,6 +45,7 @@ from ..rag.store import SearchResult, SqliteVecStore
 from ..storage.conversation_adapter import ConversationManagerV2 as ConversationManager
 from ..storage.knowledge_manager import KnowledgeManager
 from ..core import AgentExecutor, AgentConfig, MemoryManager, get_memory_manager, create_compactor, CompactionConfig
+from ..core import usage_registry
 from ..tools.registry import get_registry
 from ..tools.knowledge import create_kb_tools
 from ..tools.filesystem import create_filesystem_tools
@@ -2735,6 +2736,28 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         except Exception:
             selected_skill = None
 
+        # @path attachment injection (P12.5): @-mentions of existing files in
+        # the user message get their absolute path surfaced in the prompt so
+        # the model does not have to guess where the workspace root is.
+        try:
+            _root = Path.cwd()
+            _attached: list[Path] = []
+            for _tok in re.findall(r"@([^\s]+)", message):
+                _tok = _tok.rstrip(".,;:!?)")
+                if not _tok:
+                    continue
+                _cand = (_root / _tok).resolve()
+                if _cand.is_file() and _cand not in _attached:
+                    _attached.append(_cand)
+            if _attached:
+                _lines = ["<attached_files>"]
+                for _p in _attached:
+                    _lines.append(f"- {_p.name}: {_p}")
+                _lines.append("</attached_files>")
+                base_agent_prompt = f"{base_agent_prompt}\n\n" + "\n".join(_lines)
+        except Exception:
+            pass
+
         approval_mode = str(payload.get("mode") or "confirm").lower()
         stream_queue: asyncio.Queue[tuple[str, dict] | None] = asyncio.Queue()
         trace_events: list[dict] = []
@@ -3100,6 +3123,23 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                                 },
                             })
 
+                final_usage = getattr(
+                    getattr(loop, "context", None), "usage", {}
+                ) or {}
+                usage_meta = usage_registry.add_run(
+                    conversation_id, usage=final_usage, model=model_name
+                )
+                await emit("activity", {
+                    "id": f"{rid}_usage",
+                    "type": "usage_update",
+                    "title": "Token usage",
+                    "detail": (
+                        f"{usage_meta['run'].get('total_tokens', 0)} tokens this run"
+                    ),
+                    "status": "done",
+                    "ts": perf_counter() * 1000,
+                    "meta": usage_meta,
+                })
                 await emit("done", {
                     "total_time_ms": int((perf_counter() - t0) * 1000),
                     "sources": [],
@@ -3249,8 +3289,14 @@ def create_app(config_dir: str | None = None) -> FastAPI:
     async def delete_conversation(conv_id: str):
         """删除对话"""
         if conv_manager.delete(conv_id):
+            usage_registry.reset(conv_id)
             return {"ok": True}
         return JSONResponse({"ok": False, "error": "Not found"}, status_code=404)
+
+    @app.get("/api/conversations/{conv_id}/usage")
+    async def get_conversation_usage(conv_id: str):
+        """Cumulative token usage for a conversation (P12.6)."""
+        return {"ok": True, "cumulative": usage_registry.get_cumulative(conv_id)}
 
     @app.post("/api/conversations/{conv_id}/messages")
     async def add_conversation_message(conv_id: str, request: Request):
@@ -3263,6 +3309,59 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         if conv_manager.add_message(conv_id, role, content, model, sources):
             return {"ok": True}
         return JSONResponse({"ok": False, "error": "Conversation not found"}, status_code=404)
+
+    @app.post("/api/conversations/{conv_id}/fork")
+    async def fork_conversation_endpoint(conv_id: str, request: Request):
+        """Fork a conversation at a user message (P12.7)."""
+        if not conv_manager.get(conv_id):
+            return JSONResponse({"ok": False, "error": "Not found"}, status_code=404)
+        payload = await request.json()
+        raw_id = payload.get("from_message_id")
+        if raw_id is None:
+            return JSONResponse(
+                {"ok": False, "error": "from_message_id required"}, status_code=400
+            )
+        try:
+            from_message_id = int(raw_id)
+        except (TypeError, ValueError):
+            return JSONResponse(
+                {"ok": False, "error": "from_message_id must be an integer"},
+                status_code=400,
+            )
+        result = conv_manager.fork(conv_id, from_message_id)
+        if result is None:
+            return JSONResponse(
+                {"ok": False, "error": "Cannot fork at this message"},
+                status_code=400,
+            )
+        return {"ok": True, **result}
+
+    @app.get("/api/files/search")
+    async def file_search(q: str = "", limit: int = 20):
+        """Fuzzy filename search under the workspace root (P12.5).
+
+        Walks ``Path.cwd()`` skipping noise directories (.venv/.git/...),
+        returns relative posix paths whose path contains ``q`` (case
+        insensitive). An empty query returns everything up to ``limit``.
+        """
+        root = Path.cwd()
+        query = (q or "").lower()
+        exclude = {
+            ".venv", ".git", "__pycache__", "node_modules",
+            ".pytest_cache", ".mypy_cache", ".idea", ".vscode",
+        }
+        items: list[dict] = []
+        for dirpath, dirnames, filenames in os.walk(root):
+            dirnames[:] = [d for d in dirnames if d not in exclude]
+            for fn in filenames:
+                rel = (Path(dirpath) / fn).relative_to(root).as_posix()
+                if query and query not in rel.lower():
+                    continue
+                items.append({"path": rel})
+            if len(items) >= 2000:
+                break
+        items.sort(key=lambda it: it["path"])
+        return {"ok": True, "items": items[: max(0, int(limit))]}
 
     # ========== Memory Management API (P2-6) ==========
 

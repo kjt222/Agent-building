@@ -333,16 +333,17 @@ class Database:
         # Get messages
         messages_cur = self.conn.execute(
             """
-            SELECT role, content, model, sources, created_at as timestamp
+            SELECT id, role, content, model, sources, created_at as timestamp
             FROM messages
             WHERE conversation_id = ?
-            ORDER BY created_at
+            ORDER BY created_at, id
             """,
             (conv_id,)
         )
         conv["messages"] = []
         for msg_row in messages_cur:
             msg = {
+                "id": msg_row["id"],
                 "role": msg_row["role"],
                 "content": msg_row["content"],
                 "timestamp": msg_row["timestamp"],
@@ -408,6 +409,44 @@ class Database:
             (conv_id,)
         )
         return cur.rowcount > 0
+
+    def fork_conversation(
+        self, source_conv_id: str, new_conv_id: str, from_message_id: int
+    ) -> int:
+        """Create ``new_conv_id`` copying every message of ``source_conv_id``
+        that comes *before* ``from_message_id`` (P12.7).
+
+        The new conversation inherits the source profile and gets a
+        ``（分叉）`` title suffix. Returns the number of messages copied, or 0
+        if the source or the fork-point message does not exist.
+        """
+        source = self.get_conversation(source_conv_id)
+        if source is None:
+            return 0
+        messages = source.get("messages", [])
+        idx = next(
+            (i for i, m in enumerate(messages)
+             if m.get("id") == int(from_message_id)),
+            None,
+        )
+        if idx is None:
+            return 0
+        to_copy = messages[:idx]
+        base_title = source.get("title") or "New Conversation"
+        self.create_conversation(
+            new_conv_id,
+            title=f"{base_title}（分叉）",
+            profile=source.get("profile"),
+        )
+        for m in to_copy:
+            self.add_message(
+                new_conv_id,
+                m["role"],
+                m["content"],
+                m.get("model"),
+                m.get("sources"),
+            )
+        return len(to_copy)
 
     # ================================================================
     # Message methods

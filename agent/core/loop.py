@@ -246,6 +246,9 @@ class AgentLoop:
           - TurnEnd — per-turn end; loop may continue if stop_reason=tool_use
         """
         ctx = LoopContext(config=self.config)
+        # Expose the live context so callers can read cumulative usage (and
+        # other run state) after ``run()`` drains.
+        self.context = ctx
         ctx.messages = list(history or [])
         user_content: list[Block] = [TextBlock(text=user_message)]
         for img in images or []:
