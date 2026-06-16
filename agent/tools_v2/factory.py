@@ -54,6 +54,23 @@ def build_tool(name: str, app_cfg: dict | None = None) -> Any:
         return FileVerifyTool()
     if name == "Image":
         return _build_image_tool(cfg)
+    if name == "obsidian_read_excalidraw_canvas":
+        from agent.tools_capability.obsidian.canvas_tools import ReadExcalidrawCanvasTool
+        return ReadExcalidrawCanvasTool()
+    if name == "obsidian_write_excalidraw_elements":
+        from agent.tools_capability.obsidian.canvas_tools import WriteExcalidrawElementsTool
+        return WriteExcalidrawElementsTool()
+    if name == "obsidian_find_pdf_text_anchor":
+        from agent.tools_capability.obsidian.pdf_anchor import FindPdfTextAnchorTool
+        return FindPdfTextAnchorTool()
+    if name == "obsidian_refresh_note":
+        from agent.tools_capability.obsidian.refresh_note import RefreshNoteTool
+        return RefreshNoteTool()
+    if name == "obsidian_add_formula_annotation":
+        from agent.tools_capability.obsidian.formula_annotation import (
+            AddFormulaAnnotationTool,
+        )
+        return AddFormulaAnnotationTool()
     raise KeyError(f"unknown tool: {name}")
 
 

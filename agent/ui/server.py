@@ -374,8 +374,17 @@ _OFFICE_WORD_INTENT_RE = re.compile(
 )
 
 
-def _select_v2_tools_for_turn(message: str, images: list, app_cfg: dict) -> tuple[dict, str]:
-    """Progressively disclose only the tool surface useful for this turn."""
+def _select_v2_tools_for_turn(
+    message: str, images: list, app_cfg: dict, mode: str = "read-only"
+) -> tuple[dict, str]:
+    """Progressively disclose only the tool surface useful for this turn.
+
+    ``mode='full-access'`` grants the full primitive toolset (Read/Write/Edit/
+    Bash/Glob/Grep) up front, regardless of message keywords — the caller has
+    explicitly opted out of the read-only sandbox, so the agent may operate on
+    arbitrary files (e.g. an external Obsidian/Excalidraw vault) by editing
+    them directly or via Bash scripting.
+    """
     from ..tools_v2.excel_tool import ExcelEditTool, ExcelReadTool
     from ..tools_v2.knowledge_tool import KnowledgeIndexTool, KnowledgeSearchTool
     from ..tools_v2.primitives import default_toolset, full_toolset
@@ -384,6 +393,48 @@ def _select_v2_tools_for_turn(message: str, images: list, app_cfg: dict) -> tupl
 
     text = message or ""
     selected: dict = {}
+    if mode == "full-access":
+        selected.update(full_toolset())
+        selected["KnowledgeSearch"] = KnowledgeSearchTool()
+        selected["KnowledgeIndex"] = KnowledgeIndexTool()
+        # Obsidian/Excalidraw capability: editing a .excalidraw.md by hand is a
+        # trap (the ## Drawing fence is lz-string-compressed JSON). Expose the
+        # dedicated canvas tools so the agent decodes/encodes safely instead of
+        # flailing with Bash + a re-implemented lz-string round-trip.
+        try:
+            from ..tools_capability.obsidian.canvas_tools import (
+                ReadExcalidrawCanvasTool,
+                WriteExcalidrawElementsTool,
+            )
+            selected["obsidian_read_excalidraw_canvas"] = ReadExcalidrawCanvasTool()
+            selected["obsidian_write_excalidraw_elements"] = WriteExcalidrawElementsTool()
+        except Exception:
+            pass  # capability optional; full_toolset still lets the agent try
+        # refresh_note (close→reopen the tab so Obsidian drops its cached,
+        # possibly-stale canvas buffer and re-reads from disk) and the PDF
+        # text-anchor tool were implemented but never handed to the agent —
+        # without refresh_note the agent literally cannot beat the open-tab
+        # autosave-clobber race, and can't surface its write in the live view.
+        try:
+            from ..tools_capability.obsidian.refresh_note import RefreshNoteTool
+            selected["obsidian_refresh_note"] = RefreshNoteTool()
+        except Exception:
+            pass
+        try:
+            from ..tools_capability.obsidian.pdf_anchor import FindPdfTextAnchorTool
+            selected["obsidian_find_pdf_text_anchor"] = FindPdfTextAnchorTool()
+        except Exception:
+            pass
+        # High-level one-call formula annotation (render+place+text+arrow+group)
+        # composed on top of the above — the task-level shortcut.
+        try:
+            from ..tools_capability.obsidian.formula_annotation import (
+                AddFormulaAnnotationTool,
+            )
+            selected["obsidian_add_formula_annotation"] = AddFormulaAnnotationTool()
+        except Exception:
+            pass
+        return selected, "full_access"
     if _OFFICE_WORD_INTENT_RE.search(text):
         base_tools = default_toolset()
         for name in ("Read", "Glob"):
@@ -2602,7 +2653,10 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 status_code=400,
             )
         active_kbs = _active_kb_list(app_cfg)
-        tools, capability_scope = _select_v2_tools_for_turn(message, images, app_cfg)
+        turn_mode = str(payload.get("mode") or "read-only")
+        tools, capability_scope = _select_v2_tools_for_turn(
+            message, images, app_cfg, mode=turn_mode
+        )
         runtime_cfg = RuntimeConfig.from_app_config(app_cfg)
         session_metadata = SessionMetadata(
             session_id=request_id,
@@ -2661,6 +2715,26 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 "</user_facts>"
             )
 
+        # Skill injection (P9): when the turn matches a SKILL.md trigger, append
+        # its playbook to the system prompt. Restored here — the reverted
+        # server.py dropped skill wiring from the agent_chat_v2 path.
+        selected_skill = None
+        try:
+            from ..core.skills import load_skills, select_skill, build_history_text
+            _skills_dir = Path(__file__).resolve().parents[2] / "skills"
+            _skills = load_skills(_skills_dir)
+            selected_skill = select_skill(
+                message, skills=_skills, history_text=build_history_text(history)
+            )
+            if selected_skill is not None:
+                base_agent_prompt = (
+                    f"{base_agent_prompt}\n\n"
+                    f'<skill name="{selected_skill.name}">\n'
+                    f"{selected_skill.prompt_body}\n</skill>"
+                )
+        except Exception:
+            selected_skill = None
+
         approval_mode = str(payload.get("mode") or "confirm").lower()
         stream_queue: asyncio.Queue[tuple[str, dict] | None] = asyncio.Queue()
         trace_events: list[dict] = []
@@ -2689,6 +2763,12 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             if approval_mode == "auto":
                 return True
             if approval_mode == "read":
+                return True
+            # "full-access" is the explicit opt-out of the approval sandbox:
+            # the caller granted unrestricted tool use up front, so NEEDS_APPROVAL
+            # tools run without a human gate. Unattended/smoke runs set
+            # SMOKE_NO_APPROVER=1 to the same effect (no UI to answer the prompt).
+            if approval_mode == "full-access" or os.getenv("SMOKE_NO_APPROVER"):
                 return True
             approval_id = f"{request_id}_{use.id}"
             future = asyncio.get_running_loop().create_future()

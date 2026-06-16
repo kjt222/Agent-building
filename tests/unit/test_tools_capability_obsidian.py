@@ -410,6 +410,58 @@ def test_write_elements_attaches_files_dict(tmp_path):
     assert elements[0]["fileId"] == "lf_abc"
 
 
+def test_write_elements_auto_renders_latex_field(tmp_path):
+    """Framework guarantee: a model that supplies ONLY a `latex` field (no
+    fileId, no width/height, no files{}) on an image element gets a fully
+    wired, rendered SVG — broken-image katex mis-wiring is unreachable.
+    Regression for the 2026-06-05 doubao broken-formula incident."""
+    f = tmp_path / "canvas.md"
+    f.write_text(_build_canvas_file([]), encoding="utf-8")
+    el = {
+        "id": "eq1", "type": "image", "x": 100, "y": -1400,
+        "latex": r"\mathbf{x}_i = \left(x_i^{H}, f_H^{R_1}(x_i^{H})\right)",
+    }
+    r = write_elements(canvas_path=f, elements_to_write=[el])
+    assert r.ok is True
+    assert r.orphan_file_ids == []           # tool wired fileId → files{}
+    assert r.latex_rendered                  # reported what it rendered
+    assert r.files_added == 1
+
+    summary = read_canvas(f)
+    saved = summary.elements[0]
+    assert "latex" not in saved              # convenience field consumed
+    assert saved["customData"]["latex_source"]
+    assert saved["width"] > 0 and saved["height"] > 0
+    # The element's fileId resolves to a real SVG dataURL in files{}.
+    data, _ = read_canvas_file(f.read_text(encoding="utf-8"))
+    fid = saved["fileId"]
+    url = data["files"][fid]["dataURL"]
+    assert url.startswith("data:image/svg+xml;base64,")
+    assert len(url) > 100
+
+
+def test_write_elements_rescues_stale_latex_source_without_dataurl(tmp_path):
+    """The historical broken state: customData.latex_source set but fileId
+    points nowhere (empty/missing dataURL). The tool must rescue it by
+    rendering a real SVG rather than leaving a placeholder."""
+    f = tmp_path / "canvas.md"
+    f.write_text(_build_canvas_file([]), encoding="utf-8")
+    el = {
+        "id": "eq2", "type": "image", "x": 0, "y": 0,
+        "width": 200, "height": 40, "fileId": "lf_dangling",
+        "customData": {"latex_source": r"E = mc^2"},
+    }
+    r = write_elements(canvas_path=f, elements_to_write=[el])
+    assert r.ok is True
+    assert r.latex_rendered
+    summary = read_canvas(f)
+    saved = summary.elements[0]
+    data, _ = read_canvas_file(f.read_text(encoding="utf-8"))
+    assert data["files"][saved["fileId"]]["dataURL"].startswith(
+        "data:image/svg+xml;base64,"
+    )
+
+
 def test_write_elements_surfaces_orphan_file_ids(tmp_path):
     """When the model adds an image element but forgets to pass its
     file data, the tool must say so loud and clear in the result."""

@@ -37,7 +37,14 @@ def _make_ctx(workspace_root: Path) -> SimpleNamespace:
 
 
 def _run(coro):
-    return asyncio.get_event_loop().run_until_complete(coro)
+    # Fresh loop per call: the shared get_event_loop() can be left closed by
+    # an earlier async test in the full-suite ordering, which made these
+    # tests spuriously fail depending on collection order.
+    loop = asyncio.new_event_loop()
+    try:
+        return loop.run_until_complete(coro)
+    finally:
+        loop.close()
 
 
 def _fence_content() -> str:

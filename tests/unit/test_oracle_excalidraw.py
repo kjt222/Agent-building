@@ -104,10 +104,12 @@ def test_grouping_accepts_shared_frame(tmp_path):
     assert rep.verdict == "pass", rep.findings
 
 
-def test_passes_when_latex_source_present_even_if_dataurl_empty(tmp_path):
-    """P14.6.16: skill's primary recipe is `customData.latex_source` only —
-    Obsidian Excalidraw plugin renders via its built-in katex and fills
-    dataURL itself. Oracle must NOT flag this as broken."""
+def test_fails_when_image_fileid_has_empty_dataurl_even_with_latex_source(tmp_path):
+    """2026-06-09: LaTeX rendering is now baked into write_elements (always
+    materializes an SVG dataURL). The old katex escape hatch — an image+fileId
+    with empty dataURL passing because customData.latex_source is present — was
+    the source of the user's real broken-image boxes. Oracle now FAILS it:
+    an image element with a fileId must carry a real SVG dataURL."""
     fid = "f1"
     elements = [{
         "id": "e1", "type": "image",
@@ -118,7 +120,8 @@ def test_passes_when_latex_source_present_even_if_dataurl_empty(tmp_path):
     files = {fid: {"dataURL": ""}}
     p = _write_md(tmp_path, _scene(elements, files))
     rep = ExcalidrawOracle().check([p])
-    assert rep.verdict == "pass", rep.findings
+    assert rep.verdict == "fail", rep.findings
+    assert any("broken-image" in f for f in rep.findings)
 
 
 def test_fails_when_image_has_no_latex_source_and_empty_dataurl(tmp_path):
@@ -135,7 +138,7 @@ def test_fails_when_image_has_no_latex_source_and_empty_dataurl(tmp_path):
     p = _write_md(tmp_path, _scene(elements, files))
     rep = ExcalidrawOracle().check([p])
     assert rep.verdict == "fail"
-    assert any("neither render path" in f for f in rep.findings)
+    assert any("broken-image" in f for f in rep.findings)
 
 
 def test_fails_on_orphan_fileid(tmp_path):

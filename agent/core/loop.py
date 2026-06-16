@@ -187,6 +187,10 @@ class LoopConfig:
     permission_mode: Literal["default", "plan"] = "default"
     # JSONL trace of each turn when set. Parent dirs created on first write.
     trace_path: Optional[Path] = None
+    # Project boundary. When set, relative tool paths resolve under it and the
+    # diff-preview / guarded-path helpers use it to locate files. None = no
+    # boundary (paths used as-is).
+    workspace_root: Optional[Path] = None
 
 
 @dataclass

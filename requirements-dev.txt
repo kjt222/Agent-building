@@ -1,0 +1,16 @@
+-r requirements.txt
+
+# --- Test runner -----------------------------------------------------------
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+
+# --- Public benchmark datasets (datasets/ is git-ignored; fetch on demand) --
+# SWE-bench Verified: parquet loaded by benchmarks/swebench_runner.py
+pandas>=2.0.0
+pyarrow>=15.0.0
+huggingface_hub>=0.23.0
+#
+# tau2-bench (benchmarks/tau2_run.py) — not on PyPI, install from GitHub:
+#   pip install "git+https://github.com/sierra-research/tau2-bench@v0.2.0"
+# terminal-bench (benchmarks/terminal_bench_adapter.py) — needs Docker to run:
+#   pip install terminal-bench
