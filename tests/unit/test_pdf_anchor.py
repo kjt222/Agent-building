@@ -11,10 +11,44 @@ if str(_REPO_ROOT) not in sys.path:
 
 import pytest
 
+from agent.tools_capability.obsidian.excalidraw_io import encode_fence
 from agent.tools_capability.obsidian.pdf_anchor import (
     AnchorResult,
+    _index_canvas_pages,
     find_pdf_text_anchor,
 )
+
+
+def test_index_pages_from_embedded_files_section(tmp_path):
+    """The Obsidian Excalidraw plugin records PDF-page embeds in the
+    '## Embedded Files' section as '<fileId-sha1>: [[paper.pdf#page=N]]',
+    NOT in '## Element Links'. _index_canvas_pages must resolve pages from
+    there via the image element whose fileId equals the sha1 key."""
+    sha1_p1 = "a" * 40
+    sha1_p3 = "b" * 40
+    elements = [
+        {"id": "img1", "type": "image", "fileId": sha1_p1,
+         "x": 10, "y": 20, "width": 700, "height": 900},
+        {"id": "img3", "type": "image", "fileId": sha1_p3,
+         "x": 10, "y": 2000, "width": 700, "height": 900},
+    ]
+    payload = {"type": "excalidraw", "version": 2, "source": "test",
+               "elements": elements, "appState": {}, "files": {}}
+    text = (
+        "---\nexcalidraw-plugin: parsed\n---\n# Excalidraw Data\n"
+        "## Embedded Files\n"
+        f"{sha1_p1}: [[paper.pdf#page=1]]\n\n"
+        f"{sha1_p3}: [[paper.pdf#page=3]]\n\n"
+        f"## Drawing\n```compressed-json\n{encode_fence(payload)}\n```\n%%\n"
+    )
+    p = tmp_path / "note.excalidraw.md"
+    p.write_text(text, encoding="utf-8")
+
+    pages, pdf_filename = _index_canvas_pages(p)
+    assert pdf_filename == "paper.pdf"
+    assert set(pages) == {1, 3}
+    assert pages[1]["id"] == "img1"
+    assert pages[3]["id"] == "img3"
 
 
 def test_canvas_not_found():

@@ -98,28 +98,33 @@ def _check_renderability(scene: dict, findings: list[str], evidence: dict) -> bo
         has_latex_source = isinstance(ls, str) and bool(ls.strip())
         if has_latex_source:
             latex_count += 1
-        # P14.6.16 (2026-05-22): the Obsidian Excalidraw plugin renders
-        # LaTeX from `customData.latex_source` directly via its built-in
-        # katex — files[fileId].dataURL is allowed to be empty in that
-        # path (and the plugin will overwrite it on render). SKILL.md's
-        # primary recipe explicitly leaves dataURL="" for this reason.
-        # Only flag as unrenderable when the matplotlib path was clearly
-        # intended (image with fileId) and BOTH render paths are dead:
-        # no useful dataURL AND no latex_source for the plugin to render.
-        if isinstance(fid, str) and not has_svg and not has_latex_source:
+        # 2026-06-09: LaTeX rendering is now BAKED INTO write_elements (it
+        # always materializes an SVG dataURL). The old katex escape hatch —
+        # "image+fileId with empty dataURL is fine because the plugin renders
+        # latex_source" — was the source of the user's real broken-image
+        # boxes (the plugin katex did NOT reliably fill the dataURL in their
+        # vault). So an image element that declares a fileId MUST carry a
+        # real SVG dataURL; latex_source no longer excuses an empty one.
+        if isinstance(fid, str) and not has_svg:
+            why = (
+                "AND no customData.latex_source"
+                if not has_latex_source
+                else "(customData.latex_source alone no longer counts — the "
+                "write tool bakes the SVG)"
+            )
             unrenderable.append(
                 f"element {el.get('id')!r}: image type with fileId={fid!r} but "
                 f"files['{fid}'].dataURL is empty or not SVG (len={len(dataurl)}) "
-                f"AND no customData.latex_source — neither render path is wired"
+                f"{why} — renders as a broken-image box in Obsidian"
             )
     evidence["latex_count"] = latex_count
     evidence["unrenderable_count"] = len(unrenderable)
     if unrenderable:
         findings.extend(unrenderable)
         findings.append(
-            "fix: either populate files[fileId].dataURL with a valid SVG "
-            "base64 (matplotlib path) or remove the fileId and rely on the "
-            "Obsidian Excalidraw plugin's katex (latex_source path)."
+            "fix: give the image element a `latex` field and let "
+            "obsidian_write_excalidraw_elements render it (it populates "
+            "files[fileId].dataURL with a valid SVG base64 automatically)."
         )
         return False
     return True

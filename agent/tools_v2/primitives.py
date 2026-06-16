@@ -34,6 +34,33 @@ class _ToolBase:
         return ToolResultBlock(tool_use_id=tool_use_id, content=text, is_error=True)
 
 
+def _resolve_guarded_path(raw_path: str, ctx: LoopContext, *, for_write: bool = False) -> Path:
+    """Resolve a tool path argument to a filesystem Path.
+
+    Re-added for the tools_v2 callers (``word_runtime_tool``, ``file_verify_tool``)
+    that import this helper. This primitives generation does not enforce a
+    workspace boundary — the boundary machinery belonged to a later primitives
+    revision that was not part of the restored tree — so unless a
+    ``workspace_root`` is configured on the loop config, the path is simply
+    expanded as-is, matching how ReadTool/WriteTool resolve paths here. The
+    keyword-only ``for_write`` flag is accepted for signature compatibility and
+    only takes effect when a root is configured.
+    """
+    path = Path(raw_path).expanduser()
+    root = getattr(ctx.config, "workspace_root", None) if ctx is not None else None
+    if not root:
+        return path
+    root = Path(root).expanduser().resolve()
+    if not path.is_absolute():
+        path = root / path
+    if for_write:
+        try:
+            path.resolve().relative_to(root)
+        except ValueError:
+            raise PermissionError(f"path is outside workspace root: {raw_path}")
+    return path
+
+
 # ---------------------------------------------------------------------------
 # Bash
 # ---------------------------------------------------------------------------
@@ -256,6 +283,43 @@ class ReadTool(_ToolBase):
 # Write
 # ---------------------------------------------------------------------------
 
+# Marker for the Obsidian Excalidraw "## Drawing" compressed-json fence.
+_EXCALIDRAW_FENCE_MARKER = "compressed-json"
+
+
+def _excalidraw_write_warning(
+    path: Path, new_content: str, old_content: str | None
+) -> str:
+    """Return a non-blocking warning if a raw Write targets an Obsidian
+    Excalidraw canvas.
+
+    The ## Drawing fence is lz-string-compressed JSON; a hand-written
+    Write either corrupts it or (if the new content drops the fence)
+    wipes every element. The safe path is obsidian_write_excalidraw_elements.
+    Empty string = no warning.
+    """
+    name = path.name.lower()
+    is_excalidraw_name = name.endswith(".excalidraw.md")
+    old_has_fence = bool(old_content) and _EXCALIDRAW_FENCE_MARKER in old_content
+    new_has_fence = _EXCALIDRAW_FENCE_MARKER in (new_content or "")
+    if not (is_excalidraw_name or old_has_fence or new_has_fence):
+        return ""
+    parts = [
+        "WARNING: this path looks like an Obsidian Excalidraw canvas "
+        "(the ## Drawing fence is lz-string-compressed JSON)."
+    ]
+    if (is_excalidraw_name or old_has_fence) and not new_has_fence:
+        parts.append(
+            "The content you are writing has no compressed-json fence, so "
+            "this overwrite will DESTROY every drawing element."
+        )
+    parts.append(
+        "Use obsidian_write_excalidraw_elements to append/patch elements "
+        "safely instead of a raw Write."
+    )
+    return " ".join(parts)
+
+
 class WriteTool(_ToolBase):
     name = "Write"
     description = (
@@ -281,13 +345,23 @@ class WriteTool(_ToolBase):
             return self._err(
                 f"file exists but was not read in this session: {path}. Read it first."
             )
+        old_content: str | None = None
+        if path.exists():
+            try:
+                old_content = path.read_text(encoding="utf-8")
+            except Exception:
+                old_content = None
         try:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(input["content"], encoding="utf-8")
         except Exception as exc:
             return self._err(f"write failed: {exc}")
         read_files.add(str(path.resolve()))
-        return self._ok(f"wrote {len(input['content'])} chars to {path}")
+        msg = f"wrote {len(input['content'])} chars to {path}"
+        warn = _excalidraw_write_warning(path, input["content"], old_content)
+        if warn:
+            msg = f"{msg}\n\n{warn}"
+        return self._ok(msg)
 
 
 # ---------------------------------------------------------------------------

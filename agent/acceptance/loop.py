@@ -1,262 +1,267 @@
-"""P14.4 long-running task acceptance protocol.
+"""P14.4 long-running task acceptance protocol — stateless policy.
 
 For tasks that span hours / days (KLayout layout iteration, Sentaurus
 simulation chain), we can't manually intervene every iteration. This module
-provides the *policy engine* — given an iteration's verdict + cumulative
-stats, decide what the loop should do next: continue, auto-fix, escalate to
-user, stop converged, or stop failed.
+is the *policy engine*: given one iteration's verdict plus cumulative stats,
+`decide_next_action` returns what the loop should do next — continue,
+auto_fix, ask_user, rollback, or stop_converged.
 
-It is intentionally NOT a runner. The runner (smoke script / agent server /
-notebook) calls `LoopController.next_action(...)` after each iteration and
-acts on the returned `LoopAction`. This lets the same policy be reused
-across very different execution shells.
+It is deliberately a pure function, not a runner. The runner (smoke script /
+agent server / notebook) owns the retry-count bookkeeping and calls
+`decide_next_action(spec, verdict, retry_counts)` after each iteration, then
+acts on the returned `LoopDecision`. Keeping it stateless makes the policy
+trivially testable and reusable across very different execution shells.
 
 Four hard constraints from docs/conversation.md P14.4:
 
-  1. never silently advance — any L1/L2/L3 fail surfaces in `next_action`
-     output as either a retry instruction with a `repair_hint`, or an
-     `escalate_to_user` action; never `continue` with a `fail` quietly
-  2. never silently guess on uncertainty — `model_self_confidence ==
-     "uncertain"` forces escalate_to_user (no auto-fix loop, since the
-     model just told us it doesn't know what to do)
-  3. bounded autonomy — same-failure auto_fix bounded by
-     `max_auto_fix_retries` (default 3); after that escalate
-  4. token / clock budget checkpoint — once cumulative tokens or wall
-     clock exceeds the budget, emit `escalate_to_user` even when no failure
-     was raised, dump state, let user say go-no-go
+  1. never silently advance — any L1/L2/L3 fail surfaces as auto_fix / rollback
+     / ask_user, never a quiet `continue`;
+  2. never silently guess on uncertainty — `model_self_confidence` that is not
+     a proven `pass` forces ask_user (no auto-fix loop, since the model just
+     told us it doesn't know);
+  3. bounded autonomy — same-failure auto_fix is bounded by
+     `max_auto_fix_retries` (default 3); after that, escalate;
+  4. token / clock budget checkpoint — once cumulative tokens or wall clock
+     exceed the budget, ask_user even with no failure raised.
+
+Note: this module was reimplemented from its test contract
+(tests/unit/test_loop_controller.py) after the D-drive-format recovery — the
+session-end source lived in an earlier rotated session and was not captured
+in the available transcript.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
-from typing import Any, Literal
+from typing import Any, Literal, Optional
 
+
+# Verdict tags. A check is satisfied only on the exact string "pass"; anything
+# else ("fail", "warn", "uncertain", "unknown", "") is treated as not-pass.
+Status = str
 
 EscalationOption = Literal["auto_fix", "rollback", "ask_user"]
-
-
-@dataclass
-class EscalationPolicy:
-    on_L1_fail: EscalationOption = "auto_fix"
-    on_L2_fail: EscalationOption = "auto_fix"
-    on_L3_fail: EscalationOption = "ask_user"
-    on_model_uncertain: EscalationOption = "ask_user"
-    max_auto_fix_retries: int = 3
-    max_tokens_before_checkin: int = 500_000
-    max_wall_clock_before_checkin: float = 3600.0  # seconds
-
-    def to_dict(self) -> dict[str, Any]:
-        return {
-            "on_L1_fail": self.on_L1_fail,
-            "on_L2_fail": self.on_L2_fail,
-            "on_L3_fail": self.on_L3_fail,
-            "on_model_uncertain": self.on_model_uncertain,
-            "max_auto_fix_retries": self.max_auto_fix_retries,
-            "max_tokens_before_checkin": self.max_tokens_before_checkin,
-            "max_wall_clock_before_checkin": self.max_wall_clock_before_checkin,
-        }
-
-
-@dataclass
-class AcceptanceCriteria:
-    """Per-task acceptance config — fed into the loop alongside the prompt."""
-
-    L1_checks: list[str] = field(default_factory=list)  # e.g. ["files_exist", "gds_valid"]
-    L2_oracle: str | None = None                        # oracle registry name
-    L3_visual_check_every: int = 0                      # 0 = never; N = every N iterations
-    converged_after: int = 3                            # all-pass iters needed to stop
-
-
-@dataclass
-class TaskSpec:
-    """The contract a long-running task is launched with.
-
-    Long-running runners (KLayout / Sentaurus / future) must populate this
-    BEFORE the first iteration. Missing fields force conservative defaults
-    so the loop can't "drift" into silent failure modes.
-    """
-
-    user_prompt: str
-    expected_outcome: str
-    acceptance: AcceptanceCriteria = field(default_factory=AcceptanceCriteria)
-    escalation_policy: EscalationPolicy = field(default_factory=EscalationPolicy)
-
-    def to_dict(self) -> dict[str, Any]:
-        return {
-            "user_prompt": self.user_prompt,
-            "expected_outcome": self.expected_outcome,
-            "acceptance": {
-                "L1_checks": list(self.acceptance.L1_checks),
-                "L2_oracle": self.acceptance.L2_oracle,
-                "L3_visual_check_every": self.acceptance.L3_visual_check_every,
-                "converged_after": self.acceptance.converged_after,
-            },
-            "escalation_policy": self.escalation_policy.to_dict(),
-        }
-
-
-Verdict = Literal["pass", "fail", "warn", "unknown"]
-SelfConfidence = Literal["pass", "uncertain", "fail", "unknown"]
-
-
-@dataclass
-class IterationResult:
-    iteration: int
-    L1: Verdict = "unknown"
-    L2: Verdict = "unknown"
-    L3: Verdict = "unknown"
-    model_self_confidence: SelfConfidence = "unknown"
-    tokens_used_this_iter: int = 0
-    wall_clock_this_iter: float = 0.0
-    failure_signature: str | None = None
-    """Stable key that distinguishes failure modes — e.g. "L1:files_missing"
-    or "L2:overlap". Used to count same-failure repeats for the bounded
-    autonomy constraint."""
-
-    def is_all_pass(self) -> bool:
-        return self.L1 == "pass" and self.L2 == "pass" and self.L3 == "pass"
-
-    def first_failure(self) -> Literal["L1", "L2", "L3", None]:
-        if self.L1 == "fail":
-            return "L1"
-        if self.L2 == "fail":
-            return "L2"
-        if self.L3 == "fail":
-            return "L3"
-        return None
-
-
 ActionKind = Literal[
-    "continue",            # next iteration; nothing to repair
-    "auto_fix",            # next iteration, with repair_hint from oracle/judge
-    "rollback",            # discard this iter, retry from prior state
-    "escalate_to_user",    # stop the loop, wait for user input
-    "stop_converged",      # all-pass for N iters, exit success
-    "stop_failed",         # unrecoverable, exit failure
+    "continue",
+    "auto_fix",
+    "ask_user",
+    "rollback",
+    "stop_converged",
 ]
 
 
 @dataclass
-class LoopAction:
-    action: ActionKind
-    reason: str
-    repair_hint: str = ""
+class AcceptancePolicy:
+    """Which oracle/visual layers gate acceptance, and the convergence streak.
 
-    def to_dict(self) -> dict[str, Any]:
-        return {
-            "action": self.action,
-            "reason": self.reason,
-            "repair_hint": self.repair_hint,
-        }
-
-
-class LoopController:
-    """Stateful policy engine — pass each iteration's result, get an action.
-
-    Tracks cumulative tokens / wall-clock / consecutive passes / same-
-    failure-signature retry count internally. One controller per task.
+    L2_oracle names the domain oracle for the semantic check; L3 visual checks
+    run every `L3_visual_check_every` iterations; the loop is considered
+    converged after `converged_after` consecutive all-pass iterations.
     """
 
-    def __init__(self, spec: TaskSpec) -> None:
-        self.spec = spec
-        self._total_tokens = 0
-        self._total_wall = 0.0
-        self._consecutive_passes = 0
-        self._same_failure_count: dict[str, int] = {}
+    L2_oracle: str = ""
+    L3_visual_check_every: int = 1
+    converged_after: int = 3
 
-    @property
-    def total_tokens(self) -> int:
-        return self._total_tokens
 
-    @property
-    def total_wall(self) -> float:
-        return self._total_wall
+@dataclass
+class EscalationPolicy:
+    """How to react to failures and resource budgets.
 
-    def next_action(self, result: IterationResult) -> LoopAction:
-        self._total_tokens += result.tokens_used_this_iter
-        self._total_wall += result.wall_clock_this_iter
+    `on_L1_fail` picks the action for a structural (L1) failure. Budgets are
+    opt-in: a `None` budget never triggers a checkpoint.
+    """
 
-        pol = self.spec.escalation_policy
+    on_L1_fail: EscalationOption = "auto_fix"
+    max_auto_fix_retries: int = 3
+    max_tokens_before_checkin: Optional[int] = None
+    max_wall_clock_before_checkin: Optional[float] = None
 
-        # Hard constraint 2: never silently guess on uncertainty.
-        if result.model_self_confidence == "uncertain":
-            return LoopAction(
-                action=_to_action(pol.on_model_uncertain),
-                reason="model_self_confidence=uncertain — policy forbids "
-                       "silent guess",
-                repair_hint="ask the user to disambiguate the aesthetic / "
-                            "layout / wording decision",
+
+@dataclass(frozen=True)
+class TaskSpec:
+    """Immutable description of one long-running acceptance task."""
+
+    user_prompt: str
+    expected_outcome: str
+    acceptance: AcceptancePolicy = field(default_factory=AcceptancePolicy)
+    escalation_policy: EscalationPolicy = field(default_factory=EscalationPolicy)
+
+
+@dataclass
+class IterationVerdict:
+    """The graded result of a single loop iteration."""
+
+    iteration: int = 1
+    L1_structural: Status = "pass"
+    L2_semantic: Status = "pass"
+    L3_user_view: Status = "pass"
+    model_self_confidence: Status = "pass"
+    # Stable key identifying *what* failed, so retry budgets are per-failure.
+    failure_key: str = ""
+    # Number of consecutive all-pass iterations observed so far (incl. this).
+    consecutive_passes: int = 0
+    # Cumulative resource counters.
+    token_count: int = 0
+    wall_clock_seconds: float = 0.0
+
+
+@dataclass
+class LoopDecision:
+    """What the loop should do next, plus why and what to record."""
+
+    action: ActionKind
+    reason: str
+    should_checkpoint: bool = False
+    # Echo of the failure key the caller should increment for the next round.
+    next_failure_key: Optional[str] = None
+    details: dict[str, Any] = field(default_factory=dict)
+
+
+def _is_pass(status: Status) -> bool:
+    return status == "pass"
+
+
+def _autofix_or_cap(
+    *,
+    layer: str,
+    failure_key: str,
+    escalation: EscalationPolicy,
+    retry_counts: dict[str, int],
+) -> LoopDecision:
+    """Shared bounded-autonomy logic for L1/L2 auto-fixable failures."""
+    used = retry_counts.get(failure_key, 0)
+    if used >= escalation.max_auto_fix_retries:
+        return LoopDecision(
+            action="ask_user",
+            reason=(
+                f"{layer} failure '{failure_key}' hit the auto-fix retry cap "
+                f"({escalation.max_auto_fix_retries}); escalating to user."
+            ),
+            should_checkpoint=True,
+            next_failure_key=failure_key,
+            details={"attempts": used},
+        )
+    return LoopDecision(
+        action="auto_fix",
+        reason=f"{layer} failure '{failure_key}'; attempting auto-fix.",
+        next_failure_key=failure_key,
+        details={"attempts": used + 1},
+    )
+
+
+def decide_next_action(
+    spec: TaskSpec,
+    verdict: IterationVerdict,
+    retry_counts: Optional[dict[str, int]] = None,
+) -> LoopDecision:
+    """Pure policy: map (spec, verdict, retry_counts) -> LoopDecision.
+
+    Precedence: structural/semantic/visual failures first (constraint 1),
+    then resource budgets (constraint 4, checked before uncertainty), then
+    model uncertainty (constraint 2), then convergence, else continue.
+    """
+    retry_counts = retry_counts or {}
+    esc = spec.escalation_policy
+
+    # --- Constraint 1: never silently advance on a failure -----------------
+    if not _is_pass(verdict.L1_structural):
+        if esc.on_L1_fail == "rollback":
+            return LoopDecision(
+                action="rollback",
+                reason="L1 structural failure; rolling back to last good state.",
+                should_checkpoint=True,
+                next_failure_key=verdict.failure_key or None,
             )
-        if result.model_self_confidence == "fail":
-            return LoopAction(
-                action="stop_failed",
-                reason="model self-reported fail",
+        if esc.on_L1_fail == "ask_user":
+            return LoopDecision(
+                action="ask_user",
+                reason="L1 structural failure; policy escalates to user.",
+                next_failure_key=verdict.failure_key or None,
             )
-
-        # Hard constraint 4: token / clock budget checkpoint.
-        if self._total_tokens >= pol.max_tokens_before_checkin:
-            return LoopAction(
-                action="escalate_to_user",
-                reason=f"cumulative tokens {self._total_tokens} >= "
-                       f"budget {pol.max_tokens_before_checkin}",
-            )
-        if self._total_wall >= pol.max_wall_clock_before_checkin:
-            return LoopAction(
-                action="escalate_to_user",
-                reason=f"cumulative wall-clock {self._total_wall:.0f}s >= "
-                       f"budget {pol.max_wall_clock_before_checkin:.0f}s",
-            )
-
-        # Hard constraint 1: never silently advance on fail.
-        failed_tier = result.first_failure()
-        if failed_tier is not None:
-            self._consecutive_passes = 0
-            sig = result.failure_signature or f"{failed_tier}:unspecified"
-            self._same_failure_count[sig] = self._same_failure_count.get(sig, 0) + 1
-            count = self._same_failure_count[sig]
-
-            # Hard constraint 3: bounded autonomy.
-            if count > pol.max_auto_fix_retries:
-                return LoopAction(
-                    action="escalate_to_user",
-                    reason=f"same failure {sig!r} hit {count}× > "
-                           f"max_auto_fix_retries={pol.max_auto_fix_retries}",
-                )
-
-            on_fail_attr = f"on_{failed_tier}_fail"
-            policy = getattr(pol, on_fail_attr)
-            return LoopAction(
-                action=_to_action(policy),
-                reason=f"{failed_tier} failed ({sig}); retry {count}/"
-                       f"{pol.max_auto_fix_retries} per policy {policy!r}",
-                repair_hint=f"address {failed_tier} failure: {sig}",
-            )
-
-        # No fail. Check converged.
-        if result.is_all_pass():
-            self._consecutive_passes += 1
-            if self._consecutive_passes >= self.spec.acceptance.converged_after:
-                return LoopAction(
-                    action="stop_converged",
-                    reason=f"all-pass for {self._consecutive_passes} consecutive "
-                           f"iterations (need {self.spec.acceptance.converged_after})",
-                )
-        else:
-            # warn / unknown — reset converged streak (didn't fail, didn't
-            # confirm pass either), continue.
-            self._consecutive_passes = 0
-
-        return LoopAction(
-            action="continue",
-            reason="no fail, no escalation trigger; loop continues",
+        return _autofix_or_cap(
+            layer="L1",
+            failure_key=verdict.failure_key,
+            escalation=esc,
+            retry_counts=retry_counts,
         )
 
+    if not _is_pass(verdict.L2_semantic):
+        return _autofix_or_cap(
+            layer="L2",
+            failure_key=verdict.failure_key,
+            escalation=esc,
+            retry_counts=retry_counts,
+        )
 
-def _to_action(opt: EscalationOption) -> ActionKind:
-    """Translate policy option → loop action verb."""
-    if opt == "auto_fix":
-        return "auto_fix"
-    if opt == "rollback":
-        return "rollback"
-    return "escalate_to_user"
+    if not _is_pass(verdict.L3_user_view):
+        # warn or fail — the oracle isn't happy enough to advance.
+        return LoopDecision(
+            action="ask_user",
+            reason=(
+                f"L3 user-view check returned '{verdict.L3_user_view}'; "
+                "asking the user before advancing."
+            ),
+            next_failure_key=verdict.failure_key or None,
+        )
+
+    # --- Constraint 4: budget checkpoint (before uncertainty) --------------
+    if (
+        esc.max_tokens_before_checkin is not None
+        and verdict.token_count >= esc.max_tokens_before_checkin
+    ):
+        return LoopDecision(
+            action="ask_user",
+            reason=(
+                f"token budget reached ({verdict.token_count} >= "
+                f"{esc.max_tokens_before_checkin}); checking in with user."
+            ),
+            should_checkpoint=True,
+            details={"token_count": verdict.token_count},
+        )
+    if (
+        esc.max_wall_clock_before_checkin is not None
+        and verdict.wall_clock_seconds >= esc.max_wall_clock_before_checkin
+    ):
+        return LoopDecision(
+            action="ask_user",
+            reason=(
+                f"wall-clock budget reached ({verdict.wall_clock_seconds}s >= "
+                f"{esc.max_wall_clock_before_checkin}s); checking in with user."
+            ),
+            should_checkpoint=True,
+            details={"wall_clock_seconds": verdict.wall_clock_seconds},
+        )
+
+    # --- Constraint 2: never silently guess on uncertainty -----------------
+    if not _is_pass(verdict.model_self_confidence):
+        confidence = verdict.model_self_confidence
+        if confidence == "fail":
+            return LoopDecision(
+                action="ask_user",
+                reason="model reported low self-confidence (fail); checkpointing.",
+                should_checkpoint=True,
+            )
+        # "uncertain", "unknown", or anything else not proven pass.
+        return LoopDecision(
+            action="ask_user",
+            reason=(
+                f"model self-confidence is '{confidence}' (not a proven pass); "
+                "uncertain, so asking the user rather than guessing."
+            ),
+        )
+
+    # --- Convergence -------------------------------------------------------
+    if verdict.consecutive_passes >= spec.acceptance.converged_after:
+        return LoopDecision(
+            action="stop_converged",
+            reason=(
+                f"{verdict.consecutive_passes} consecutive all-pass iterations "
+                f">= converged_after ({spec.acceptance.converged_after})."
+            ),
+        )
+
+    return LoopDecision(
+        action="continue",
+        reason="all checks pass; convergence streak not yet reached.",
+    )

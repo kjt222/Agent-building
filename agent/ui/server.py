@@ -45,6 +45,8 @@ from ..rag.store import SearchResult, SqliteVecStore
 from ..storage.conversation_adapter import ConversationManagerV2 as ConversationManager
 from ..storage.knowledge_manager import KnowledgeManager
 from ..core import AgentExecutor, AgentConfig, MemoryManager, get_memory_manager, create_compactor, CompactionConfig
+from ..core import usage_registry
+from ..core import interrupt_registry
 from ..tools.registry import get_registry
 from ..tools.knowledge import create_kb_tools
 from ..tools.filesystem import create_filesystem_tools
@@ -374,8 +376,17 @@ _OFFICE_WORD_INTENT_RE = re.compile(
 )
 
 
-def _select_v2_tools_for_turn(message: str, images: list, app_cfg: dict) -> tuple[dict, str]:
-    """Progressively disclose only the tool surface useful for this turn."""
+def _select_v2_tools_for_turn(
+    message: str, images: list, app_cfg: dict, mode: str = "read-only"
+) -> tuple[dict, str]:
+    """Progressively disclose only the tool surface useful for this turn.
+
+    ``mode='full-access'`` grants the full primitive toolset (Read/Write/Edit/
+    Bash/Glob/Grep) up front, regardless of message keywords — the caller has
+    explicitly opted out of the read-only sandbox, so the agent may operate on
+    arbitrary files (e.g. an external Obsidian/Excalidraw vault) by editing
+    them directly or via Bash scripting.
+    """
     from ..tools_v2.excel_tool import ExcelEditTool, ExcelReadTool
     from ..tools_v2.knowledge_tool import KnowledgeIndexTool, KnowledgeSearchTool
     from ..tools_v2.primitives import default_toolset, full_toolset
@@ -384,6 +395,48 @@ def _select_v2_tools_for_turn(message: str, images: list, app_cfg: dict) -> tupl
 
     text = message or ""
     selected: dict = {}
+    if mode == "full-access":
+        selected.update(full_toolset())
+        selected["KnowledgeSearch"] = KnowledgeSearchTool()
+        selected["KnowledgeIndex"] = KnowledgeIndexTool()
+        # Obsidian/Excalidraw capability: editing a .excalidraw.md by hand is a
+        # trap (the ## Drawing fence is lz-string-compressed JSON). Expose the
+        # dedicated canvas tools so the agent decodes/encodes safely instead of
+        # flailing with Bash + a re-implemented lz-string round-trip.
+        try:
+            from ..tools_capability.obsidian.canvas_tools import (
+                ReadExcalidrawCanvasTool,
+                WriteExcalidrawElementsTool,
+            )
+            selected["obsidian_read_excalidraw_canvas"] = ReadExcalidrawCanvasTool()
+            selected["obsidian_write_excalidraw_elements"] = WriteExcalidrawElementsTool()
+        except Exception:
+            pass  # capability optional; full_toolset still lets the agent try
+        # refresh_note (close→reopen the tab so Obsidian drops its cached,
+        # possibly-stale canvas buffer and re-reads from disk) and the PDF
+        # text-anchor tool were implemented but never handed to the agent —
+        # without refresh_note the agent literally cannot beat the open-tab
+        # autosave-clobber race, and can't surface its write in the live view.
+        try:
+            from ..tools_capability.obsidian.refresh_note import RefreshNoteTool
+            selected["obsidian_refresh_note"] = RefreshNoteTool()
+        except Exception:
+            pass
+        try:
+            from ..tools_capability.obsidian.pdf_anchor import FindPdfTextAnchorTool
+            selected["obsidian_find_pdf_text_anchor"] = FindPdfTextAnchorTool()
+        except Exception:
+            pass
+        # High-level one-call formula annotation (render+place+text+arrow+group)
+        # composed on top of the above — the task-level shortcut.
+        try:
+            from ..tools_capability.obsidian.formula_annotation import (
+                AddFormulaAnnotationTool,
+            )
+            selected["obsidian_add_formula_annotation"] = AddFormulaAnnotationTool()
+        except Exception:
+            pass
+        return selected, "full_access"
     if _OFFICE_WORD_INTENT_RE.search(text):
         base_tools = default_toolset()
         for name in ("Read", "Glob"):
@@ -1221,6 +1274,10 @@ def create_app(config_dir: str | None = None) -> FastAPI:
     memory_manager = get_memory_manager()
     pending_tool_approvals: dict[str, dict[str, Any]] = {}
     app.state.pending_tool_approvals = pending_tool_approvals
+    pending_user_questions: dict[str, dict[str, Any]] = {}
+    app.state.pending_user_questions = pending_user_questions
+    pending_diff_previews: dict[str, dict[str, Any]] = {}
+    app.state.pending_diff_previews = pending_diff_previews
 
     @app.get("/", response_class=HTMLResponse)
     def index(request: Request, profile: Optional[str] = None) -> HTMLResponse:
@@ -2555,12 +2612,17 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         history = payload.get("history") or []
         images = payload.get("images") or []
         conversation_id = str(payload.get("conversation_id") or "").strip() or None
+        unattended = bool(payload.get("unattended") or False)
+        plan_mode = bool(payload.get("plan_mode") or False)
         if not message:
             return JSONResponse({"ok": False, "error": "Empty message."}, status_code=400)
 
         app_cfg = load_app_config(config_dir)
         models_cfg = load_models_config(config_dir)
-        active_profile = str(app_cfg.get("active_profile") or "")
+        # Allow the caller to override the active profile per-request (the
+        # bench runner switches models without rewriting config/app.yaml).
+        profile_override = str(payload.get("profile") or "").strip()
+        active_profile = profile_override or str(app_cfg.get("active_profile") or "")
         provider_name, provider_cfg = _profile_active_llm_provider(models_cfg, active_profile)
         provider_type = str(provider_cfg.get("type") or provider_name or "openai")
         model_name = str(
@@ -2602,7 +2664,18 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 status_code=400,
             )
         active_kbs = _active_kb_list(app_cfg)
-        tools, capability_scope = _select_v2_tools_for_turn(message, images, app_cfg)
+        turn_mode = str(payload.get("mode") or "read-only")
+        tools, capability_scope = _select_v2_tools_for_turn(
+            message, images, app_cfg, mode=turn_mode
+        )
+        # AskUserQuestion is an always-available meta-tool, added after the
+        # scoped selection so _select_v2_tools_for_turn's contract stays pure
+        # (the progressive-disclosure tests assert exact per-scope tool sets).
+        try:
+            from ..tools_v2.control import AskUserQuestionTool
+            tools.setdefault("AskUserQuestion", AskUserQuestionTool())
+        except Exception:
+            pass
         runtime_cfg = RuntimeConfig.from_app_config(app_cfg)
         session_metadata = SessionMetadata(
             session_id=request_id,
@@ -2650,7 +2723,13 @@ def create_app(config_dir: str | None = None) -> FastAPI:
             "In auto mode, do not ask the user "
             "whether to proceed with the requested creation unless blocked by "
             "missing required information or a permission failure. If "
-            "verification is not possible with the exposed tools, say so briefly."
+            "verification is not possible with the exposed tools, say so briefly.\n"
+            "When the request names a specific entity (a file, function, class, "
+            "or symbol), locate it by name first with Glob and Grep. Do not "
+            "pick a candidate by recency (mtime) or listdir order — the most "
+            "recently modified match is not necessarily the right one. If a "
+            "name-based search returns zero matches, "
+            "ask the user before guessing at a different target."
         )
         memory_context = memory_manager.get_context_injection(conv_id=conversation_id)
         if memory_context:
@@ -2659,6 +2738,75 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 "<user_facts>\n"
                 f"{memory_context}\n"
                 "</user_facts>"
+            )
+
+        # Skill injection (P9): when the turn matches a SKILL.md trigger, append
+        # its playbook to the system prompt. Restored here — the reverted
+        # server.py dropped skill wiring from the agent_chat_v2 path.
+        selected_skill = None
+        try:
+            from ..core.skills import load_skills, select_skill, build_history_text
+            _skills_dir = Path(__file__).resolve().parents[2] / "skills"
+            _skills = load_skills(_skills_dir)
+            selected_skill = select_skill(
+                message, skills=_skills, history_text=build_history_text(history)
+            )
+            if selected_skill is not None:
+                base_agent_prompt = (
+                    f"{base_agent_prompt}\n\n"
+                    f'<skill name="{selected_skill.name}">\n'
+                    f"{selected_skill.prompt_body}\n</skill>"
+                )
+        except Exception:
+            selected_skill = None
+
+        # @path attachment injection (P12.5): @-mentions of existing files in
+        # the user message get their absolute path surfaced in the prompt so
+        # the model does not have to guess where the workspace root is.
+        try:
+            _root = Path.cwd()
+            _attached: list[Path] = []
+            for _tok in re.findall(r"@([^\s]+)", message):
+                _tok = _tok.rstrip(".,;:!?)")
+                if not _tok:
+                    continue
+                _cand = (_root / _tok).resolve()
+                if _cand.is_file() and _cand not in _attached:
+                    _attached.append(_cand)
+            if _attached:
+                _lines = ["<attached_files>"]
+                for _p in _attached:
+                    _lines.append(f"- {_p.name}: {_p}")
+                _lines.append("</attached_files>")
+                base_agent_prompt = f"{base_agent_prompt}\n\n" + "\n".join(_lines)
+        except Exception:
+            pass
+
+        # Clarification policy (P12.3): only injected when the AskUserQuestion
+        # tool is in this turn's tool set, so the model is told when/how to use it.
+        if "AskUserQuestion" in tools:
+            base_agent_prompt = (
+                f"{base_agent_prompt}\n\n"
+                "<clarification_policy>\n"
+                "You have an AskUserQuestion tool. When a load-bearing detail of "
+                "the request is genuinely ambiguous (output location, format, "
+                "target audience, naming, or scope), call AskUserQuestion with "
+                "1-2 concise questions before doing the work, instead of "
+                "guessing. Do NOT ask about trivial defaults — pick a sensible "
+                "default and proceed. Never ask more questions than necessary.\n"
+                "</clarification_policy>"
+            )
+
+        if plan_mode:
+            base_agent_prompt = (
+                f"{base_agent_prompt}\n\n"
+                "<plan_mode>\n"
+                "Plan mode is ACTIVE. Investigate with read-only tools and "
+                "produce a concrete, step-by-step plan, then call "
+                "exit_plan_mode with that plan. Do NOT modify files, run "
+                "mutating commands, or use write/exec tools until the plan is "
+                "approved.\n"
+                "</plan_mode>"
             )
 
         approval_mode = str(payload.get("mode") or "confirm").lower()
@@ -2690,6 +2838,30 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 return True
             if approval_mode == "read":
                 return True
+            # "full-access" is the explicit opt-out of the approval sandbox:
+            # the caller granted unrestricted tool use up front, so NEEDS_APPROVAL
+            # tools run without a human gate. Unattended/smoke runs set
+            # SMOKE_NO_APPROVER=1 to the same effect (no UI to answer the prompt).
+            if approval_mode == "full-access" or os.getenv("SMOKE_NO_APPROVER"):
+                return True
+            if unattended:
+                # No human approver in unattended runs and the mode is
+                # restricted (not auto/read/full-access): fast-fail the
+                # approval so the model sees the denial in its tool-result
+                # feed instead of hanging on the human-wait below.
+                await emit("activity", {
+                    "id": f"{request_id}_approval_deny_{use.id}",
+                    "type": "approval_auto_deny",
+                    "title": f"Auto-denied: {use.name}",
+                    "detail": "Mode is restricted with no approver.",
+                    "status": "error",
+                    "ts": perf_counter() * 1000,
+                    "meta": {
+                        "tool": use.name,
+                        "reason": "unattended_no_approver",
+                    },
+                })
+                return False
             approval_id = f"{request_id}_{use.id}"
             future = asyncio.get_running_loop().create_future()
             pending_tool_approvals[approval_id] = {
@@ -2720,6 +2892,39 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 return False
             finally:
                 pending_tool_approvals.pop(approval_id, None)
+
+        async def user_question_prompter(q_payload: dict) -> dict:
+            """Handler wired into ctx.scratch for AskUserQuestion (P12.3).
+
+            Registers a future, emits a ``user_question_request`` activity, and
+            blocks until the UI POSTs an answer to ``/api/user_questions/{id}``.
+            """
+            qid = str(q_payload.get("question_id") or uuid.uuid4().hex)
+            future = asyncio.get_running_loop().create_future()
+            pending_user_questions[qid] = {
+                "future": future,
+                "question": q_payload.get("question"),
+            }
+            await emit("activity", {
+                "id": f"{request_id}_uq_{qid}",
+                "type": "user_question_request",
+                "title": "Question for you",
+                "detail": str(q_payload.get("question") or ""),
+                "status": "wait",
+                "ts": perf_counter() * 1000,
+                "meta": {
+                    "question_id": qid,
+                    "question": q_payload.get("question"),
+                    "options": q_payload.get("options") or [],
+                    "multi_select": bool(q_payload.get("multi_select")),
+                    "context": q_payload.get("context") or "",
+                },
+            })
+            timeout = float(q_payload.get("timeout_s") or 600.0)
+            try:
+                return await asyncio.wait_for(future, timeout=timeout)
+            finally:
+                pending_user_questions.pop(qid, None)
 
         hooks = Hooks(
             on_stop=[
@@ -2818,7 +3023,8 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 max_iterations=int(payload.get("max_iterations") or 20),
                 parallel_tool_calls=True,
                 permission_mode=(
-                    "plan" if str(payload.get("mode") or "").lower() == "read"
+                    "plan"
+                    if plan_mode or str(payload.get("mode") or "").lower() == "read"
                     else "default"
                 ),
                 trace_path=trace_path,
@@ -2826,6 +3032,10 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     base_agent_prompt,
                     session_metadata,
                 ),
+                initial_scratch={
+                    "user_question_handler": user_question_prompter,
+                    "conversation_id": conversation_id,
+                },
             ),
         )
 
@@ -2872,6 +3082,15 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 )
                 done_payload = _last_done_payload()
                 error = persisted_error or done_payload.get("error")
+                # Report tools actually USED this run (not the available set —
+                # always-on meta-tools like AskUserQuestion would otherwise
+                # show up even when the model never called a tool).
+                used_tool_names = sorted({
+                    str(tc.get("name"))
+                    for rec in loop_trace
+                    for tc in (rec.get("tool_calls") or [])
+                    if tc.get("name")
+                })
                 conv_manager.add_activity_trace(
                     conversation_id,
                     request_id,
@@ -2883,7 +3102,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     assistant_text="".join(assistant_token_chunks),
                     system_prompt_hash=first_hash,
                     capability_scope=capability_scope,
-                    tool_names=sorted(tools),
+                    tool_names=used_tool_names,
                     events=trace_events,
                     loop_trace=loop_trace,
                     trace_path=str(trace_path),
@@ -2892,6 +3111,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     error=str(error) if error else None,
                 )
 
+            cancel_event = interrupt_registry.acquire_event(conversation_id)
             try:
                 await emit("activity", {
                     "id": f"{rid}_agent",
@@ -2938,7 +3158,12 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                         "meta": {"count": len(image_blocks)},
                     })
                 streamed_text_since_message = False
-                async for event in loop.run(message, history=prior, images=image_blocks):
+                async for event in loop.run(
+                    message,
+                    history=prior,
+                    images=image_blocks,
+                    cancel_event=cancel_event,
+                ):
                     if isinstance(event, TextDelta):
                         streamed_text_since_message = True
                         if event.text:
@@ -3020,12 +3245,47 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                                 },
                             })
 
-                await emit("done", {
+                final_usage = getattr(
+                    getattr(loop, "context", None), "usage", {}
+                ) or {}
+                usage_meta = usage_registry.add_run(
+                    conversation_id, usage=final_usage, model=model_name
+                )
+                await emit("activity", {
+                    "id": f"{rid}_usage",
+                    "type": "usage_update",
+                    "title": "Token usage",
+                    "detail": (
+                        f"{usage_meta['run'].get('total_tokens', 0)} tokens this run"
+                    ),
+                    "status": "done",
+                    "ts": perf_counter() * 1000,
+                    "meta": usage_meta,
+                })
+                was_interrupted = (
+                    cancel_event is not None and cancel_event.is_set()
+                )
+                if was_interrupted:
+                    await emit("activity", {
+                        "id": f"{rid}_interrupted",
+                        "type": "interrupted",
+                        "title": "Run interrupted",
+                        "detail": "Stopped by user.",
+                        "status": "error",
+                        "ts": perf_counter() * 1000,
+                        "meta": {"conversation_id": conversation_id},
+                    })
+                done_payload = {
                     "total_time_ms": int((perf_counter() - t0) * 1000),
                     "sources": [],
                     "provider": provider_name or provider_type,
                     "model": model_name,
-                })
+                    "plan_mode_used": plan_mode,
+                    "interrupted": was_interrupted,
+                }
+                if was_interrupted:
+                    done_payload["stop_reason"] = "user_interrupt"
+                await emit("done", done_payload)
             except Exception as exc:
                 persisted_error = str(exc)
                 await emit("activity", {
@@ -3045,6 +3305,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     "model": model_name,
                 })
             finally:
+                interrupt_registry.release_event(conversation_id)
                 _persist_activity_trace()
                 await stream_queue.put(None)
 
@@ -3169,8 +3430,63 @@ def create_app(config_dir: str | None = None) -> FastAPI:
     async def delete_conversation(conv_id: str):
         """删除对话"""
         if conv_manager.delete(conv_id):
+            usage_registry.reset(conv_id)
             return {"ok": True}
         return JSONResponse({"ok": False, "error": "Not found"}, status_code=404)
+
+    @app.get("/api/conversations/{conv_id}/usage")
+    async def get_conversation_usage(conv_id: str):
+        """Cumulative token usage for a conversation (P12.6)."""
+        return {"ok": True, "cumulative": usage_registry.get_cumulative(conv_id)}
+
+    @app.post("/api/conversations/{conv_id}/interrupt")
+    async def interrupt_conversation(conv_id: str):
+        """Signal the active run for this conversation to stop (P12.1)."""
+        signalled = interrupt_registry.set_interrupt(conv_id)
+        return {"ok": True, "signalled": signalled, "conversation_id": conv_id}
+
+    @app.post("/api/user_questions/{question_id}")
+    async def answer_user_question(question_id: str, request: Request):
+        """Resolve a pending AskUserQuestion future with the user's reply (P12.3)."""
+        record = pending_user_questions.get(question_id)
+        if record is None:
+            return JSONResponse(
+                {"ok": False, "error": "Unknown question"}, status_code=404
+            )
+        payload = await request.json()
+        reply = {
+            "answer": payload.get("answer"),
+            "selected_option": payload.get("selected_option"),
+            "selected_options": payload.get("selected_options"),
+        }
+        future = record.get("future")
+        if future is not None and not future.done():
+            # The future may belong to a different event loop/thread (the agent
+            # run); schedule the resolution on its own loop, thread-safely.
+            try:
+                future.get_loop().call_soon_threadsafe(future.set_result, reply)
+            except RuntimeError:
+                if not future.done():
+                    future.set_result(reply)
+        return {"ok": True}
+
+    @app.post("/api/diff_previews/{preview_id}")
+    async def resolve_diff_preview(preview_id: str, request: Request):
+        """Resolve a pending write/edit diff-preview approval (P12.2)."""
+        record = pending_diff_previews.get(preview_id)
+        if record is None:
+            return JSONResponse(
+                {"ok": False, "error": "Unknown preview"}, status_code=404
+            )
+        reply = await request.json()
+        future = record.get("future")
+        if future is not None and not future.done():
+            try:
+                future.get_loop().call_soon_threadsafe(future.set_result, reply)
+            except RuntimeError:
+                if not future.done():
+                    future.set_result(reply)
+        return {"ok": True}
 
     @app.post("/api/conversations/{conv_id}/messages")
     async def add_conversation_message(conv_id: str, request: Request):
@@ -3183,6 +3499,59 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         if conv_manager.add_message(conv_id, role, content, model, sources):
             return {"ok": True}
         return JSONResponse({"ok": False, "error": "Conversation not found"}, status_code=404)
+
+    @app.post("/api/conversations/{conv_id}/fork")
+    async def fork_conversation_endpoint(conv_id: str, request: Request):
+        """Fork a conversation at a user message (P12.7)."""
+        if not conv_manager.get(conv_id):
+            return JSONResponse({"ok": False, "error": "Not found"}, status_code=404)
+        payload = await request.json()
+        raw_id = payload.get("from_message_id")
+        if raw_id is None:
+            return JSONResponse(
+                {"ok": False, "error": "from_message_id required"}, status_code=400
+            )
+        try:
+            from_message_id = int(raw_id)
+        except (TypeError, ValueError):
+            return JSONResponse(
+                {"ok": False, "error": "from_message_id must be an integer"},
+                status_code=400,
+            )
+        result = conv_manager.fork(conv_id, from_message_id)
+        if result is None:
+            return JSONResponse(
+                {"ok": False, "error": "Cannot fork at this message"},
+                status_code=400,
+            )
+        return {"ok": True, **result}
+
+    @app.get("/api/files/search")
+    async def file_search(q: str = "", limit: int = 20):
+        """Fuzzy filename search under the workspace root (P12.5).
+
+        Walks ``Path.cwd()`` skipping noise directories (.venv/.git/...),
+        returns relative posix paths whose path contains ``q`` (case
+        insensitive). An empty query returns everything up to ``limit``.
+        """
+        root = Path.cwd()
+        query = (q or "").lower()
+        exclude = {
+            ".venv", ".git", "__pycache__", "node_modules",
+            ".pytest_cache", ".mypy_cache", ".idea", ".vscode",
+        }
+        items: list[dict] = []
+        for dirpath, dirnames, filenames in os.walk(root):
+            dirnames[:] = [d for d in dirnames if d not in exclude]
+            for fn in filenames:
+                rel = (Path(dirpath) / fn).relative_to(root).as_posix()
+                if query and query not in rel.lower():
+                    continue
+                items.append({"path": rel})
+            if len(items) >= 2000:
+                break
+        items.sort(key=lambda it: it["path"])
+        return {"ok": True, "items": items[: max(0, int(limit))]}
 
     # ========== Memory Management API (P2-6) ==========
 

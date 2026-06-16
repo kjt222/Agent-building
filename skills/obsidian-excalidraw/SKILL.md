@@ -18,15 +18,25 @@ tools:
 
 # Obsidian Excalidraw 操作
 
-> **🚫 没有专用 obsidian_* 工具**（2026-05-22 P14.6.16 meta-tier 设计调整）
-> 整个 Excalidraw 流程必须靠 **元能力**（Read / Write / Bash / Glob / Grep）+ 这个 skill
-> 自己完成。如果你想调 `obsidian_read_excalidraw_canvas` /
-> `obsidian_write_excalidraw_elements` / `obsidian_refresh_note` /
-> `obsidian_find_pdf_text_anchor` —— **它们不存在**，不要等到工具调用失败才反应。
-> 所有读写都用 `Read` + `Write` 操作 `.excalidraw.md` 文件本身，
-> 所有 lz-string / pdfplumber / matplotlib 计算都用 `Bash` 跑 `.venv/Scripts/python.exe` 脚本。
-> 推荐：把每个一次性 Python 工具都先 `Write` 到 `tests/_tmp_*.py`（隔离副作用），
-> 再 `Bash` 跑它，**不要把脚本塞到 `python -c "..."` 里**（Windows 路径 + Unicode 易炸）。
+> **✅ 优先用专用 `obsidian_*` 工具**（full-access 模式下已注册，2026-06-05 校正）。
+> 它们存在、可直接调用，且把最容易出错的环节都烤进了工具层——**优先用它们，不要手搓 Bash 脚本去 lz-string round-trip**：
+>
+> | 工具 | 干什么 | 关键 |
+> |---|---|---|
+> | `obsidian_read_excalidraw_canvas` | 读画布，返回结构化元素列表/类型/bbox/element-links | 先读再写，拿真实 element id，别猜 |
+> | `obsidian_find_pdf_text_anchor` | 在某 PDF 页里定位一段文字 → 算出画布插入 (x,y) | 放注释/箭头到公式旁边 |
+> | `obsidian_add_formula_annotation` | **一步**：给 latex + 说明 + 位置（`anchor_query` 如 `'(1)'` 和/或 `target_xy`），自动渲公式图+排说明文字+画指向箭头+三件套编组 | **加公式注释优先用它**，省得手拼 image/text/arrow |
+> | `obsidian_write_excalidraw_elements` | 往 `## Drawing` fence 里 append/replace 元素（更底层） | **LaTeX 只需在 image 元素加 `latex` 字段**，工具自动渲 SVG + 接 fileId/dataURL/宽高，破图不可能 |
+> | `obsidian_refresh_note` | open→close→reopen 目标标签 | **写盘后必调**：关掉标签销毁 Obsidian 内存里的旧缓存，重开从磁盘重读，否则你的写入会被开着的标签自动保存冲掉 |
+>
+> **加公式注释（最省事）**：`read` → `add_formula_annotation`（latex+说明+anchor_query/target_xy，一步出图+文+箭头+组）→ `refresh_note`。
+> **需要自定义布局时**：`read` →（定位 `find_pdf_text_anchor`）→ `write_elements`（含 `latex` 字段）→ `refresh_note`。
+> 写完**务必 `refresh_note`** 让改动落到用户眼前并战胜"开着的标签把旧内容存回去"的竞争。
+>
+> **回退**：只有当上述工具确实不可用（报 unknown tool）时，才退回 `Read`/`Write`/`Bash`
+> 手动操作 `.excalidraw.md`（lz-string / pdfplumber / matplotlib 计算用 `Bash` 跑
+> `.venv/Scripts/python.exe` 脚本；先 `Write` 到 `tests/_tmp_*.py` 再 `Bash` 跑，
+> 不要塞进 `python -c "..."`，Windows 路径 + Unicode 易炸）。下文的 Python 配方即为此回退路径保留。
 
 > **🪟 Windows Bash 实操要点**（很多模型在这里浪费整整 3 个 iteration）：
 > - 本机 Bash 后端 = Windows shell。`cd "D:\...\中文目录" ; python ...` 在 cmd 里会
@@ -451,74 +461,39 @@ tmp.replace(path)
 
 ## 插 LaTeX 公式（带可改源码）
 
-### 🚨 主路径：只写 `customData.latex_source` 字符串，Obsidian 插件接管渲染
+### 🚨 主路径（也是唯一推荐）：给 image 元素加 `latex` 字段，`obsidian_write_excalidraw_elements` 自动渲染
 
-**关键事实**（2026-05-19 P13.2.3 真实 vault 复盘）：
-**Obsidian Excalidraw plugin 自带 katex 渲染器**。当 image element 上有
-`customData.latex_source` 字段时，插件会：
+**用 `obsidian_write_excalidraw_elements` 工具时**：要渲染一个公式，
+**只**在一个 `type="image"` 元素上加一个 `latex` 字段（裸 LaTeX，不带 `$`），
+给个 `x`/`y` 坐标，**省略 `fileId` / `width` / `height` / `files{}`**。工具会：
 
-1. 把 latex 字符串从 element 抽出，存到 markdown 的 `## Embedded Files` 段，
-   key 是 latex 字符串的 SHA1（如 `00cccb61f8addd...: $$\begin{aligned}...$$`）
-2. View 时调内置 katex 现场渲染成 SVG，**插件自己管 dataURL，覆盖你预渲的任何 SVG**
-3. 用户重启 Obsidian 或 force-reload 后看到正确的公式像素
+1. 用 matplotlib mathtext 把它渲成 self-contained SVG（剥根 width/height 保 viewBox）；
+2. base64 成 `data:image/svg+xml;base64,...` dataURL，塞进 `files{}`；
+3. 把元素的 `fileId` 指向它，按公式固有尺寸填 `width`/`height`；
+4. 写上 `customData.latex_source` 留源码可再编辑。
 
-**所以正确做法（最少代码）**：在 image element 上**只**填 `customData.latex_source`，
-`files[fileId].dataURL` 留空字符串或不填都行，**plugin 会接管**。
-
-> **⚠️ 必须做的额外一步（很容易漏）**：把每个 latex 字符串的 **SHA1 → `$$latex$$`** 映射
-> 追加到 markdown 的 `## Embedded Files` 段。这是 plugin 真正查 latex 的入口——
-> `customData.latex_source` 是元素本地缓存，但 plugin 渲染时是按 fileId 的 SHA1
-> 去 `## Embedded Files` 段查 latex 文本的。漏了这条，elements 在画板上是占位框。
->
-> ```python
-> import hashlib
-> for latex in new_latex_strings:
->     sha = hashlib.sha1(latex.encode("utf-8")).hexdigest()
->     append_to_section("## Embedded Files", f"{sha}: $${latex}$$\n")
-> ```
->
-> Element 的 `fileId` 不必等于这个 sha；plugin 会从 `## Embedded Files` 段
-> 按 sha key 检索 latex 字符串本身，然后用 katex 渲染。但**段里必须有这一条**，
-> 否则 katex 找不到要渲染什么。
-
-```python
-import json, time, uuid
-
-eid = "img_" + uuid.uuid4().hex[:12]
-fid = "lf_" + uuid.uuid4().hex[:12]
-now_ms = int(time.time() * 1000)
-
-# 让 plugin 知道 fileId 存在但 dataURL 由它填
-data.setdefault("files", {})[fid] = {
-    "id": fid,
-    "mimeType": "image/svg+xml",
-    "dataURL": "",                       # plugin will overwrite
-    "created": now_ms,
+```jsonc
+// elements 参数里的一个元素，模型只需要写这么多：
+{
+  "type": "image", "id": "eq1",
+  "x": 100, "y": -1400,
+  "latex": "\\mathbf{x}_i = \\left(x_i^{H},\\; f_H^{R_1}(x_i^{H}),\\; \\ldots,\\; f_H^{R_M}(x_i^{H})\\right)"
+  // 可选: "latex_scale": 1.5, "latex_fontsize": 18, "groupIds": ["g_xxx"]
 }
-
-data["elements"].append({
-    "type": "image", "id": eid,
-    "x": x, "y": y, "width": w, "height": h,  # 给个粗略 bbox，plugin 会按公式实际尺寸渲
-    "angle": 0, "strokeColor": "transparent",
-    "backgroundColor": "transparent",
-    "fillStyle": "solid", "strokeWidth": 1, "strokeStyle": "solid",
-    "roughness": 1, "opacity": 100, "groupIds": [], "frameId": None,
-    "roundness": None,
-    "seed": now_ms % 2_000_000_000,
-    "version": 1, "versionNonce": 0, "isDeleted": False,
-    "boundElements": None, "updated": now_ms,
-    "link": None, "locked": False,
-    "fileId": fid, "scale": [1, 1], "status": "saved",
-    "customData": {"latex_source": r"R_T = R_{c,in} + R_s + R_{c,out}"},
-})
 ```
 
-**插件默认渲染字号**：插件设置里有 "LaTeX default font size"，默认 ~20pt。
-单个公式可在元素上加 `customData.latex_font_size` 覆盖（不同插件版本字段名略有差异）。
+工具返回里的 `latex_rendered` 会列出每个被自动渲染的元素。这样**破图不可能发生**——
+fileId / dataURL / 宽高 全由框架保证一致，模型不用碰这三件套。
 
-**用户视角注意**：plugin 的 LaTeX 渲染独立于 Excalidraw 的 image resize handles ——
-拖外框只改 bbox，**公式字号不跟随**。要放大公式要么改全局 font size，要么用
-"Re-render LaTeX equation" 命令。
+> **⚠️ 不要再走 katex 老路**：以前的做法是只填 `customData.latex_source` + 把
+> `SHA1 → $$latex$$` 追加进 `## Embedded Files` 段，靠插件内置 katex 现场渲染。
+> 这条路**脆弱**：插件按 `fileId == latex 的 SHA1` 去查，模型几乎总把 fileId 写成
+> 随机 uuid、或漏掉 `## Embedded Files` 那条映射，结果画板上是破图占位框
+> （2026-06-05 doubao-seed-2-0-pro 真实复盘）。静态 SVG dataURL 不依赖插件 katex 版本，
+> 必渲染，所以现在工具直接帮你烤好。
+
+**用户视角注意**：静态 SVG 用 Excalidraw resize handles 拖外框时**公式等比缩放**
+（因为根 `<svg>` 只留了 viewBox、没有显式 width/height）。
 
 ### 📦 编组：多个相关公式必须 group / frame，否则跟 PPT 拖一个东西全跑差不多
 

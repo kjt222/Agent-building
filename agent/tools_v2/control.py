@@ -6,6 +6,9 @@ module from primitives so it's obvious they mutate run-scoped state.
 
 from __future__ import annotations
 
+import asyncio
+import json
+import uuid
 from typing import Optional, Protocol
 
 from agent.core.loop import (
@@ -52,11 +55,204 @@ class ExitPlanModeTool:
             return ToolResultBlock(
                 tool_use_id="", content="`plan` must be non-empty.", is_error=True
             )
-        ctx.scratch["plan_exited"] = True
-        ctx.scratch["plan_text"] = plan
+
+        handler = ctx.scratch.get("plan_approval_handler")
+        if not callable(handler):
+            # Legacy / non-UI runs (CLI, unit, batch): no human reviewer, so
+            # auto-approve and unlock immediately.
+            ctx.scratch["plan_exited"] = True
+            ctx.scratch["plan_text"] = plan
+            return ToolResultBlock(
+                tool_use_id="",
+                content="Plan recorded. Write/exec tools are now unlocked.",
+            )
+
+        plan_id = uuid.uuid4().hex
+        payload = {
+            "plan_id": plan_id,
+            "plan": plan,
+            "conversation_id": ctx.scratch.get("conversation_id"),
+        }
+        try:
+            reply = await handler(payload)
+        except Exception as exc:
+            return ToolResultBlock(
+                tool_use_id="",
+                content=f"Plan approval failed: {type(exc).__name__}: {exc}",
+                is_error=True,
+            )
+        if not isinstance(reply, dict):
+            return ToolResultBlock(
+                tool_use_id="",
+                content=(
+                    "Plan approval handler returned no decision; staying in "
+                    "plan mode."
+                ),
+                is_error=True,
+            )
+
+        approved = bool(reply.get("approved"))
+        note = str(reply.get("revision_note") or "").strip()
+        history = ctx.scratch.setdefault("plan_history", [])
+        history.append({
+            "plan_id": plan_id,
+            "plan": plan,
+            "approved": approved,
+            "revision_note": note,
+        })
+        if approved:
+            ctx.scratch["plan_exited"] = True
+            ctx.scratch["plan_approved"] = True
+            ctx.scratch["plan_text"] = plan
+            msg = "Plan approved. Write/exec tools are now unlocked."
+            if note:
+                msg += f" Reviewer note: {note}"
+            return ToolResultBlock(tool_use_id="", content=msg)
+        msg = (
+            "Plan rejected; staying in plan mode. Revise and call "
+            "exit_plan_mode again."
+        )
+        if note:
+            msg += f" Reviewer note: {note}"
+        return ToolResultBlock(tool_use_id="", content=msg, is_error=True)
+
+
+# --------------------------------------------------------------------------- #
+# AskUserQuestion — ask the user a clarifying question and block on the reply.
+# Restored from the session transcript (P12.3) after the D-drive-format
+# recovery reverted control.py to its pre-feature 4/23 version.
+# --------------------------------------------------------------------------- #
+
+
+class AskUserQuestionTool:
+    """Ask the user a clarifying question and wait for their answer.
+
+    The tool is SAFE — it does not mutate state. It is the correct first move
+    when a user's request is genuinely ambiguous: file location, output
+    format, target audience, naming, scope. Don't use it for trivial defaults
+    (whitespace, casing, etc.) — pick a sensible default instead.
+
+    The run is wired by the UI server: when the tool is called, the server
+    emits an ``activity{type=user_question_request}`` SSE event with the
+    question payload, registers a Future, and the tool blocks until the
+    user POSTs an answer to ``/api/user_questions/{question_id}``.
+    """
+
+    name = "AskUserQuestion"
+    description = (
+        "Ask the user 1-2 clarifying questions before doing complex or "
+        "ambiguous work. Use only when you genuinely don't know a load-bearing "
+        "detail (output location, format, target audience, naming, scope). Do "
+        "NOT ask trivial defaults. Pass at most 4 short options when the "
+        "answer is a clear pick; otherwise leave options empty and accept "
+        "free-form text. Returns the user's reply as JSON."
+    )
+    input_schema = {
+        "type": "object",
+        "properties": {
+            "question": {
+                "type": "string",
+                "description": "One concise question (max ~2 sentences).",
+            },
+            "options": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": (
+                    "Optional 2-4 short choice labels. If empty, the UI shows "
+                    "a free-form text input only."
+                ),
+                "maxItems": 4,
+            },
+            "multi_select": {
+                "type": "boolean",
+                "description": "If true, the user may pick more than one option.",
+                "default": False,
+            },
+            "context": {
+                "type": "string",
+                "description": "Optional short context (~1 sentence) shown above the question.",
+            },
+        },
+        "required": ["question"],
+    }
+    permission_level = PermissionLevel.SAFE  # reading user input is not a mutation
+    parallel_safe = False  # only one open question at a time
+
+    def __init__(self, default_timeout_s: float = 600.0):
+        self._default_timeout_s = float(default_timeout_s)
+
+    async def run(self, input: dict, ctx: LoopContext) -> ToolResultBlock:
+        question = (input.get("question") or "").strip()
+        if not question:
+            return ToolResultBlock(
+                tool_use_id="", content="`question` must be non-empty.", is_error=True
+            )
+        options_raw = input.get("options") or []
+        if not isinstance(options_raw, list):
+            return ToolResultBlock(
+                tool_use_id="", content="`options` must be a list of strings.", is_error=True
+            )
+        options = [str(o).strip() for o in options_raw if str(o).strip()]
+        if len(options) > 4:
+            return ToolResultBlock(
+                tool_use_id="",
+                content="At most 4 options are allowed; trim the question.",
+                is_error=True,
+            )
+
+        handler = ctx.scratch.get("user_question_handler")
+        if not callable(handler):
+            # Default behavior outside a UI server: no human in the loop. The
+            # model gets a clear error so it knows to fall back to defaults.
+            return ToolResultBlock(
+                tool_use_id="",
+                content=(
+                    "No interactive user available in this run; pick a "
+                    "sensible default and proceed without asking."
+                ),
+                is_error=True,
+            )
+
+        payload = {
+            "question_id": uuid.uuid4().hex,
+            "question": question,
+            "options": options,
+            "multi_select": bool(input.get("multi_select")),
+            "context": (input.get("context") or "").strip(),
+            "timeout_s": self._default_timeout_s,
+        }
+        try:
+            reply = await handler(payload)
+        except asyncio.TimeoutError:
+            return ToolResultBlock(
+                tool_use_id="",
+                content=(
+                    "User did not answer in time. Proceed with a sensible "
+                    "default and explain the assumption in your final reply."
+                ),
+                is_error=True,
+            )
+        except Exception as exc:
+            return ToolResultBlock(
+                tool_use_id="",
+                content=f"User question failed: {type(exc).__name__}: {exc}",
+                is_error=True,
+            )
+
+        # Record the question/answer for trace + UI replay.
+        history = ctx.scratch.setdefault("user_questions", [])
+        history.append({"request": payload, "reply": reply})
         return ToolResultBlock(
             tool_use_id="",
-            content="Plan recorded. Write/exec tools are now unlocked.",
+            content=json.dumps(
+                {
+                    "type": "user_question_reply",
+                    "answer": str(reply.get("answer") or ""),
+                    "selected_option": reply.get("selected_option"),
+                    "selected_options": reply.get("selected_options"),
+                },
+                ensure_ascii=False,
+            ),
         )
 
 

@@ -48,6 +48,11 @@ class CanvasSummary:
     # ID → linked file (e.g. PDF page) — handy for the model to know
     # which image elements point at which paper page.
     element_links: dict[str, str] = field(default_factory=dict)
+    # fileId(sha1) → embed target, parsed from the "## Embedded Files"
+    # section. This is where the Obsidian Excalidraw plugin actually
+    # records PDF-page embeds (e.g. "<sha1>: [[paper.pdf#page=3]]"); the
+    # image element's fileId equals the sha1 key.
+    embedded_files: dict[str, str] = field(default_factory=dict)
     frontmatter_raw: str = ""
 
     def to_dict(self) -> dict[str, Any]:
@@ -74,21 +79,26 @@ def read_canvas(canvas_path: Path, *, include_elements: bool = True) -> CanvasSu
         if end > 0:
             frontmatter = text[4:end]
 
-    # Pull "## Element Links" section as id->target dict
-    links: dict[str, str] = {}
-    el_section_start = text.find("## Element Links")
-    if el_section_start >= 0:
-        body = text[el_section_start:]
-        next_section = body.find("\n## ", 1)
-        body = body[: next_section if next_section > 0 else len(body)]
+    # Pull a "## <heading>" section's `key: value` lines into a dict.
+    def _section_kv(heading: str) -> dict[str, str]:
+        out: dict[str, str] = {}
+        start = text.find(heading)
+        if start < 0:
+            return out
+        body = text[start:]
+        nxt = body.find("\n## ", 1)
+        body = body[: nxt if nxt > 0 else len(body)]
         for line in body.splitlines():
             if ":" not in line or line.lstrip().startswith("#"):
                 continue
             key, _, val = line.partition(":")
-            key = key.strip()
-            val = val.strip()
+            key, val = key.strip(), val.strip()
             if key and val:
-                links[key] = val
+                out[key] = val
+        return out
+
+    links = _section_kv("## Element Links")
+    embedded = _section_kv("## Embedded Files")
 
     return CanvasSummary(
         canvas_path=str(canvas_path),
@@ -97,6 +107,7 @@ def read_canvas(canvas_path: Path, *, include_elements: bool = True) -> CanvasSu
         bbox=bbox,
         elements=elements if include_elements else [],
         element_links=links,
+        embedded_files=embedded,
         frontmatter_raw=frontmatter,
     )
 
@@ -116,6 +127,7 @@ class WriteResult:
     orphan_file_ids: list[str] = field(default_factory=list)
     viewport_focused: bool = False
     viewport: dict[str, float] | None = None
+    latex_rendered: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -200,6 +212,28 @@ def write_elements(
     data, _ = read_canvas_file(text)
     existing = data.setdefault("elements", [])
     before = len(existing)
+
+    # Framework guarantee: any image element carrying a `latex` field (or a
+    # stale customData.latex_source with no resolved dataURL) is rendered to a
+    # static SVG dataURL HERE — the model can no longer ship a broken-image
+    # latex element by mis-wiring fileId/SHA1 or leaving files{} empty.
+    latex_notes: list[str] = []
+    try:
+        from agent.tools_capability.obsidian.latex_svg import (
+            materialize_latex_elements,
+        )
+        files_to_add, latex_notes = materialize_latex_elements(
+            elements_to_write, files_to_add, data.get("files") or {}
+        )
+    except Exception as exc:  # rendering failure must not corrupt the canvas
+        return WriteResult(
+            ok=False, canvas_path=str(canvas_path),
+            elements_before=before, elements_after=before,
+            bytes_before=bytes_before, bytes_after=bytes_before,
+            mode=mode,
+            error=f"LaTeX render failed: {exc}",
+            elapsed_ms=_ms_since(start),
+        )
 
     # Container-strategy guard: an element MUST NOT carry both a
     # non-empty groupIds AND a non-empty frameId. Doing so creates two
@@ -348,6 +382,7 @@ def write_elements(
         elapsed_ms=_ms_since(start),
         viewport_focused=viewport_set is not None,
         viewport=viewport_set,
+        latex_rendered=latex_notes,
     )
 
 
@@ -466,6 +501,19 @@ class WriteExcalidrawElementsTool:
         "result includes 'orphan_file_ids' for any image element added "
         "whose fileId is missing from files{}; fix those before calling "
         "obsidian_refresh_note.\n\n"
+        "LATEX FORMULAS (do NOT hand-wire katex): to render a math formula, "
+        "add a type='image' element with a 'latex' field holding bare LaTeX "
+        "(no surrounding $, e.g. \"x_i = \\\\left(x_i^{H}, "
+        "f_H^{R_1}(x_i^{H})\\\\right)\") and just an x/y position — OMIT "
+        "fileId, width, height, and files{}. The tool renders it to a static "
+        "SVG (matplotlib mathtext), embeds the dataURL, sets fileId, and fills "
+        "width/height from the formula's intrinsic size. Do NOT use "
+        "customData.latex_source + a SHA1 entry in '## Embedded Files' — that "
+        "katex path is fragile (fileId must equal the SHA1, which models keep "
+        "getting wrong → broken-image). Optional per-element tuning: "
+        "'latex_scale' (default 1.5) and 'latex_fontsize' (default 18). "
+        "mathtext does NOT support \\bigl/\\Bigr — use \\left(...\\right). "
+        "The result lists what was auto-rendered under 'latex_rendered'.\n\n"
         "CONTAINER STRATEGY (hard rule): an element MUST NOT carry "
         "both a non-empty groupIds AND a non-empty frameId. Excalidraw "
         "frames are NOT transparent containers — they are independent "

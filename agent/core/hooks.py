@@ -8,9 +8,10 @@ Provides:
 
 from __future__ import annotations
 
+import difflib
 import re
 from pathlib import Path
-from typing import Awaitable, Callable, Optional
+from typing import Any, Awaitable, Callable, Optional
 
 from agent.core.loop import (
     LoopContext,
@@ -419,6 +420,584 @@ def make_approval_hook(
             )
         if remember:
             approved.add(use.name)
+        return use
+
+    return hook
+
+
+# ---------------------------------------------------------------------------
+# Diff preview hook (P12.2): rich Accept/Reject card for textual mutations.
+# ---------------------------------------------------------------------------
+
+
+# Async callable; given the diff payload, return ``{"approved": bool}``.
+DiffPreviewHandler = Callable[[dict], Awaitable[dict]]
+
+
+def _read_file_safe(path: Path) -> tuple[str, bool]:
+    """Return (current_text, existed). Missing/binary files map to ("", False)."""
+    if not path.exists():
+        return "", False
+    try:
+        return path.read_text(encoding="utf-8"), True
+    except Exception:
+        return "", True  # exists but unreadable as text
+
+
+def _unified_diff(before: str, after: str, *, path: str, n_context: int = 3) -> str:
+    diff = difflib.unified_diff(
+        before.splitlines(keepends=True),
+        after.splitlines(keepends=True),
+        fromfile=f"a/{path}",
+        tofile=f"b/{path}",
+        n=n_context,
+    )
+    return "".join(diff)
+
+
+def _resolve_path_against_workspace(raw: str, ctx: LoopContext) -> Optional[Path]:
+    """Best-effort resolve a tool path argument to an absolute Path.
+
+    Returns ``None`` if the path is empty/clearly invalid. Does not enforce
+    the workspace boundary — the tool's own check will. We only need the
+    real text to compute the diff.
+    """
+    if not raw:
+        return None
+    try:
+        p = Path(str(raw)).expanduser()
+        if not p.is_absolute():
+            root = ctx.config.workspace_root
+            if root is not None:
+                p = Path(root) / p
+        return p
+    except Exception:
+        return None
+
+
+def build_write_diff(use: ToolUseBlock, ctx: LoopContext) -> Optional[dict]:
+    """Build a diff payload for a Write tool call."""
+    path_arg = str(use.input.get("path") or "")
+    new_content = str(use.input.get("content") or "")
+    resolved = _resolve_path_against_workspace(path_arg, ctx)
+    if resolved is None:
+        return None
+    before, existed = _read_file_safe(resolved)
+    unified = _unified_diff(before, new_content, path=path_arg)
+    return {
+        "tool": "Write",
+        "path": path_arg,
+        "exists": existed,
+        "before_lines": len(before.splitlines()),
+        "after_lines": len(new_content.splitlines()),
+        "unified_diff": unified,
+        # For very small files, also pass the full before/after so the UI
+        # can render a side-by-side view if it wants.
+        "before_text": before if len(before) <= 20_000 else None,
+        "after_text": new_content if len(new_content) <= 20_000 else None,
+    }
+
+
+def build_edit_diff(use: ToolUseBlock, ctx: LoopContext) -> Optional[dict]:
+    """Build a diff payload for an Edit tool call."""
+    path_arg = str(use.input.get("path") or "")
+    old = str(use.input.get("old_string") or "")
+    new = str(use.input.get("new_string") or "")
+    replace_all = bool(use.input.get("replace_all"))
+    resolved = _resolve_path_against_workspace(path_arg, ctx)
+    if resolved is None or not resolved.exists():
+        return None
+    before, _ = _read_file_safe(resolved)
+    if old not in before:
+        return None  # the tool itself will error out
+    if replace_all:
+        after = before.replace(old, new)
+        occurrences = before.count(old)
+    else:
+        after = before.replace(old, new, 1)
+        occurrences = 1
+    unified = _unified_diff(before, after, path=path_arg)
+    return {
+        "tool": "Edit",
+        "path": path_arg,
+        "exists": True,
+        "occurrences_changed": occurrences,
+        "replace_all": replace_all,
+        "before_lines": len(before.splitlines()),
+        "after_lines": len(after.splitlines()),
+        "unified_diff": unified,
+        "before_text": before if len(before) <= 20_000 else None,
+        "after_text": after if len(after) <= 20_000 else None,
+    }
+
+
+def _truncate(value: str, limit: int = 120) -> str:
+    text = "" if value is None else str(value)
+    return text if len(text) <= limit else text[:limit] + "…"
+
+
+def _format_value_preview(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, (str, int, float, bool)):
+        return _truncate(str(value), limit=120)
+    try:
+        import json as _json
+
+        return _truncate(_json.dumps(value, ensure_ascii=False), limit=120)
+    except Exception:
+        return _truncate(repr(value), limit=120)
+
+
+def _summarize_excel_op(raw: dict) -> Optional[dict]:
+    """Render one ExcelRuntimeEdit op as a structured preview row.
+
+    Returns ``None`` for read-only ops (``get_structure``).
+    """
+    op = str(raw.get("op") or "").strip()
+    sheet = str(raw.get("sheet") or "").strip()
+    cell = str(raw.get("cell") or "").strip()
+    rng = str(raw.get("range") or "").strip()
+    if op == "get_structure":
+        return None
+    if op == "set_cell":
+        value = _format_value_preview(raw.get("value"))
+        coord = f"{sheet}!{cell}" if sheet and cell else (sheet or cell)
+        return {
+            "op": op,
+            "kind": "set_cell",
+            "sheet": sheet,
+            "cell": cell,
+            "value": value,
+            "summary": f"Set {coord} = {value}",
+        }
+    if op == "set_formula":
+        formula = _truncate(str(raw.get("formula") or "").strip(), limit=180)
+        coord = f"{sheet}!{cell}" if sheet and cell else (sheet or cell)
+        return {
+            "op": op,
+            "kind": "set_formula",
+            "sheet": sheet,
+            "cell": cell,
+            "formula": formula,
+            "summary": f"Set formula {coord} = {formula}",
+        }
+    if op == "set_range_values":
+        values = raw.get("values") or []
+        rows = len(values) if isinstance(values, list) else 0
+        cols = 0
+        sample: list[str] = []
+        if rows > 0 and isinstance(values[0], list):
+            cols = len(values[0])
+            for cell_value in values[0][:8]:
+                sample.append(_format_value_preview(cell_value))
+        coord = f"{sheet}!{rng}" if sheet and rng else (sheet or rng)
+        return {
+            "op": op,
+            "kind": "set_range_values",
+            "sheet": sheet,
+            "range": rng,
+            "rows": rows,
+            "cols": cols,
+            "sample_row": sample,
+            "summary": (
+                f"Write range {coord} ({rows}×{cols})"
+                + (
+                    f" — first row: {', '.join(sample) }"
+                    if sample
+                    else ""
+                )
+            ),
+        }
+    if op == "create_named_range":
+        name = str(raw.get("name") or "").strip()
+        refers_to = str(raw.get("refers_to") or "").strip()
+        target = refers_to or (f"{sheet}!{rng}" if sheet and rng else (sheet or rng))
+        return {
+            "op": op,
+            "kind": "create_named_range",
+            "name": name,
+            "target": target,
+            "summary": f"Create named range {name} → {target}",
+        }
+    if op == "refresh_calculation":
+        return {
+            "op": op,
+            "kind": "side_effect",
+            "summary": "Recalculate workbook (formula refresh)",
+        }
+    return {
+        "op": op or "(unknown)",
+        "kind": "other",
+        "summary": f"Excel op: {op}",
+    }
+
+
+def build_excel_runtime_diff(use: ToolUseBlock, ctx: LoopContext) -> Optional[dict]:
+    """Structured preview for an ExcelRuntimeEdit call."""
+    path_arg = str(use.input.get("path") or "")
+    raw_ops = use.input.get("ops") or []
+    if not isinstance(raw_ops, list) or not raw_ops:
+        return None
+    rows: list[dict] = []
+    mutating = False
+    for raw in raw_ops:
+        if not isinstance(raw, dict):
+            continue
+        row = _summarize_excel_op(raw)
+        if row is None:
+            continue
+        rows.append(row)
+        # refresh_calculation is the one side_effect that still mutates the
+        # workbook's stored values; other side_effects (none for now) would
+        # not trigger a preview on their own.
+        if row["kind"] != "side_effect" or row.get("op") == "refresh_calculation":
+            mutating = True
+    if not rows or not mutating:
+        return None
+    return {
+        "tool": "ExcelRuntimeEdit",
+        "path": path_arg,
+        "op_count": len(rows),
+        "op_summary": rows,
+    }
+
+
+def _bbox_from(raw: dict) -> Optional[list[float]]:
+    fields = ("left", "top", "width", "height")
+    if any(raw.get(field) is None for field in fields):
+        return None
+    try:
+        return [float(raw[field]) for field in fields]
+    except (TypeError, ValueError):
+        return None
+
+
+def _shape_style_fields(raw: dict) -> dict:
+    fields = {}
+    for key in ("fill_color", "line_color", "font_color", "font_size", "bold"):
+        value = raw.get(key)
+        if value is None or value == "":
+            continue
+        fields[key] = value
+    return fields
+
+
+def _summarize_powerpoint_op(raw: dict) -> Optional[dict]:
+    """Render one PowerPointRuntimeEdit op as a structured preview row."""
+    op = str(raw.get("op") or "").strip()
+    slide = raw.get("slide")
+    name = str(raw.get("name") or "").strip()
+    if op in {"get_structure", "save"}:
+        return None
+    if op == "create_presentation":
+        return {
+            "op": op,
+            "kind": "side_effect",
+            "summary": "Create new presentation",
+        }
+    if op == "add_slide":
+        layout = str(raw.get("layout") or "").strip()
+        return {
+            "op": op,
+            "kind": "add_slide",
+            "layout": layout or "default",
+            "summary": f"Add slide (layout {layout or 'default'})",
+        }
+    if op == "add_text_box":
+        bbox = _bbox_from(raw)
+        text = _truncate(str(raw.get("text") or "").strip(), limit=120)
+        return {
+            "op": op,
+            "kind": "add_text",
+            "slide": slide,
+            "text": text,
+            "bbox": bbox,
+            "summary": (
+                f"Add text box on slide {slide}"
+                + (f" @ ({bbox[0]:.0f},{bbox[1]:.0f},{bbox[2]:.0f}×{bbox[3]:.0f})" if bbox else "")
+                + (f": {text}" if text else "")
+            ),
+        }
+    if op == "add_shape":
+        bbox = _bbox_from(raw)
+        shape_type = str(raw.get("shape_type") or "").strip()
+        return {
+            "op": op,
+            "kind": "add_shape",
+            "slide": slide,
+            "shape_type": shape_type,
+            "bbox": bbox,
+            "summary": (
+                f"Add {shape_type or 'shape'} on slide {slide}"
+                + (
+                    f" @ ({bbox[0]:.0f},{bbox[1]:.0f},{bbox[2]:.0f}×{bbox[3]:.0f})"
+                    if bbox
+                    else ""
+                )
+            ),
+        }
+    if op == "add_connector":
+        endpoints = None
+        try:
+            endpoints = {
+                "from": [float(raw["x1"]), float(raw["y1"])],
+                "to": [float(raw["x2"]), float(raw["y2"])],
+            }
+        except (KeyError, TypeError, ValueError):
+            endpoints = None
+        connector_type = str(raw.get("connector_type") or "").strip()
+        return {
+            "op": op,
+            "kind": "add_connector",
+            "slide": slide,
+            "connector_type": connector_type or "straight",
+            "endpoints": endpoints,
+            "summary": (
+                f"Add {connector_type or 'straight'} connector on slide {slide}"
+                + (
+                    f" — ({endpoints['from'][0]:.0f},{endpoints['from'][1]:.0f}) → "
+                    f"({endpoints['to'][0]:.0f},{endpoints['to'][1]:.0f})"
+                    if endpoints
+                    else ""
+                )
+            ),
+        }
+    if op == "set_shape_style":
+        fields = _shape_style_fields(raw)
+        return {
+            "op": op,
+            "kind": "set_shape_style",
+            "slide": slide,
+            "name": name,
+            "fields": fields,
+            "summary": (
+                f"Style {name or 'shape'} on slide {slide}"
+                + (
+                    " — "
+                    + ", ".join(f"{k}={v}" for k, v in fields.items())
+                    if fields
+                    else ""
+                )
+            ),
+        }
+    if op == "set_shape_geometry":
+        bbox = _bbox_from(raw)
+        return {
+            "op": op,
+            "kind": "set_shape_geometry",
+            "slide": slide,
+            "name": name,
+            "bbox": bbox,
+            "summary": (
+                f"Move/resize {name or 'shape'} on slide {slide}"
+                + (
+                    f" → ({bbox[0]:.0f},{bbox[1]:.0f},{bbox[2]:.0f}×{bbox[3]:.0f})"
+                    if bbox
+                    else ""
+                )
+            ),
+        }
+    return {
+        "op": op or "(unknown)",
+        "kind": "other",
+        "summary": f"PowerPoint op: {op}",
+    }
+
+
+def build_powerpoint_runtime_diff(use: ToolUseBlock, ctx: LoopContext) -> Optional[dict]:
+    """Structured preview for a PowerPointRuntimeEdit call."""
+    path_arg = str(use.input.get("path") or "")
+    raw_ops = use.input.get("ops") or []
+    if not isinstance(raw_ops, list) or not raw_ops:
+        return None
+    rows: list[dict] = []
+    mutating = False
+    for raw in raw_ops:
+        if not isinstance(raw, dict):
+            continue
+        row = _summarize_powerpoint_op(raw)
+        if row is None:
+            continue
+        rows.append(row)
+        if row["kind"] != "side_effect" or row.get("op") == "create_presentation":
+            mutating = True
+    if not rows or not mutating:
+        return None
+    return {
+        "tool": "PowerPointRuntimeEdit",
+        "path": path_arg,
+        "op_count": len(rows),
+        "op_summary": rows,
+    }
+
+
+def _summarize_word_op(raw: dict) -> Optional[dict]:
+    """Render one WordRuntimeEdit op as a structured preview row.
+
+    Returns ``None`` for read-only ops (no preview needed) so the hook
+    can short-circuit when every requested op is read-only.
+    """
+    op = str(raw.get("op") or "").strip()
+    anchor = str(raw.get("anchor_heading") or raw.get("anchor") or "").strip()
+    new_text = str(raw.get("new_text") or raw.get("text") or "").strip()
+    style = str(raw.get("style") or "").strip()
+    if op == "get_structure":
+        return None  # read-only
+    if op == "set_heading_text":
+        return {
+            "op": op,
+            "kind": "rename_heading",
+            "before": anchor,
+            "after": new_text,
+            "summary": f"Rename heading: “{anchor}” → “{new_text}”",
+        }
+    if op == "insert_paragraph_after_heading":
+        return {
+            "op": op,
+            "kind": "insert_after_heading",
+            "anchor": anchor,
+            "after_text": new_text,
+            "style": style or "Normal",
+            "summary": (
+                f"Insert under “{anchor}” (style {style or 'Normal'}): "
+                f"{(new_text[:120] + '…') if len(new_text) > 120 else new_text}"
+            ),
+        }
+    if op == "refresh_fields":
+        return {
+            "op": op,
+            "kind": "side_effect",
+            "summary": "Refresh fields (TOC, page numbers, cross-refs)",
+        }
+    if op == "add_toc":
+        levels = str(raw.get("levels") or "1-3").strip()
+        title = str(raw.get("title") or "").strip()
+        return {
+            "op": op,
+            "kind": "side_effect",
+            "summary": (
+                f"Add / refresh TOC (levels {levels}"
+                + (f", title “{title}”" if title else "")
+                + ")"
+            ),
+        }
+    return {
+        "op": op or "(unknown)",
+        "kind": "other",
+        "summary": f"Word op: {op}",
+    }
+
+
+def build_word_runtime_diff(use: ToolUseBlock, ctx: LoopContext) -> Optional[dict]:
+    """Structured preview for a WordRuntimeEdit call.
+
+    Each op becomes a row in ``op_summary``. Read-only requests
+    (only ``get_structure``) return ``None`` so the hook does not surface
+    a useless approval card.
+    """
+    path_arg = str(use.input.get("path") or "")
+    raw_ops = use.input.get("ops") or []
+    if not isinstance(raw_ops, list) or not raw_ops:
+        return None
+    rows: list[dict] = []
+    mutating = False
+    for raw in raw_ops:
+        if not isinstance(raw, dict):
+            continue
+        row = _summarize_word_op(raw)
+        if row is None:
+            continue
+        rows.append(row)
+        if row["kind"] != "side_effect" or row.get("op") in {"refresh_fields", "add_toc"}:
+            # add_toc and refresh_fields still mutate the doc — keep the preview.
+            mutating = True
+    if not rows or not mutating:
+        return None
+    return {
+        "tool": "WordRuntimeEdit",
+        "path": path_arg,
+        "op_count": len(rows),
+        "op_summary": rows,
+    }
+
+
+_DIFF_BUILDERS = {
+    "Write": build_write_diff,
+    "Edit": build_edit_diff,
+    "WordRuntimeEdit": build_word_runtime_diff,
+    "ExcelRuntimeEdit": build_excel_runtime_diff,
+    "PowerPointRuntimeEdit": build_powerpoint_runtime_diff,
+}
+
+
+def _has_previewable_change(payload: Optional[dict]) -> bool:
+    """A payload is worth surfacing if it carries a textual diff or op rows."""
+    if not payload:
+        return False
+    if (payload.get("unified_diff") or "").strip():
+        return True
+    if payload.get("op_summary"):
+        return True
+    return False
+
+
+def make_diff_preview_hook(
+    tools: dict,
+    handler: Optional[DiffPreviewHandler],
+    *,
+    enabled_tools: Optional[set[str]] = None,
+):
+    """Return a PreToolUseHook that shows a diff / op preview for mutation tools.
+
+    Textual tools (Write/Edit) preview a unified diff; the *Runtime* tools
+    (Word/Excel/PowerPoint) preview a structured ``op_summary``. On approval
+    the original ``ToolUseBlock`` is returned unchanged AND the tool is added
+    to both ``ctx.scratch["approved_tools"]`` (so the plain approval hook does
+    not double-ask) and ``ctx.scratch["diff_preview_approved"]`` (so callers
+    can tell the rich card was already shown). On rejection a
+    ``ToolResultBlock(is_error=True)`` short-circuits the call.
+
+    Without a handler (CLI / batch runs) the hook is a no-op.
+    """
+    targets = set(enabled_tools or _DIFF_BUILDERS.keys())
+
+    async def hook(use: ToolUseBlock, ctx: LoopContext):
+        if handler is None:
+            return use
+        if use.name not in targets:
+            return use
+        builder = _DIFF_BUILDERS.get(use.name)
+        if builder is None:
+            return use
+        try:
+            payload = builder(use, ctx)
+        except Exception:
+            return use  # builder failure: fall through to standard gating
+        if not _has_previewable_change(payload):
+            return use  # nothing meaningful to show; let the tool itself run/err
+        try:
+            reply = await handler({
+                "tool_use_id": use.id,
+                **payload,
+            })
+        except Exception as exc:
+            return ToolResultBlock(
+                tool_use_id="",
+                content=f"Diff preview failed: {type(exc).__name__}: {exc}",
+                is_error=True,
+            )
+        if not isinstance(reply, dict) or not reply.get("approved"):
+            return ToolResultBlock(
+                tool_use_id="",
+                content=(
+                    "User rejected the proposed change. Do not retry the "
+                    "same edit; propose an alternative or ask for guidance."
+                ),
+                is_error=True,
+            )
+        ctx.scratch.setdefault("approved_tools", set()).add(use.name)
+        ctx.scratch.setdefault("diff_preview_approved", set()).add(use.name)
         return use
 
     return hook

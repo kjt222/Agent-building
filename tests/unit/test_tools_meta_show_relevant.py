@@ -16,13 +16,19 @@ def _names(suggestions) -> list[str]:
     return [s.name for s in suggestions]
 
 
-def test_obsidian_keywords_point_at_skill_not_tool():
-    """P14.6.16: no dedicated obsidian_* tool — catalog returns a skill
-    pointer the model must read."""
+def test_obsidian_keywords_surface_real_tools():
+    """2026-06-09: dedicated obsidian_* tools DO exist (registered in
+    full-access + the generic factory). The catalog must surface them by
+    name — the old 'no obsidian tool, use Bash' pointer was a stale lie
+    that drove agents back to hand-rolling lz-string/katex."""
     out = show_relevant_tools_sync("insert formula into Obsidian Excalidraw canvas")
     names = _names(out)
+    assert "obsidian_read_excalidraw_canvas" in names
+    assert "obsidian_write_excalidraw_elements" in names
+    assert "obsidian_find_pdf_text_anchor" in names
+    assert "obsidian_refresh_note" in names
+    # the skill pointer is still offered as the how-to
     assert "__skill__obsidian-excalidraw" in names
-    assert not any(n.startswith("obsidian_") for n in names)
 
 
 def test_chinese_keyword_公式推导_matches_obsidian():

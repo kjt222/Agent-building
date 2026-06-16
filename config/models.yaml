@@ -216,7 +216,7 @@ profiles:
           api_key_ref: 22.embedding.deepseek
       vendor: zhipu
   gpt-5.4:
-    llm_only: true   # coding/eval profile, no RAG path
+    llm_only: true
     llm:
       active: openai
       fallback:
@@ -244,7 +244,6 @@ profiles:
           base_url: https://api.openai.com/v1
       vendor: openai
   doubao-code:
-    llm_only: true
     llm:
       active: openai_compat
       fallback:
@@ -252,11 +251,14 @@ profiles:
       providers:
         openai_compat:
           type: openai_compat
-          model: doubao-seed-2.0-code
+          # Coding Plan 端点：扣套餐额度(5h 窗口)，不扣按量付费余额。
+          # 旧的按量付费配置(已弃用，欠费源)：
+          #   model: deepseek-v4-pro-260425
+          #   base_url: https://ark.cn-beijing.volces.com/api/v3
+          model: deepseek-v4-pro
           base_url: https://ark.cn-beijing.volces.com/api/coding/v3
           api_key_env: ''
           api_key_ref: doubao-code.llm.openai_compat
-      vendor: openai_compat
   glm-5.1:
     llm_only: true
     llm:

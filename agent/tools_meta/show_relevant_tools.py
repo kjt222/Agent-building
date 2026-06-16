@@ -30,25 +30,48 @@ from typing import Any
 # ---------------------------------------------------------------------------
 
 _CATALOG: list[tuple[list[str], list[tuple[str, str]]]] = [
-    # P14.6.16 (user 2026-05-22): no obsidian_* capability tools. The
-    # Excalidraw flow now goes through meta tools (Read/Write/Bash) plus
-    # the skills/obsidian-excalidraw/SKILL.md self-contained recipe.
-    # show_relevant_tools still surfaces the skill pointer instead of a
-    # tool name, so the model knows where to look.
+    # 2026-06-09: dedicated obsidian_* capability tools DO exist and are
+    # registered in full-access mode (server.py) and the generic factory.
+    # The prior "there is NO obsidian tool, use Bash" entry was a stale
+    # P14.6.16 lie that drove agents back to hand-rolling lz-string + a
+    # fragile katex path. Surface the real tools instead; SKILL.md is the
+    # how-to, but these are the safe primitives to call by name.
     (
         [
             "obsidian", "excalidraw", "canvas", "vault",
             "公式", "推导", "笔记",
         ],
         [
+            ("obsidian_read_excalidraw_canvas",
+             "Read an Obsidian .excalidraw.md canvas: decodes the "
+             "lz-string ## Drawing fence to elements[], files{}, "
+             "element_links, appState — never parse the compressed blob "
+             "by hand."),
+            ("obsidian_find_pdf_text_anchor",
+             "Locate a string (e.g. '(6)') inside a PDF embedded in the "
+             "canvas and map it to canvas coords, returning a "
+             "suggested_insert_xy beside the match. Use BEFORE placing an "
+             "annotation so it lands next to the right formula."),
+            ("obsidian_add_formula_annotation",
+             "HIGH-LEVEL one-call: annotate a formula — give latex + an "
+             "explanation + where it is (anchor_query like '(1)' and/or "
+             "target_xy); it renders the SVG, places the formula image, "
+             "wraps the explanation below, draws an arrow at the formula, "
+             "and groups all three. Prefer this for formula annotations."),
+            ("obsidian_write_excalidraw_elements",
+             "Lower-level: append/patch elements safely (re-encodes the "
+             "fence, keeps files{} consistent). For a formula, add an image "
+             "element with a `latex` field — the tool renders it to an SVG "
+             "dataURL automatically; do NOT hand-wire fileId/dataURL/katex."),
+            ("obsidian_refresh_note",
+             "Close→reopen the note via the Local REST API so an OPEN "
+             "Obsidian drops its stale in-memory buffer and re-reads your "
+             "write from disk (beats the open-tab autosave-clobber race). "
+             "Call after write_elements."),
             ("__skill__obsidian-excalidraw",
-             "There is NO dedicated obsidian tool. Read "
-             "skills/obsidian-excalidraw/SKILL.md — it contains the "
-             "full self-contained recipe: lz-string fence decode/encode, "
-             "schema-safe element append, pdfplumber spatial anchor, "
-             "matplotlib LaTeX→SVG dataURL embed, files{} consistency, "
-             "container strategy, viewport-focus appState. Drive the "
-             "canvas via Read/Write/Bash following that skill."),
+             "Read skills/obsidian-excalidraw/SKILL.md for the full "
+             "workflow: read → find_pdf_text_anchor → "
+             "write_elements(latex field) → refresh_note."),
         ],
     ),
     # Office documents — placeholder; mapped to legacy v2 tools until

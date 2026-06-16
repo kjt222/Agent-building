@@ -115,13 +115,22 @@ def _index_canvas_pages(canvas_path: Path) -> tuple[dict[int, dict[str, Any]], s
 
     pages: dict[int, dict[str, Any]] = {}
     pdf_filename: str | None = None
+
+    def _match_link(raw: str) -> tuple[str, int] | None:
+        # Strip a wikilink wrapper ("[[paper.pdf#page=3]]") if present.
+        s = raw.strip()
+        if s.startswith("[[") and s.endswith("]]"):
+            s = s[2:-2].strip()
+        m = _PAGE_LINK_RE.match(s)
+        return (m.group(1), int(m.group(2))) if m else None
+
+    # Path A: "## Element Links" maps an ELEMENT id → pdf#page (explicit).
     for elem_id, link in summary.element_links.items():
-        m = _PAGE_LINK_RE.match(link.strip())
-        if not m:
+        matched = _match_link(link)
+        if not matched:
             continue
-        if pdf_filename is None:
-            pdf_filename = m.group(1)
-        page_num = int(m.group(2))
+        fname, page_num = matched
+        pdf_filename = pdf_filename or fname
         elem = elements_by_id.get(elem_id)
         # The link can point at either the page's frame (Obsidian's
         # default PDF-embed layout) or the image element itself. Both
@@ -129,6 +138,27 @@ def _index_canvas_pages(canvas_path: Path) -> tuple[dict[int, dict[str, Any]], s
         if elem is None or elem.get("type") not in ("image", "frame"):
             continue
         pages[page_num] = elem
+
+    # Path B: "## Embedded Files" maps a fileId(sha1) → pdf#page. This is
+    # the layout the Obsidian Excalidraw plugin actually writes for an
+    # embedded PDF; resolve each via the image element whose fileId==sha1.
+    if not pages:
+        elems_by_fileid: dict[str, dict[str, Any]] = {}
+        for e in summary.elements:
+            fid = e.get("fileId")
+            if isinstance(fid, str) and e.get("type") in ("image", "frame"):
+                elems_by_fileid[fid] = e
+        for sha1, link in summary.embedded_files.items():
+            matched = _match_link(link)
+            if not matched:
+                continue
+            fname, page_num = matched
+            pdf_filename = pdf_filename or fname
+            elem = elems_by_fileid.get(sha1.strip())
+            if elem is None:
+                continue
+            pages[page_num] = elem
+
     return pages, pdf_filename
 
 
@@ -177,7 +207,11 @@ def find_pdf_text_anchor(
     if not pages_by_num or pdf_filename is None:
         return AnchorResult(
             found=False, canvas_path=str(canvas_path), pdf_path=None,
-            query=query, error="canvas has no element_links pointing at a PDF",
+            query=query,
+            error=(
+                "canvas has no PDF-page embeds (checked both ## Element "
+                "Links and ## Embedded Files for a [[*.pdf#page=N]] link)"
+            ),
         )
 
     vault_root = _find_vault_root(canvas_path)
