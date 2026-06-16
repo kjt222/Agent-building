@@ -43,7 +43,7 @@ def test_run_dry_run_plans_commands(tmp_path):
     ])
     summary = json.loads((results_root / "summary.json").read_text(encoding="utf-8"))
     assert summary["dry_run"] is True
-    assert summary["totals"]["n"] == 2  # both word scenarios
+    assert summary["totals"]["n"] == 5  # all five word scenarios
     for c in summary["cases"]:
         assert c["case_id"].startswith("p4_word_")
         assert c["model"] == "doubao-code"
