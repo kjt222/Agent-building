@@ -55,12 +55,66 @@ class ExitPlanModeTool:
             return ToolResultBlock(
                 tool_use_id="", content="`plan` must be non-empty.", is_error=True
             )
-        ctx.scratch["plan_exited"] = True
-        ctx.scratch["plan_text"] = plan
-        return ToolResultBlock(
-            tool_use_id="",
-            content="Plan recorded. Write/exec tools are now unlocked.",
+
+        handler = ctx.scratch.get("plan_approval_handler")
+        if not callable(handler):
+            # Legacy / non-UI runs (CLI, unit, batch): no human reviewer, so
+            # auto-approve and unlock immediately.
+            ctx.scratch["plan_exited"] = True
+            ctx.scratch["plan_text"] = plan
+            return ToolResultBlock(
+                tool_use_id="",
+                content="Plan recorded. Write/exec tools are now unlocked.",
+            )
+
+        plan_id = uuid.uuid4().hex
+        payload = {
+            "plan_id": plan_id,
+            "plan": plan,
+            "conversation_id": ctx.scratch.get("conversation_id"),
+        }
+        try:
+            reply = await handler(payload)
+        except Exception as exc:
+            return ToolResultBlock(
+                tool_use_id="",
+                content=f"Plan approval failed: {type(exc).__name__}: {exc}",
+                is_error=True,
+            )
+        if not isinstance(reply, dict):
+            return ToolResultBlock(
+                tool_use_id="",
+                content=(
+                    "Plan approval handler returned no decision; staying in "
+                    "plan mode."
+                ),
+                is_error=True,
+            )
+
+        approved = bool(reply.get("approved"))
+        note = str(reply.get("revision_note") or "").strip()
+        history = ctx.scratch.setdefault("plan_history", [])
+        history.append({
+            "plan_id": plan_id,
+            "plan": plan,
+            "approved": approved,
+            "revision_note": note,
+        })
+        if approved:
+            ctx.scratch["plan_exited"] = True
+            ctx.scratch["plan_approved"] = True
+            ctx.scratch["plan_text"] = plan
+            msg = "Plan approved. Write/exec tools are now unlocked."
+            if note:
+                msg += f" Reviewer note: {note}"
+            return ToolResultBlock(tool_use_id="", content=msg)
+        msg = (
+            "Plan rejected; staying in plan mode. Revise and call "
+            "exit_plan_mode again."
         )
+        if note:
+            msg += f" Reviewer note: {note}"
+        return ToolResultBlock(tool_use_id="", content=msg, is_error=True)
 
 
 # --------------------------------------------------------------------------- #

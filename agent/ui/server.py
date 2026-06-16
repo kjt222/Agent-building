@@ -2619,6 +2619,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
         images = payload.get("images") or []
         conversation_id = str(payload.get("conversation_id") or "").strip() or None
         unattended = bool(payload.get("unattended") or False)
+        plan_mode = bool(payload.get("plan_mode") or False)
         if not message:
             return JSONResponse({"ok": False, "error": "Empty message."}, status_code=400)
 
@@ -2786,6 +2787,18 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 "guessing. Do NOT ask about trivial defaults — pick a sensible "
                 "default and proceed. Never ask more questions than necessary.\n"
                 "</clarification_policy>"
+            )
+
+        if plan_mode:
+            base_agent_prompt = (
+                f"{base_agent_prompt}\n\n"
+                "<plan_mode>\n"
+                "Plan mode is ACTIVE. Investigate with read-only tools and "
+                "produce a concrete, step-by-step plan, then call "
+                "exit_plan_mode with that plan. Do NOT modify files, run "
+                "mutating commands, or use write/exec tools until the plan is "
+                "approved.\n"
+                "</plan_mode>"
             )
 
         approval_mode = str(payload.get("mode") or "confirm").lower()
@@ -3002,7 +3015,8 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 max_iterations=int(payload.get("max_iterations") or 20),
                 parallel_tool_calls=True,
                 permission_mode=(
-                    "plan" if str(payload.get("mode") or "").lower() == "read"
+                    "plan"
+                    if plan_mode or str(payload.get("mode") or "").lower() == "read"
                     else "default"
                 ),
                 trace_path=trace_path,
@@ -3010,7 +3024,10 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     base_agent_prompt,
                     session_metadata,
                 ),
-                initial_scratch={"user_question_handler": user_question_prompter},
+                initial_scratch={
+                    "user_question_handler": user_question_prompter,
+                    "conversation_id": conversation_id,
+                },
             ),
         )
 
@@ -3227,6 +3244,7 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                     "sources": [],
                     "provider": provider_name or provider_type,
                     "model": model_name,
+                    "plan_mode_used": plan_mode,
                 })
             except Exception as exc:
                 persisted_error = str(exc)

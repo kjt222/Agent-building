@@ -20,3 +20,4 @@ keyring>=25.0.0
 pywebview>=5.0
 sqlite-vec>=0.1.1
 lzstring>=1.0.4  # Excalidraw compressed-json encode/decode (obsidian + acceptance)
+playwright>=1.44.0  # Verify tool: browser assertions on HTML/JS/game artifacts (needs `playwright install chromium`)
