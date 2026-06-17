@@ -11,6 +11,7 @@ from agent.tools_v2.primitives import (
     EditTool,
     ReadTool,
     WriteTool,
+    _validate_bash_command,
     default_toolset,
 )
 
@@ -151,3 +152,24 @@ def test_bash_restricts_git_to_read_only_subcommands():
     assert "[exit_code]\n0" in allowed.content
     assert blocked.is_error is True
     assert "git subcommand" in blocked.content
+
+
+def test_bash_full_access_mode_bypasses_the_sandbox():
+    """full-access (bash_unrestricted) lifts the allowlist + operator/danger
+    blocks — the Claude-Code bypass-permissions regime."""
+    ctx = _ctx()
+    ctx.scratch["bash_unrestricted"] = True
+
+    # All three are rejected in the default mode; none are now.
+    assert _validate_bash_command("curl https://example.com", ctx) is None
+    assert _validate_bash_command("klayout -b -r run.py && echo done", ctx) is None
+    assert _validate_bash_command("Remove-Item scratch.tmp", ctx) is None
+    # An empty command is still a usage error, not a policy one.
+    assert _validate_bash_command("   ", ctx) == "empty command"
+
+
+def test_bash_default_mode_keeps_the_sandbox():
+    """Without the flag the guards still fire — the safe default."""
+    ctx = _ctx()
+    assert _validate_bash_command("curl https://example.com", ctx) is not None
+    assert _validate_bash_command("klayout -b -r run.py", ctx) is not None

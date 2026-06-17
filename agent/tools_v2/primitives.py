@@ -127,6 +127,15 @@ def _command_key(token: str) -> str:
 def _validate_bash_command(command: str, ctx: LoopContext) -> str | None:
     if not command.strip():
         return "empty command"
+    # full-access mode is the explicit opt-out of the Bash sandbox — closest to
+    # Claude Code's bypass-permissions regime: any command runs, shell operators
+    # and chaining are allowed, and the approval gate (also lifted in
+    # full-access) is the only boundary. The caller sets this flag from the turn
+    # mode; restricted/read-only modes fall through to the allowlist + the
+    # operator/danger blocks below. The model already knows how to drive
+    # klayout/ngspice/magick/etc — this is what lets it actually operate them.
+    if ctx is not None and ctx.scratch.get("bash_unrestricted"):
+        return None
     if _SHELL_CONTROL_PATTERN.search(command):
         return (
             "blocked shell control operator. Run one simple command per Bash "
@@ -183,9 +192,12 @@ def _truncate_output(text: str, max_chars: int) -> str:
 class BashTool(_ToolBase):
     name = "Bash"
     description = (
-        "Execute one allowlisted shell command and return structured "
-        "stdout/stderr/exit_code. Use for tests and read-only diagnostics. "
-        "Prefer Read/Write/Edit/Grep/Glob for file work."
+        "Execute a shell command and return structured stdout/stderr/exit_code. "
+        "In restricted modes only an allowlist of read-only commands runs (one "
+        "command per call, no shell operators); in full-access mode any command "
+        "runs, including chaining and external tools (e.g. klayout, ngspice, "
+        "magick) — verify their output by Read-ing the files they produce. "
+        "Prefer Read/Write/Edit/Grep/Glob for plain file work."
     )
     input_schema = {
         "type": "object",

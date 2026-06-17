@@ -3035,6 +3035,11 @@ def create_app(config_dir: str | None = None) -> FastAPI:
                 initial_scratch={
                     "user_question_handler": user_question_prompter,
                     "conversation_id": conversation_id,
+                    # full-access turn mode lifts the Bash sandbox (allowlist +
+                    # operator/danger blocks) so the agent can actually operate
+                    # external tools; restricted/read-only modes keep the guards.
+                    # Mirrors the approval gate, which is also off in full-access.
+                    "bash_unrestricted": turn_mode == "full-access",
                 },
             ),
         )
